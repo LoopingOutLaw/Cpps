@@ -1,0 +1,45 @@
+[  0%] Built target ament_cmake_python_symlink_dexter_remote
+[ 50%] Built target task_server_node
+[100%] Built target task_server
+running egg_info
+writing dexter_remote.egg-info/PKG-INFO
+writing dependency_links to dexter_remote.egg-info/dependency_links.txt
+writing top-level names to dexter_remote.egg-info/top_level.txt
+reading manifest file 'dexter_remote.egg-info/SOURCES.txt'
+writing manifest file 'dexter_remote.egg-info/SOURCES.txt'
+[100%] Built target ament_cmake_python_build_dexter_remote_egg
+-- Install configuration: ""
+-- Execute custom install script
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/lib/dexter_remote/task_server_node
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/environment/pythonpath.sh
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/environment/pythonpath.dsv
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/lib/python3.12/site-packages/dexter_remote-0.1.0-py3.12.egg-info/PKG-INFO
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/lib/python3.12/site-packages/dexter_remote-0.1.0-py3.12.egg-info/SOURCES.txt
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/lib/python3.12/site-packages/dexter_remote-0.1.0-py3.12.egg-info/dependency_links.txt
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/lib/python3.12/site-packages/dexter_remote-0.1.0-py3.12.egg-info/top_level.txt
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/lib/python3.12/site-packages/dexter_remote/__init__.py
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/lib/python3.12/site-packages/dexter_remote/task_server.py
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/lib/python3.12/site-packages/dexter_remote/web_interface.py
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/launch/remote_interface.launch.py
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/templates/index.html
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/lib/libtask_server.so
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/lib/dexter_remote/task_server.py
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/lib/dexter_remote/web_interface.py
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/share/ament_index/resource_index/package_run_dependencies/dexter_remote
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/share/ament_index/resource_index/parent_prefix_path/dexter_remote
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/environment/ament_prefix_path.sh
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/environment/ament_prefix_path.dsv
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/environment/path.sh
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/environment/path.dsv
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/local_setup.bash
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/local_setup.sh
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/local_setup.zsh
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/local_setup.dsv
+-- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/package.dsv
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/share/ament_index/resource_index/packages/dexter_remote
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/share/ament_index/resource_index/rclcpp_components/dexter_remote
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/cmake/dexter_remoteConfig.cmake
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/cmake/dexter_remoteConfig-version.cmake
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/package.xml
+Listing '/home/aditya/Cpps/Dexter/install/dexter_remote/lib/python3.12/site-packages/dexter_remote'...
+Compiling '/home/aditya/Cpps/Dexter/install/dexter_remote/lib/python3.12/site-packages/dexter_remote/web_interface.py'...

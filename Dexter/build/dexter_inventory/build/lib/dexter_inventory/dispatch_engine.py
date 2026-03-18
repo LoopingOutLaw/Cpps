@@ -4,22 +4,25 @@ Pure-Python dispatch decision layer.  No ROS dependency – fully testable stand
 
 SLOT → ARM JOINT MAPPING
 -------------------------
-The shelf sits in front of the arm.  Four positions spread across the base
-rotation axis (joint_1).  joint_2 / joint_3 stay roughly constant to reach
-shelf height.  The gripper (joint_4) opens to pick, closes to grip.
+The shelf sits in front of the arm at ~1.23m radius (arm extended far).
+Four positions spread across the base rotation axis (joint_1).
+joint_2 / joint_3 stay roughly constant to reach shelf height.
 
          joint_1  joint_2  joint_3   description
-Slot 0   -0.70    -0.50    -0.20     far left
-Slot 1   -0.25    -0.50    -0.20     centre-left
-Slot 2    0.25    -0.50    -0.20     centre-right
-Slot 3    0.70    -0.50    -0.20     far right
+Slot 0   -0.55    -0.55    -0.15     far left
+Slot 1   -0.18    -0.55    -0.15     centre-left
+Slot 2   +0.18    -0.55    -0.15     centre-right
+Slot 3   +0.55    -0.55    -0.15     far right
 
 Drop zone (dispatch output tray):
-         1.20    -0.30    -0.40
+         +1.00    -0.55    -0.15
 
-Calibration note: these are starting values – adjust after running the arm
-in simulation (ros2 launch dexter_bringup simulated_robot.launch.py) and
-using the MoveIt panel to find good poses for your physical shelf layout.
+FK-calculated end effector positions (gripper at z=1.216, boxes at z=1.156):
+  Slot 0: x=1.048, y=-0.642
+  Slot 1: x=1.209, y=-0.220
+  Slot 2: x=1.209, y=+0.220
+  Slot 3: x=1.048, y=+0.642
+  Drop:   x=0.664, y=+1.034, z=1.216
 """
 
 import time
@@ -36,22 +39,22 @@ from dexter_inventory.inventory_db import (
 # ── Arm configuration ────────────────────────────────────────────────────────
 
 SLOT_POSES: Dict[int, Dict[str, list]] = {
-    0: {"arm": [-0.70, -0.50, -0.20], "gripper_open": [0.0, 0.0], "gripper_closed": [-0.7, 0.7]},
-    1: {"arm": [-0.25, -0.50, -0.20], "gripper_open": [0.0, 0.0], "gripper_closed": [-0.7, 0.7]},
-    2: {"arm": [ 0.25, -0.50, -0.20], "gripper_open": [0.0, 0.0], "gripper_closed": [-0.7, 0.7]},
-    3: {"arm": [ 0.70, -0.50, -0.20], "gripper_open": [0.0, 0.0], "gripper_closed": [-0.7, 0.7]},
+    0: {"arm": [-0.55, -0.55, -0.15], "gripper_open": [0.0, 0.0], "gripper_closed": [-0.7, 0.7]},
+    1: {"arm": [-0.18, -0.55, -0.15], "gripper_open": [0.0, 0.0], "gripper_closed": [-0.7, 0.7]},
+    2: {"arm": [ 0.18, -0.55, -0.15], "gripper_open": [0.0, 0.0], "gripper_closed": [-0.7, 0.7]},
+    3: {"arm": [ 0.55, -0.55, -0.15], "gripper_open": [0.0, 0.0], "gripper_closed": [-0.7, 0.7]},
 }
 
 # Hover height – arm position directly above each slot (for safe transit)
 SLOT_HOVER: Dict[int, list] = {
-    0: [-0.70, -0.20, 0.00],
-    1: [-0.25, -0.20, 0.00],
-    2: [ 0.25, -0.20, 0.00],
-    3: [ 0.70, -0.20, 0.00],
+    0: [-0.55, -0.35, -0.05],
+    1: [-0.18, -0.35, -0.05],
+    2: [ 0.18, -0.35, -0.05],
+    3: [ 0.55, -0.35, -0.05],
 }
 
-DROP_ZONE_HOVER:  list = [1.10, -0.15, 0.00]
-DROP_ZONE_PLACE:  list = [1.20, -0.30, -0.40]
+DROP_ZONE_HOVER:  list = [1.00, -0.35, -0.05]
+DROP_ZONE_PLACE:  list = [1.00, -0.55, -0.15]
 HOME_POSE:        list = [0.00,  0.00,  0.00]
 
 LOW_STOCK_THRESHOLD = 1     # alert when at or below this many items

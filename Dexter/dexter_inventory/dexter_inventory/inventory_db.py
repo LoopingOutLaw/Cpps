@@ -175,3 +175,37 @@ def clear_all() -> None:
     with _connect() as conn:
         conn.execute("DELETE FROM items")
         conn.execute("DELETE FROM dispatch_log")
+
+
+def reset_with_defaults() -> None:
+    """
+    Reset database and populate with default demo items.
+    Call this on startup to ensure a fresh state for each simulation run.
+    """
+    clear_all()
+    
+    now = time.time()
+    day = 86400  # seconds in a day
+    
+    # Default items matching the Gazebo world slots
+    # Slot 0: Resistors (Red box) - no expiry
+    # Slot 1: Capacitors (Amber box) - expiring soon (2 days)
+    # Slot 2: LEDs (Blue box) - expiring in 7 days
+    # Slot 3: Arduino (Green box) - no expiry, newest arrival
+    
+    default_items = [
+        {"name": "Resistors 10k",    "slot": 0, "expiry_ts": None,           "arrival_offset": -3 * day},
+        {"name": "Capacitors 100uF", "slot": 1, "expiry_ts": now + 2 * day,  "arrival_offset": -2 * day},
+        {"name": "LED Pack RGB",     "slot": 2, "expiry_ts": now + 7 * day,  "arrival_offset": -1 * day},
+        {"name": "Arduino Nano",     "slot": 3, "expiry_ts": None,           "arrival_offset": -0.5 * day},
+    ]
+    
+    with _connect() as conn:
+        for item in default_items:
+            item_id = uuid.uuid4().hex
+            arrival_ts = now + item["arrival_offset"]
+            conn.execute(
+                """INSERT INTO items (id, name, arrival_ts, expiry_ts, slot)
+                   VALUES (?, ?, ?, ?, ?)""",
+                (item_id, item["name"], arrival_ts, item["expiry_ts"], item["slot"]),
+            )

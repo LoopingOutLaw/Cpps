@@ -3,1441 +3,642 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dexter FEFO/FIFO Inventory Control</title>
+<title>Dexter — Inventory Control</title>
 <style>
-:root {
-  --bg-primary: #0d1117;
-  --bg-secondary: #161b22;
-  --bg-tertiary: #21262d;
-  --border: #30363d;
-  --text-primary: #f0f6fc;
-  --text-secondary: #c9d1d9;
-  --text-muted: #8b949e;
-  --accent-blue: #58a6ff;
-  --accent-green: #3fb950;
-  --accent-yellow: #d29922;
-  --accent-red: #f85149;
-  --accent-purple: #a371f7;
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  background: var(--bg-primary);
-  color: var(--text-secondary);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-/* Animated background */
-.bg-grid {
-  position: fixed;
-  inset: 0;
-  background-image: 
-    linear-gradient(rgba(88, 166, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(88, 166, 255, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
-  pointer-events: none;
-  z-index: -1;
-}
-
-/* Header */
-header {
-  background: linear-gradient(180deg, var(--bg-secondary) 0%, transparent 100%);
-  border-bottom: 1px solid var(--border);
-  padding: 16px 24px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  backdrop-filter: blur(10px);
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.logo-icon {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  animation: pulse-glow 3s infinite;
-}
-
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 10px rgba(88, 166, 255, 0.3); }
-  50% { box-shadow: 0 0 20px rgba(88, 166, 255, 0.6); }
-}
-
-h1 {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  letter-spacing: 0.5px;
-}
-
-.subtitle {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.header-status {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.status-indicator {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 12px;
-  background: var(--bg-tertiary);
-  border-radius: 20px;
-  font-size: 0.8rem;
-}
-
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent-green);
-  animation: blink 2s infinite;
-}
-
-.status-dot.warn { background: var(--accent-yellow); }
-.status-dot.error { background: var(--accent-red); }
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-/* Main layout */
-.container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 20px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-@media (max-width: 1000px) {
-  .container { grid-template-columns: 1fr; }
-}
-
-.full-width { grid-column: 1 / -1; }
-
-/* Cards */
-.card {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.card:hover {
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 20px rgba(88, 166, 255, 0.1);
-}
-
-.card-header {
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.card-title {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.card-title .icon {
-  font-size: 1.1rem;
-}
-
-.card-body {
-  padding: 20px;
-}
-
-/* Shelf visualization */
-.shelf-container {
-  position: relative;
-  padding: 20px;
-  background: linear-gradient(180deg, var(--bg-tertiary) 0%, var(--bg-primary) 100%);
-  border-radius: 8px;
-}
-
-.shelf-3d {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  perspective: 1000px;
-}
-
-.slot {
-  flex: 1;
-  max-width: 160px;
-  min-height: 140px;
-  background: var(--bg-primary);
-  border: 2px solid var(--border);
-  border-radius: 12px;
-  padding: 16px;
-  text-align: center;
-  transition: all 0.3s ease;
-  transform-style: preserve-3d;
-  position: relative;
-  cursor: pointer;
-}
-
-.slot:hover {
-  transform: translateY(-5px) rotateX(5deg);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.slot.occupied {
-  border-color: var(--accent-green);
-  background: linear-gradient(180deg, rgba(63, 185, 80, 0.1) 0%, var(--bg-primary) 100%);
-}
-
-.slot.occupied::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--accent-green);
-  border-radius: 12px 12px 0 0;
-}
-
-.slot.critical { border-color: var(--accent-red); }
-.slot.critical::before { background: var(--accent-red); }
-.slot.warning { border-color: var(--accent-yellow); }
-.slot.warning::before { background: var(--accent-yellow); }
-
-.slot.empty {
-  opacity: 0.5;
-  border-style: dashed;
-}
-
-.slot-number {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  font-size: 0.7rem;
-  color: var(--text-muted);
-  font-weight: 600;
-}
-
-.slot-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.slot-icon {
-  font-size: 2rem;
-  margin-bottom: 4px;
-}
-
-.slot-name {
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--text-primary);
-  word-break: break-word;
-}
-
-.slot-expiry {
-  font-size: 0.7rem;
-  padding: 2px 8px;
-  border-radius: 10px;
-  background: var(--bg-tertiary);
-}
-
-.slot-expiry.urgent {
-  background: rgba(248, 81, 73, 0.2);
-  color: var(--accent-red);
-}
-
-.slot-rfid {
-  font-size: 0.65rem;
-  color: var(--accent-purple);
-  font-family: monospace;
-}
-
-/* Drop zone */
-.drop-zone {
-  margin-top: 16px;
-  padding: 16px;
-  border: 2px dashed var(--border);
-  border-radius: 8px;
-  text-align: center;
-  transition: all 0.3s;
-}
-
-.drop-zone.active {
-  border-color: var(--accent-green);
-  background: rgba(63, 185, 80, 0.1);
-}
-
-.drop-zone-label {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.drop-zone-content {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  margin-top: 4px;
-}
-
-/* Dispatch controls */
-.dispatch-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.btn {
-  padding: 12px 20px;
-  border: none;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  position: relative;
-  overflow: hidden;
-}
-
-.btn::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 50%);
-  pointer-events: none;
-}
-
-.btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-  transform: none !important;
-}
-
-.btn:not(:disabled):hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-}
-
-.btn:not(:disabled):active {
-  transform: translateY(0);
-}
-
-.btn-fifo {
-  background: linear-gradient(135deg, #1f6feb, #388bfd);
-  color: white;
-}
-
-.btn-fefo {
-  background: linear-gradient(135deg, #238636, #3fb950);
-  color: white;
-}
-
-.btn-rl {
-  background: linear-gradient(135deg, #8957e5, #a371f7);
-  color: white;
-}
-
-.btn-sm {
-  padding: 8px 16px;
-  font-size: 0.8rem;
-}
-
-.btn-outline {
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--text-secondary);
-}
-
-.btn-danger {
-  background: linear-gradient(135deg, #da3633, #f85149);
-  color: white;
-}
-
-/* Voice control */
-.voice-section {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px;
-  background: var(--bg-tertiary);
-  border-radius: 8px;
-}
-
-.mic-btn {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: 2px solid var(--accent-blue);
-  background: var(--bg-primary);
-  color: var(--accent-blue);
-  font-size: 1.4rem;
-  cursor: pointer;
-  transition: all 0.3s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.mic-btn:hover {
-  background: var(--accent-blue);
-  color: white;
-}
-
-.mic-btn.listening {
-  background: var(--accent-red);
-  border-color: var(--accent-red);
-  color: white;
-  animation: mic-pulse 1s infinite;
-}
-
-@keyframes mic-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(248, 81, 73, 0.4); }
-  50% { box-shadow: 0 0 0 15px transparent; }
-}
-
-.voice-transcript {
-  flex: 1;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  font-style: italic;
-}
-
-/* RL Recommendation */
-.rl-panel {
-  background: linear-gradient(135deg, rgba(137, 87, 229, 0.1), rgba(163, 113, 247, 0.05));
-  border: 1px solid rgba(163, 113, 247, 0.3);
-  border-radius: 8px;
-  padding: 16px;
-}
-
-.rl-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
-.rl-badge {
-  padding: 4px 8px;
-  background: var(--accent-purple);
-  color: white;
-  font-size: 0.7rem;
-  font-weight: 600;
-  border-radius: 4px;
-  text-transform: uppercase;
-}
-
-.rl-action {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.rl-confidence {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
-
-.rl-reason {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-}
-
-/* RFID Scanner */
-.rfid-scanner {
-  position: relative;
-  padding: 20px;
-  background: var(--bg-tertiary);
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.rfid-scanner::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, var(--accent-purple), transparent);
-  animation: rfid-scan 2s infinite;
-}
-
-@keyframes rfid-scan {
-  0% { left: -100%; }
-  100% { left: 100%; }
-}
-
-.rfid-display {
-  font-family: 'Courier New', monospace;
-  font-size: 1.2rem;
-  color: var(--accent-purple);
-  text-align: center;
-  padding: 12px;
-  background: var(--bg-primary);
-  border-radius: 6px;
-  border: 1px solid var(--border);
-}
-
-.rfid-history {
-  margin-top: 12px;
-  max-height: 100px;
-  overflow-y: auto;
-}
-
-.rfid-entry {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.75rem;
-  padding: 4px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-/* Urgency panel */
-.urgency-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-}
-
-.urgency-stat {
-  text-align: center;
-  padding: 12px;
-  border-radius: 8px;
-  background: var(--bg-tertiary);
-}
-
-.urgency-stat.critical { border-left: 3px solid var(--accent-red); }
-.urgency-stat.high { border-left: 3px solid var(--accent-yellow); }
-.urgency-stat.medium { border-left: 3px solid var(--accent-blue); }
-.urgency-stat.low { border-left: 3px solid var(--accent-green); }
-
-.urgency-count {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.urgency-label {
-  font-size: 0.7rem;
-  color: var(--text-muted);
-  text-transform: uppercase;
-}
-
-/* Forecast */
-.forecast-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-
-.forecast-metric {
-  text-align: center;
-  padding: 16px;
-  background: var(--bg-tertiary);
-  border-radius: 8px;
-}
-
-.forecast-value {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.forecast-label {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  margin-top: 4px;
-}
-
-.forecast-alert {
-  margin-top: 12px;
-  padding: 12px;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  border-left: 3px solid var(--accent-blue);
-  background: rgba(88, 166, 255, 0.1);
-}
-
-.forecast-alert.warn {
-  border-color: var(--accent-yellow);
-  background: rgba(210, 153, 34, 0.1);
-  color: var(--accent-yellow);
-}
-
-/* Add item form */
-.form-row {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr auto auto;
-  gap: 10px;
-  align-items: end;
-}
-
-@media (max-width: 800px) {
-  .form-row { grid-template-columns: 1fr 1fr; }
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.form-group label {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  text-transform: uppercase;
-}
-
-.form-group input,
-.form-group select {
-  padding: 10px 12px;
-  background: var(--bg-primary);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  transition: border-color 0.2s;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-  outline: none;
-  border-color: var(--accent-blue);
-}
-
-/* Stock table */
-.stock-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.stock-table th {
-  text-align: left;
-  padding: 12px;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  border-bottom: 1px solid var(--border);
-}
-
-.stock-table td {
-  padding: 12px;
-  border-bottom: 1px solid var(--border);
-  font-size: 0.85rem;
-}
-
-.stock-table tr:hover {
-  background: var(--bg-tertiary);
-}
-
-.badge {
-  display: inline-block;
-  padding: 3px 8px;
-  border-radius: 12px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.badge-fifo { background: rgba(31, 111, 235, 0.2); color: var(--accent-blue); }
-.badge-fefo { background: rgba(63, 185, 80, 0.2); color: var(--accent-green); }
-.badge-rl { background: rgba(163, 113, 247, 0.2); color: var(--accent-purple); }
-.badge-critical { background: rgba(248, 81, 73, 0.2); color: var(--accent-red); }
-.badge-warning { background: rgba(210, 153, 34, 0.2); color: var(--accent-yellow); }
-
-/* Activity log */
-.log-container {
-  max-height: 200px;
-  overflow-y: auto;
-  font-family: 'Courier New', monospace;
-  font-size: 0.8rem;
-}
-
-.log-entry {
-  display: flex;
-  gap: 8px;
-  padding: 6px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.log-time {
-  color: var(--text-muted);
-  white-space: nowrap;
-}
-
-.log-ok { color: var(--accent-green); }
-.log-err { color: var(--accent-red); }
-.log-info { color: var(--accent-blue); }
-.log-rl { color: var(--accent-purple); }
-
-/* Animations */
-.fade-in {
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.slot-dispatch {
-  animation: slotDispatch 0.5s ease;
-}
-
-@keyframes slotDispatch {
-  0% { transform: scale(1); }
-  50% { transform: scale(0.9); opacity: 0.5; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-primary);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
-}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d1117;--bg2:#161b22;--bg3:#21262d;
+  --bdr:#30363d;--bdr2:#21262d;
+  --tx:#f0f6fc;--tx2:#c9d1d9;--tx3:#8b949e;
+  --blue:#378ADD;--green:#3fb950;--amber:#d29922;
+  --red:#f85149;--purple:#a371f7;
+}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--tx2);min-height:100vh}
+canvas{display:block;width:100%;background:#0d1117;border-radius:10px 10px 0 0;border:1px solid var(--bdr)}
+header{display:flex;align-items:center;gap:14px;padding:14px 20px;background:var(--bg2);
+  border-bottom:1px solid var(--bdr);position:sticky;top:0;z-index:50}
+.logo{width:38px;height:38px;border-radius:9px;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;font-weight:700;color:#fff;animation:glow 3s infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 8px #378ADD44}50%{box-shadow:0 0 18px #378ADD88}}
+.hd h1{font-size:1.25rem;font-weight:600;color:var(--tx);letter-spacing:.3px}
+.hd p{font-size:.7rem;color:var(--tx3);text-transform:uppercase;letter-spacing:1px}
+.hbadge{margin-left:auto;display:flex;align-items:center;gap:10px}
+.pill{display:flex;align-items:center;gap:6px;padding:5px 11px;background:var(--bg3);border-radius:20px;font-size:.78rem}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2s infinite}
+.dot.warn{background:var(--amber)}.dot.err{background:var(--red)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.wrap{max-width:1320px;margin:0 auto;padding:18px 20px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+@media(max-width:900px){.wrap{grid-template-columns:1fr}}
+.full{grid-column:1/-1}
+.card{background:var(--bg2);border:1px solid var(--bdr);border-radius:10px;overflow:hidden;transition:border-color .2s}
+.card:hover{border-color:var(--blue)}
+.ch{padding:13px 16px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between}
+.ct{font-size:.75rem;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.9px}
+.cb{padding:16px}
+.simctrl{padding:9px 14px;background:var(--bg3);border:1px solid var(--bdr);border-top:none;
+  display:flex;align-items:center;gap:9px;flex-wrap:wrap;border-radius:0 0 10px 10px;margin-bottom:0}
+.msel{display:flex;border:1px solid var(--bdr);border-radius:7px;overflow:hidden}
+.mb{padding:5px 13px;font-size:.78rem;cursor:pointer;background:transparent;border:none;color:var(--tx3);transition:all .15s}
+.mb.on{background:rgba(55,138,221,.18);color:var(--blue);font-weight:500}
+.sb{padding:6px 14px;border:1px solid var(--bdr);border-radius:7px;background:transparent;
+  color:var(--tx2);font-size:.78rem;cursor:pointer;transition:all .15s;white-space:nowrap}
+.sb:hover:not(:disabled){background:var(--bg3)}.sb:disabled{opacity:.38;cursor:not-allowed}
+.sb-fifo{border-color:#185FA5;color:var(--blue)}.sb-fifo:hover:not(:disabled){background:rgba(55,138,221,.1)}
+.sb-fefo{border-color:#27622a;color:var(--green)}.sb-fefo:hover:not(:disabled){background:rgba(63,185,80,.1)}
+.sb-rl{border-color:#6e40c9;color:var(--purple)}.sb-rl:hover:not(:disabled){background:rgba(163,113,247,.1)}
+.sMsg{font-size:.75rem;color:var(--tx3);margin-left:2px}
+.mrow{display:flex;gap:9px;margin-bottom:12px}
+.mc{flex:1;background:var(--bg3);border-radius:8px;padding:10px;text-align:center}
+.mv{font-size:1.5rem;font-weight:500;color:var(--tx)}.ml{font-size:.68rem;color:var(--tx3);margin-top:2px}
+table{width:100%;border-collapse:collapse;font-size:.8rem}
+th{color:var(--tx3);font-weight:500;padding:6px 7px;text-align:left;border-bottom:1px solid var(--bdr);font-size:.7rem;white-space:nowrap}
+td{padding:6px 7px;border-bottom:1px solid var(--bdr2)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,.02)}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.67rem;font-weight:600;text-transform:uppercase}
+.b-fifo{background:rgba(55,138,221,.15);color:var(--blue)}
+.b-fefo{background:rgba(63,185,80,.15);color:var(--green)}
+.b-rl{background:rgba(163,113,247,.15);color:var(--purple)}
+.b-crit{background:rgba(248,81,73,.15);color:var(--red)}
+.b-high{background:rgba(210,153,34,.15);color:var(--amber)}
+.b-med{background:rgba(55,138,221,.12);color:var(--blue)}
+.b-low{background:rgba(63,185,80,.12);color:var(--green)}
+.rlp{background:rgba(163,113,247,.07);border:1px solid rgba(163,113,247,.25);border-radius:8px;padding:12px;margin-bottom:12px}
+.rlp .lbl{font-size:.65rem;font-weight:700;text-transform:uppercase;color:var(--purple);background:rgba(163,113,247,.2);padding:2px 7px;border-radius:4px;margin-right:8px}
+.rlp .act{font-size:1.1rem;font-weight:700;color:var(--tx)}
+.rlp .conf{font-size:.7rem;color:var(--tx3);margin-left:6px}
+.rlp .rsn{font-size:.78rem;color:var(--tx2);margin-top:6px}
+.rfid-box{background:var(--bg3);border-radius:8px;padding:14px;position:relative;overflow:hidden}
+.rfid-box::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:2px;
+  background:linear-gradient(90deg,transparent,var(--purple),transparent);animation:rscan 2s infinite}
+@keyframes rscan{0%{left:-100%}100%{left:100%}}
+.rfid-disp{font-family:monospace;font-size:1rem;color:var(--purple);text-align:center;
+  padding:10px;background:var(--bg);border-radius:6px;border:1px solid var(--bdr);margin-bottom:8px}
+.rfid-hist{max-height:80px;overflow-y:auto}
+.rfid-row{display:flex;justify-content:space-between;font-size:.7rem;padding:3px 0;border-bottom:1px solid var(--bdr2)}
+.ugrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.uc{text-align:center;padding:10px;border-radius:8px;background:var(--bg3)}
+.uc.u-c{border-left:3px solid var(--red)}.uc.u-h{border-left:3px solid var(--amber)}
+.uc.u-m{border-left:3px solid var(--blue)}.uc.u-l{border-left:3px solid var(--green)}
+.uv{font-size:1.6rem;font-weight:600;color:var(--tx)}.ul{font-size:.65rem;color:var(--tx3);text-transform:uppercase}
+.fmsg{font-size:.78rem;padding:9px 11px;border-radius:7px;
+  border-left:3px solid var(--blue);background:rgba(55,138,221,.08);color:var(--tx2);line-height:1.5}
+.fmsg.warn{border-color:var(--amber);background:rgba(210,153,34,.08);color:var(--amber)}
+.arow{display:flex;gap:7px;flex-wrap:wrap;align-items:flex-end;margin-top:11px;padding-top:11px;border-top:1px solid var(--bdr)}
+.arow input,.arow select{padding:5px 9px;border:1px solid var(--bdr);border-radius:6px;background:var(--bg3);color:var(--tx2);font-size:.78rem}
+.arow input:focus,.arow select:focus{outline:none;border-color:var(--blue)}
+.vrow{display:flex;align-items:center;gap:11px;padding:11px;background:var(--bg3);border-radius:8px;margin-top:11px}
+.mic{width:42px;height:42px;border-radius:50%;border:2px solid var(--blue);background:var(--bg);
+  color:var(--blue);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.mic:hover{background:var(--blue);color:#fff}
+.mic.on{background:var(--red);border-color:var(--red);color:#fff;animation:mpulse 1.2s infinite}
+@keyframes mpulse{0%,100%{box-shadow:0 0 0 0 rgba(248,81,73,.4)}50%{box-shadow:0 0 0 12px transparent}}
+.vtxt{font-size:.75rem;color:var(--tx3);font-style:italic}
+.logbox{max-height:170px;overflow-y:auto;font-family:monospace;font-size:.72rem}
+.le{display:flex;gap:7px;padding:4px 0;border-bottom:1px solid var(--bdr2)}
+.le:last-child{border-bottom:none}
+.lt{color:var(--tx3);white-space:nowrap}
+.lok{color:var(--green)}.lerr{color:var(--red)}.linf{color:var(--blue)}.lrl{color:var(--purple)}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:3px}
 </style>
 </head>
 <body>
-
-<div class="bg-grid"></div>
-
 <header>
-  <div class="logo">
-    <div class="logo-icon">D</div>
-    <div>
-      <h1>DEXTER</h1>
-      <div class="subtitle">FEFO/FIFO Inventory Control</div>
-    </div>
-  </div>
-  <div class="header-status">
-    <div class="status-indicator" id="systemStatus">
-      <span class="status-dot" id="statusDot"></span>
-      <span id="statusText">Connecting...</span>
-    </div>
-    <div class="status-indicator">
-      <span id="stockBadge">-- items</span>
-    </div>
+  <div class="logo">D</div>
+  <div class="hd"><h1>DEXTER</h1><p>FEFO / FIFO Inventory Control</p></div>
+  <div class="hbadge">
+    <div class="pill"><span class="dot" id="sDot"></span><span id="sTxt">Connecting…</span></div>
+    <div class="pill"><span id="sCount">— items</span></div>
   </div>
 </header>
 
-<div class="container">
+<div class="wrap">
 
-  <!-- Shelf Visualization -->
-  <div class="card full-width">
-    <div class="card-header">
-      <div class="card-title"><span class="icon">&#128230;</span> Warehouse Shelf</div>
-      <div id="urgencyAlert" class="badge"></div>
-    </div>
-    <div class="card-body">
-      <div class="shelf-container">
-        <div class="shelf-3d" id="shelf">
-          <div class="slot empty" id="slot0">
-            <div class="slot-number">SLOT 0</div>
-            <div class="slot-content">
-              <div class="slot-icon">&#128230;</div>
-              <div class="slot-name">Empty</div>
-            </div>
-          </div>
-          <div class="slot empty" id="slot1">
-            <div class="slot-number">SLOT 1</div>
-            <div class="slot-content">
-              <div class="slot-icon">&#128230;</div>
-              <div class="slot-name">Empty</div>
-            </div>
-          </div>
-          <div class="slot empty" id="slot2">
-            <div class="slot-number">SLOT 2</div>
-            <div class="slot-content">
-              <div class="slot-icon">&#128230;</div>
-              <div class="slot-name">Empty</div>
-            </div>
-          </div>
-          <div class="slot empty" id="slot3">
-            <div class="slot-number">SLOT 3</div>
-            <div class="slot-content">
-              <div class="slot-icon">&#128230;</div>
-              <div class="slot-name">Empty</div>
-            </div>
-          </div>
-        </div>
-        <div class="drop-zone" id="dropZone">
-          <div class="drop-zone-label">Dispatch Output Zone</div>
-          <div class="drop-zone-content" id="dropContent">Waiting for dispatch...</div>
-        </div>
+  <div class="full">
+    <canvas id="sim" width="680" height="308"></canvas>
+    <div class="simctrl">
+      <div class="msel">
+        <button class="mb on" id="mb0" onclick="setMode('FIFO')">FIFO</button>
+        <button class="mb"    id="mb1" onclick="setMode('FEFO')">FEFO</button>
+        <button class="mb"    id="mb2" onclick="setMode('RL')">RL</button>
       </div>
+      <button class="sb sb-fifo" onclick="triggerDispatch('FIFO')">Dispatch FIFO</button>
+      <button class="sb sb-fefo" onclick="triggerDispatch('FEFO')">Dispatch FEFO</button>
+      <button class="sb sb-rl"   onclick="triggerDispatch('RL')">AI Optimised</button>
+      <button class="sb"         onclick="resetSim()">Reset demo</button>
+      <span class="sMsg" id="sMsg"></span>
     </div>
   </div>
 
-  <!-- Dispatch Controls -->
   <div class="card">
-    <div class="card-header">
-      <div class="card-title"><span class="icon">&#9881;</span> Dispatch Controls</div>
-    </div>
-    <div class="card-body">
-      <div class="dispatch-grid">
-        <button class="btn btn-fifo" onclick="triggerDispatch('FIFO')">
-          FIFO<br><small>First In First Out</small>
-        </button>
-        <button class="btn btn-fefo" onclick="triggerDispatch('FEFO')">
-          FEFO<br><small>First Expiry First Out</small>
-        </button>
-        <button class="btn btn-rl" onclick="triggerDispatch('RL')">
-          RL Optimized<br><small>AI Recommended</small>
-        </button>
+    <div class="ch"><span class="ct">AI Dispatch Recommendation</span></div>
+    <div class="cb">
+      <div class="rlp" id="rlPanel">
+        <span class="lbl">RL Model</span><span class="act" id="rlAct">—</span>
+        <span class="conf" id="rlConf"></span>
+        <div class="rsn" id="rlRsn">Analysing inventory state…</div>
       </div>
-      
-      <div class="rl-panel" id="rlPanel">
-        <div class="rl-header">
-          <span class="rl-badge">AI Recommendation</span>
-          <span class="rl-action" id="rlAction">--</span>
-          <span class="rl-confidence" id="rlConfidence"></span>
-        </div>
-        <div class="rl-reason" id="rlReason">Analyzing inventory state...</div>
-      </div>
-      
-      <div class="voice-section">
-        <button class="mic-btn" id="micBtn" onclick="toggleVoice()">&#127908;</button>
-        <div class="voice-transcript" id="transcript">
-          Say: "dispatch FIFO", "dispatch FEFO", "use AI", "go home"
-        </div>
-      </div>
-      
-      <div style="display: flex; gap: 10px; margin-top: 12px;">
-        <button class="btn btn-outline btn-sm" onclick="sendTask(0)">&#127968; Home</button>
-        <button class="btn btn-outline btn-sm" onclick="sendTask(2)">&#128164; Sleep</button>
+      <div class="vrow">
+        <button class="mic" id="micBtn" onclick="toggleMic()">🎤</button>
+        <span class="vtxt" id="vtxt">Say: "dispatch FIFO" · "dispatch FEFO" · "use AI"</span>
       </div>
     </div>
   </div>
 
-  <!-- RFID Scanner -->
   <div class="card">
-    <div class="card-header">
-      <div class="card-title"><span class="icon">&#128225;</span> RFID Scanner</div>
-    </div>
-    <div class="card-body">
-      <div class="rfid-scanner">
-        <div class="rfid-display" id="rfidDisplay">-- NO TAG --</div>
-        <div style="display: flex; gap: 10px; margin-top: 12px;">
-          <button class="btn btn-outline btn-sm" style="flex:1" onclick="simulateRFIDScan()">
-            &#128225; Simulate Scan
-          </button>
-        </div>
-        <div class="rfid-history" id="rfidHistory">
-          <div style="color: var(--text-muted); text-align: center; padding: 8px;">
-            No recent scans
-          </div>
+    <div class="ch"><span class="ct">RFID Scanner</span></div>
+    <div class="cb">
+      <div class="rfid-box">
+        <div class="rfid-disp" id="rfidDisp">— NO TAG —</div>
+        <button class="sb" style="width:100%;margin-bottom:8px" onclick="scanRFID()">📡 Simulate RFID scan</button>
+        <div class="rfid-hist" id="rfidHist">
+          <div style="font-size:.72rem;color:var(--tx3);text-align:center">No scans yet</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Urgency Classification -->
   <div class="card">
-    <div class="card-header">
-      <div class="card-title"><span class="icon">&#9888;</span> Urgency Classification</div>
-    </div>
-    <div class="card-body">
-      <div class="urgency-grid">
-        <div class="urgency-stat critical">
-          <div class="urgency-count" id="urgCritical">0</div>
-          <div class="urgency-label">Critical</div>
-        </div>
-        <div class="urgency-stat high">
-          <div class="urgency-count" id="urgHigh">0</div>
-          <div class="urgency-label">High</div>
-        </div>
-        <div class="urgency-stat medium">
-          <div class="urgency-count" id="urgMedium">0</div>
-          <div class="urgency-label">Medium</div>
-        </div>
-        <div class="urgency-stat low">
-          <div class="urgency-count" id="urgLow">0</div>
-          <div class="urgency-label">Low</div>
-        </div>
+    <div class="ch"><span class="ct">Urgency Classification</span></div>
+    <div class="cb">
+      <div class="ugrid">
+        <div class="uc u-c"><div class="uv" id="uC">0</div><div class="ul">Critical</div></div>
+        <div class="uc u-h"><div class="uv" id="uH">0</div><div class="ul">High</div></div>
+        <div class="uc u-m"><div class="uv" id="uM">0</div><div class="ul">Medium</div></div>
+        <div class="uc u-l"><div class="uv" id="uL">0</div><div class="ul">Low</div></div>
       </div>
-    </div>
-  </div>
-
-  <!-- Add Item Form -->
-  <div class="card full-width">
-    <div class="card-header">
-      <div class="card-title"><span class="icon">&#10133;</span> Add Item to Inventory</div>
-    </div>
-    <div class="card-body">
-      <div class="form-row">
-        <div class="form-group">
-          <label>Item Name</label>
-          <input type="text" id="itemName" placeholder="e.g., Box A - Resistors">
-        </div>
-        <div class="form-group">
-          <label>Slot</label>
-          <select id="itemSlot">
-            <option value="0">Slot 0</option>
-            <option value="1">Slot 1</option>
-            <option value="2">Slot 2</option>
-            <option value="3">Slot 3</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Expires in (days)</label>
-          <input type="number" id="itemExpiry" placeholder="Optional" min="0">
-        </div>
-        <button class="btn btn-fefo btn-sm" onclick="addItem()">Add Item</button>
-        <button class="btn btn-danger btn-sm" onclick="clearAll()">Clear All</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Demand Forecast -->
-  <div class="card">
-    <div class="card-header">
-      <div class="card-title"><span class="icon">&#128200;</span> ML Demand Forecast</div>
-    </div>
-    <div class="card-body">
-      <div class="forecast-grid">
-        <div class="forecast-metric">
-          <div class="forecast-value" id="fcastDemand">--</div>
-          <div class="forecast-label">Predicted / Day</div>
-        </div>
-        <div class="forecast-metric">
-          <div class="forecast-value" id="fcastStock">--</div>
-          <div class="forecast-label">Current Stock</div>
-        </div>
-        <div class="forecast-metric">
-          <div class="forecast-value" id="fcastReorder">--</div>
-          <div class="forecast-label">Reorder Qty</div>
-        </div>
-      </div>
-      <div class="forecast-alert" id="forecastAlert">
-        Loading forecast data...
-      </div>
-    </div>
-  </div>
-
-  <!-- Stock Table -->
-  <div class="card">
-    <div class="card-header">
-      <div class="card-title"><span class="icon">&#128203;</span> Current Stock</div>
-    </div>
-    <div class="card-body">
-      <table class="stock-table">
-        <thead>
-          <tr>
-            <th>Slot</th>
-            <th>Item</th>
-            <th>Age</th>
-            <th>Expiry</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody id="stockTable">
-          <tr><td colspan="5" style="color: var(--text-muted); text-align: center;">Loading...</td></tr>
-        </tbody>
+      <table>
+        <thead><tr><th>Item</th><th>Slot</th><th>Expiry</th><th>Level</th></tr></thead>
+        <tbody id="urgTb"><tr><td colspan="4" style="color:var(--tx3)">Loading…</td></tr></tbody>
       </table>
     </div>
   </div>
 
-  <!-- Dispatch Log -->
   <div class="card">
-    <div class="card-header">
-      <div class="card-title"><span class="icon">&#128196;</span> Dispatch Log</div>
+    <div class="ch"><span class="ct">ML Demand Forecast (Linear Regression)</span></div>
+    <div class="cb">
+      <div class="mrow">
+        <div class="mc"><div class="mv" id="fDem">—</div><div class="ml">Predicted / day</div></div>
+        <div class="mc"><div class="mv" id="fSto">—</div><div class="ml">In stock</div></div>
+        <div class="mc"><div class="mv" id="fReo">—</div><div class="ml">Reorder qty</div></div>
+      </div>
+      <div class="fmsg" id="fMsg">Awaiting dispatch history to train model…</div>
     </div>
-    <div class="card-body">
-      <div class="log-container" id="dispatchLog">
-        <div style="color: var(--text-muted); text-align: center;">No dispatches yet</div>
+  </div>
+
+  <div class="card full">
+    <div class="ch"><span class="ct">Current Stock</span></div>
+    <div class="cb">
+      <table>
+        <thead><tr><th>Slot</th><th>Item</th><th>Age</th><th>Expiry</th><th>FIFO#</th><th>FEFO#</th><th>Status</th></tr></thead>
+        <tbody id="stb"><tr><td colspan="7" style="color:var(--tx3)">Loading…</td></tr></tbody>
+      </table>
+      <div class="arow">
+        <select id="aslot" style="width:72px"><option>0</option><option>1</option><option>2</option><option>3</option></select>
+        <input id="aname" placeholder="Item name" style="flex:1;min-width:90px">
+        <input id="aexp" placeholder="Expiry (days)" type="number" min="1" style="width:110px">
+        <button class="sb sb-fefo" onclick="addItem()">Add item</button>
+        <button class="sb" style="border-color:#6e1519;color:var(--red)" onclick="clearAll()">Clear all</button>
       </div>
     </div>
   </div>
 
-  <!-- Activity Log -->
   <div class="card">
-    <div class="card-header">
-      <div class="card-title"><span class="icon">&#128240;</span> Activity Log</div>
-    </div>
-    <div class="card-body">
-      <div class="log-container" id="activityLog"></div>
-    </div>
+    <div class="ch"><span class="ct">Dispatch Log</span></div>
+    <div class="cb"><div class="logbox" id="dlog"><div style="font-size:.72rem;color:var(--tx3)">No dispatches yet</div></div></div>
+  </div>
+
+  <div class="card">
+    <div class="ch"><span class="ct">Activity Log</span></div>
+    <div class="cb"><div class="logbox" id="alog"></div></div>
   </div>
 
 </div>
 
 <script>
-// ============================================================================
-// Utility Functions
-// ============================================================================
+const DAY=86400000;
+let t0=Date.now();
+let inv=[
+  {id:0,name:"Resistors",  slot:0,arrival:t0-3*DAY,expiry:t0+5*DAY},
+  {id:1,name:"Capacitors", slot:1,arrival:t0-2*DAY,expiry:t0+2*DAY},
+  {id:2,name:"LEDs",       slot:2,arrival:t0-1*DAY,expiry:null},
+  {id:3,name:"Arduino",    slot:3,arrival:t0,       expiry:t0+10*DAY},
+];
+let simDlog=[],dropItem=null,heldItem=null;
+let simMode='FIFO',busy=false,nid=10,backendOnline=false;
+const BASE={x:152,y:148},MR=150;
+const SA={0:-0.70,1:-0.25,2:0.25,3:0.70};
+const DA=1.20,DR=106;
+let arm={a:0,r:0.42,open:true},prev={...arm};
+let queue=[],fst=null,lbl='Ready — press Dispatch or use voice';
 
-const $ = id => document.getElementById(id);
-const ts = () => new Date().toLocaleTimeString();
-
-let busy = false;
-
-function log(msg, type = 'info') {
-  const box = $('activityLog');
-  const cls = {ok: 'log-ok', err: 'log-err', rl: 'log-rl'}[type] || 'log-info';
-  box.innerHTML = `<div class="log-entry fade-in">
-    <span class="log-time">[${ts()}]</span>
-    <span class="${cls}">${msg}</span>
-  </div>` + box.innerHTML;
-}
-
-function setBusy(b) {
-  busy = b;
-  document.querySelectorAll('.btn').forEach(el => el.disabled = b);
-}
-
-// ============================================================================
-// API Calls
-// ============================================================================
-
-async function sendTask(n) {
-  log(`Sending task ${n}...`);
-  setBusy(true);
-  try {
-    const r = await fetch('/task', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({task_number: n})
-    });
-    const d = await r.json();
-    d.success ? log(d.message, 'ok') : log(d.message, 'err');
-  } catch(e) {
-    log('Connection error: ' + e.message, 'err');
-  } finally {
-    setBusy(false);
+function ease(t){return t<0.5?2*t*t:-1+(4-2*t)*t}
+(function loop(ts){
+  if(queue.length){
+    const fr=queue[0];
+    if(!fst){fst=ts;prev={a:arm.a,r:arm.r,open:arm.open}}
+    const t=Math.min((ts-fst)/fr.d,1),e=ease(t);
+    arm.a=prev.a+(fr.a-prev.a)*e;arm.r=prev.r+(fr.r-prev.r)*e;arm.open=fr.open;
+    if(fr.lbl)lbl=fr.lbl;
+    if(t>=1){
+      if(fr.grip)heldItem=fr.grip;
+      if(fr.drop){dropItem=heldItem;heldItem=null;inv=inv.filter(i=>i.id!==dropItem.id)}
+      if(fr.done)fr.done();
+      queue.shift();fst=null;
+    }
   }
-}
+  drawCanvas();requestAnimationFrame(loop);
+})();
 
-async function triggerDispatch(mode) {
-  log(`Dispatch request - mode: ${mode}`, mode === 'RL' ? 'rl' : 'info');
-  setBusy(true);
-  
-  try {
-    const r = await fetch('/inventory/dispatch', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({mode})
-    });
-    const d = await r.json();
-    
-    if (d.success) {
-      log(`Dispatched: ${d.item_name} from slot ${d.slot_number}`, 'ok');
-      if (d.rl_reward !== undefined) {
-        log(`RL Reward: ${d.rl_reward}`, 'rl');
+function rr(ctx,x,y,w,h,r){
+  ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);
+  ctx.arcTo(x+w,y,x+w,y+r,r);ctx.lineTo(x+w,y+h-r);
+  ctx.arcTo(x+w,y+h,x+w-r,y+h,r);ctx.lineTo(x+r,y+h);
+  ctx.arcTo(x,y+h,x,y+h-r,r);ctx.lineTo(x,y+r);
+  ctx.arcTo(x,y,x+r,y,r);ctx.closePath();
+}
+function slotPt(s){return{x:BASE.x+MR*Math.cos(SA[s]),y:BASE.y+MR*Math.sin(SA[s])}}
+
+function drawCanvas(){
+  const cv=document.getElementById('sim'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
+  ctx.fillStyle='#0d1117';ctx.fillRect(0,0,W,H);
+  ctx.fillStyle='#1c2128';
+  for(let x=22;x<W;x+=32)for(let y=22;y<H;y+=32){ctx.beginPath();ctx.arc(x,y,1,0,Math.PI*2);ctx.fill()}
+  const next=selectItem(simMode);
+  for(let s=0;s<4;s++){
+    const {x,y}=slotPt(s);
+    const isHeld=heldItem&&heldItem.slot===s;
+    const item=isHeld?null:inv.find(i=>i.slot===s);
+    const isNext=!isHeld&&next&&next.slot===s;
+    const sz=46;
+    ctx.fillStyle=item?(isNext?'#0d2a18':'#111a13'):'#111519';
+    ctx.strokeStyle=item?(isNext?'#3fb950':'#1a7f37'):'#21262d';
+    ctx.lineWidth=isNext?2:0.5;
+    rr(ctx,x-sz/2,y-sz/2,sz,sz,7);ctx.fill();ctx.stroke();
+    ctx.textAlign='center';ctx.fillStyle='#484f58';ctx.font='10px system-ui';
+    ctx.fillText('S'+s,x,y-sz/2+13);
+    if(item){
+      ctx.fillStyle=isNext?'#3fb950':'#57ab5a';ctx.font='11px system-ui';
+      ctx.fillText(item.name.length>9?item.name.slice(0,9):item.name,x,y+4);
+      if(item.expiry){
+        const d=(item.expiry-Date.now())/DAY;
+        ctx.fillStyle=d<3?'#f85149':d<5?'#d29922':'#484f58';ctx.font='9px system-ui';
+        ctx.fillText(d<0?'EXP':Math.ceil(d)+'d',x,y+17);
       }
-      
-      // Animate drop zone
-      const dz = $('dropZone');
-      dz.classList.add('active');
-      $('dropContent').textContent = `${d.item_name} (Slot ${d.slot_number}, ${mode})`;
-      
-      // Animate slot
-      const slot = $('slot' + d.slot_number);
-      if (slot) slot.classList.add('slot-dispatch');
-      
-      setTimeout(() => {
-        dz.classList.remove('active');
-        $('dropContent').textContent = 'Waiting for dispatch...';
-        if (slot) slot.classList.remove('slot-dispatch');
-      }, 5000);
-    } else {
-      log(d.message, 'err');
     }
-    
-    fetchState();
-  } catch(e) {
-    log('Connection error: ' + e.message, 'err');
-  } finally {
-    setBusy(false);
+    ctx.strokeStyle='#21262d';ctx.lineWidth=0.5;ctx.setLineDash([3,4]);
+    const d0=MR*0.62;
+    ctx.beginPath();
+    ctx.moveTo(BASE.x+d0*Math.cos(SA[s]),BASE.y+d0*Math.sin(SA[s]));
+    ctx.lineTo(x-(sz/2+3)*Math.cos(SA[s]),y-(sz/2+3)*Math.sin(SA[s]));
+    ctx.stroke();ctx.setLineDash([]);
   }
+  const dx=BASE.x+DR*Math.cos(DA),dy=BASE.y+DR*Math.sin(DA);
+  ctx.strokeStyle=dropItem?'#d85a30':'#6e3319';ctx.lineWidth=1;ctx.setLineDash([4,3]);
+  rr(ctx,dx-27,dy-27,54,54,7);ctx.stroke();ctx.setLineDash([]);
+  ctx.textAlign='center';ctx.fillStyle=dropItem?'#d85a30':'#6e3319';ctx.font='10px system-ui';
+  ctx.fillText('TRAY',dx,dy-14);
+  if(dropItem){
+    ctx.fillStyle='#2d1407';ctx.strokeStyle='#d85a30';ctx.lineWidth=1.5;
+    rr(ctx,dx-17,dy-10,34,26,4);ctx.fill();ctx.stroke();
+    ctx.fillStyle='#d85a30';ctx.font='10px system-ui';
+    ctx.fillText(dropItem.name.slice(0,8),dx,dy+6);
+  }
+  ctx.fillStyle='#484f58';ctx.font='10px system-ui';ctx.textAlign='left';ctx.fillText('SHELF',248,20);
+  const bend=(1-arm.r)*0.30,ea=arm.a+bend,ed=MR*0.44,td=MR*arm.r;
+  const ex=BASE.x+ed*Math.cos(ea),ey=BASE.y+ed*Math.sin(ea);
+  const tx2=BASE.x+td*Math.cos(arm.a),ty2=BASE.y+td*Math.sin(arm.a);
+  ctx.lineCap='round';
+  ctx.beginPath();ctx.moveTo(BASE.x,BASE.y);ctx.lineTo(ex,ey);
+  ctx.strokeStyle='#085041';ctx.lineWidth=9;ctx.stroke();
+  ctx.strokeStyle='#1d9e75';ctx.lineWidth=6;ctx.stroke();
+  ctx.beginPath();ctx.moveTo(ex,ey);ctx.lineTo(tx2,ty2);
+  ctx.strokeStyle='#063329';ctx.lineWidth=8;ctx.stroke();
+  ctx.strokeStyle='#5dcaa5';ctx.lineWidth=4.5;ctx.stroke();
+  ctx.beginPath();ctx.arc(BASE.x,BASE.y,16,0,Math.PI*2);ctx.fillStyle='#1a3a6e';ctx.fill();
+  ctx.beginPath();ctx.arc(BASE.x,BASE.y,10,0,Math.PI*2);ctx.fillStyle='#1f6feb';ctx.fill();
+  ctx.beginPath();ctx.arc(BASE.x,BASE.y,5,0,Math.PI*2);ctx.fillStyle='#388bfd';ctx.fill();
+  ctx.beginPath();ctx.arc(ex,ey,5,0,Math.PI*2);ctx.fillStyle='#1d9e75';ctx.fill();
+  if(arm.open){
+    ctx.strokeStyle='#d29922';ctx.lineWidth=2.5;ctx.lineCap='round';
+    const gl=13;
+    ctx.beginPath();ctx.moveTo(tx2,ty2);ctx.lineTo(tx2+gl*Math.cos(arm.a-0.40),ty2+gl*Math.sin(arm.a-0.40));ctx.stroke();
+    ctx.beginPath();ctx.moveTo(tx2,ty2);ctx.lineTo(tx2+gl*Math.cos(arm.a+0.40),ty2+gl*Math.sin(arm.a+0.40));ctx.stroke();
+  }else{
+    ctx.fillStyle='#d29922';ctx.beginPath();ctx.arc(tx2,ty2,8,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#ba7517';ctx.beginPath();ctx.arc(tx2,ty2,4,0,Math.PI*2);ctx.fill();
+  }
+  if(heldItem){
+    const ox=tx2+15*Math.cos(arm.a+Math.PI/2),oy=ty2+15*Math.sin(arm.a+Math.PI/2);
+    ctx.fillStyle='#2d1a0e';ctx.strokeStyle='#ef9f27';ctx.lineWidth=1.5;
+    rr(ctx,ox-14,oy-12,28,24,4);ctx.fill();ctx.stroke();
+    ctx.fillStyle='#ef9f27';ctx.font='9px system-ui';ctx.textAlign='center';
+    ctx.fillText(heldItem.name.slice(0,8),ox,oy+3);
+  }
+  ctx.fillStyle='#484f58';ctx.font='11px system-ui';ctx.textAlign='left';ctx.fillText(lbl,12,H-12);
+  ctx.fillStyle='#484f58';ctx.font='10px system-ui';ctx.textAlign='center';ctx.fillText('BASE',BASE.x,BASE.y+30);
 }
 
-async function addItem() {
-  const name = $('itemName').value.trim();
-  const slot = parseInt($('itemSlot').value);
-  const expiry = $('itemExpiry').value.trim();
-  
-  if (!name) {
-    log('Item name is required', 'err');
-    return;
-  }
-  
-  const expiry_ts = expiry ? String(Date.now()/1000 + parseFloat(expiry) * 86400) : '';
-  
-  setBusy(true);
-  try {
-    const r = await fetch('/inventory/add_item', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({item_name: name, slot, expiry_ts})
-    });
-    const d = await r.json();
-    
-    if (d.success) {
-      log(d.message, 'ok');
-      $('itemName').value = '';
-      $('itemExpiry').value = '';
-      fetchState();
-    } else {
-      log(d.message, 'err');
-    }
-  } catch(e) {
-    log('Connection error: ' + e.message, 'err');
-  } finally {
-    setBusy(false);
-  }
+function selectItem(m){
+  if(!inv.length)return null;
+  if(m==='FIFO'||m==='RL')return[...inv].sort((a,b)=>a.arrival-b.arrival)[0];
+  return[...inv].sort((a,b)=>{
+    if(!a.expiry&&!b.expiry)return a.arrival-b.arrival;
+    if(!a.expiry)return 1;if(!b.expiry)return-1;return a.expiry-b.expiry;
+  })[0];
 }
 
-async function clearAll() {
-  if (!confirm('Clear ALL inventory data?')) return;
-  
-  setBusy(true);
-  try {
-    const r = await fetch('/inventory/clear', {method: 'POST'});
-    const d = await r.json();
-    d.success ? log('Database cleared', 'ok') : log(d.message, 'err');
-    fetchState();
-  } catch(e) {
-    log('Connection error: ' + e.message, 'err');
-  } finally {
-    setBusy(false);
-  }
+function playAnim(it,mode,onDone){
+  const sa=SA[it.slot],H=0.42,HV=0.74,FU=1.0,DHV=0.64,DFU=0.71;
+  queue=[
+    {a:sa,r:H,  open:true, lbl:`Rotating to slot ${it.slot} (j1=${SA[it.slot].toFixed(2)} rad)`,d:660},
+    {a:sa,r:HV, open:true, lbl:`Approaching slot ${it.slot} — extending joints 2+3`,d:400},
+    {a:sa,r:FU, open:true, lbl:`Descending to pick position`,d:340},
+    {a:sa,r:FU, open:false,lbl:`Gripping "${it.name}"`,d:310,grip:it},
+    {a:sa,r:HV, open:false,lbl:`Lifting from shelf`,d:340},
+    {a:DA,r:DHV,open:false,lbl:`Transporting to drop zone`,d:680},
+    {a:DA,r:DFU,open:false,lbl:`Placing "${it.name}" in tray`,d:340},
+    {a:DA,r:DFU,open:true, lbl:`Releasing — ${mode} dispatch complete`,d:290,drop:true},
+    {a:DA,r:DHV,open:true, lbl:`Retracting gripper`,d:260},
+    {a:0, r:H,  open:true, lbl:`Returned to home position`,d:620,done:onDone},
+  ];
 }
 
-async function simulateRFIDScan() {
-  try {
-    const r = await fetch('/inventory/rfid_scan', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({})
-    });
-    const d = await r.json();
-    
-    $('rfidDisplay').textContent = d.tag_id;
-    $('rfidDisplay').classList.add('fade-in');
-    
-    if (d.found) {
-      log(`RFID: ${d.tag_id} -> ${d.item.item_name}`, 'ok');
-    } else {
-      log(`RFID: ${d.tag_id} (new tag)`, 'info');
-    }
-    
-    updateRFIDHistory();
-  } catch(e) {
-    log('RFID scan error: ' + e.message, 'err');
+async function triggerDispatch(mode){
+  if(busy)return;
+  if(mode==='RL'&&backendOnline){
+    try{const r=await fetch('/inventory/rl_recommendation');if(r.ok){const d=await r.json();mode=d.action==='HOLD'?'FIFO':d.action;}}catch(e){}
+  }else if(mode==='RL'){mode=getLocalRL().action}
+  const it=selectItem(mode);
+  if(!it){setMsg('No items in stock.');return;}
+  busy=true;setAllBtns(true);setMsg('');
+  log(`Dispatch ${mode} → slot ${it.slot} "${it.name}"`,'inf');
+  if(backendOnline){
+    fetch('/inventory/dispatch',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode})})
+    .then(r=>r.json()).then(d=>{d.success?log(`✓ ${d.message}`,'ok'):log(d.message,'err')}).catch(()=>{});
   }
+  const localIt={...it};
+  playAnim(it,mode,()=>{
+    busy=false;setAllBtns(false);lbl='Ready';
+    simDlog.unshift({item:localIt,mode,ts:Date.now()});
+    setMsg(`✓ ${localIt.name} dispatched`);
+    refreshPanels();
+    if(backendOnline)fetchState();
+  });
 }
 
-// ============================================================================
-// State Updates
-// ============================================================================
-
-async function fetchState() {
-  try {
-    const r = await fetch('/inventory/state');
-    if (!r.ok) throw new Error('Failed to fetch');
-    const d = await r.json();
-    
-    updateShelf(d.items, d.urgency);
-    updateStockTable(d.items, d.urgency);
-    updateDispatchLog(d.dispatch_log);
-    updateForecast(d.forecast);
-    updateUrgency(d.urgency);
-    updateRL(d.rl_recommendation);
-    
-    // Update header
-    $('stockBadge').textContent = `${d.stock_count} item${d.stock_count !== 1 ? 's' : ''}`;
-    $('statusDot').className = 'status-dot' + (d.low_stock ? ' warn' : '');
-    $('statusText').textContent = d.low_stock ? 'Low Stock' : 'Online';
-    
-    // Urgency alert
-    const alert = $('urgencyAlert');
-    if (d.urgency.overall.status === 'CRITICAL') {
-      alert.textContent = d.urgency.overall.message;
-      alert.className = 'badge badge-critical';
-    } else if (d.urgency.overall.status === 'WARNING') {
-      alert.textContent = d.urgency.overall.message;
-      alert.className = 'badge badge-warning';
-    } else {
-      alert.textContent = '';
-      alert.className = 'badge';
-    }
-    
-  } catch(e) {
-    $('statusDot').className = 'status-dot error';
-    $('statusText').textContent = 'Offline';
-  }
+function setMsg(m){document.getElementById('sMsg').textContent=m}
+function setAllBtns(d){document.querySelectorAll('.sb,.mb').forEach(b=>b.disabled=d)}
+function setMode(m){
+  simMode=m;
+  [['mb0','FIFO'],['mb1','FEFO'],['mb2','RL']].forEach(([id,v])=>{
+    document.getElementById(id).className='mb'+(v===m?' on':'');
+  });
+  refreshPanels();
 }
 
-function updateShelf(items, urgency) {
-  for (let i = 0; i < 4; i++) {
-    const el = $('slot' + i);
-    const item = items.find(it => it.slot === i);
-    const urg = urgency?.items?.find(u => u.item_id === item?.id);
-    
-    if (item) {
-      el.className = 'slot occupied';
-      
-      if (urg) {
-        if (urg.level === 'CRITICAL') el.classList.add('critical');
-        else if (urg.level === 'HIGH') el.classList.add('warning');
-      }
-      
-      el.innerHTML = `
-        <div class="slot-number">SLOT ${i}</div>
-        <div class="slot-content">
-          <div class="slot-icon">&#128230;</div>
-          <div class="slot-name">${item.name}</div>
-          <div class="slot-expiry ${urg?.level === 'CRITICAL' || urg?.level === 'HIGH' ? 'urgent' : ''}">${item.expiry}</div>
-        </div>
-      `;
-    } else {
-      el.className = 'slot empty';
-      el.innerHTML = `
-        <div class="slot-number">SLOT ${i}</div>
-        <div class="slot-content">
-          <div class="slot-icon" style="opacity: 0.3">&#128230;</div>
-          <div class="slot-name">Empty</div>
-        </div>
-      `;
+function classifyUrgency(item){
+  if(!item.expiry)return{lv:'LOW',cls:'b-low'};
+  const d=(item.expiry-Date.now())/DAY;
+  if(d<=0)return{lv:'CRITICAL',cls:'b-crit'};
+  if(d<=2)return{lv:'HIGH',cls:'b-high'};
+  if(d<=7)return{lv:'MEDIUM',cls:'b-med'};
+  return{lv:'LOW',cls:'b-low'};
+}
+
+function getLocalRL(){
+  if(!inv.length)return{action:'HOLD',reason:'No items in stock',conf:.99};
+  const minD=Math.min(...inv.filter(i=>i.expiry).map(i=>(i.expiry-Date.now())/DAY).concat([999]));
+  if(minD<=0) return{action:'FEFO',reason:'Expired items — FEFO dispatches them first',conf:.97,urg:'critical'};
+  if(minD<=2) return{action:'FEFO',reason:'Items expiring in <2 days — FEFO prevents spoilage',conf:.92,urg:'warning'};
+  if(minD<=7) return{action:'FEFO',reason:'Items approaching expiry — FEFO recommended',conf:.78,urg:'warning'};
+  return{action:'FIFO',reason:'No urgent expiries — FIFO maintains arrival-order fairness',conf:.82,urg:'normal'};
+}
+
+function fifoR(){const s=[...inv].sort((a,b)=>a.arrival-b.arrival);return s.reduce((o,i,n)=>{o[i.id]=n+1;return o},{})}
+function fefoR(){const s=[...inv].sort((a,b)=>{if(!a.expiry&&!b.expiry)return a.arrival-b.arrival;if(!a.expiry)return 1;if(!b.expiry)return-1;return a.expiry-b.expiry});return s.reduce((o,i,n)=>{o[i.id]=n+1;return o},{})}
+
+function refreshPanels(){
+  if(backendOnline)return;
+  const fr=fifoR(),fe=fefoR(),next=selectItem(simMode);
+  let h='';
+  for(let s=0;s<4;s++){
+    const item=inv.find(i=>i.slot===s),isN=next&&next.slot===s;
+    if(item){
+      const age=((Date.now()-item.arrival)/DAY).toFixed(1);
+      const exp=item.expiry?((item.expiry-Date.now())/DAY).toFixed(1)+'d':'—';
+      const ec=item.expiry&&(item.expiry-Date.now())<3*DAY?'color:var(--red)':'';
+      const u=classifyUrgency(item);
+      h+=`<tr><td>${s}</td><td style="font-weight:500">${item.name}${isN?' ◀':''}</td><td>${age}d</td>
+          <td style="${ec}">${exp}</td><td>${fr[item.id]||'—'}</td><td>${fe[item.id]||'—'}</td>
+          <td><span class="badge ${u.cls}">${u.lv}</span></td></tr>`;
+    }else{
+      h+=`<tr><td>${s}</td><td style="color:var(--tx3)">empty</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>`;
     }
   }
-}
-
-function updateStockTable(items, urgency) {
-  const tb = $('stockTable');
-  if (!items.length) {
-    tb.innerHTML = '<tr><td colspan="5" style="color: var(--text-muted); text-align: center;">No items in stock</td></tr>';
-    return;
-  }
-  
-  const now = Date.now() / 1000;
-  tb.innerHTML = items.map(item => {
-    const age = ((now - item.arrival_ts) / 86400).toFixed(1);
-    const urg = urgency?.items?.find(u => u.item_id === item.id);
-    const badge = urg ? `<span class="badge badge-${urg.level === 'CRITICAL' ? 'critical' : urg.level === 'HIGH' ? 'warning' : ''}">${urg.level}</span>` : '';
-    
-    return `<tr>
-      <td><strong>${item.slot}</strong></td>
-      <td>${item.name}</td>
-      <td>${age}d</td>
-      <td>${item.expiry}</td>
-      <td>${badge}</td>
-    </tr>`;
+  document.getElementById('stb').innerHTML=h;
+  document.getElementById('sCount').textContent=`${inv.length} item${inv.length!==1?'s':''}`;
+  const urgs=inv.map(classifyUrgency);
+  document.getElementById('uC').textContent=urgs.filter(u=>u.lv==='CRITICAL').length;
+  document.getElementById('uH').textContent=urgs.filter(u=>u.lv==='HIGH').length;
+  document.getElementById('uM').textContent=urgs.filter(u=>u.lv==='MEDIUM').length;
+  document.getElementById('uL').textContent=urgs.filter(u=>u.lv==='LOW').length;
+  document.getElementById('urgTb').innerHTML=inv.map(item=>{
+    const u=classifyUrgency(item);
+    const exp=item.expiry?((item.expiry-Date.now())/DAY).toFixed(1)+'d':'—';
+    return `<tr><td>${item.name}</td><td>${item.slot}</td><td>${exp}</td><td><span class="badge ${u.cls}">${u.lv}</span></td></tr>`;
+  }).join('')||'<tr><td colspan="4" style="color:var(--tx3)">No items</td></tr>';
+  const n=simDlog.length;
+  let dem=0,reo=0;
+  if(n>0){const span=Math.max((Date.now()-simDlog[simDlog.length-1].ts)/DAY,0.5);dem=n/span;reo=Math.max(0,Math.ceil(dem*2*1.5-inv.length));}
+  document.getElementById('fDem').textContent=n>0?dem.toFixed(2):'—';
+  document.getElementById('fSto').textContent=inv.length;
+  document.getElementById('fReo').textContent=n>0?reo:'—';
+  const fm=document.getElementById('fMsg');
+  if(n===0){fm.textContent='Awaiting dispatch history to train model…';fm.className='fmsg';}
+  else if(reo>0){fm.textContent=`⚠ Reorder ${reo} unit(s). Demand ${dem.toFixed(2)}/day, stock lasts ~${(inv.length/dem).toFixed(1)} days.`;fm.className='fmsg warn';}
+  else{fm.textContent=`Stock OK — forecast ${dem.toFixed(2)}/day. ~${(inv.length/dem).toFixed(1)} days remaining.`;fm.className='fmsg';}
+  const lb=document.getElementById('dlog');
+  if(!simDlog.length){lb.innerHTML='<div style="font-size:.72rem;color:var(--tx3)">No dispatches yet</div>';}
+  else lb.innerHTML=simDlog.slice(0,8).map(e=>{
+    const t=new Date(e.ts).toLocaleTimeString();
+    const c=e.mode==='FIFO'?'b-fifo':e.mode==='FEFO'?'b-fefo':'b-rl';
+    return `<div class="le"><span class="lt">[${t}]</span><span class="badge ${c}">${e.mode}</span><span>slot ${e.item.slot} — ${e.item.name}</span></div>`;
   }).join('');
+  const rl=getLocalRL();
+  document.getElementById('rlAct').textContent=rl.action;
+  document.getElementById('rlConf').textContent=`${Math.round(rl.conf*100)}% confidence`;
+  document.getElementById('rlRsn').textContent=rl.reason;
+  const p=document.getElementById('rlPanel');
+  p.style.borderColor=rl.urg==='critical'?'rgba(248,81,73,.4)':rl.urg==='warning'?'rgba(210,153,34,.4)':'rgba(163,113,247,.25)';
 }
 
-function updateDispatchLog(log) {
-  const box = $('dispatchLog');
-  if (!log.length) {
-    box.innerHTML = '<div style="color: var(--text-muted); text-align: center;">No dispatches yet</div>';
-    return;
-  }
-  
-  box.innerHTML = log.map(e => {
-    const dt = new Date(e.ts * 1000).toLocaleTimeString();
-    const cls = e.mode === 'FIFO' ? 'badge-fifo' : e.mode === 'FEFO' ? 'badge-fefo' : 'badge-rl';
-    return `<div class="log-entry">
-      <span class="log-time">[${dt}]</span>
-      <span class="badge ${cls}">${e.mode}</span>
-      <span>${e.item_name} - Slot ${e.slot}</span>
-    </div>`;
-  }).join('');
-}
-
-function updateForecast(fc) {
-  if (!fc) return;
-  
-  $('fcastDemand').textContent = fc.predicted_demand.toFixed(1);
-  $('fcastStock').textContent = fc.current_stock;
-  $('fcastReorder').textContent = fc.reorder ? fc.order_quantity : '0';
-  
-  const alert = $('forecastAlert');
-  alert.textContent = fc.reason;
-  alert.className = 'forecast-alert' + (fc.reorder ? ' warn' : '');
-}
-
-function updateUrgency(urg) {
-  if (!urg || !urg.summary) return;
-  
-  $('urgCritical').textContent = urg.summary.CRITICAL || 0;
-  $('urgHigh').textContent = urg.summary.HIGH || 0;
-  $('urgMedium').textContent = urg.summary.MEDIUM || 0;
-  $('urgLow').textContent = urg.summary.LOW || 0;
-}
-
-function updateRL(rec) {
-  if (!rec) return;
-  
-  $('rlAction').textContent = rec.action;
-  $('rlConfidence').textContent = `${(rec.confidence * 100).toFixed(0)}% confidence`;
-  $('rlReason').textContent = rec.reason;
-  
-  const panel = $('rlPanel');
-  if (rec.urgency === 'critical') {
-    panel.style.borderColor = 'rgba(248, 81, 73, 0.5)';
-  } else if (rec.urgency === 'warning') {
-    panel.style.borderColor = 'rgba(210, 153, 34, 0.5)';
-  } else {
-    panel.style.borderColor = 'rgba(163, 113, 247, 0.3)';
-  }
-}
-
-async function updateRFIDHistory() {
-  try {
-    const r = await fetch('/inventory/state');
-    const d = await r.json();
-    
-    const box = $('rfidHistory');
-    if (!d.rfid_scans || !d.rfid_scans.length) {
-      box.innerHTML = '<div style="color: var(--text-muted); text-align: center; padding: 8px;">No recent scans</div>';
-      return;
+async function fetchState(){
+  try{
+    const r=await fetch('/inventory/state');if(!r.ok)throw new Error();
+    const d=await r.json();backendOnline=true;
+    document.getElementById('sDot').className='dot';
+    document.getElementById('sTxt').textContent='Online';
+    document.getElementById('sCount').textContent=`${d.stock_count} item${d.stock_count!==1?'s':''}`;
+    if(!busy&&d.items){
+      inv=d.items.map(i=>({
+        id:parseInt(i.id.slice(0,8),16)&0xffff,name:i.name,slot:i.slot,
+        arrival:(i.arrival_ts||0)*1000,expiry:i.expiry_ts?(i.expiry_ts*1000):null
+      }));
     }
-    
-    box.innerHTML = d.rfid_scans.map(s => {
-      const dt = new Date(s.timestamp * 1000).toLocaleTimeString();
-      return `<div class="rfid-entry">
-        <span style="color: var(--accent-purple);">${s.tag_id.slice(-10)}</span>
-        <span>${dt}</span>
-      </div>`;
-    }).join('');
-  } catch(e) {}
-}
-
-// ============================================================================
-// Voice Control
-// ============================================================================
-
-const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-let recog = null, listening = false;
-
-function toggleVoice() {
-  if (!SR) {
-    log('Speech recognition not supported', 'err');
-    return;
-  }
-  
-  if (listening) {
-    recog && recog.stop();
-    return;
-  }
-  
-  recog = new SR();
-  recog.lang = 'en-US';
-  recog.interimResults = true;
-  recog.continuous = false;
-  
-  recog.onstart = () => {
-    listening = true;
-    $('micBtn').classList.add('listening');
-    log('Listening...', 'info');
-  };
-  
-  recog.onresult = e => {
-    let t = '';
-    for (let i = e.resultIndex; i < e.results.length; i++) {
-      t += e.results[i][0].transcript;
+    if(d.items){
+      const fr=fifoR(),fe=fefoR();
+      let h=d.items.map(it=>{
+        const age=((Date.now()-it.arrival_ts*1000)/DAY).toFixed(1);
+        const urg=d.urgency?.items?.find(u=>u.item_id===it.id);
+        const bc=urg?({CRITICAL:'b-crit',HIGH:'b-high',MEDIUM:'b-med',LOW:'b-low'}[urg.level]||'b-low'):'b-low';
+        const lv2=urg?.level||'LOW';
+        const simIt=inv.find(i=>i.name===it.name&&i.slot===it.slot);
+        return `<tr><td>${it.slot}</td><td style="font-weight:500">${it.name}</td><td>${age}d</td>
+          <td>${it.expiry}</td><td>${simIt?fr[simIt.id]||'—':'—'}</td><td>${simIt?fe[simIt.id]||'—':'—'}</td>
+          <td><span class="badge ${bc}">${lv2}</span></td></tr>`;
+      }).join('');
+      document.getElementById('stb').innerHTML=h||'<tr><td colspan="7" style="color:var(--tx3)">No items in stock</td></tr>';
     }
-    $('transcript').textContent = t;
-    
-    if (e.results[e.resultIndex].isFinal) {
-      handleVoice(t.toLowerCase().trim());
+    if(d.urgency?.summary){
+      const s=d.urgency.summary;
+      document.getElementById('uC').textContent=s.CRITICAL||0;
+      document.getElementById('uH').textContent=s.HIGH||0;
+      document.getElementById('uM').textContent=s.MEDIUM||0;
+      document.getElementById('uL').textContent=s.LOW||0;
+      document.getElementById('urgTb').innerHTML=(d.urgency.items||[]).map(u=>`
+        <tr><td>${u.item_name}</td><td>—</td>
+        <td>${u.days_remaining!=null?u.days_remaining+'d':'—'}</td>
+        <td><span class="badge ${getBadgeClass(u.level)}">${u.level}</span></td></tr>
+      `).join('')||'<tr><td colspan="4" style="color:var(--tx3)">All clear</td></tr>';
     }
-  };
-  
-  recog.onerror = e => {
-    log('Voice error: ' + e.error, 'err');
-    stopVoice();
-  };
-  
-  recog.onend = stopVoice;
-  recog.start();
+    if(d.forecast){
+      document.getElementById('fDem').textContent=(d.forecast.predicted_demand||0).toFixed(2);
+      document.getElementById('fSto').textContent=d.forecast.current_stock||0;
+      document.getElementById('fReo').textContent=d.forecast.reorder?d.forecast.order_quantity:0;
+      const fm=document.getElementById('fMsg');
+      fm.textContent=d.forecast.reason||'';fm.className='fmsg'+(d.forecast.reorder?' warn':'');
+    }
+    if(d.rl_recommendation){
+      const rec=d.rl_recommendation;
+      document.getElementById('rlAct').textContent=rec.action;
+      document.getElementById('rlConf').textContent=`${Math.round((rec.confidence||0.8)*100)}% confidence`;
+      document.getElementById('rlRsn').textContent=rec.reason;
+      const p=document.getElementById('rlPanel');
+      p.style.borderColor=rec.urgency==='critical'?'rgba(248,81,73,.4)':rec.urgency==='warning'?'rgba(210,153,34,.4)':'rgba(163,113,247,.25)';
+    }
+    if(d.dispatch_log){
+      const lb=document.getElementById('dlog');
+      lb.innerHTML=d.dispatch_log.length?d.dispatch_log.map(e=>{
+        const t=new Date(e.ts*1000).toLocaleTimeString();
+        const c=e.mode==='FIFO'?'b-fifo':e.mode==='FEFO'?'b-fefo':'b-rl';
+        return `<div class="le"><span class="lt">[${t}]</span><span class="badge ${c}">${e.mode}</span><span>slot ${e.slot} — ${e.item_name}</span></div>`;
+      }).join(''):'<div style="font-size:.72rem;color:var(--tx3)">No dispatches yet</div>';
+    }
+    if(d.rfid_scans&&d.rfid_scans.length){
+      document.getElementById('rfidHist').innerHTML=d.rfid_scans.map(s=>`
+        <div class="rfid-row"><span style="color:var(--purple);font-family:monospace">${s.tag_id?.slice(-10)||'—'}</span>
+        <span>${new Date(s.timestamp*1000).toLocaleTimeString()}</span></div>`).join('');
+    }
+  }catch(e){
+    backendOnline=false;
+    document.getElementById('sDot').className='dot err';
+    document.getElementById('sTxt').textContent='Standalone';
+    refreshPanels();
+  }
 }
 
-function stopVoice() {
-  listening = false;
-  $('micBtn').classList.remove('listening');
+async function addItem(){
+  const slot=parseInt(document.getElementById('aslot').value);
+  const name=document.getElementById('aname').value.trim();
+  const exp=parseFloat(document.getElementById('aexp').value);
+  if(!name){setMsg('Enter item name');return;}
+  if(inv.find(i=>i.slot===slot)){setMsg(`Slot ${slot} occupied`);return;}
+  const expiry_ts=exp>0?String(Date.now()/1000+exp*86400):'';
+  if(backendOnline){
+    try{const r=await fetch('/inventory/add_item',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({item_name:name,slot,expiry_ts})});
+      const d=await r.json();d.success?log(d.message,'ok'):log(d.message,'err');
+      if(d.success)fetchState();
+    }catch(e){log('Connection error','err');}
+  }else{
+    inv.push({id:nid++,name,slot,arrival:Date.now(),expiry:exp>0?Date.now()+exp*DAY:null});
+    log(`Added "${name}" to slot ${slot}`,'ok');refreshPanels();
+  }
+  document.getElementById('aname').value='';document.getElementById('aexp').value='';
 }
 
-function handleVoice(t) {
+async function clearAll(){
+  if(!confirm('Clear ALL inventory?'))return;
+  if(backendOnline){try{await fetch('/inventory/clear',{method:'POST'});fetchState();}catch(e){}}
+  inv=[];simDlog=[];dropItem=null;heldItem=null;queue=[];
+  arm={a:0,r:0.42,open:true};lbl='Cleared';
+  log('Database cleared','ok');refreshPanels();
+}
+
+function resetSim(){
+  if(busy)return;t0=Date.now();
+  inv=[{id:0,name:"Resistors",slot:0,arrival:t0-3*DAY,expiry:t0+5*DAY},
+    {id:1,name:"Capacitors",slot:1,arrival:t0-2*DAY,expiry:t0+2*DAY},
+    {id:2,name:"LEDs",slot:2,arrival:t0-1*DAY,expiry:null},
+    {id:3,name:"Arduino",slot:3,arrival:t0,expiry:t0+10*DAY}];
+  simDlog=[];dropItem=null;heldItem=null;queue=[];
+  arm={a:0,r:0.42,open:true};prev={...arm};lbl='Reset — ready';
+  setMsg('Demo data restored');log('Demo reset','ok');refreshPanels();
+}
+
+async function scanRFID(){
+  if(backendOnline){
+    try{const r=await fetch('/inventory/rfid_scan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({})});
+      const d=await r.json();
+      document.getElementById('rfidDisp').textContent=d.tag_id;
+      log(`RFID: ${d.tag_id} ${d.found?'→ '+d.item?.item_name:'(new tag)'}`,'inf');
+      fetchState();return;
+    }catch(e){}
+  }
+  const tag='RFID-'+Math.floor(Math.random()*9e9+1e9);
+  document.getElementById('rfidDisp').textContent=tag;
+  log(`RFID scan: ${tag}`,'inf');
+}
+
+function getBadgeClass(level) {
+  const classes = {CRITICAL:'b-crit',HIGH:'b-high',MEDIUM:'b-med',LOW:'b-low'};
+  return classes[level] || 'b-low';
+}
+
+function log(msg,type='inf'){
+  const box=document.getElementById('alog');
+  const cls={ok:'lok',err:'lerr',rl:'lrl'}[type]||'linf';
+  box.innerHTML=`<div class="le"><span class="lt">[${new Date().toLocaleTimeString()}]</span><span class="${cls}">${msg}</span></div>`+box.innerHTML;
+}
+
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+let recog=null,listening=false;
+function toggleMic(){
+  if(!SR){log('Use Chrome/Edge for voice','err');return;}
+  if(listening){recog&&recog.stop();return;}
+  recog=new SR();recog.lang='en-US';recog.interimResults=true;recog.continuous=false;
+  recog.onstart=()=>{listening=true;document.getElementById('micBtn').classList.add('on');log('Listening…');}
+  recog.onresult=e=>{let t='';for(let i=e.resultIndex;i<e.results.length;i++)t+=e.results[i][0].transcript;
+    document.getElementById('vtxt').textContent=t;
+    if(e.results[e.resultIndex].isFinal)handleVoice(t.toLowerCase().trim());}
+  recog.onerror=e=>{log('Voice: '+e.error,'err');stopMic();}
+  recog.onend=stopMic;recog.start();
+}
+function stopMic(){listening=false;document.getElementById('micBtn').classList.remove('on');}
+function handleVoice(t){
   log(`Heard: "${t}"`);
-  
-  if (t.includes('fifo')) {
-    triggerDispatch('FIFO');
-  } else if (t.includes('fefo') || t.includes('expiry')) {
-    triggerDispatch('FEFO');
-  } else if (t.includes('ai') || t.includes('optimize') || t.includes('recommend')) {
-    triggerDispatch('RL');
-  } else if (t.includes('home') || t.includes('wake')) {
-    sendTask(0);
-  } else if (t.includes('sleep')) {
-    sendTask(2);
-  } else {
-    log(`Unknown command: "${t}"`, 'err');
-  }
+  if(t.includes('fifo'))triggerDispatch('FIFO');
+  else if(t.includes('fefo')||t.includes('expiry'))triggerDispatch('FEFO');
+  else if(t.includes('ai')||t.includes('optim'))triggerDispatch('RL');
+  else log(`Unknown: "${t}" — try "dispatch FIFO", "dispatch FEFO", "use AI"`,'err');
 }
 
-// ============================================================================
-// Initialization
-// ============================================================================
-
-setInterval(fetchState, 2000);
-fetchState();
-log('Dexter FEFO/FIFO Inventory Control ready', 'ok');
+setInterval(fetchState,2500);
+fetchState();refreshPanels();
+log('Dexter Inventory Control ready','ok');
 </script>
-
 </body>
 </html>

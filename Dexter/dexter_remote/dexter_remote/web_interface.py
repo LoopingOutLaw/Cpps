@@ -67,6 +67,7 @@ try:
     from dexter_inventory.inventory_db import (  # type: ignore[import]
         init_db, get_stock, get_dispatch_log,
         stock_count, clear_all, add_item as db_add_item,
+        reset_with_defaults,
     )
     from dexter_inventory.dispatch_engine import format_expiry  # type: ignore[import]
     from dexter_inventory.ml_forecast import DemandForecaster  # type: ignore[import]
@@ -80,6 +81,7 @@ except ImportError:
     def get_dispatch_log(limit: int = 10) -> list: return []
     def stock_count() -> int: return 0
     def clear_all() -> None: pass
+    def reset_with_defaults() -> None: pass
     def db_add_item(name: str, slot: int, expiry: Any = None) -> str: return ""
     def format_expiry(ts: Any) -> str: return "N/A"
     
@@ -446,7 +448,10 @@ class WebInterface(Node):
         
         # Initialize subsystems
         if _INV_AVAILABLE:
-            init_db()
+            # Reset database with default items on every startup
+            # This ensures a fresh state for each simulation run
+            reset_with_defaults()
+            self.get_logger().info("Database reset with default inventory items")
             self.forecaster = DemandForecaster()
         else:
             self.forecaster = None
