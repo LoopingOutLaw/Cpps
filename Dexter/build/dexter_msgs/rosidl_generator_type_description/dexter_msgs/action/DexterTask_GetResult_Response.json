@@ -1,0 +1,56 @@
+{
+  "type_description_msg": {
+    "type_description": {
+      "type_name": "dexter_msgs/action/DexterTask_GetResult_Response",
+      "fields": [
+        {
+          "name": "status",
+          "type": {
+            "type_id": 2,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        },
+        {
+          "name": "result",
+          "type": {
+            "type_id": 1,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": "dexter_msgs/action/DexterTask_Result"
+          },
+          "default_value": ""
+        }
+      ]
+    },
+    "referenced_type_descriptions": [
+      {
+        "type_name": "dexter_msgs/action/DexterTask_Result",
+        "fields": [
+          {
+            "name": "success",
+            "type": {
+              "type_id": 15,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          }
+        ]
+      }
+    ]
+  },
+  "type_hashes": [
+    {
+      "type_name": "dexter_msgs/action/DexterTask_GetResult_Response",
+      "hash_string": "RIHS01_949155f9be8554f8f098aa3fa5dc4994ffcfcd0ba66033ab33045295a9a4ebbb"
+    },
+    {
+      "type_name": "dexter_msgs/action/DexterTask_Result",
+      "hash_string": "RIHS01_dd7eca0a927b5bd8b642bc70351e65647ef748d09507376c720c80f355e534e6"
+    }
+  ]
+}

@@ -1,0 +1,219 @@
+[0.000000] (-) TimerEvent: {}
+[0.000596] (-) JobUnselected: {'identifier': 'dexter_bringup'}
+[0.001148] (-) JobUnselected: {'identifier': 'dexter_controller'}
+[0.001395] (-) JobUnselected: {'identifier': 'dexter_cpp_examples'}
+[0.001464] (-) JobUnselected: {'identifier': 'dexter_description'}
+[0.001545] (-) JobUnselected: {'identifier': 'dexter_firmware'}
+[0.001599] (-) JobUnselected: {'identifier': 'dexter_moveit'}
+[0.001651] (-) JobUnselected: {'identifier': 'dexter_msgs'}
+[0.001699] (-) JobUnselected: {'identifier': 'dexter_py_examples'}
+[0.001747] (-) JobUnselected: {'identifier': 'dexter_utils'}
+[0.001802] (dexter_inventory) JobQueued: {'identifier': 'dexter_inventory', 'dependencies': OrderedDict({'dexter_description': '/home/aditya/Cpps/Dexter/install/dexter_description', 'dexter_msgs': '/home/aditya/Cpps/Dexter/install/dexter_msgs', 'dexter_moveit': '/home/aditya/Cpps/Dexter/install/dexter_moveit'})}
+[0.001889] (dexter_remote) JobQueued: {'identifier': 'dexter_remote', 'dependencies': OrderedDict({'dexter_description': '/home/aditya/Cpps/Dexter/install/dexter_description', 'dexter_msgs': '/home/aditya/Cpps/Dexter/install/dexter_msgs', 'dexter_moveit': '/home/aditya/Cpps/Dexter/install/dexter_moveit', 'dexter_inventory': '/home/aditya/Cpps/Dexter/install/dexter_inventory'})}
+[0.001968] (dexter_inventory) JobStarted: {'identifier': 'dexter_inventory'}
+[0.099143] (-) TimerEvent: {}
+[0.199541] (-) TimerEvent: {}
+[0.299896] (-) TimerEvent: {}
+[0.400312] (-) TimerEvent: {}
+[0.500776] (-) TimerEvent: {}
+[0.601268] (-) TimerEvent: {}
+[0.701725] (-) TimerEvent: {}
+[0.802172] (-) TimerEvent: {}
+[0.902483] (-) TimerEvent: {}
+[1.002765] (-) TimerEvent: {}
+[1.103130] (-) TimerEvent: {}
+[1.203543] (-) TimerEvent: {}
+[1.303845] (-) TimerEvent: {}
+[1.404232] (-) TimerEvent: {}
+[1.504512] (-) TimerEvent: {}
+[1.604879] (-) TimerEvent: {}
+[1.705278] (-) TimerEvent: {}
+[1.805722] (-) TimerEvent: {}
+[1.906191] (-) TimerEvent: {}
+[2.006634] (-) TimerEvent: {}
+[2.107095] (-) TimerEvent: {}
+[2.197031] (dexter_inventory) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../build/dexter_inventory', 'build', '--build-base', '/home/aditya/Cpps/Dexter/build/dexter_inventory/build', 'install', '--record', '/home/aditya/Cpps/Dexter/build/dexter_inventory/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/aditya/Cpps/Dexter/dexter_inventory', 'env': {'GJS_DEBUG_TOPICS': 'JS ERROR;JS LOG', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'GZ_SIM_RESOURCE_PATH': '/opt/ros/jazzy/share', 'no_proxy': '127.0.0.1,localhost,::1', 'LANGUAGE': 'en_IN:en', 'OPENCODE_SERVER_USERNAME': 'opencode', 'USER': 'aditya', 'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/gz_sim_vendor/share/gz:/opt/ros/jazzy/opt/sdformat_vendor/share/gz:/opt/ros/jazzy/opt/gz_gui_vendor/share/gz:/opt/ros/jazzy/opt/gz_transport_vendor/share/gz:/opt/ros/jazzy/opt/gz_rendering_vendor/share/gz:/opt/ros/jazzy/opt/gz_plugin_vendor/share/gz:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/share/gz:/opt/ros/jazzy/opt/gz_msgs_vendor/share/gz:/opt/ros/jazzy/opt/gz_common_vendor/share/gz', 'AGENT': '1', 'XDG_SESSION_TYPE': 'x11', 'CLUTTER_DISABLE_MIPMAPPED_TEXT': '1', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/aditya/Cpps/Dexter/install/dexter_msgs/lib:/home/aditya/ros2_ws/install/my_robot_interfaces/lib:/opt/ros/jazzy/opt/gz_sim_vendor/lib:/opt/ros/jazzy/opt/gz_sensors_vendor/lib:/opt/ros/jazzy/opt/gz_physics_vendor/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_gui_vendor/lib:/opt/ros/jazzy/opt/gz_transport_vendor/lib:/opt/ros/jazzy/opt/gz_rendering_vendor/lib:/opt/ros/jazzy/opt/gz_plugin_vendor/lib:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/lib:/opt/ros/jazzy/opt/gz_msgs_vendor/lib:/opt/ros/jazzy/opt/gz_common_vendor/lib:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_ogre_next_vendor/lib:/opt/ros/jazzy/opt/gz_dartsim_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/aditya', 'OLDPWD': '/home/aditya/Cpps', 'DESKTOP_SESSION': 'ubuntu', 'NO_PROXY': '127.0.0.1,localhost,::1', 'GIO_LAUNCHED_DESKTOP_FILE': '/usr/share/applications/OpenCode.desktop', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'MANAGERPID': '3042', 'SYSTEMD_EXEC_PID': '3472', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'XDG_STATE_HOME': '/home/aditya/.local/share/ai.opencode.desktop/', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '7789', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'COLCON_PREFIX_PATH': '/home/aditya/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'aditya', 'OPENCODE_CLIENT': 'desktop', 'JOURNAL_STREAM': '8:46461', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.Shell@x11.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'aditya', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'WINDOWPATH': '2', 'OPENCODE': '1', 'PATH': '/usr/lib/ccache:/home/aditya/ardupilot/Tools/autotest:/opt/gcc-arm-none-eabi-10-2020-q4-major/bin:/home/aditya/venv-ardupilot/bin:/home/aditya/.local/bin:/usr/lib/ccache:/home/aditya/ardupilot/Tools/autotest:/opt/gcc-arm-none-eabi-10-2020-q4-major/bin:/home/aditya/venv-ardupilot/bin:/home/aditya/.local/bin:/opt/ros/jazzy/opt/gz_msgs_vendor/bin:/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/opt/gz_ogre_next_vendor/bin:/opt/ros/jazzy/bin:/usr/lib/ccache:/home/aditya/ardupilot/Tools/autotest:/opt/gcc-arm-none-eabi-10-2020-q4-major/bin:/home/aditya/venv-ardupilot/bin:/home/aditya/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/LoopingOutlaw:@/tmp/.ICE-unix/3400,unix/LoopingOutlaw:/tmp/.ICE-unix/3400', 'INVOCATION_ID': '817e26ddbb1243b59d5e6eb4b9982978', 'OPENCODE_SERVER_PASSWORD': 'dc214394-065f-430a-b4be-bb0c3f63204b', 'GTK3_MODULES': 'xapp-gtk3-module', 'XDG_MENU_PREFIX': 'gnome-', 'XDG_RUNTIME_DIR': '/run/user/1000', 'OPENCODE_EXPERIMENTAL_FILEWATCHER': 'true', 'DISPLAY': ':1', 'OPENCODE_PID': '7919', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'OPENCODE_EXPERIMENTAL_ICON_DISCOVERY': 'true', 'VIRTUAL_ENV_PROMPT': '(venv-ardupilot)', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': '', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:/home/aditya/ros2_ws/install/my_robot_bringup:/home/aditya/ros2_ws/install/my_py_pkg:/home/aditya/ros2_ws/install/my_cpp_pkg:/home/aditya/ros2_ws/install/my_robot_interfaces:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'GJS_DEBUG_OUTPUT': 'stderr', 'VIRTUAL_ENV': '/home/aditya/venv-ardupilot', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/aditya/Cpps/Dexter/build/dexter_inventory', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'QTWEBENGINE_DICTIONARIES_PATH': '/usr/share/hunspell-bdic/', 'PYTHONPATH': '/home/aditya/Cpps/Dexter/build/dexter_inventory/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages:/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages:/home/aditya/ros2_ws/install/my_py_pkg/lib/python3.12/site-packages:/home/aditya/ros2_ws/install/my_robot_interfaces/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'CMAKE_PREFIX_PATH': '/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:/home/aditya/ros2_ws/install/my_robot_bringup:/home/aditya/ros2_ws/install/my_cpp_pkg:/home/aditya/ros2_ws/install/my_robot_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor'}, 'shell': False}
+[2.207297] (-) TimerEvent: {}
+[2.307564] (-) TimerEvent: {}
+[2.407908] (-) TimerEvent: {}
+[2.508297] (-) TimerEvent: {}
+[2.608609] (-) TimerEvent: {}
+[2.709050] (-) TimerEvent: {}
+[2.809582] (-) TimerEvent: {}
+[2.909945] (-) TimerEvent: {}
+[2.918915] (dexter_inventory) StdoutLine: {'line': b'running egg_info\n'}
+[2.968531] (dexter_inventory) StdoutLine: {'line': b'writing ../build/dexter_inventory/dexter_inventory.egg-info/PKG-INFO\n'}
+[2.969272] (dexter_inventory) StdoutLine: {'line': b'writing dependency_links to ../build/dexter_inventory/dexter_inventory.egg-info/dependency_links.txt\n'}
+[2.969945] (dexter_inventory) StdoutLine: {'line': b'writing entry points to ../build/dexter_inventory/dexter_inventory.egg-info/entry_points.txt\n'}
+[2.970260] (dexter_inventory) StdoutLine: {'line': b'writing requirements to ../build/dexter_inventory/dexter_inventory.egg-info/requires.txt\n'}
+[2.970525] (dexter_inventory) StdoutLine: {'line': b'writing top-level names to ../build/dexter_inventory/dexter_inventory.egg-info/top_level.txt\n'}
+[3.010232] (-) TimerEvent: {}
+[3.069019] (dexter_inventory) StdoutLine: {'line': b"reading manifest file '../build/dexter_inventory/dexter_inventory.egg-info/SOURCES.txt'\n"}
+[3.070982] (dexter_inventory) StdoutLine: {'line': b"writing manifest file '../build/dexter_inventory/dexter_inventory.egg-info/SOURCES.txt'\n"}
+[3.071529] (dexter_inventory) StdoutLine: {'line': b'running build\n'}
+[3.072200] (dexter_inventory) StdoutLine: {'line': b'running build_py\n'}
+[3.072641] (dexter_inventory) StdoutLine: {'line': b'copying dexter_inventory/inventory_node.py -> /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory\n'}
+[3.072939] (dexter_inventory) StdoutLine: {'line': b'copying dexter_inventory/ml_forecast.py -> /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory\n'}
+[3.073343] (dexter_inventory) StdoutLine: {'line': b'running install\n'}
+[3.092127] (dexter_inventory) StdoutLine: {'line': b'running install_lib\n'}
+[3.110438] (-) TimerEvent: {}
+[3.142853] (dexter_inventory) StdoutLine: {'line': b'copying /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory/inventory_node.py -> /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory\n'}
+[3.143859] (dexter_inventory) StdoutLine: {'line': b'copying /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory/ml_forecast.py -> /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory\n'}
+[3.145178] (dexter_inventory) StdoutLine: {'line': b'byte-compiling /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/inventory_node.py to inventory_node.cpython-312.pyc\n'}
+[3.151310] (dexter_inventory) StdoutLine: {'line': b'byte-compiling /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/ml_forecast.py to ml_forecast.cpython-312.pyc\n'}
+[3.155923] (dexter_inventory) StdoutLine: {'line': b'running install_data\n'}
+[3.156466] (dexter_inventory) StdoutLine: {'line': b'copying package.xml -> /home/aditya/Cpps/Dexter/install/dexter_inventory/share/dexter_inventory\n'}
+[3.157003] (dexter_inventory) StdoutLine: {'line': b'copying launch/inventory.launch.py -> /home/aditya/Cpps/Dexter/install/dexter_inventory/share/dexter_inventory/launch\n'}
+[3.157415] (dexter_inventory) StdoutLine: {'line': b'running install_egg_info\n'}
+[3.208648] (dexter_inventory) StdoutLine: {'line': b"removing '/home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory-0.1.0-py3.12.egg-info' (and everything under it)\n"}
+[3.209509] (dexter_inventory) StdoutLine: {'line': b'Copying ../build/dexter_inventory/dexter_inventory.egg-info to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory-0.1.0-py3.12.egg-info\n'}
+[3.210545] (-) TimerEvent: {}
+[3.210905] (dexter_inventory) StdoutLine: {'line': b'running install_scripts\n'}
+[3.310814] (-) TimerEvent: {}
+[3.411140] (-) TimerEvent: {}
+[3.511395] (-) TimerEvent: {}
+[3.550823] (dexter_inventory) StdoutLine: {'line': b'Installing inventory_node script to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory\n'}
+[3.551538] (dexter_inventory) StdoutLine: {'line': b'Installing seed_data script to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory\n'}
+[3.552011] (dexter_inventory) StdoutLine: {'line': b"writing list of installed files to '/home/aditya/Cpps/Dexter/build/dexter_inventory/install.log'\n"}
+[3.611617] (-) TimerEvent: {}
+[3.616410] (dexter_inventory) CommandEnded: {'returncode': 0}
+[3.636995] (dexter_inventory) JobEnded: {'identifier': 'dexter_inventory', 'rc': 0}
+[3.639010] (dexter_remote) JobStarted: {'identifier': 'dexter_remote'}
+[3.671061] (dexter_remote) JobProgress: {'identifier': 'dexter_remote', 'progress': 'cmake'}
+[3.674840] (dexter_remote) JobProgress: {'identifier': 'dexter_remote', 'progress': 'build'}
+[3.674988] (dexter_remote) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/aditya/Cpps/Dexter/build/dexter_remote', '--', '-j28', '-l28'], 'cwd': '/home/aditya/Cpps/Dexter/build/dexter_remote', 'env': OrderedDict({'GJS_DEBUG_TOPICS': 'JS ERROR;JS LOG', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'GZ_SIM_RESOURCE_PATH': '/opt/ros/jazzy/share', 'no_proxy': '127.0.0.1,localhost,::1', 'LANGUAGE': 'en_IN:en', 'OPENCODE_SERVER_USERNAME': 'opencode', 'USER': 'aditya', 'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/gz_sim_vendor/share/gz:/opt/ros/jazzy/opt/sdformat_vendor/share/gz:/opt/ros/jazzy/opt/gz_gui_vendor/share/gz:/opt/ros/jazzy/opt/gz_transport_vendor/share/gz:/opt/ros/jazzy/opt/gz_rendering_vendor/share/gz:/opt/ros/jazzy/opt/gz_plugin_vendor/share/gz:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/share/gz:/opt/ros/jazzy/opt/gz_msgs_vendor/share/gz:/opt/ros/jazzy/opt/gz_common_vendor/share/gz', 'AGENT': '1', 'XDG_SESSION_TYPE': 'x11', 'CLUTTER_DISABLE_MIPMAPPED_TEXT': '1', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/aditya/Cpps/Dexter/install/dexter_msgs/lib:/home/aditya/ros2_ws/install/my_robot_interfaces/lib:/opt/ros/jazzy/opt/gz_sim_vendor/lib:/opt/ros/jazzy/opt/gz_sensors_vendor/lib:/opt/ros/jazzy/opt/gz_physics_vendor/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_gui_vendor/lib:/opt/ros/jazzy/opt/gz_transport_vendor/lib:/opt/ros/jazzy/opt/gz_rendering_vendor/lib:/opt/ros/jazzy/opt/gz_plugin_vendor/lib:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/lib:/opt/ros/jazzy/opt/gz_msgs_vendor/lib:/opt/ros/jazzy/opt/gz_common_vendor/lib:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_ogre_next_vendor/lib:/opt/ros/jazzy/opt/gz_dartsim_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/aditya', 'OLDPWD': '/home/aditya/Cpps', 'DESKTOP_SESSION': 'ubuntu', 'NO_PROXY': '127.0.0.1,localhost,::1', 'GIO_LAUNCHED_DESKTOP_FILE': '/usr/share/applications/OpenCode.desktop', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'MANAGERPID': '3042', 'SYSTEMD_EXEC_PID': '3472', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'XDG_STATE_HOME': '/home/aditya/.local/share/ai.opencode.desktop/', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '7789', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'COLCON_PREFIX_PATH': '/home/aditya/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'aditya', 'OPENCODE_CLIENT': 'desktop', 'JOURNAL_STREAM': '8:46461', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.Shell@x11.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'aditya', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'WINDOWPATH': '2', 'OPENCODE': '1', 'PATH': '/usr/lib/ccache:/home/aditya/ardupilot/Tools/autotest:/opt/gcc-arm-none-eabi-10-2020-q4-major/bin:/home/aditya/venv-ardupilot/bin:/home/aditya/.local/bin:/usr/lib/ccache:/home/aditya/ardupilot/Tools/autotest:/opt/gcc-arm-none-eabi-10-2020-q4-major/bin:/home/aditya/venv-ardupilot/bin:/home/aditya/.local/bin:/opt/ros/jazzy/opt/gz_msgs_vendor/bin:/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/opt/gz_ogre_next_vendor/bin:/opt/ros/jazzy/bin:/usr/lib/ccache:/home/aditya/ardupilot/Tools/autotest:/opt/gcc-arm-none-eabi-10-2020-q4-major/bin:/home/aditya/venv-ardupilot/bin:/home/aditya/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/LoopingOutlaw:@/tmp/.ICE-unix/3400,unix/LoopingOutlaw:/tmp/.ICE-unix/3400', 'INVOCATION_ID': '817e26ddbb1243b59d5e6eb4b9982978', 'OPENCODE_SERVER_PASSWORD': 'dc214394-065f-430a-b4be-bb0c3f63204b', 'GTK3_MODULES': 'xapp-gtk3-module', 'XDG_MENU_PREFIX': 'gnome-', 'XDG_RUNTIME_DIR': '/run/user/1000', 'OPENCODE_EXPERIMENTAL_FILEWATCHER': 'true', 'DISPLAY': ':1', 'OPENCODE_PID': '7919', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'OPENCODE_EXPERIMENTAL_ICON_DISCOVERY': 'true', 'VIRTUAL_ENV_PROMPT': '(venv-ardupilot)', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': '', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/aditya/Cpps/Dexter/install/dexter_inventory:/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:/home/aditya/ros2_ws/install/my_robot_bringup:/home/aditya/ros2_ws/install/my_py_pkg:/home/aditya/ros2_ws/install/my_cpp_pkg:/home/aditya/ros2_ws/install/my_robot_interfaces:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'GJS_DEBUG_OUTPUT': 'stderr', 'VIRTUAL_ENV': '/home/aditya/venv-ardupilot', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/aditya/Cpps/Dexter/build/dexter_remote', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'QTWEBENGINE_DICTIONARIES_PATH': '/usr/share/hunspell-bdic/', 'PYTHONPATH': '/home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages:/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages:/home/aditya/ros2_ws/install/my_py_pkg/lib/python3.12/site-packages:/home/aditya/ros2_ws/install/my_robot_interfaces/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'CMAKE_PREFIX_PATH': '/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:/home/aditya/ros2_ws/install/my_robot_bringup:/home/aditya/ros2_ws/install/my_cpp_pkg:/home/aditya/ros2_ws/install/my_robot_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy'}), 'shell': False}
+[3.711829] (-) TimerEvent: {}
+[3.752055] (dexter_remote) StdoutLine: {'line': b'-- Found ament_cmake: 2.5.5 (/opt/ros/jazzy/share/ament_cmake/cmake)\n'}
+[3.812106] (-) TimerEvent: {}
+[3.912463] (-) TimerEvent: {}
+[4.012743] (-) TimerEvent: {}
+[4.113110] (-) TimerEvent: {}
+[4.213450] (-) TimerEvent: {}
+[4.313808] (-) TimerEvent: {}
+[4.403152] (dexter_remote) StdoutLine: {'line': b'-- Found rclcpp: 28.1.16 (/opt/ros/jazzy/share/rclcpp/cmake)\n'}
+[4.413937] (-) TimerEvent: {}
+[4.490053] (dexter_remote) StdoutLine: {'line': b'-- Found rosidl_generator_c: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)\n'}
+[4.514145] (-) TimerEvent: {}
+[4.515686] (dexter_remote) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)\n'}
+[4.549197] (dexter_remote) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[4.588576] (dexter_remote) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[4.614323] (-) TimerEvent: {}
+[4.714668] (-) TimerEvent: {}
+[4.772372] (dexter_remote) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 7.3.3 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)\n'}
+[4.776701] (dexter_remote) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)\n'}
+[4.814859] (-) TimerEvent: {}
+[4.915311] (-) TimerEvent: {}
+[4.976518] (dexter_remote) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[5.015532] (-) TimerEvent: {}
+[5.116025] (-) TimerEvent: {}
+[5.173620] (dexter_remote) StdoutLine: {'line': b'-- Found rclcpp_action: 28.1.16 (/opt/ros/jazzy/share/rclcpp_action/cmake)\n'}
+[5.216292] (-) TimerEvent: {}
+[5.291632] (dexter_remote) StdoutLine: {'line': b'-- Found rclcpp_components: 28.1.16 (/opt/ros/jazzy/share/rclcpp_components/cmake)\n'}
+[5.316570] (-) TimerEvent: {}
+[5.373333] (dexter_remote) StdoutLine: {'line': b'-- Found dexter_msgs: 0.0.0 (/home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake)\n'}
+[5.416779] (-) TimerEvent: {}
+[5.439950] (dexter_remote) StdoutLine: {'line': b'-- Found moveit_ros_planning_interface: 2.12.4 (/opt/ros/jazzy/share/moveit_ros_planning_interface/cmake)\n'}
+[5.474535] (dexter_remote) StdoutLine: {'line': b'-- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfig.cmake (found version "1.83.0") found components: date_time filesystem program_options system thread \n'}
+[5.516937] (-) TimerEvent: {}
+[5.617316] (-) TimerEvent: {}
+[5.717628] (-) TimerEvent: {}
+[5.818066] (-) TimerEvent: {}
+[5.918457] (-) TimerEvent: {}
+[6.018896] (-) TimerEvent: {}
+[6.119375] (-) TimerEvent: {}
+[6.168845] (dexter_remote) StdoutLine: {'line': b'-- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfig.cmake (found version "1.83.0") found components: chrono date_time filesystem iostreams program_options regex serialization system thread \n'}
+[6.219524] (-) TimerEvent: {}
+[6.258583] (dexter_remote) StdoutLine: {'line': b'-- Found parameter_traits: 0.6.0 (/opt/ros/jazzy/share/parameter_traits/cmake)\n'}
+[6.276446] (dexter_remote) StdoutLine: {'line': b'-- Found rclcpp_lifecycle: 28.1.16 (/opt/ros/jazzy/share/rclcpp_lifecycle/cmake)\n'}
+[6.319736] (-) TimerEvent: {}
+[6.375455] (dexter_remote) StdoutLine: {'line': b'-- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfig.cmake (found version "1.83.0") found components: filesystem \n'}
+[6.419907] (-) TimerEvent: {}
+[6.513511] (dexter_remote) StdoutLine: {'line': b'-- Ensuring Eigen3 include directory is part of orocos-kdl CMake target\n'}
+[6.520174] (-) TimerEvent: {}
+[6.620631] (-) TimerEvent: {}
+[6.721055] (-) TimerEvent: {}
+[6.794920] (dexter_remote) StdoutLine: {'line': b'-- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfig.cmake (found version "1.83.0") found components: system filesystem date_time program_options thread chrono \n'}
+[6.821513] (-) TimerEvent: {}
+[6.921891] (-) TimerEvent: {}
+[6.950258] (dexter_remote) StdoutLine: {'line': b'-- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfig.cmake (found version "1.83.0") found components: thread system filesystem regex date_time program_options \n'}
+[7.022073] (-) TimerEvent: {}
+[7.028382] (dexter_remote) StdoutLine: {'line': b'-- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfig.cmake (found version "1.83.0") found components: system filesystem date_time program_options thread \n'}
+[7.122398] (-) TimerEvent: {}
+[7.144348] (dexter_remote) StdoutLine: {'line': b'-- Found rclpy: 7.1.9 (/opt/ros/jazzy/share/rclpy/cmake)\n'}
+[7.222528] (-) TimerEvent: {}
+[7.322809] (-) TimerEvent: {}
+[7.423085] (-) TimerEvent: {}
+[7.523406] (-) TimerEvent: {}
+[7.623681] (-) TimerEvent: {}
+[7.693584] (dexter_remote) StdoutLine: {'line': b'-- Configuring done (4.0s)\n'}
+[7.723835] (-) TimerEvent: {}
+[7.782351] (dexter_remote) StdoutLine: {'line': b'-- Generating done (0.0s)\n'}
+[7.805618] (dexter_remote) StdoutLine: {'line': b'-- Build files have been written to: /home/aditya/Cpps/Dexter/build/dexter_remote\n'}
+[7.824078] (-) TimerEvent: {}
+[7.924427] (-) TimerEvent: {}
+[7.944563] (dexter_remote) StdoutLine: {'line': b'[ 50%] Built target task_server_node\n'}
+[7.949546] (dexter_remote) StdoutLine: {'line': b'[ 50%] Built target ament_cmake_python_copy_dexter_remote\n'}
+[7.968803] (dexter_remote) StdoutLine: {'line': b'[100%] Built target task_server\n'}
+[8.024746] (-) TimerEvent: {}
+[8.125184] (-) TimerEvent: {}
+[8.225517] (-) TimerEvent: {}
+[8.325929] (-) TimerEvent: {}
+[8.426328] (-) TimerEvent: {}
+[8.526794] (-) TimerEvent: {}
+[8.625101] (dexter_remote) StdoutLine: {'line': b'running egg_info\n'}
+[8.626894] (-) TimerEvent: {}
+[8.683787] (dexter_remote) StdoutLine: {'line': b'writing dexter_remote.egg-info/PKG-INFO\n'}
+[8.684784] (dexter_remote) StdoutLine: {'line': b'writing dependency_links to dexter_remote.egg-info/dependency_links.txt\n'}
+[8.685447] (dexter_remote) StdoutLine: {'line': b'writing top-level names to dexter_remote.egg-info/top_level.txt\n'}
+[8.727168] (-) TimerEvent: {}
+[8.827547] (-) TimerEvent: {}
+[8.858978] (dexter_remote) StdoutLine: {'line': b"reading manifest file 'dexter_remote.egg-info/SOURCES.txt'\n"}
+[8.861958] (dexter_remote) StdoutLine: {'line': b"writing manifest file 'dexter_remote.egg-info/SOURCES.txt'\n"}
+[8.927825] (-) TimerEvent: {}
+[8.940551] (dexter_remote) StdoutLine: {'line': b'[100%] Built target ament_cmake_python_build_dexter_remote_egg\n'}
+[8.972281] (dexter_remote) CommandEnded: {'returncode': 0}
+[8.973809] (dexter_remote) JobProgress: {'identifier': 'dexter_remote', 'progress': 'install'}
+[9.000159] (dexter_remote) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/aditya/Cpps/Dexter/build/dexter_remote'], 'cwd': '/home/aditya/Cpps/Dexter/build/dexter_remote', 'env': OrderedDict({'GJS_DEBUG_TOPICS': 'JS ERROR;JS LOG', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'GZ_SIM_RESOURCE_PATH': '/opt/ros/jazzy/share', 'no_proxy': '127.0.0.1,localhost,::1', 'LANGUAGE': 'en_IN:en', 'OPENCODE_SERVER_USERNAME': 'opencode', 'USER': 'aditya', 'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/gz_sim_vendor/share/gz:/opt/ros/jazzy/opt/sdformat_vendor/share/gz:/opt/ros/jazzy/opt/gz_gui_vendor/share/gz:/opt/ros/jazzy/opt/gz_transport_vendor/share/gz:/opt/ros/jazzy/opt/gz_rendering_vendor/share/gz:/opt/ros/jazzy/opt/gz_plugin_vendor/share/gz:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/share/gz:/opt/ros/jazzy/opt/gz_msgs_vendor/share/gz:/opt/ros/jazzy/opt/gz_common_vendor/share/gz', 'AGENT': '1', 'XDG_SESSION_TYPE': 'x11', 'CLUTTER_DISABLE_MIPMAPPED_TEXT': '1', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/aditya/Cpps/Dexter/install/dexter_msgs/lib:/home/aditya/ros2_ws/install/my_robot_interfaces/lib:/opt/ros/jazzy/opt/gz_sim_vendor/lib:/opt/ros/jazzy/opt/gz_sensors_vendor/lib:/opt/ros/jazzy/opt/gz_physics_vendor/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_gui_vendor/lib:/opt/ros/jazzy/opt/gz_transport_vendor/lib:/opt/ros/jazzy/opt/gz_rendering_vendor/lib:/opt/ros/jazzy/opt/gz_plugin_vendor/lib:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/lib:/opt/ros/jazzy/opt/gz_msgs_vendor/lib:/opt/ros/jazzy/opt/gz_common_vendor/lib:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_ogre_next_vendor/lib:/opt/ros/jazzy/opt/gz_dartsim_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/aditya', 'OLDPWD': '/home/aditya/Cpps', 'DESKTOP_SESSION': 'ubuntu', 'NO_PROXY': '127.0.0.1,localhost,::1', 'GIO_LAUNCHED_DESKTOP_FILE': '/usr/share/applications/OpenCode.desktop', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'MANAGERPID': '3042', 'SYSTEMD_EXEC_PID': '3472', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'XDG_STATE_HOME': '/home/aditya/.local/share/ai.opencode.desktop/', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '7789', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'COLCON_PREFIX_PATH': '/home/aditya/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'aditya', 'OPENCODE_CLIENT': 'desktop', 'JOURNAL_STREAM': '8:46461', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.Shell@x11.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'aditya', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'WINDOWPATH': '2', 'OPENCODE': '1', 'PATH': '/usr/lib/ccache:/home/aditya/ardupilot/Tools/autotest:/opt/gcc-arm-none-eabi-10-2020-q4-major/bin:/home/aditya/venv-ardupilot/bin:/home/aditya/.local/bin:/usr/lib/ccache:/home/aditya/ardupilot/Tools/autotest:/opt/gcc-arm-none-eabi-10-2020-q4-major/bin:/home/aditya/venv-ardupilot/bin:/home/aditya/.local/bin:/opt/ros/jazzy/opt/gz_msgs_vendor/bin:/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/opt/gz_ogre_next_vendor/bin:/opt/ros/jazzy/bin:/usr/lib/ccache:/home/aditya/ardupilot/Tools/autotest:/opt/gcc-arm-none-eabi-10-2020-q4-major/bin:/home/aditya/venv-ardupilot/bin:/home/aditya/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/LoopingOutlaw:@/tmp/.ICE-unix/3400,unix/LoopingOutlaw:/tmp/.ICE-unix/3400', 'INVOCATION_ID': '817e26ddbb1243b59d5e6eb4b9982978', 'OPENCODE_SERVER_PASSWORD': 'dc214394-065f-430a-b4be-bb0c3f63204b', 'GTK3_MODULES': 'xapp-gtk3-module', 'XDG_MENU_PREFIX': 'gnome-', 'XDG_RUNTIME_DIR': '/run/user/1000', 'OPENCODE_EXPERIMENTAL_FILEWATCHER': 'true', 'DISPLAY': ':1', 'OPENCODE_PID': '7919', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'OPENCODE_EXPERIMENTAL_ICON_DISCOVERY': 'true', 'VIRTUAL_ENV_PROMPT': '(venv-ardupilot)', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': '', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/aditya/Cpps/Dexter/install/dexter_inventory:/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:/home/aditya/ros2_ws/install/my_robot_bringup:/home/aditya/ros2_ws/install/my_py_pkg:/home/aditya/ros2_ws/install/my_cpp_pkg:/home/aditya/ros2_ws/install/my_robot_interfaces:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'GJS_DEBUG_OUTPUT': 'stderr', 'VIRTUAL_ENV': '/home/aditya/venv-ardupilot', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/aditya/Cpps/Dexter/build/dexter_remote', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'QTWEBENGINE_DICTIONARIES_PATH': '/usr/share/hunspell-bdic/', 'PYTHONPATH': '/home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages:/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages:/home/aditya/ros2_ws/install/my_py_pkg/lib/python3.12/site-packages:/home/aditya/ros2_ws/install/my_robot_interfaces/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'CMAKE_PREFIX_PATH': '/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:/home/aditya/ros2_ws/install/my_robot_bringup:/home/aditya/ros2_ws/install/my_cpp_pkg:/home/aditya/ros2_ws/install/my_robot_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy'}), 'shell': False}
+[9.022571] (dexter_remote) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[9.023407] (dexter_remote) StdoutLine: {'line': b'-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_remote/lib/dexter_remote/task_server_node\n'}
+[9.024316] (dexter_remote) StdoutLine: {'line': b'-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/environment/pythonpath.sh\n'}
+[9.024623] (dexter_remote) StdoutLine: {'line': b'-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/environment/pythonpath.dsv\n'}
+[9.024800] (dexter_remote) StdoutLine: {'line': b'-- Installing: /home/aditya/Cpps/Dexter/install/dexter_remote/lib/python3.12/site-packages/dexter_remote-0.1.0-py3.12.egg-info\n'}
+[9.024956] (dexter_remote) StdoutLine: {'line': b'-- Installing: /home/aditya/Cpps/Dexter/install/dexter_remote/lib/python3.12/site-packages/dexter_remote-0.1.0-py3.12.egg-info/SOURCES.txt\n'}
+[9.025119] (dexter_remote) StdoutLine: {'line': b'-- Installing: /home/aditya/Cpps/Dexter/install/dexter_remote/lib/python3.12/site-packages/dexter_remote-0.1.0-py3.12.egg-info/PKG-INFO\n'}
+[9.025292] (dexter_remote) StdoutLine: {'line': b'-- Installing: /home/aditya/Cpps/Dexter/install/dexter_remote/lib/python3.12/site-packages/dexter_remote-0.1.0-py3.12.egg-info/dependency_links.txt\n'}
+[9.025447] (dexter_remote) StdoutLine: {'line': b'-- Installing: /home/aditya/Cpps/Dexter/install/dexter_remote/lib/python3.12/site-packages/dexter_remote-0.1.0-py3.12.egg-info/top_level.txt\n'}
+[9.025704] (dexter_remote) StdoutLine: {'line': b'-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_remote/lib/python3.12/site-packages/dexter_remote\n'}
+[9.025846] (dexter_remote) StdoutLine: {'line': b'-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_remote/lib/python3.12/site-packages/dexter_remote/task_server.py\n'}
+[9.025983] (dexter_remote) StdoutLine: {'line': b'-- Installing: /home/aditya/Cpps/Dexter/install/dexter_remote/lib/python3.12/site-packages/dexter_remote/web_interface.py\n'}
+[9.026120] (dexter_remote) StdoutLine: {'line': b'-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_remote/lib/python3.12/site-packages/dexter_remote/__init__.py\n'}
+[9.027877] (-) TimerEvent: {}
+[9.128127] (-) TimerEvent: {}
+[9.154573] (dexter_remote) StdoutLine: {'line': b"Listing '/home/aditya/Cpps/Dexter/install/dexter_remote/lib/python3.12/site-packages/dexter_remote'...\n"}
+[9.155008] (dexter_remote) StdoutLine: {'line': b"Compiling '/home/aditya/Cpps/Dexter/install/dexter_remote/lib/python3.12/site-packages/dexter_remote/web_interface.py'...\n"}
+[9.172684] (dexter_remote) StdoutLine: {'line': b'-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/launch\n'}
+[9.173135] (dexter_remote) StdoutLine: {'line': b'-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/launch/remote_interface.launch.py\n'}
+[9.173329] (dexter_remote) StdoutLine: {'line': b'-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/templates\n'}
+[9.174175] (dexter_remote) StdoutLine: {'line': b'-- Installing: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/templates/index.html\n'}
+[9.174409] (dexter_remote) StdoutLine: {'line': b'-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_remote/lib/libtask_server.so\n'}
+[9.174574] (dexter_remote) StdoutLine: {'line': b'-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_remote/lib/dexter_remote/task_server.py\n'}
+[9.174729] (dexter_remote) StdoutLine: {'line': b'-- Installing: /home/aditya/Cpps/Dexter/install/dexter_remote/lib/dexter_remote/web_interface.py\n'}
+[9.175260] (dexter_remote) StdoutLine: {'line': b'-- Installing: /home/aditya/Cpps/Dexter/install/dexter_remote/share/ament_index/resource_index/package_run_dependencies/dexter_remote\n'}
+[9.175441] (dexter_remote) StdoutLine: {'line': b'-- Installing: /home/aditya/Cpps/Dexter/install/dexter_remote/share/ament_index/resource_index/parent_prefix_path/dexter_remote\n'}
+[9.175598] (dexter_remote) StdoutLine: {'line': b'-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/environment/ament_prefix_path.sh\n'}
+[9.175747] (dexter_remote) StdoutLine: {'line': b'-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/environment/ament_prefix_path.dsv\n'}
+[9.175896] (dexter_remote) StdoutLine: {'line': b'-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/environment/path.sh\n'}
+[9.176045] (dexter_remote) StdoutLine: {'line': b'-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/environment/path.dsv\n'}
+[9.176194] (dexter_remote) StdoutLine: {'line': b'-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/local_setup.bash\n'}
+[9.176356] (dexter_remote) StdoutLine: {'line': b'-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/local_setup.sh\n'}
+[9.176536] (dexter_remote) StdoutLine: {'line': b'-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/local_setup.zsh\n'}
+[9.176680] (dexter_remote) StdoutLine: {'line': b'-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/local_setup.dsv\n'}
+[9.176996] (dexter_remote) StdoutLine: {'line': b'-- Installing: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/package.dsv\n'}
+[9.177144] (dexter_remote) StdoutLine: {'line': b'-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_remote/share/ament_index/resource_index/packages/dexter_remote\n'}
+[9.177306] (dexter_remote) StdoutLine: {'line': b'-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_remote/share/ament_index/resource_index/rclcpp_components/dexter_remote\n'}
+[9.177460] (dexter_remote) StdoutLine: {'line': b'-- Installing: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/cmake/dexter_remoteConfig.cmake\n'}
+[9.177609] (dexter_remote) StdoutLine: {'line': b'-- Installing: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/cmake/dexter_remoteConfig-version.cmake\n'}
+[9.177747] (dexter_remote) StdoutLine: {'line': b'-- Installing: /home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/package.xml\n'}
+[9.180983] (dexter_remote) CommandEnded: {'returncode': 0}
+[9.213339] (dexter_remote) JobEnded: {'identifier': 'dexter_remote', 'rc': 0}
+[9.214682] (-) EventReactorShutdown: {}

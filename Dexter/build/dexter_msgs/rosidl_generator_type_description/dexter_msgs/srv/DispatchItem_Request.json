@@ -1,0 +1,26 @@
+{
+  "type_description_msg": {
+    "type_description": {
+      "type_name": "dexter_msgs/srv/DispatchItem_Request",
+      "fields": [
+        {
+          "name": "mode",
+          "type": {
+            "type_id": 17,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        }
+      ]
+    },
+    "referenced_type_descriptions": []
+  },
+  "type_hashes": [
+    {
+      "type_name": "dexter_msgs/srv/DispatchItem_Request",
+      "hash_string": "RIHS01_dc95701418fcc435931576fc722ac748d5d6801a2706886a1bf4cfdfdc2ef380"
+    }
+  ]
+}

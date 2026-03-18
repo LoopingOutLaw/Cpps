@@ -1,0 +1,147 @@
+[0.392s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'list']
+[0.392s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='list', build_base='build', ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, topological_order=False, names_only=False, paths_only=False, topological_graph=False, topological_graph_dot=False, topological_graph_density=False, topological_graph_legend=False, topological_graph_dot_cluster=False, topological_graph_dot_include_skipped=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7c4ac843d220>, verb_extension=<colcon_package_information.verb.list.ListVerb object at 0x7c4ac856d130>, main=<bound method ListVerb.main of <colcon_package_information.verb.list.ListVerb object at 0x7c4ac856d130>>)
+[0.528s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.528s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.528s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.528s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.528s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.528s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.529s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/aditya/Cpps/Dexter'
+[0.529s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.529s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.529s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.529s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.529s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.529s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.530s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.530s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.530s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.607s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.607s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.608s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.608s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.608s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.608s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.608s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.608s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.609s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_bringup) by extensions ['ignore', 'ignore_ament_install']
+[0.609s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_bringup) by extension 'ignore'
+[0.609s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_bringup) by extension 'ignore_ament_install'
+[0.609s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_bringup) by extensions ['colcon_pkg']
+[0.609s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_bringup) by extension 'colcon_pkg'
+[0.609s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_bringup) by extensions ['colcon_meta']
+[0.609s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_bringup) by extension 'colcon_meta'
+[0.609s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_bringup) by extensions ['ros']
+[0.609s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_bringup) by extension 'ros'
+[0.617s] DEBUG:colcon.colcon_core.package_identification:Package 'dexter_bringup' with type 'ros.ament_cmake' and name 'dexter_bringup'
+[0.617s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_controller) by extensions ['ignore', 'ignore_ament_install']
+[0.617s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_controller) by extension 'ignore'
+[0.618s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_controller) by extension 'ignore_ament_install'
+[0.618s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_controller) by extensions ['colcon_pkg']
+[0.618s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_controller) by extension 'colcon_pkg'
+[0.618s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_controller) by extensions ['colcon_meta']
+[0.618s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_controller) by extension 'colcon_meta'
+[0.618s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_controller) by extensions ['ros']
+[0.618s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_controller) by extension 'ros'
+[0.621s] DEBUG:colcon.colcon_core.package_identification:Package 'dexter_controller' with type 'ros.ament_cmake' and name 'dexter_controller'
+[0.621s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_cpp_examples) by extensions ['ignore', 'ignore_ament_install']
+[0.621s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_cpp_examples) by extension 'ignore'
+[0.621s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_cpp_examples) by extension 'ignore_ament_install'
+[0.622s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_cpp_examples) by extensions ['colcon_pkg']
+[0.622s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_cpp_examples) by extension 'colcon_pkg'
+[0.622s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_cpp_examples) by extensions ['colcon_meta']
+[0.622s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_cpp_examples) by extension 'colcon_meta'
+[0.622s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_cpp_examples) by extensions ['ros']
+[0.622s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_cpp_examples) by extension 'ros'
+[0.625s] DEBUG:colcon.colcon_core.package_identification:Package 'dexter_cpp_examples' with type 'ros.ament_cmake' and name 'dexter_cpp_examples'
+[0.625s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_description) by extensions ['ignore', 'ignore_ament_install']
+[0.625s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_description) by extension 'ignore'
+[0.626s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_description) by extension 'ignore_ament_install'
+[0.626s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_description) by extensions ['colcon_pkg']
+[0.626s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_description) by extension 'colcon_pkg'
+[0.626s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_description) by extensions ['colcon_meta']
+[0.626s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_description) by extension 'colcon_meta'
+[0.626s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_description) by extensions ['ros']
+[0.626s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_description) by extension 'ros'
+[0.637s] DEBUG:colcon.colcon_core.package_identification:Package 'dexter_description' with type 'ros.ament_cmake' and name 'dexter_description'
+[0.637s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_firmware) by extensions ['ignore', 'ignore_ament_install']
+[0.637s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_firmware) by extension 'ignore'
+[0.638s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_firmware) by extension 'ignore_ament_install'
+[0.638s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_firmware) by extensions ['colcon_pkg']
+[0.638s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_firmware) by extension 'colcon_pkg'
+[0.638s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_firmware) by extensions ['colcon_meta']
+[0.638s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_firmware) by extension 'colcon_meta'
+[0.638s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_firmware) by extensions ['ros']
+[0.638s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_firmware) by extension 'ros'
+[0.640s] DEBUG:colcon.colcon_core.package_identification:Package 'dexter_firmware' with type 'ros.ament_cmake' and name 'dexter_firmware'
+[0.640s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_inventory) by extensions ['ignore', 'ignore_ament_install']
+[0.641s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_inventory) by extension 'ignore'
+[0.641s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_inventory) by extension 'ignore_ament_install'
+[0.641s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_inventory) by extensions ['colcon_pkg']
+[0.641s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_inventory) by extension 'colcon_pkg'
+[0.641s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_inventory) by extensions ['colcon_meta']
+[0.641s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_inventory) by extension 'colcon_meta'
+[0.641s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_inventory) by extensions ['ros']
+[0.641s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_inventory) by extension 'ros'
+[0.644s] DEBUG:colcon.colcon_core.package_identification:Package 'dexter_inventory' with type 'ros.ament_python' and name 'dexter_inventory'
+[0.644s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_moveit) by extensions ['ignore', 'ignore_ament_install']
+[0.645s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_moveit) by extension 'ignore'
+[0.645s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_moveit) by extension 'ignore_ament_install'
+[0.645s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_moveit) by extensions ['colcon_pkg']
+[0.645s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_moveit) by extension 'colcon_pkg'
+[0.645s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_moveit) by extensions ['colcon_meta']
+[0.645s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_moveit) by extension 'colcon_meta'
+[0.645s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_moveit) by extensions ['ros']
+[0.645s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_moveit) by extension 'ros'
+[0.647s] DEBUG:colcon.colcon_core.package_identification:Package 'dexter_moveit' with type 'ros.ament_cmake' and name 'dexter_moveit'
+[0.647s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_msgs) by extensions ['ignore', 'ignore_ament_install']
+[0.647s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_msgs) by extension 'ignore'
+[0.647s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_msgs) by extension 'ignore_ament_install'
+[0.648s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_msgs) by extensions ['colcon_pkg']
+[0.648s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_msgs) by extension 'colcon_pkg'
+[0.648s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_msgs) by extensions ['colcon_meta']
+[0.648s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_msgs) by extension 'colcon_meta'
+[0.648s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_msgs) by extensions ['ros']
+[0.648s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_msgs) by extension 'ros'
+[0.650s] DEBUG:colcon.colcon_core.package_identification:Package 'dexter_msgs' with type 'ros.ament_cmake' and name 'dexter_msgs'
+[0.650s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_py_examples) by extensions ['ignore', 'ignore_ament_install']
+[0.650s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_py_examples) by extension 'ignore'
+[0.650s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_py_examples) by extension 'ignore_ament_install'
+[0.650s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_py_examples) by extensions ['colcon_pkg']
+[0.650s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_py_examples) by extension 'colcon_pkg'
+[0.651s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_py_examples) by extensions ['colcon_meta']
+[0.651s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_py_examples) by extension 'colcon_meta'
+[0.651s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_py_examples) by extensions ['ros']
+[0.651s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_py_examples) by extension 'ros'
+[0.653s] DEBUG:colcon.colcon_core.package_identification:Package 'dexter_py_examples' with type 'ros.ament_python' and name 'dexter_py_examples'
+[0.653s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_remote) by extensions ['ignore', 'ignore_ament_install']
+[0.655s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_remote) by extension 'ignore'
+[0.656s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_remote) by extension 'ignore_ament_install'
+[0.656s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_remote) by extensions ['colcon_pkg']
+[0.656s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_remote) by extension 'colcon_pkg'
+[0.656s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_remote) by extensions ['colcon_meta']
+[0.656s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_remote) by extension 'colcon_meta'
+[0.656s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_remote) by extensions ['ros']
+[0.656s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_remote) by extension 'ros'
+[0.659s] DEBUG:colcon.colcon_core.package_identification:Package 'dexter_remote' with type 'ros.ament_cmake' and name 'dexter_remote'
+[0.659s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_utils) by extensions ['ignore', 'ignore_ament_install']
+[0.659s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_utils) by extension 'ignore'
+[0.660s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_utils) by extension 'ignore_ament_install'
+[0.660s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_utils) by extensions ['colcon_pkg']
+[0.660s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_utils) by extension 'colcon_pkg'
+[0.660s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_utils) by extensions ['colcon_meta']
+[0.660s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_utils) by extension 'colcon_meta'
+[0.660s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_utils) by extensions ['ros']
+[0.660s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_utils) by extension 'ros'
+[0.662s] DEBUG:colcon.colcon_core.package_identification:Package 'dexter_utils' with type 'ros.ament_cmake' and name 'dexter_utils'
+[0.662s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.662s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.662s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.662s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.663s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.663s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.663s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.663s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.663s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.663s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.663s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults

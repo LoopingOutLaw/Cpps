@@ -1,0 +1,26 @@
+{
+  "type_description_msg": {
+    "type_description": {
+      "type_name": "dexter_msgs/action/Fibonacci_Result",
+      "fields": [
+        {
+          "name": "sequence",
+          "type": {
+            "type_id": 150,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        }
+      ]
+    },
+    "referenced_type_descriptions": []
+  },
+  "type_hashes": [
+    {
+      "type_name": "dexter_msgs/action/Fibonacci_Result",
+      "hash_string": "RIHS01_a8f42901cdc3837cda44ce6120a52cbb47e85dbb84a41bdbfe5bd51b8f519bb8"
+    }
+  ]
+}

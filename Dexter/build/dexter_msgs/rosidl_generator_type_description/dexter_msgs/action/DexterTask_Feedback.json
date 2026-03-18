@@ -1,0 +1,26 @@
+{
+  "type_description_msg": {
+    "type_description": {
+      "type_name": "dexter_msgs/action/DexterTask_Feedback",
+      "fields": [
+        {
+          "name": "percentage",
+          "type": {
+            "type_id": 6,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        }
+      ]
+    },
+    "referenced_type_descriptions": []
+  },
+  "type_hashes": [
+    {
+      "type_name": "dexter_msgs/action/DexterTask_Feedback",
+      "hash_string": "RIHS01_8dd226a5f6f07a67a3292aa465bad17cfbd8233a7ca69fc6f2bf057887aafdb2"
+    }
+  ]
+}

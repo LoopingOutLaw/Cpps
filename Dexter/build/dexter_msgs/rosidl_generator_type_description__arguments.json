@@ -1,0 +1,19 @@
+{
+  "package_name": "dexter_msgs",
+  "output_dir": "/home/aditya/Cpps/Dexter/build/dexter_msgs/rosidl_generator_type_description/dexter_msgs",
+  "idl_tuples": [
+    "/home/aditya/Cpps/Dexter/build/dexter_msgs/rosidl_adapter/dexter_msgs:srv/AddTwoInts.idl",
+    "/home/aditya/Cpps/Dexter/build/dexter_msgs/rosidl_adapter/dexter_msgs:srv/EulerToQuaternion.idl",
+    "/home/aditya/Cpps/Dexter/build/dexter_msgs/rosidl_adapter/dexter_msgs:srv/QuaternionToEuler.idl",
+    "/home/aditya/Cpps/Dexter/build/dexter_msgs/rosidl_adapter/dexter_msgs:action/Fibonacci.idl",
+    "/home/aditya/Cpps/Dexter/build/dexter_msgs/rosidl_adapter/dexter_msgs:action/DexterTask.idl",
+    "/home/aditya/Cpps/Dexter/build/dexter_msgs/rosidl_adapter/dexter_msgs:srv/DispatchItem.idl",
+    "/home/aditya/Cpps/Dexter/build/dexter_msgs/rosidl_adapter/dexter_msgs:srv/AddItem.idl"
+  ],
+  "include_paths": [
+    "service_msgs:/opt/ros/jazzy/share/service_msgs",
+    "builtin_interfaces:/opt/ros/jazzy/share/builtin_interfaces",
+    "action_msgs:/opt/ros/jazzy/share/action_msgs",
+    "unique_identifier_msgs:/opt/ros/jazzy/share/unique_identifier_msgs"
+  ]
+}

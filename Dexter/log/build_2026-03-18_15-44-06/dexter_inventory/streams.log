@@ -1,0 +1,28 @@
+[2.039s] Invoking command in '/home/aditya/Cpps/Dexter/dexter_inventory': AMENT_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/aditya/Cpps/Dexter/build/dexter_inventory/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages:/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/dexter_inventory build --build-base /home/aditya/Cpps/Dexter/build/dexter_inventory/build install --record /home/aditya/Cpps/Dexter/build/dexter_inventory/install.log --single-version-externally-managed install_data
+[2.710s] running egg_info
+[2.756s] writing ../build/dexter_inventory/dexter_inventory.egg-info/PKG-INFO
+[2.757s] writing dependency_links to ../build/dexter_inventory/dexter_inventory.egg-info/dependency_links.txt
+[2.757s] writing entry points to ../build/dexter_inventory/dexter_inventory.egg-info/entry_points.txt
+[2.758s] writing requirements to ../build/dexter_inventory/dexter_inventory.egg-info/requires.txt
+[2.758s] writing top-level names to ../build/dexter_inventory/dexter_inventory.egg-info/top_level.txt
+[2.853s] reading manifest file '../build/dexter_inventory/dexter_inventory.egg-info/SOURCES.txt'
+[2.855s] writing manifest file '../build/dexter_inventory/dexter_inventory.egg-info/SOURCES.txt'
+[2.855s] running build
+[2.855s] running build_py
+[2.856s] copying dexter_inventory/standalone_dashboard.py -> /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory
+[2.856s] running install
+[2.870s] running install_lib
+[2.915s] copying /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory/standalone_dashboard.py -> /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory
+[2.917s] byte-compiling /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/standalone_dashboard.py to standalone_dashboard.cpython-312.pyc
+[2.926s] running install_data
+[2.926s] creating /home/aditya/Cpps/Dexter/install/dexter_inventory/share/dexter_inventory/templates
+[2.927s] copying templates/index.html -> /home/aditya/Cpps/Dexter/install/dexter_inventory/share/dexter_inventory/templates
+[2.927s] running install_egg_info
+[2.976s] removing '/home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory-0.1.0-py3.12.egg-info' (and everything under it)
+[2.977s] Copying ../build/dexter_inventory/dexter_inventory.egg-info to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory-0.1.0-py3.12.egg-info
+[2.978s] running install_scripts
+[3.302s] Installing inventory_node script to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory
+[3.303s] Installing seed_data script to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory
+[3.303s] Installing standalone_dashboard script to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory
+[3.304s] writing list of installed files to '/home/aditya/Cpps/Dexter/build/dexter_inventory/install.log'
+[3.365s] Invoked command in '/home/aditya/Cpps/Dexter/dexter_inventory' returned '0': AMENT_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/aditya/Cpps/Dexter/build/dexter_inventory/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages:/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/dexter_inventory build --build-base /home/aditya/Cpps/Dexter/build/dexter_inventory/build install --record /home/aditya/Cpps/Dexter/build/dexter_inventory/install.log --single-version-externally-managed install_data

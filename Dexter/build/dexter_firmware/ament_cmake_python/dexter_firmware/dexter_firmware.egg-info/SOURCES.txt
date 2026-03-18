@@ -1,0 +1,8 @@
+setup.py
+dexter_firmware/__init__.py
+dexter_firmware/simple_serial_receiver.py
+dexter_firmware/simple_serial_transmitter.py
+dexter_firmware.egg-info/PKG-INFO
+dexter_firmware.egg-info/SOURCES.txt
+dexter_firmware.egg-info/dependency_links.txt
+dexter_firmware.egg-info/top_level.txt

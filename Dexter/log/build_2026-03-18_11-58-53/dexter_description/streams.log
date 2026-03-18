@@ -1,0 +1,69 @@
+[0.031s] Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/Cpps/Dexter/install/dexter_py_examples:/home/aditya/Cpps/Dexter/install/dexter_inventory:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake /home/aditya/Cpps/Dexter/dexter_description -DCMAKE_INSTALL_PREFIX=/home/aditya/Cpps/Dexter/install/dexter_description
+[0.238s] -- The C compiler identification is GNU 13.3.0
+[0.407s] -- The CXX compiler identification is GNU 13.3.0
+[0.452s] -- Detecting C compiler ABI info
+[0.634s] -- Detecting C compiler ABI info - done
+[0.648s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.649s] -- Detecting C compile features
+[0.649s] -- Detecting C compile features - done
+[0.664s] -- Detecting CXX compiler ABI info
+[0.851s] -- Detecting CXX compiler ABI info - done
+[0.875s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.877s] -- Detecting CXX compile features
+[0.877s] -- Detecting CXX compile features - done
+[0.913s] -- Found ament_cmake: 2.5.5 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[1.304s] -- Found Python3: /home/aditya/venv-ardupilot/bin/python3 (found version "3.12.3") found components: Interpreter 
+[1.627s] -- Found ament_lint_auto: 0.17.4 (/opt/ros/jazzy/share/ament_lint_auto/cmake)
+[1.874s] -- Added test 'copyright' to check source files copyright and LICENSE
+[1.881s] -- Added test 'flake8' to check Python code syntax and style conventions
+[1.881s] -- Configured 'flake8' exclude dirs and/or files: 
+[1.883s] -- Added test 'lint_cmake' to check CMake code style
+[1.886s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[1.890s] -- Added test 'xmllint' to check XML markup files
+[1.896s] -- Configuring done (1.8s)
+[1.902s] -- Generating done (0.0s)
+[1.906s] -- Build files have been written to: /home/aditya/Cpps/Dexter/build/dexter_description
+[1.917s] Invoked command in '/home/aditya/Cpps/Dexter/build/dexter_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/Cpps/Dexter/install/dexter_py_examples:/home/aditya/Cpps/Dexter/install/dexter_inventory:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake /home/aditya/Cpps/Dexter/dexter_description -DCMAKE_INSTALL_PREFIX=/home/aditya/Cpps/Dexter/install/dexter_description
+[1.920s] Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/Cpps/Dexter/install/dexter_py_examples:/home/aditya/Cpps/Dexter/install/dexter_inventory:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_description -- -j28 -l28
+[2.017s] Invoked command in '/home/aditya/Cpps/Dexter/build/dexter_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/Cpps/Dexter/install/dexter_py_examples:/home/aditya/Cpps/Dexter/install/dexter_inventory:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_description -- -j28 -l28
+[2.041s] Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/Cpps/Dexter/install/dexter_py_examples:/home/aditya/Cpps/Dexter/install/dexter_inventory:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --install /home/aditya/Cpps/Dexter/build/dexter_description
+[2.059s] -- Install configuration: ""
+[2.060s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/launch
+[2.060s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/launch/display.launch.py
+[2.060s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/launch/gazebo.launch.py
+[2.060s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/meshes
+[2.060s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/meshes/link.STL
+[2.061s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/meshes/round_plate.STL
+[2.062s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/meshes/triangular_link.STL
+[2.063s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/meshes/plate.STL
+[2.067s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/meshes/left_finger.STL
+[2.067s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/meshes/basement.STL
+[2.069s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/meshes/right_finger.STL
+[2.069s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/meshes/base_plate.STL
+[2.074s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/meshes/forward_drive_arm.STL
+[2.077s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/meshes/claw_support.STL
+[2.078s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/meshes/servo_plate.STL
+[2.078s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/meshes/horizontal_arm.STL
+[2.081s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/meshes/vertical_drive_arm.STL
+[2.083s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/urdf
+[2.083s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/urdf/dexter_gazebo.xacro
+[2.083s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/urdf/dexter.urdf.xacro
+[2.083s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/urdf/dexter_ros2_control.xacro
+[2.084s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/rviz
+[2.084s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/rviz/display.rviz
+[2.084s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/ament_index/resource_index/package_run_dependencies/dexter_description
+[2.085s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/ament_index/resource_index/parent_prefix_path/dexter_description
+[2.085s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/environment/ament_prefix_path.sh
+[2.085s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/environment/ament_prefix_path.dsv
+[2.086s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/environment/path.sh
+[2.086s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/environment/path.dsv
+[2.086s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/local_setup.bash
+[2.087s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/local_setup.sh
+[2.087s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/local_setup.zsh
+[2.087s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/local_setup.dsv
+[2.087s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/package.dsv
+[2.087s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/ament_index/resource_index/packages/dexter_description
+[2.087s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/cmake/dexter_descriptionConfig.cmake
+[2.087s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/cmake/dexter_descriptionConfig-version.cmake
+[2.088s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/package.xml
+[2.091s] Invoked command in '/home/aditya/Cpps/Dexter/build/dexter_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/Cpps/Dexter/install/dexter_py_examples:/home/aditya/Cpps/Dexter/install/dexter_inventory:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --install /home/aditya/Cpps/Dexter/build/dexter_description

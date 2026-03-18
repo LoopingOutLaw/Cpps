@@ -1,0 +1,4 @@
+source;share/dexter_controller/environment/ament_prefix_path.sh
+source;share/dexter_controller/environment/library_path.sh
+source;share/dexter_controller/environment/path.sh
+source;share/dexter_controller/environment/pythonpath.sh

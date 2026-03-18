@@ -1,0 +1,26 @@
+{
+  "type_description_msg": {
+    "type_description": {
+      "type_name": "dexter_msgs/srv/AddTwoInts_Response",
+      "fields": [
+        {
+          "name": "sum",
+          "type": {
+            "type_id": 8,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        }
+      ]
+    },
+    "referenced_type_descriptions": []
+  },
+  "type_hashes": [
+    {
+      "type_name": "dexter_msgs/srv/AddTwoInts_Response",
+      "hash_string": "RIHS01_d3804a53fb087b124ffe0f7e1eb37b78b235f36c225e09865283a6c2a60ddc52"
+    }
+  ]
+}

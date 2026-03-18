@@ -1,0 +1,30 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/dexter_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/dexter_msgs/action/dexter_task__type_support.cpp.o"
+  "CMakeFiles/dexter_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/dexter_msgs/action/dexter_task__type_support.cpp.o.d"
+  "CMakeFiles/dexter_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/dexter_msgs/action/fibonacci__type_support.cpp.o"
+  "CMakeFiles/dexter_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/dexter_msgs/action/fibonacci__type_support.cpp.o.d"
+  "CMakeFiles/dexter_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/dexter_msgs/srv/add_item__type_support.cpp.o"
+  "CMakeFiles/dexter_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/dexter_msgs/srv/add_item__type_support.cpp.o.d"
+  "CMakeFiles/dexter_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/dexter_msgs/srv/add_two_ints__type_support.cpp.o"
+  "CMakeFiles/dexter_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/dexter_msgs/srv/add_two_ints__type_support.cpp.o.d"
+  "CMakeFiles/dexter_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/dexter_msgs/srv/dispatch_item__type_support.cpp.o"
+  "CMakeFiles/dexter_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/dexter_msgs/srv/dispatch_item__type_support.cpp.o.d"
+  "CMakeFiles/dexter_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/dexter_msgs/srv/euler_to_quaternion__type_support.cpp.o"
+  "CMakeFiles/dexter_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/dexter_msgs/srv/euler_to_quaternion__type_support.cpp.o.d"
+  "CMakeFiles/dexter_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/dexter_msgs/srv/quaternion_to_euler__type_support.cpp.o"
+  "CMakeFiles/dexter_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/dexter_msgs/srv/quaternion_to_euler__type_support.cpp.o.d"
+  "libdexter_msgs__rosidl_typesupport_c.pdb"
+  "libdexter_msgs__rosidl_typesupport_c.so"
+  "rosidl_typesupport_c/dexter_msgs/action/dexter_task__type_support.cpp"
+  "rosidl_typesupport_c/dexter_msgs/action/fibonacci__type_support.cpp"
+  "rosidl_typesupport_c/dexter_msgs/srv/add_item__type_support.cpp"
+  "rosidl_typesupport_c/dexter_msgs/srv/add_two_ints__type_support.cpp"
+  "rosidl_typesupport_c/dexter_msgs/srv/dispatch_item__type_support.cpp"
+  "rosidl_typesupport_c/dexter_msgs/srv/euler_to_quaternion__type_support.cpp"
+  "rosidl_typesupport_c/dexter_msgs/srv/quaternion_to_euler__type_support.cpp"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/dexter_msgs__rosidl_typesupport_c.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

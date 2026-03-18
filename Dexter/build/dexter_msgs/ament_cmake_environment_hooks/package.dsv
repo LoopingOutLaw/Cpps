@@ -1,0 +1,4 @@
+source;share/dexter_msgs/local_setup.bash
+source;share/dexter_msgs/local_setup.dsv
+source;share/dexter_msgs/local_setup.sh
+source;share/dexter_msgs/local_setup.zsh

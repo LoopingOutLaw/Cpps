@@ -1,0 +1,284 @@
+[0.201s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--packages-select', 'dexter_remote', 'dexter_description']
+[0.202s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=28, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=['dexter_remote', 'dexter_description'], packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x733e85834710>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x733e859b3a10>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x733e859b3a10>>)
+[0.267s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.268s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.268s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.268s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.268s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.268s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.268s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/aditya/Cpps/Dexter'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_bringup) by extensions ['ignore', 'ignore_ament_install']
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_bringup) by extension 'ignore'
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_bringup) by extension 'ignore_ament_install'
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_bringup) by extensions ['colcon_pkg']
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_bringup) by extension 'colcon_pkg'
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_bringup) by extensions ['colcon_meta']
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_bringup) by extension 'colcon_meta'
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_bringup) by extensions ['ros']
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_bringup) by extension 'ros'
+[0.320s] DEBUG:colcon.colcon_core.package_identification:Package 'dexter_bringup' with type 'ros.ament_cmake' and name 'dexter_bringup'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_controller) by extensions ['ignore', 'ignore_ament_install']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_controller) by extension 'ignore'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_controller) by extension 'ignore_ament_install'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_controller) by extensions ['colcon_pkg']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_controller) by extension 'colcon_pkg'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_controller) by extensions ['colcon_meta']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_controller) by extension 'colcon_meta'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_controller) by extensions ['ros']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_controller) by extension 'ros'
+[0.323s] DEBUG:colcon.colcon_core.package_identification:Package 'dexter_controller' with type 'ros.ament_cmake' and name 'dexter_controller'
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_cpp_examples) by extensions ['ignore', 'ignore_ament_install']
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_cpp_examples) by extension 'ignore'
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_cpp_examples) by extension 'ignore_ament_install'
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_cpp_examples) by extensions ['colcon_pkg']
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_cpp_examples) by extension 'colcon_pkg'
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_cpp_examples) by extensions ['colcon_meta']
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_cpp_examples) by extension 'colcon_meta'
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_cpp_examples) by extensions ['ros']
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_cpp_examples) by extension 'ros'
+[0.327s] DEBUG:colcon.colcon_core.package_identification:Package 'dexter_cpp_examples' with type 'ros.ament_cmake' and name 'dexter_cpp_examples'
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_description) by extensions ['ignore', 'ignore_ament_install']
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_description) by extension 'ignore'
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_description) by extension 'ignore_ament_install'
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_description) by extensions ['colcon_pkg']
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_description) by extension 'colcon_pkg'
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_description) by extensions ['colcon_meta']
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_description) by extension 'colcon_meta'
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_description) by extensions ['ros']
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_description) by extension 'ros'
+[0.333s] DEBUG:colcon.colcon_core.package_identification:Package 'dexter_description' with type 'ros.ament_cmake' and name 'dexter_description'
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_firmware) by extensions ['ignore', 'ignore_ament_install']
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_firmware) by extension 'ignore'
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_firmware) by extension 'ignore_ament_install'
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_firmware) by extensions ['colcon_pkg']
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_firmware) by extension 'colcon_pkg'
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_firmware) by extensions ['colcon_meta']
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_firmware) by extension 'colcon_meta'
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_firmware) by extensions ['ros']
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_firmware) by extension 'ros'
+[0.335s] DEBUG:colcon.colcon_core.package_identification:Package 'dexter_firmware' with type 'ros.ament_cmake' and name 'dexter_firmware'
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_inventory) by extensions ['ignore', 'ignore_ament_install']
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_inventory) by extension 'ignore'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_inventory) by extension 'ignore_ament_install'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_inventory) by extensions ['colcon_pkg']
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_inventory) by extension 'colcon_pkg'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_inventory) by extensions ['colcon_meta']
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_inventory) by extension 'colcon_meta'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_inventory) by extensions ['ros']
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_inventory) by extension 'ros'
+[0.337s] DEBUG:colcon.colcon_core.package_identification:Package 'dexter_inventory' with type 'ros.ament_python' and name 'dexter_inventory'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_moveit) by extensions ['ignore', 'ignore_ament_install']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_moveit) by extension 'ignore'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_moveit) by extension 'ignore_ament_install'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_moveit) by extensions ['colcon_pkg']
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_moveit) by extension 'colcon_pkg'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_moveit) by extensions ['colcon_meta']
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_moveit) by extension 'colcon_meta'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_moveit) by extensions ['ros']
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_moveit) by extension 'ros'
+[0.338s] DEBUG:colcon.colcon_core.package_identification:Package 'dexter_moveit' with type 'ros.ament_cmake' and name 'dexter_moveit'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_msgs) by extensions ['ignore', 'ignore_ament_install']
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_msgs) by extension 'ignore'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_msgs) by extension 'ignore_ament_install'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_msgs) by extensions ['colcon_pkg']
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_msgs) by extension 'colcon_pkg'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_msgs) by extensions ['colcon_meta']
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_msgs) by extension 'colcon_meta'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_msgs) by extensions ['ros']
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_msgs) by extension 'ros'
+[0.340s] DEBUG:colcon.colcon_core.package_identification:Package 'dexter_msgs' with type 'ros.ament_cmake' and name 'dexter_msgs'
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_py_examples) by extensions ['ignore', 'ignore_ament_install']
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_py_examples) by extension 'ignore'
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_py_examples) by extension 'ignore_ament_install'
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_py_examples) by extensions ['colcon_pkg']
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_py_examples) by extension 'colcon_pkg'
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_py_examples) by extensions ['colcon_meta']
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_py_examples) by extension 'colcon_meta'
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_py_examples) by extensions ['ros']
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_py_examples) by extension 'ros'
+[0.341s] DEBUG:colcon.colcon_core.package_identification:Package 'dexter_py_examples' with type 'ros.ament_python' and name 'dexter_py_examples'
+[0.341s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_remote) by extensions ['ignore', 'ignore_ament_install']
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_remote) by extension 'ignore'
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_remote) by extension 'ignore_ament_install'
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_remote) by extensions ['colcon_pkg']
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_remote) by extension 'colcon_pkg'
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_remote) by extensions ['colcon_meta']
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_remote) by extension 'colcon_meta'
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_remote) by extensions ['ros']
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_remote) by extension 'ros'
+[0.344s] DEBUG:colcon.colcon_core.package_identification:Package 'dexter_remote' with type 'ros.ament_cmake' and name 'dexter_remote'
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_utils) by extensions ['ignore', 'ignore_ament_install']
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_utils) by extension 'ignore'
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_utils) by extension 'ignore_ament_install'
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_utils) by extensions ['colcon_pkg']
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_utils) by extension 'colcon_pkg'
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_utils) by extensions ['colcon_meta']
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_utils) by extension 'colcon_meta'
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_utils) by extensions ['ros']
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(dexter_utils) by extension 'ros'
+[0.345s] DEBUG:colcon.colcon_core.package_identification:Package 'dexter_utils' with type 'ros.ament_cmake' and name 'dexter_utils'
+[0.345s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.345s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.345s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.345s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.346s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.346s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.346s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.346s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.346s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.382s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'dexter_firmware' in 'dexter_firmware'
+[0.382s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'dexter_msgs' in 'dexter_msgs'
+[0.382s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'dexter_controller' in 'dexter_controller'
+[0.382s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'dexter_cpp_examples' in 'dexter_cpp_examples'
+[0.382s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'dexter_moveit' in 'dexter_moveit'
+[0.382s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'dexter_py_examples' in 'dexter_py_examples'
+[0.382s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'dexter_utils' in 'dexter_utils'
+[0.382s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'dexter_inventory' in 'dexter_inventory'
+[0.383s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'dexter_bringup' in 'dexter_bringup'
+[0.383s] Level 5:colcon.colcon_core.verb:set package 'dexter_description' build argument 'cmake_args' from command line to 'None'
+[0.383s] Level 5:colcon.colcon_core.verb:set package 'dexter_description' build argument 'cmake_target' from command line to 'None'
+[0.383s] Level 5:colcon.colcon_core.verb:set package 'dexter_description' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.383s] Level 5:colcon.colcon_core.verb:set package 'dexter_description' build argument 'cmake_clean_cache' from command line to 'False'
+[0.383s] Level 5:colcon.colcon_core.verb:set package 'dexter_description' build argument 'cmake_clean_first' from command line to 'False'
+[0.383s] Level 5:colcon.colcon_core.verb:set package 'dexter_description' build argument 'cmake_force_configure' from command line to 'False'
+[0.383s] Level 5:colcon.colcon_core.verb:set package 'dexter_description' build argument 'ament_cmake_args' from command line to 'None'
+[0.383s] Level 5:colcon.colcon_core.verb:set package 'dexter_description' build argument 'catkin_cmake_args' from command line to 'None'
+[0.383s] Level 5:colcon.colcon_core.verb:set package 'dexter_description' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.383s] DEBUG:colcon.colcon_core.verb:Building package 'dexter_description' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/aditya/Cpps/Dexter/build/dexter_description', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/aditya/Cpps/Dexter/install/dexter_description', 'merge_install': False, 'path': '/home/aditya/Cpps/Dexter/dexter_description', 'symlink_install': False, 'test_result_base': None}
+[0.384s] Level 5:colcon.colcon_core.verb:set package 'dexter_remote' build argument 'cmake_args' from command line to 'None'
+[0.384s] Level 5:colcon.colcon_core.verb:set package 'dexter_remote' build argument 'cmake_target' from command line to 'None'
+[0.384s] Level 5:colcon.colcon_core.verb:set package 'dexter_remote' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.384s] Level 5:colcon.colcon_core.verb:set package 'dexter_remote' build argument 'cmake_clean_cache' from command line to 'False'
+[0.384s] Level 5:colcon.colcon_core.verb:set package 'dexter_remote' build argument 'cmake_clean_first' from command line to 'False'
+[0.384s] Level 5:colcon.colcon_core.verb:set package 'dexter_remote' build argument 'cmake_force_configure' from command line to 'False'
+[0.384s] Level 5:colcon.colcon_core.verb:set package 'dexter_remote' build argument 'ament_cmake_args' from command line to 'None'
+[0.384s] Level 5:colcon.colcon_core.verb:set package 'dexter_remote' build argument 'catkin_cmake_args' from command line to 'None'
+[0.384s] Level 5:colcon.colcon_core.verb:set package 'dexter_remote' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.384s] DEBUG:colcon.colcon_core.verb:Building package 'dexter_remote' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/aditya/Cpps/Dexter/build/dexter_remote', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/aditya/Cpps/Dexter/install/dexter_remote', 'merge_install': False, 'path': '/home/aditya/Cpps/Dexter/dexter_remote', 'symlink_install': False, 'test_result_base': None}
+[0.384s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.386s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.386s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/aditya/Cpps/Dexter/dexter_description' with build type 'ament_cmake'
+[0.386s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/aditya/Cpps/Dexter/dexter_description'
+[0.390s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.390s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.411s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake /home/aditya/Cpps/Dexter/dexter_description -DCMAKE_INSTALL_PREFIX=/home/aditya/Cpps/Dexter/install/dexter_description
+[1.116s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/aditya/Cpps/Dexter/build/dexter_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake /home/aditya/Cpps/Dexter/dexter_description -DCMAKE_INSTALL_PREFIX=/home/aditya/Cpps/Dexter/install/dexter_description
+[1.118s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_description -- -j28 -l28
+[1.199s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/aditya/Cpps/Dexter/build/dexter_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_description -- -j28 -l28
+[1.220s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --install /home/aditya/Cpps/Dexter/build/dexter_description
+[1.262s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(dexter_description)
+[1.263s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/aditya/Cpps/Dexter/build/dexter_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --install /home/aditya/Cpps/Dexter/build/dexter_description
+[1.266s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_description' for CMake module files
+[1.267s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_description' for CMake config files
+[1.268s] Level 1:colcon.colcon_core.shell:create_environment_hook('dexter_description', 'cmake_prefix_path')
+[1.268s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/hook/cmake_prefix_path.dsv'
+[1.269s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/hook/cmake_prefix_path.sh'
+[1.271s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_description/bin'
+[1.271s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_description/lib/pkgconfig/dexter_description.pc'
+[1.274s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_description/lib/python3.12/site-packages'
+[1.275s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_description/bin'
+[1.276s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/package.dsv'
+[1.277s] INFO:colcon.colcon_core.shell:Creating package script '/home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/package.sh'
+[1.279s] INFO:colcon.colcon_core.shell:Creating package script '/home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/package.bash'
+[1.280s] INFO:colcon.colcon_core.shell:Creating package script '/home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/package.zsh'
+[1.281s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/aditya/Cpps/Dexter/install/dexter_description/share/colcon-core/packages/dexter_description)
+[1.282s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(dexter_description)
+[1.282s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_description' for CMake module files
+[1.283s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_description' for CMake config files
+[1.283s] Level 1:colcon.colcon_core.shell:create_environment_hook('dexter_description', 'cmake_prefix_path')
+[1.283s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/hook/cmake_prefix_path.dsv'
+[1.284s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/hook/cmake_prefix_path.sh'
+[1.285s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_description/bin'
+[1.285s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_description/lib/pkgconfig/dexter_description.pc'
+[1.285s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_description/lib/python3.12/site-packages'
+[1.286s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_description/bin'
+[1.286s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/package.dsv'
+[1.287s] INFO:colcon.colcon_core.shell:Creating package script '/home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/package.sh'
+[1.287s] INFO:colcon.colcon_core.shell:Creating package script '/home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/package.bash'
+[1.288s] INFO:colcon.colcon_core.shell:Creating package script '/home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/package.zsh'
+[1.288s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/aditya/Cpps/Dexter/install/dexter_description/share/colcon-core/packages/dexter_description)
+[1.288s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/aditya/Cpps/Dexter/dexter_remote' with build type 'ament_cmake'
+[1.289s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/aditya/Cpps/Dexter/dexter_remote'
+[1.289s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.316s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_remote': AMENT_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_inventory:/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:/home/aditya/ros2_ws/install/my_robot_bringup:/home/aditya/ros2_ws/install/my_cpp_pkg:/home/aditya/ros2_ws/install/my_robot_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages:/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_remote -- -j28 -l28
+[2.112s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/aditya/Cpps/Dexter/build/dexter_remote' returned '0': AMENT_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_inventory:/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:/home/aditya/ros2_ws/install/my_robot_bringup:/home/aditya/ros2_ws/install/my_cpp_pkg:/home/aditya/ros2_ws/install/my_robot_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages:/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_remote -- -j28 -l28
+[2.114s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_remote': AMENT_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_inventory:/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:/home/aditya/ros2_ws/install/my_robot_bringup:/home/aditya/ros2_ws/install/my_cpp_pkg:/home/aditya/ros2_ws/install/my_robot_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages:/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --install /home/aditya/Cpps/Dexter/build/dexter_remote
+[2.255s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(dexter_remote)
+[2.255s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_remote' for CMake module files
+[2.256s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/aditya/Cpps/Dexter/build/dexter_remote' returned '0': AMENT_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_inventory:/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:/home/aditya/ros2_ws/install/my_robot_bringup:/home/aditya/ros2_ws/install/my_cpp_pkg:/home/aditya/ros2_ws/install/my_robot_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages:/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --install /home/aditya/Cpps/Dexter/build/dexter_remote
+[2.257s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_remote' for CMake config files
+[2.257s] Level 1:colcon.colcon_core.shell:create_environment_hook('dexter_remote', 'cmake_prefix_path')
+[2.258s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/hook/cmake_prefix_path.dsv'
+[2.258s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/hook/cmake_prefix_path.sh'
+[2.259s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_remote/lib'
+[2.260s] Level 1:colcon.colcon_core.shell:create_environment_hook('dexter_remote', 'ld_library_path_lib')
+[2.260s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/hook/ld_library_path_lib.dsv'
+[2.261s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/hook/ld_library_path_lib.sh'
+[2.261s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_remote/bin'
+[2.262s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_remote/lib/pkgconfig/dexter_remote.pc'
+[2.262s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_remote/lib/python3.12/site-packages'
+[2.262s] Level 1:colcon.colcon_core.shell:create_environment_hook('dexter_remote', 'pythonpath')
+[2.263s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/hook/pythonpath.dsv'
+[2.263s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/hook/pythonpath.sh'
+[2.265s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_remote/bin'
+[2.265s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/package.dsv'
+[2.266s] INFO:colcon.colcon_core.shell:Creating package script '/home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/package.sh'
+[2.267s] INFO:colcon.colcon_core.shell:Creating package script '/home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/package.bash'
+[2.268s] INFO:colcon.colcon_core.shell:Creating package script '/home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/package.zsh'
+[2.268s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/aditya/Cpps/Dexter/install/dexter_remote/share/colcon-core/packages/dexter_remote)
+[2.269s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(dexter_remote)
+[2.270s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_remote' for CMake module files
+[2.271s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_remote' for CMake config files
+[2.272s] Level 1:colcon.colcon_core.shell:create_environment_hook('dexter_remote', 'cmake_prefix_path')
+[2.272s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/hook/cmake_prefix_path.dsv'
+[2.273s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/hook/cmake_prefix_path.sh'
+[2.274s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_remote/lib'
+[2.274s] Level 1:colcon.colcon_core.shell:create_environment_hook('dexter_remote', 'ld_library_path_lib')
+[2.274s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/hook/ld_library_path_lib.dsv'
+[2.275s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/hook/ld_library_path_lib.sh'
+[2.275s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_remote/bin'
+[2.275s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_remote/lib/pkgconfig/dexter_remote.pc'
+[2.276s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_remote/lib/python3.12/site-packages'
+[2.276s] Level 1:colcon.colcon_core.shell:create_environment_hook('dexter_remote', 'pythonpath')
+[2.276s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/hook/pythonpath.dsv'
+[2.277s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/hook/pythonpath.sh'
+[2.278s] Level 1:colcon.colcon_core.environment:checking '/home/aditya/Cpps/Dexter/install/dexter_remote/bin'
+[2.278s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/package.dsv'
+[2.279s] INFO:colcon.colcon_core.shell:Creating package script '/home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/package.sh'
+[2.279s] INFO:colcon.colcon_core.shell:Creating package script '/home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/package.bash'
+[2.279s] INFO:colcon.colcon_core.shell:Creating package script '/home/aditya/Cpps/Dexter/install/dexter_remote/share/dexter_remote/package.zsh'
+[2.280s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/aditya/Cpps/Dexter/install/dexter_remote/share/colcon-core/packages/dexter_remote)
+[2.280s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[2.280s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[2.280s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[2.280s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[2.289s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[2.289s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[2.289s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[2.313s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[2.313s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/aditya/Cpps/Dexter/install/local_setup.sh'
+[2.315s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/aditya/Cpps/Dexter/install/_local_setup_util_sh.py'
+[2.317s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/aditya/Cpps/Dexter/install/setup.sh'
+[2.319s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/aditya/Cpps/Dexter/install/local_setup.bash'
+[2.320s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/aditya/Cpps/Dexter/install/setup.bash'
+[2.323s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/aditya/Cpps/Dexter/install/local_setup.zsh'
+[2.324s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/aditya/Cpps/Dexter/install/setup.zsh'

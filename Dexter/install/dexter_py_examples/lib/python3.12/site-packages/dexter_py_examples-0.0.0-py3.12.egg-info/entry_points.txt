@@ -1,0 +1,9 @@
+[console_scripts]
+simple_action_client = dexter_py_examples.simple_action_client:main
+simple_action_server = dexter_py_examples.simple_action_server:main
+simple_moveit_interface = dexter_py_examples.simple_moveit_interface:main
+simple_parameter = dexter_py_examples.simple_parameter:main
+simple_publisher = dexter_py_examples.simple_publisher:main
+simple_service_client = dexter_py_examples.simple_service_client:main
+simple_service_server = dexter_py_examples.simple_service_server:main
+simple_subscriber = dexter_py_examples.simple_subscriber:main

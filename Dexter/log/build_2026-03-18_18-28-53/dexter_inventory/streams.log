@@ -1,0 +1,23 @@
+[2.069s] Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_inventory': AMENT_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/aditya/Cpps/Dexter/build/dexter_inventory/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages:/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/aditya/Cpps/Dexter/build/dexter_inventory/build --no-deps symlink_data --force
+[2.888s] running develop
+[3.362s] running egg_info
+[3.411s] writing dexter_inventory.egg-info/PKG-INFO
+[3.411s] writing dependency_links to dexter_inventory.egg-info/dependency_links.txt
+[3.412s] writing entry points to dexter_inventory.egg-info/entry_points.txt
+[3.412s] writing requirements to dexter_inventory.egg-info/requires.txt
+[3.412s] writing top-level names to dexter_inventory.egg-info/top_level.txt
+[3.511s] reading manifest file 'dexter_inventory.egg-info/SOURCES.txt'
+[3.512s] writing manifest file 'dexter_inventory.egg-info/SOURCES.txt'
+[3.561s] running build_ext
+[3.561s] Creating /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter-inventory.egg-link (link to .)
+[3.562s] Installing inventory_node script to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory
+[3.563s] Installing seed_data script to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory
+[3.563s] Installing standalone_dashboard script to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory
+[3.564s] 
+[3.564s] Installed /home/aditya/Cpps/Dexter/build/dexter_inventory
+[3.564s] running symlink_data
+[3.564s] symbolically linking /home/aditya/Cpps/Dexter/build/dexter_inventory/resource/dexter_inventory -> /home/aditya/Cpps/Dexter/install/dexter_inventory/share/ament_index/resource_index/packages
+[3.565s] symbolically linking /home/aditya/Cpps/Dexter/build/dexter_inventory/package.xml -> /home/aditya/Cpps/Dexter/install/dexter_inventory/share/dexter_inventory
+[3.565s] symbolically linking /home/aditya/Cpps/Dexter/build/dexter_inventory/launch/inventory.launch.py -> /home/aditya/Cpps/Dexter/install/dexter_inventory/share/dexter_inventory/launch
+[3.565s] symbolically linking /home/aditya/Cpps/Dexter/build/dexter_inventory/templates/index.html -> /home/aditya/Cpps/Dexter/install/dexter_inventory/share/dexter_inventory/templates
+[3.638s] Invoked command in '/home/aditya/Cpps/Dexter/build/dexter_inventory' returned '0': AMENT_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/aditya/Cpps/Dexter/build/dexter_inventory/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages:/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/aditya/Cpps/Dexter/build/dexter_inventory/build --no-deps symlink_data --force

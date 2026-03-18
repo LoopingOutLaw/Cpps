@@ -1,0 +1,4 @@
+source;share/dexter_py_examples/hook/pythonpath.dsv
+source;share/dexter_py_examples/hook/pythonpath.sh
+source;share/dexter_py_examples/hook/ament_prefix_path.dsv
+source;share/dexter_py_examples/hook/ament_prefix_path.sh

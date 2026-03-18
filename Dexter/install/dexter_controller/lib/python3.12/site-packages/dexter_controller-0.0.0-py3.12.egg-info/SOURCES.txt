@@ -1,0 +1,7 @@
+setup.py
+dexter_controller/__init__.py
+dexter_controller/slider_control.py
+dexter_controller.egg-info/PKG-INFO
+dexter_controller.egg-info/SOURCES.txt
+dexter_controller.egg-info/dependency_links.txt
+dexter_controller.egg-info/top_level.txt

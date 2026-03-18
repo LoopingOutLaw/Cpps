@@ -1,0 +1,8 @@
+setup.py
+dexter_remote/__init__.py
+dexter_remote/task_server.py
+dexter_remote/web_interface.py
+dexter_remote.egg-info/PKG-INFO
+dexter_remote.egg-info/SOURCES.txt
+dexter_remote.egg-info/dependency_links.txt
+dexter_remote.egg-info/top_level.txt

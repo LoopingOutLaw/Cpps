@@ -1,0 +1,12 @@
+{
+  "package_name": "dexter_msgs",
+  "non_idl_tuples": [
+    "/home/aditya/Cpps/Dexter/dexter_msgs:srv/AddTwoInts.srv",
+    "/home/aditya/Cpps/Dexter/dexter_msgs:srv/EulerToQuaternion.srv",
+    "/home/aditya/Cpps/Dexter/dexter_msgs:srv/QuaternionToEuler.srv",
+    "/home/aditya/Cpps/Dexter/dexter_msgs:action/Fibonacci.action",
+    "/home/aditya/Cpps/Dexter/dexter_msgs:action/DexterTask.action",
+    "/home/aditya/Cpps/Dexter/dexter_msgs:srv/DispatchItem.srv",
+    "/home/aditya/Cpps/Dexter/dexter_msgs:srv/AddItem.srv"
+  ]
+}

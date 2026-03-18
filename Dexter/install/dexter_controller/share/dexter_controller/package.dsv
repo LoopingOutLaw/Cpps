@@ -1,0 +1,10 @@
+source;share/dexter_controller/hook/cmake_prefix_path.dsv
+source;share/dexter_controller/hook/cmake_prefix_path.sh
+source;share/dexter_controller/hook/ld_library_path_lib.dsv
+source;share/dexter_controller/hook/ld_library_path_lib.sh
+source;share/dexter_controller/hook/pythonpath.dsv
+source;share/dexter_controller/hook/pythonpath.sh
+source;share/dexter_controller/local_setup.bash
+source;share/dexter_controller/local_setup.dsv
+source;share/dexter_controller/local_setup.sh
+source;share/dexter_controller/local_setup.zsh

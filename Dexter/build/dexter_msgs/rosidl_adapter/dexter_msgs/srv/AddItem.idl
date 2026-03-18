@@ -1,0 +1,25 @@
+// generated from rosidl_adapter/resource/srv.idl.em
+// with input from dexter_msgs/srv/AddItem.srv
+// generated code does not contain a copyright notice
+
+
+module dexter_msgs {
+  module srv {
+    struct AddItem_Request {
+      string item_name;
+
+      int32 slot;
+
+      @verbatim (language="comment", text=
+        "Unix timestamp as string; empty = no expiry")
+      string expiry_ts;
+    };
+    struct AddItem_Response {
+      boolean success;
+
+      string item_id;
+
+      string message;
+    };
+  };
+};
