@@ -75,10 +75,26 @@ def generate_launch_description():
         ]
     )
     
+    # ArUco box detector - provides /inventory/box_poses for visual servoing
+    # Delayed start to ensure camera bridge is ready
+    aruco_detector = TimerAction(
+        period=3.0,
+        actions=[
+            Node(
+                package="dexter_inventory",
+                executable="aruco_box_detector",
+                name="aruco_box_detector",
+                output="screen",
+                parameters=[{"use_sim_time": True}],
+            )
+        ]
+    )
+    
     return LaunchDescription([
         gazebo,
         controller,
         moveit,
         remote_interface,
         inventory_node,
+        aruco_detector,
     ])

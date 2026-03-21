@@ -5,7 +5,7 @@ project(dexter_description)
 find_package(ament_cmake REQUIRED)
 
 install(
-  DIRECTORY launch meshes urdf rviz worlds
+  DIRECTORY launch meshes urdf rviz worlds textures
   DESTINATION share/${PROJECT_NAME}
 )
 

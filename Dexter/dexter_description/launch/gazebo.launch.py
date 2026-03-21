@@ -70,7 +70,19 @@ def generate_launch_description():
     gz_ros2_bridge = Node(
         package="ros_gz_bridge",
         executable="parameter_bridge",
-        arguments=["/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock"],
+        arguments=[
+            "/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock",
+        ],
+    )
+
+    # Separate image bridge - more reliable for camera streams
+    gz_image_bridge = Node(
+        package="ros_gz_image",
+        executable="image_bridge",
+        arguments=["/gz/camera/image"],
+        remappings=[
+            ("/gz/camera/image", "/camera/image_raw"),
+        ],
     )
 
     return LaunchDescription([
@@ -81,4 +93,5 @@ def generate_launch_description():
         gazebo,
         gz_spawn_entity,
         gz_ros2_bridge,
+        gz_image_bridge,
     ])

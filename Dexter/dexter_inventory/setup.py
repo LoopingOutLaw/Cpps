@@ -32,6 +32,7 @@ setup(
             "inventory_node = dexter_inventory.inventory_node:main",
             "seed_data      = dexter_inventory.seed_data:seed",
             "standalone_dashboard = dexter_inventory.standalone_dashboard:app.run",
+            "aruco_box_detector = dexter_inventory.aruco_box_detector:main",
         ],
     },
 )

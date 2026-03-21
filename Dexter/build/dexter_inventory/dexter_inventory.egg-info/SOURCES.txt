@@ -9,6 +9,7 @@ setup.py
 ../build/dexter_inventory/dexter_inventory.egg-info/top_level.txt
 ../build/dexter_inventory/dexter_inventory.egg-info/zip-safe
 dexter_inventory/__init__.py
+dexter_inventory/aruco_box_detector.py
 dexter_inventory/dispatch_engine.py
 dexter_inventory/inventory_db.py
 dexter_inventory/inventory_node.py

@@ -315,8 +315,8 @@ message(STATUS "Execute custom install script")
 
 # begin of custom install code
 
-# install(DIRECTORY "launch" "meshes" "urdf" "rviz" "worlds" "DESTINATION" "share/dexter_description")
-ament_cmake_symlink_install_directory("/home/aditya/Cpps/Dexter/dexter_description" DIRECTORY "launch" "meshes" "urdf" "rviz" "worlds" "DESTINATION" "share/dexter_description")
+# install(DIRECTORY "launch" "meshes" "urdf" "rviz" "worlds" "textures" "DESTINATION" "share/dexter_description")
+ament_cmake_symlink_install_directory("/home/aditya/Cpps/Dexter/dexter_description" DIRECTORY "launch" "meshes" "urdf" "rviz" "worlds" "textures" "DESTINATION" "share/dexter_description")
 
 # install(FILES "/home/aditya/Cpps/Dexter/build/dexter_description/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/dexter_description" "DESTINATION" "share/ament_index/resource_index/package_run_dependencies")
 ament_cmake_symlink_install_files("/home/aditya/Cpps/Dexter/dexter_description" FILES "/home/aditya/Cpps/Dexter/build/dexter_description/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/dexter_description" "DESTINATION" "share/ament_index/resource_index/package_run_dependencies")
