@@ -24,8 +24,10 @@
 /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/textures/aruco_12.png
 /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/textures/aruco_13.png
 /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/textures/aruco_2.png
+/home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/textures/aruco_20.png
 /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/textures/aruco_3.png
 /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/textures/aruco_4.png
+/home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/textures/aruco_5.png
 /home/aditya/Cpps/Dexter/install/dexter_description/share/dexter_description/scripts/generate_aruco_textures.py
 /home/aditya/Cpps/Dexter/install/dexter_description/share/ament_index/resource_index/package_run_dependencies/dexter_description
 /home/aditya/Cpps/Dexter/install/dexter_description/share/ament_index/resource_index/parent_prefix_path/dexter_description

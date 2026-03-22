@@ -16,6 +16,32 @@
         <parameters>$(find dexter_controller)/config/dexter_controllers.yaml</parameters>
       </plugin>
     </xacro:unless>
-</gazebo>
+  </gazebo>
+
+  <!--
+    ArUco ID 20 texture on the arm_aruco_plate link.
+    This link is attached to base_plate via a fixed joint so it rotates
+    with joint_1, letting the overhead camera track arm base orientation.
+
+    The PBR albedo_map approach matches the box and floor markers in inventory.sdf.
+    Metalness=0, roughness=1 → purely diffuse white material with the ArUco pattern.
+  -->
+  <gazebo reference="arm_aruco_plate">
+    <visual name="visual">
+      <cast_shadows>false</cast_shadows>
+      <material>
+        <ambient>1 1 1 1</ambient>
+        <diffuse>1 1 1 1</diffuse>
+        <specular>0 0 0 1</specular>
+        <pbr>
+          <metal>
+            <albedo_map>model://dexter_description/textures/aruco_20.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal>
+        </pbr>
+      </material>
+    </visual>
+  </gazebo>
 
 </robot>

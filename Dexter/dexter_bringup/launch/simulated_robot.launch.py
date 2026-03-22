@@ -7,14 +7,16 @@ Full simulation bringup:
   3. MoveIt 2 move_group + RViz
   4. Web interface (Flask dashboard on :5000)
   5. inventory_node (direct trajectory pick-and-place)
-  6. aruco_box_detector (overhead camera → ArUco → box poses)
-  7. rqt_image_view (/camera/image_raw preview)
 
-Startup order (TimerActions ensure controllers are ready first):
-  t=0  : Gazebo + controllers + MoveIt
-  t=5  : aruco_box_detector  (needs camera bridge which starts with Gazebo)
-  t=7  : inventory_node      (needs controllers + aruco data)
-  t=7  : rqt_image_view
+NOTE – aruco_box_detector is NOT launched here automatically.
+Run it in a SEPARATE terminal so the OpenCV window is visible:
+
+    # Terminal 2 (after simulation is up, ~10 s):
+    source install/setup.bash
+    ros2 run dexter_inventory aruco_box_detector
+
+The detector publishes /inventory/box_poses and /inventory/arm_pose
+as normal; the cv2 window will open in that terminal's display session.
 """
 
 import os
@@ -28,7 +30,7 @@ def generate_launch_description():
 
     display_val = os.environ.get("DISPLAY", ":0")
 
-    # ── Gazebo simulation + URDF ──────────────────────────────────────────
+    # ── Gazebo ────────────────────────────────────────────────────────────
     gazebo = IncludeLaunchDescription(
         os.path.join(
             get_package_share_directory("dexter_description"),
@@ -41,38 +43,21 @@ def generate_launch_description():
             "launch", "controller.launch.py"),
         launch_arguments={"is_sim": "True"}.items())
 
-    # ── MoveIt 2 + RViz ──────────────────────────────────────────────────
+    # ── MoveIt 2 + RViz ───────────────────────────────────────────────────
     moveit = IncludeLaunchDescription(
         os.path.join(
             get_package_share_directory("dexter_moveit"),
             "launch", "moveit.launch.py"),
         launch_arguments={"is_sim": "True"}.items())
 
-    # ── Web interface (task server + Flask dashboard) ─────────────────────
+    # ── Web interface ─────────────────────────────────────────────────────
     remote_interface = IncludeLaunchDescription(
         os.path.join(
             get_package_share_directory("dexter_remote"),
             "launch", "remote_interface.launch.py"),
         launch_arguments={"is_sim": "True"}.items())
 
-    # ── ArUco box detector  (t=5 s) ───────────────────────────────────────
-    aruco_detector = TimerAction(
-        period=5.0,
-        actions=[Node(
-            package="dexter_inventory",
-            executable="aruco_box_detector",
-            name="aruco_box_detector",
-            output="screen",
-            parameters=[{"use_sim_time": True}],
-            additional_env={
-                "DISPLAY":           display_val,
-                "ARUCO_SHOW_WINDOW": "1",
-                "QT_QPA_PLATFORM":   "xcb",
-            },
-        )]
-    )
-
-    # ── Inventory node  (t=7 s, needs controllers + aruco) ───────────────
+    # ── Inventory node (t=7 s) ────────────────────────────────────────────
     inventory_node = TimerAction(
         period=7.0,
         actions=[Node(
@@ -84,7 +69,9 @@ def generate_launch_description():
         )]
     )
 
-    # ── rqt_image_view (camera feed preview, t=7 s) ───────────────────────
+    # ── rqt_image_view  (optional camera preview, t=7 s) ─────────────────
+    # Kept as a lightweight topic monitor; the OpenCV ArUco window
+    # is started manually in a separate terminal (see note above).
     rqt_image = TimerAction(
         period=7.0,
         actions=[Node(
@@ -105,7 +92,6 @@ def generate_launch_description():
         controller,
         moveit,
         remote_interface,
-        aruco_detector,
         inventory_node,
         rqt_image,
     ])

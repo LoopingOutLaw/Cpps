@@ -1,0 +1,45 @@
+[0.035s] Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_firmware': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/Cpps/Dexter/install/dexter_py_examples:/home/aditya/Cpps/Dexter/install/dexter_inventory:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_firmware -- -j28 -l28
+[0.170s] [ 50%] Built target simple_serial_receiver
+[0.171s] [100%] Built target simple_serial_transmitter
+[0.178s] [100%] Built target ament_cmake_python_symlink_dexter_firmware
+[0.824s] running egg_info
+[0.870s] writing dexter_firmware.egg-info/PKG-INFO
+[0.870s] writing dependency_links to dexter_firmware.egg-info/dependency_links.txt
+[0.870s] writing top-level names to dexter_firmware.egg-info/top_level.txt
+[1.000s] reading manifest file 'dexter_firmware.egg-info/SOURCES.txt'
+[1.002s] writing manifest file 'dexter_firmware.egg-info/SOURCES.txt'
+[1.055s] [100%] Built target ament_cmake_python_build_dexter_firmware_egg
+[1.079s] Invoked command in '/home/aditya/Cpps/Dexter/build/dexter_firmware' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/Cpps/Dexter/install/dexter_py_examples:/home/aditya/Cpps/Dexter/install/dexter_inventory:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_firmware -- -j28 -l28
+[1.086s] Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_firmware': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/Cpps/Dexter/install/dexter_py_examples:/home/aditya/Cpps/Dexter/install/dexter_inventory:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --install /home/aditya/Cpps/Dexter/build/dexter_firmware
+[1.107s] -- Install configuration: ""
+[1.110s] -- Execute custom install script
+[1.110s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/share/dexter_firmware/environment/pythonpath.sh
+[1.110s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/share/dexter_firmware/environment/pythonpath.dsv
+[1.110s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/lib/python3.12/site-packages/dexter_firmware-0.0.0-py3.12.egg-info/PKG-INFO
+[1.110s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/lib/python3.12/site-packages/dexter_firmware-0.0.0-py3.12.egg-info/SOURCES.txt
+[1.110s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/lib/python3.12/site-packages/dexter_firmware-0.0.0-py3.12.egg-info/dependency_links.txt
+[1.111s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/lib/python3.12/site-packages/dexter_firmware-0.0.0-py3.12.egg-info/top_level.txt
+[1.111s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/lib/python3.12/site-packages/dexter_firmware/__init__.py
+[1.111s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/lib/python3.12/site-packages/dexter_firmware/simple_serial_receiver.py
+[1.111s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/lib/python3.12/site-packages/dexter_firmware/simple_serial_transmitter.py
+[1.112s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/bin/simple_serial_receiver
+[1.112s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/bin/simple_serial_transmitter
+[1.113s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/lib/dexter_firmware/simple_serial_transmitter.py
+[1.115s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/lib/dexter_firmware/simple_serial_receiver.py
+[1.115s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/share/ament_index/resource_index/package_run_dependencies/dexter_firmware
+[1.115s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/share/ament_index/resource_index/parent_prefix_path/dexter_firmware
+[1.116s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/share/dexter_firmware/environment/ament_prefix_path.sh
+[1.116s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/share/dexter_firmware/environment/ament_prefix_path.dsv
+[1.116s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/share/dexter_firmware/environment/path.sh
+[1.116s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/share/dexter_firmware/environment/path.dsv
+[1.116s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/share/dexter_firmware/local_setup.bash
+[1.116s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/share/dexter_firmware/local_setup.sh
+[1.116s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/share/dexter_firmware/local_setup.zsh
+[1.116s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/share/dexter_firmware/local_setup.dsv
+[1.117s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_firmware/share/dexter_firmware/package.dsv
+[1.132s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/share/ament_index/resource_index/packages/dexter_firmware
+[1.133s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/share/dexter_firmware/cmake/dexter_firmwareConfig.cmake
+[1.133s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/share/dexter_firmware/cmake/dexter_firmwareConfig-version.cmake
+[1.133s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_firmware/share/dexter_firmware/package.xml
+[1.206s] Listing '/home/aditya/Cpps/Dexter/install/dexter_firmware/lib/python3.12/site-packages/dexter_firmware'...
+[1.219s] Invoked command in '/home/aditya/Cpps/Dexter/build/dexter_firmware' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/Cpps/Dexter/install/dexter_py_examples:/home/aditya/Cpps/Dexter/install/dexter_inventory:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --install /home/aditya/Cpps/Dexter/build/dexter_firmware

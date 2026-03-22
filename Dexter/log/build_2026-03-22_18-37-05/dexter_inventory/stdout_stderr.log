@@ -1,0 +1,28 @@
+running egg_info
+writing ../build/dexter_inventory/dexter_inventory.egg-info/PKG-INFO
+writing dependency_links to ../build/dexter_inventory/dexter_inventory.egg-info/dependency_links.txt
+writing entry points to ../build/dexter_inventory/dexter_inventory.egg-info/entry_points.txt
+writing requirements to ../build/dexter_inventory/dexter_inventory.egg-info/requires.txt
+writing top-level names to ../build/dexter_inventory/dexter_inventory.egg-info/top_level.txt
+reading manifest file '../build/dexter_inventory/dexter_inventory.egg-info/SOURCES.txt'
+writing manifest file '../build/dexter_inventory/dexter_inventory.egg-info/SOURCES.txt'
+running build
+running build_py
+copying dexter_inventory/inventory_node.py -> /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory
+copying dexter_inventory/dispatch_engine.py -> /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory
+running install
+running install_lib
+copying /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory/inventory_node.py -> /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory
+copying /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory/dispatch_engine.py -> /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory
+byte-compiling /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/inventory_node.py to inventory_node.cpython-312.pyc
+byte-compiling /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/dispatch_engine.py to dispatch_engine.cpython-312.pyc
+running install_data
+running install_egg_info
+removing '/home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory-0.1.0-py3.12.egg-info' (and everything under it)
+Copying ../build/dexter_inventory/dexter_inventory.egg-info to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory-0.1.0-py3.12.egg-info
+running install_scripts
+Installing aruco_box_detector script to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory
+Installing inventory_node script to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory
+Installing seed_data script to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory
+Installing standalone_dashboard script to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory
+writing list of installed files to '/home/aditya/Cpps/Dexter/build/dexter_inventory/install.log'

@@ -5,16 +5,15 @@ generate_aruco_textures.py
 Generates ArUco PNG textures used as Gazebo material albedo maps.
 
 DICT_4X4_50 markers generated:
-  IDs 1-4    → aruco_1.png … aruco_4.png     (floor reference, 200×200 mm in world)
-  IDs 10-13  → aruco_10.png … aruco_13.png   (box-top markers, 90×90 mm in world)
+  IDs 1-4    → aruco_1.png … aruco_4.png     (floor reference corners)
+  ID  5      → aruco_5.png                   (arm base floor marker)
+  IDs 10-13  → aruco_10.png … aruco_13.png   (box-top markers)
+  ID  20     → aruco_20.png                   (arm base_plate rotating marker)
 
-Each PNG is 512×512 pixels with a white border (required by ArUco spec so
-the black outer frame is detectable).
+Each PNG is 512×512 pixels with a white border (required by ArUco spec).
 
 Run once before or during colcon build:
     python3 generate_aruco_textures.py [output_dir]
-
-If output_dir is omitted, writes to <script_dir>/../textures/
 """
 
 import sys
@@ -34,9 +33,12 @@ print(f"Output directory: {out_dir}")
 
 # ── Marker IDs ────────────────────────────────────────────────────────────────
 
-FLOOR_REF_IDS = [1, 2, 3, 4]          # reference corners on floor
-BOX_TOP_IDS   = [10, 11, 12, 13]      # ArUco on each box slot
-MARKER_IDS    = FLOOR_REF_IDS + BOX_TOP_IDS
+FLOOR_REF_IDS  = [1, 2, 3, 4]          # reference corners on floor (wide rectangle)
+ARM_FLOOR_IDS  = [5]                    # arm base floor marker
+BOX_TOP_IDS    = [10, 11, 12, 13]      # ArUco on each box slot top
+ARM_PLATE_IDS  = [20]                   # ArUco on arm base_plate (rotates with joint_1)
+
+MARKER_IDS = FLOOR_REF_IDS + ARM_FLOOR_IDS + BOX_TOP_IDS + ARM_PLATE_IDS
 
 IMAGE_SIZE  = 512    # px
 BORDER_FRAC = 0.15   # white border fraction
@@ -63,7 +65,6 @@ def generate_aruco_png(marker_id: int, out_path: Path) -> None:
         b      = int(IMAGE_SIZE * BORDER_FRAC)
         canvas[b:b + inner_size, b:b + inner_size] = marker_img
 
-        # Save greyscale PNG  (OGRE2 / Gazebo Harmonic accepts greyscale)
         cv2.imwrite(str(out_path), canvas)
         print(f"  ✓ {out_path.name}   (ArUco ID {marker_id}, {IMAGE_SIZE}px)")
     else:
@@ -71,9 +72,8 @@ def generate_aruco_png(marker_id: int, out_path: Path) -> None:
 
 
 def _fallback_png(out_path: Path, marker_id: int) -> None:
-    """PIL checkerboard fallback when opencv is unavailable."""
     try:
-        from PIL import Image, ImageDraw  # type: ignore[import]
+        from PIL import Image, ImageDraw
         img  = Image.new("L", (IMAGE_SIZE, IMAGE_SIZE), 255)
         draw = ImageDraw.Draw(img)
         sq   = IMAGE_SIZE // 8
@@ -89,14 +89,11 @@ def _fallback_png(out_path: Path, marker_id: int) -> None:
 
 
 def _minimal_png(out_path: Path, marker_id: int) -> None:
-    """Pure-stdlib white PNG when neither cv2 nor PIL available."""
     import struct, zlib
-
     def chunk(name: bytes, data: bytes) -> bytes:
         raw = name + data
         return (struct.pack(">I", len(data)) + raw
                 + struct.pack(">I", zlib.crc32(raw) & 0xFFFFFFFF))
-
     size   = 16
     header = b"\x89PNG\r\n\x1a\n"
     ihdr   = chunk(b"IHDR", struct.pack(">IIBBBBB", size, size, 8, 0, 0, 0, 0))
@@ -122,7 +119,9 @@ print()
 if errors == 0:
     print(f"✓  All {len(MARKER_IDS)} ArUco textures generated in {out_dir}")
     print(f"   Floor reference IDs : {FLOOR_REF_IDS}")
+    print(f"   Arm floor ID        : {ARM_FLOOR_IDS}")
     print(f"   Box-top IDs         : {BOX_TOP_IDS}")
+    print(f"   Arm plate ID        : {ARM_PLATE_IDS}")
     print("   Run:  colcon build --packages-select dexter_description")
 else:
     print(f"✗  {errors} error(s) — check output above")

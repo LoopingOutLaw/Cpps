@@ -65,6 +65,23 @@
         </collision>
     </link>
 
+    <!--
+      arm_aruco_plate  – a thin flat marker (ID 20) attached to base_plate.
+      It sits 12 cm above the base_plate joint origin, facing upward.
+      The overhead camera sees it as a rotating marker → tracks joint_1 yaw.
+      Physical size: 90×90 mm (matching box-top markers).
+    -->
+    <link name="arm_aruco_plate">
+        <xacro:default_inertial mass="0.001"/>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.09 0.09 0.003"/>
+            </geometry>
+        </visual>
+        <!-- No collision – it's a visual-only tag -->
+    </link>
+
     <link name="forward_drive_arm">
         <xacro:default_inertial mass="0.1"/>
         <visual>
@@ -160,6 +177,17 @@
         <axis xyz="0 0 1"/>
         <limit lower="-${PI / 2}" upper="${PI / 2}" 
                effort="${effort}" velocity="${velocity}"/>
+    </joint>
+
+    <!--
+      arm_aruco_joint: fixed joint attaching the ArUco marker plate to base_plate.
+      Origin is 0.12 m above the base_plate joint origin so it sits on top of
+      the rotating base section, clearly visible from the overhead camera.
+    -->
+    <joint name="arm_aruco_joint" type="fixed">
+        <parent link="base_plate"/>
+        <child link="arm_aruco_plate"/>
+        <origin xyz="0 0 0.12" rpy="0 0 0"/>
     </joint>
 
     <joint name ="joint_2" type="revolute">

@@ -2,19 +2,25 @@
 dispatch_engine.py
 Pure-Python dispatch decision layer.  No ROS dependency – fully testable standalone.
 
-SLOT → ARM JOINT MAPPING (IK-calculated for box positions)
-----------------------------------------------------------
-Robot link lengths: L0=0.657m (base), L1=0.80m (link1), L2=0.82m (link2)
-Gripper pick height: z=1.216m (boxes at z=1.156m, 6cm clearance)
+JOINT VALUE TABLE  (IK-verified, z = L0+L1*cos(j2)+L2*cos(j2+j3))
+────────────────────────────────────────────────────────────────────
+L0=0.657 m (base to joint_2)
+L1=0.80  m (joint_2 to joint_3)
+L2=0.82  m (joint_3 to claw_support)
 
-         joint_1  joint_2  joint_3   world position (x, y)
-Slot 0   -0.55    +0.55    +1.17     (1.048, -0.642)
-Slot 1   -0.18    +0.55    +1.17     (1.209, -0.220)
-Slot 2   +0.18    +0.55    +1.17     (1.209, +0.220)
-Slot 3   +0.55    +0.55    +1.17     (1.048, +0.642)
+All 4 slots have the same radial distance r = 1.229 m from the arm base,
+so j2 and j3 are IDENTICAL for all slots.  Only j1 (base yaw) changes.
 
-Drop zone (to the side at y>0):
-         +1.01    +0.20    +1.65     (0.5, 0.8)
+j2=-0.5502, j3=-1.1711 → z = 0.657+0.80*cos(-0.55)+0.82*cos(-1.72) = 1.216 m  ✓
+j2=-0.5502, j3=-1.0000 → z = 0.657+0.80*cos(-0.55)+0.82*cos(-1.55) = 1.355 m  ✓ (hover)
+
+         j1        j2       j3       world (x, y) m
+Slot 0  -0.5496  -0.5502  -1.1711   (1.048, -0.642)
+Slot 1  -0.1800  -0.5500  -1.1714   (1.209, -0.220)
+Slot 2  +0.1800  -0.5500  -1.1714   (1.209, +0.220)
+Slot 3  +0.5496  -0.5502  -1.1711   (1.048, +0.642)
+Drop    +1.0122  -0.5502  -1.1711   (0.664,  1.034)
+────────────────────────────────────────────────────────────────────
 """
 
 import time
@@ -28,68 +34,70 @@ from dexter_inventory.inventory_db import (
 )
 
 
-# ── Arm configuration ────────────────────────────────────────────────────────
-# IK-calculated joint positions for each slot (gripper at z=1.216m)
+# ── Arm configuration ─────────────────────────────────────────────────────────
 
 SLOT_POSES: Dict[int, Dict[str, list]] = {
-    0: {"arm": [-0.5496,  0.5502,  1.1711], "gripper_open": [0.0, 0.0], "gripper_closed": [-0.7, 0.7]},
-    1: {"arm": [-0.1800,  0.5500,  1.1714], "gripper_open": [0.0, 0.0], "gripper_closed": [-0.7, 0.7]},
-    2: {"arm": [ 0.1800,  0.5500,  1.1714], "gripper_open": [0.0, 0.0], "gripper_closed": [-0.7, 0.7]},
-    3: {"arm": [ 0.5496,  0.5502,  1.1711], "gripper_open": [0.0, 0.0], "gripper_closed": [-0.7, 0.7]},
+    # j2 and j3 BOTH NEGATIVE: j2 tilts arm toward shelf, j3 folds elbow to correct height
+    0: {
+        "arm":            [-0.5496, -0.5502, -1.1711],  # z=1.216 m
+        "gripper_open":   [0.0],
+        "gripper_closed": [-0.7],
+    },
+    1: {
+        "arm":            [-0.1800, -0.5500, -1.1714],
+        "gripper_open":   [0.0],
+        "gripper_closed": [-0.7],
+    },
+    2: {
+        "arm":            [ 0.1800, -0.5500, -1.1714],
+        "gripper_open":   [0.0],
+        "gripper_closed": [-0.7],
+    },
+    3: {
+        "arm":            [ 0.5496, -0.5502, -1.1711],
+        "gripper_open":   [0.0],
+        "gripper_closed": [-0.7],
+    },
 }
 
-# Hover height – arm position 15cm above each slot (for safe transit)
+# Hover ≈ 14 cm above pick (same j1, j3 less negative → arm slightly higher)
 SLOT_HOVER: Dict[int, list] = {
-    0: [-0.5496,  0.5371,  1.0073],
-    1: [-0.1800,  0.5368,  1.0077],
-    2: [ 0.1800,  0.5368,  1.0077],
-    3: [ 0.5496,  0.5371,  1.0073],
+    0: [-0.5496, -0.5502, -1.0000],   # z≈1.355 m
+    1: [-0.1800, -0.5500, -1.0000],
+    2: [ 0.1800, -0.5500, -1.0000],
+    3: [ 0.5496, -0.5502, -1.0000],
 }
 
-DROP_ZONE_HOVER:  list = [1.0122, 0.1599, 1.5096]  # hover above drop zone
-DROP_ZONE_PLACE:  list = [1.0122, 0.1951, 1.6547]  # drop position (x=0.5, y=0.8)
-HOME_POSE:        list = [0.00,  0.00,  0.00]
+# Dispatch tray at world (0.664, 1.034): j1=atan2(1.034,0.664)≈1.01 rad
+# r_drop = sqrt(0.664²+1.034²) = 1.229 m  (same as shelf slots)
+# → identical j2/j3, just j1 points toward tray
+DROP_ZONE_HOVER: list = [1.0122, -0.5502, -1.0000]   # z≈1.355 m above tray
+DROP_ZONE_PLACE: list = [1.0122, -0.5502, -1.1711]   # z≈1.216 m at tray
 
-LOW_STOCK_THRESHOLD = 1     # alert when at or below this many items
+HOME_POSE: list = [0.00, 0.00, 0.00]   # arm pointing straight up (safe park)
+
+LOW_STOCK_THRESHOLD = 1
 
 
 # ── Public API ────────────────────────────────────────────────────────────────
 
 def select_item(mode: str) -> Optional[Any]:
-    """
-    Select the next item to dispatch according to *mode*.
-
-    Parameters
-    ----------
-    mode : "FIFO" | "FEFO"
-
-    Returns
-    -------
-    sqlite3.Row or None
-    """
     mode = mode.upper()
     if mode == "FIFO":
         return get_fifo_item()
     elif mode == "FEFO":
         return get_fefo_item()
     else:
-        raise ValueError(f"Unknown dispatch mode: {mode!r}. Use 'FIFO' or 'FEFO'.")
+        raise ValueError(f"Unknown mode: {mode!r}.  Use 'FIFO' or 'FEFO'.")
 
 
 def build_motion_sequence(slot: int) -> list:
     """
-    Return the ordered list of motion steps the arm must execute to pick
-    from *slot* and deliver to the drop zone.
-
-    Each step is a dict:
-        {
-            "label":   str,          # human-readable description
-            "arm":     [j1, j2, j3], # target joint positions (radians)
-            "gripper": [j4, j5],     # target gripper position
-        }
+    Return the ordered list of motion steps for picking from *slot*
+    and delivering to the dispatch tray.
     """
     if slot not in SLOT_POSES:
-        raise ValueError(f"Invalid slot {slot}. Valid slots: {list(SLOT_POSES)}")
+        raise ValueError(f"Invalid slot {slot}. Valid: {list(SLOT_POSES)}")
 
     pose = SLOT_POSES[slot]
 
@@ -100,25 +108,25 @@ def build_motion_sequence(slot: int) -> list:
             "arm":     HOME_POSE,
             "gripper": pose["gripper_open"],
         },
-        # 2. Hover above target slot
+        # 2. Hover above slot
         {
-            "label":   f"hover above slot {slot}",
+            "label":   f"hover above slot {slot}  (z≈1.36 m)",
             "arm":     SLOT_HOVER[slot],
             "gripper": pose["gripper_open"],
         },
-        # 3. Descend to pick position
+        # 3. Descend to pick
         {
-            "label":   f"descend to slot {slot}",
+            "label":   f"descend to slot {slot}  (z≈1.22 m)",
             "arm":     pose["arm"],
             "gripper": pose["gripper_open"],
         },
-        # 4. Close gripper – grab item
+        # 4. Close gripper
         {
             "label":   f"grip item at slot {slot}",
             "arm":     pose["arm"],
             "gripper": pose["gripper_closed"],
         },
-        # 5. Lift back to hover height (with item)
+        # 5. Lift to hover
         {
             "label":   f"lift from slot {slot}",
             "arm":     SLOT_HOVER[slot],
@@ -126,17 +134,17 @@ def build_motion_sequence(slot: int) -> list:
         },
         # 6. Hover above drop zone
         {
-            "label":   "approach drop zone",
+            "label":   "approach drop zone  (z≈1.36 m)",
             "arm":     DROP_ZONE_HOVER,
             "gripper": pose["gripper_closed"],
         },
-        # 7. Descend to drop position
+        # 7. Descend to tray
         {
-            "label":   "place at drop zone",
+            "label":   "place at drop zone  (z≈1.22 m)",
             "arm":     DROP_ZONE_PLACE,
             "gripper": pose["gripper_closed"],
         },
-        # 8. Open gripper – release
+        # 8. Release
         {
             "label":   "release item",
             "arm":     DROP_ZONE_PLACE,
@@ -152,22 +160,13 @@ def build_motion_sequence(slot: int) -> list:
 
 
 def dispatch(mode: str) -> Tuple[bool, str, Optional[dict]]:
-    """
-    High-level dispatch call:  select item → build motion sequence → mark dispatched.
-
-    Returns
-    -------
-    (success, message, info_dict)
-        info_dict keys: item_id, item_name, slot, mode, steps
-    """
     item = select_item(mode)
     if item is None:
         return False, "No items in stock to dispatch.", None
 
-    slot = item["slot"]
+    slot  = item["slot"]
     steps = build_motion_sequence(slot)
-
-    info = {
+    info  = {
         "item_id":   item["id"],
         "item_name": item["name"],
         "slot":      slot,
@@ -175,25 +174,20 @@ def dispatch(mode: str) -> Tuple[bool, str, Optional[dict]]:
         "expiry_ts": item["expiry_ts"],
         "steps":     steps,
     }
-
-    # DB update happens *after* arm completes – caller is responsible for
-    # calling mark_dispatched() once execution succeeds.
     return True, f"Dispatching '{item['name']}' from slot {slot} ({mode.upper()})", info
 
 
 def check_low_stock() -> Tuple[bool, int]:
-    """Return (is_low, current_count)."""
     count = stock_count()
     return count <= LOW_STOCK_THRESHOLD, count
 
 
 def format_expiry(ts: Optional[float]) -> str:
-    """Human-readable expiry string."""
     if ts is None:
         return "no expiry"
     delta = ts - time.time()
     if delta < 0:
         return "EXPIRED"
-    days = int(delta // 86400)
+    days  = int(delta // 86400)
     hours = int((delta % 86400) // 3600)
     return f"{days}d {hours}h remaining"
