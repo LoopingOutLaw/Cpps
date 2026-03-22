@@ -1,10 +1,1 @@
-planning_pipelines:
-  pipeline_names: ["ompl"]
-
-plan_request_params:
-  planner_id: ompl
-  planning_attempts: 10
-  planning_pipeline: ompl
-  planning_time: 30.0
-  max_velocity_scaling_factor: 0.5
-  max_acceleration_scaling_factor: 0.5
+/home/aditya/Cpps/Dexter/dexter_moveit/config/planning_python_api.yaml

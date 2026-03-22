@@ -1,0 +1,68 @@
+[ 50%] Built target slider_control
+[ 50%] Built target ament_cmake_python_copy_dexter_controller
+[ 75%] [32mBuilding CXX object CMakeFiles/dexter_controller.dir/src/dexter_interface.cpp.o[0m
+running egg_info
+writing dexter_controller.egg-info/PKG-INFO
+writing dependency_links to dexter_controller.egg-info/dependency_links.txt
+writing top-level names to dexter_controller.egg-info/top_level.txt
+reading manifest file 'dexter_controller.egg-info/SOURCES.txt'
+writing manifest file 'dexter_controller.egg-info/SOURCES.txt'
+[ 75%] Built target ament_cmake_python_build_dexter_controller_egg
+[01m[K/home/aditya/Cpps/Dexter/dexter_controller/src/dexter_interface.cpp:[m[K In member function ‘[01m[Kvirtual dexter_controller::CallbackReturn dexter_controller::DexterInterface::[01;32m[Kon_init[m[K(const hardware_interface::HardwareInfo&)[m[K’:
+[01m[K/home/aditya/Cpps/Dexter/dexter_controller/src/dexter_interface.cpp:46:71:[m[K [01;35m[Kwarning: [m[K‘[01m[Kvirtual rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn hardware_interface::HardwareComponentInterface::[01;32m[Kon_init[m[K(const hardware_interface::HardwareInfo&)[m[K’ is deprecated: Use on_init(const HardwareComponentInterfaceParams & params) instead. [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wdeprecated-declarations-Wdeprecated-declarations]8;;[m[K]
+   46 |   CallbackReturn result = [01;35m[Khardware_interface::SystemInterface::on_init(hardware_info)[m[K;
+      |                           [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/ros/jazzy/include/hardware_interface/hardware_interface/system_interface.hpp:18[m[K,
+                 from [01m[K/home/aditya/Cpps/Dexter/dexter_controller/include/dexter_controller/dexter_interface.hpp:5[m[K,
+                 from [01m[K/home/aditya/Cpps/Dexter/dexter_controller/src/dexter_interface.cpp:1[m[K:
+[01m[K/opt/ros/jazzy/include/hardware_interface/hardware_interface/hardware_component_interface.hpp:140:26:[m[K [01;36m[Knote: [m[Kdeclared here
+  140 |   virtual CallbackReturn [01;36m[Kon_init[m[K(const HardwareInfo & hardware_info);
+      |                          [01;36m[K^~~~~~~[m[K
+[100%] [32m[1mLinking CXX shared library libdexter_controller.so[0m
+[100%] Built target dexter_controller
+-- Install configuration: ""
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/dexter_controller.xml
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/pythonpath.sh
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/pythonpath.dsv
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller-0.0.0-py3.12.egg-info
+-- Installing: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller-0.0.0-py3.12.egg-info/SOURCES.txt
+-- Installing: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller-0.0.0-py3.12.egg-info/PKG-INFO
+-- Installing: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller-0.0.0-py3.12.egg-info/dependency_links.txt
+-- Installing: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller-0.0.0-py3.12.egg-info/top_level.txt
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller/slider_control.py
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller/__init__.py
+Listing '/home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller'...
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/dexter_controller/slider_control
+-- Installing: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/libdexter_controller.so
+-- Set non-toolchain portion of runtime path of "/home/aditya/Cpps/Dexter/install/dexter_controller/lib/libdexter_controller.so" to ""
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/include/include
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/include/include/dexter_controller
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/include/include/dexter_controller/dexter_interface.hpp
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/launch
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/launch/controller.launch.py
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/launch/slider_controller.launch.py
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/config
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/config/dexter_controllers.yaml
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/dexter_controller/slider_control.py
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/library_path.sh
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/library_path.dsv
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/ament_index/resource_index/package_run_dependencies/dexter_controller
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/ament_index/resource_index/parent_prefix_path/dexter_controller
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/ament_prefix_path.sh
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/ament_prefix_path.dsv
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/path.sh
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/path.dsv
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/local_setup.bash
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/local_setup.sh
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/local_setup.zsh
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/local_setup.dsv
+-- Installing: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/package.dsv
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/ament_index/resource_index/packages/dexter_controller
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/ament_index/resource_index/hardware_interface__pluginlib__plugin/dexter_controller
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/cmake/ament_cmake_export_libraries-extras.cmake
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/cmake/dexter_controllerConfig.cmake
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/cmake/dexter_controllerConfig-version.cmake
+-- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/package.xml

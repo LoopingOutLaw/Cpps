@@ -1,0 +1,28 @@
+[0.034s] Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_firmware': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake /home/aditya/Cpps/Dexter/dexter_firmware -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/aditya/Cpps/Dexter/install/dexter_firmware
+[0.080s] -- Found ament_cmake: 2.5.5 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.799s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.823s] -- Found rclcpp: 28.1.16 (/opt/ros/jazzy/share/rclcpp/cmake)
+[0.934s] -- Found rosidl_generator_c: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.971s] -- Found rosidl_generator_cpp: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[1.011s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.068s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.333s] -- Found rmw_implementation_cmake: 7.3.3 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[1.340s] -- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[1.616s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.893s] -- Found std_msgs: 5.3.6 (/opt/ros/jazzy/share/std_msgs/cmake)
+[2.030s] -- Found rclpy: 7.1.9 (/opt/ros/jazzy/share/rclpy/cmake)
+[2.612s] -- Configuring done (2.6s)
+[2.665s] -- Generating done (0.0s)
+[2.683s] -- Build files have been written to: /home/aditya/Cpps/Dexter/build/dexter_firmware
+[2.712s] Invoked command in '/home/aditya/Cpps/Dexter/build/dexter_firmware' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake /home/aditya/Cpps/Dexter/dexter_firmware -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/aditya/Cpps/Dexter/install/dexter_firmware
+[2.716s] Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_firmware': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_firmware -- -j28 -l28
+[2.894s] failed to create symbolic link '/home/aditya/Cpps/Dexter/build/dexter_firmware/ament_cmake_python/dexter_firmware/dexter_firmware' because existing path cannot be removed: Is a directory
+[2.896s] gmake[2]: *** [CMakeFiles/ament_cmake_python_symlink_dexter_firmware.dir/build.make:70: CMakeFiles/ament_cmake_python_symlink_dexter_firmware] Error 1
+[2.897s] gmake[1]: *** [CMakeFiles/Makefile2:142: CMakeFiles/ament_cmake_python_symlink_dexter_firmware.dir/all] Error 2
+[2.897s] gmake[1]: *** Waiting for unfinished jobs....
+[2.910s] [ 25%] Linking CXX executable simple_serial_receiver
+[2.915s] [ 50%] Linking CXX executable simple_serial_transmitter
+[3.513s] [ 75%] Built target simple_serial_receiver
+[3.763s] [100%] Built target simple_serial_transmitter
+[3.765s] gmake: *** [Makefile:146: all] Error 2
+[3.770s] Invoked command in '/home/aditya/Cpps/Dexter/build/dexter_firmware' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_firmware -- -j28 -l28

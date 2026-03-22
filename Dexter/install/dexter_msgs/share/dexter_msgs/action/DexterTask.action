@@ -1,8 +1,1 @@
-# Goal         
-int32 task_number
----
-# Result
-bool success
----
-# Feedback
-int32 percentage
+/home/aditya/Cpps/Dexter/dexter_msgs/action/DexterTask.action

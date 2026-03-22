@@ -1,0 +1,47 @@
+[0.036s] Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_firmware': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/Cpps/Dexter/install/dexter_py_examples:/home/aditya/Cpps/Dexter/install/dexter_inventory:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_firmware -- -j28 -l28
+[0.156s] [ 50%] Built target simple_serial_transmitter
+[0.157s] [100%] Built target simple_serial_receiver
+[0.158s] [100%] Built target ament_cmake_python_copy_dexter_firmware
+[0.255s] Traceback (most recent call last):
+[0.256s]   File "/home/aditya/Cpps/Dexter/build/dexter_firmware/ament_cmake_python/dexter_firmware/setup.py", line 1, in <module>
+[0.256s]     from setuptools import find_packages
+[0.256s]   File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/setuptools/__init__.py", line 21, in <module>
+[0.256s]     import _distutils_hack.override  # noqa: F401
+[0.257s]     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[0.257s]   File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/_distutils_hack/override.py", line 1, in <module>
+[0.257s]     __import__('_distutils_hack').do_override()
+[0.258s]   File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/_distutils_hack/__init__.py", line 89, in do_override
+[0.258s]     ensure_local_distutils()
+[0.258s]   File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/_distutils_hack/__init__.py", line 72, in ensure_local_distutils
+[0.258s]     importlib.import_module('distutils')
+[0.259s]   File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+[0.259s]     return _bootstrap._gcd_import(name[level:], package, level)
+[0.260s]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[0.260s]   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+[0.260s]   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+[0.260s]   File "<frozen importlib._bootstrap>", line 1322, in _find_and_load_unlocked
+[0.261s]   File "<frozen importlib._bootstrap>", line 1262, in _find_spec
+[0.261s]   File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/_distutils_hack/__init__.py", line 109, in find_spec
+[0.261s]     return method()
+[0.261s]            ^^^^^^^^
+[0.262s]   File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/_distutils_hack/__init__.py", line 116, in spec_for_distutils
+[0.262s]     import importlib.abc
+[0.262s]   File "/usr/lib/python3.12/importlib/abc.py", line 18, in <module>
+[0.269s]     from .resources import abc as _resources_abc
+[0.269s]   File "/usr/lib/python3.12/importlib/resources/__init__.py", line 3, in <module>
+[0.269s]     from ._common import (
+[0.269s]   File "/usr/lib/python3.12/importlib/resources/_common.py", line 2, in <module>
+[0.269s]     import pathlib
+[0.270s]   File "/usr/lib/python3.12/pathlib.py", line 19, in <module>
+[0.272s]     from urllib.parse import quote_from_bytes as urlquote_from_bytes
+[0.272s]   File "/usr/lib/python3.12/urllib/parse.py", line 250, in <module>
+[0.273s]     _DefragResultBase = namedtuple('DefragResult', 'url fragment')
+[0.273s]                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[0.273s]   File "/usr/lib/python3.12/collections/__init__.py", line 441, in namedtuple
+[0.273s]     __new__ = eval(code, namespace)
+[0.273s]               ^^^^^^^^^^^^^^^^^^^^^
+[0.273s]   File "<string>", line 0, in <module>
+[0.274s] KeyboardInterrupt
+[0.274s] gmake[2]: *** [CMakeFiles/ament_cmake_python_build_dexter_firmware_egg.dir/build.make:70: CMakeFiles/ament_cmake_python_build_dexter_firmware_egg] Interrupt
+[0.274s] gmake[1]: *** [CMakeFiles/Makefile2:168: CMakeFiles/ament_cmake_python_build_dexter_firmware_egg.dir/all] Interrupt
+[0.274s] gmake: *** [Makefile:146: all] Interrupt

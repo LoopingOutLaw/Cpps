@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/home/aditya/Cpps/Dexter/build/dexter_firmware/simple_serial_receiver" "/home/aditya/Cpps/Dexter/build/dexter_firmware/simple_serial_transmitter" "TARGETS" "simple_serial_receiver" "simple_serial_transmitter" "ARCHIVE_DESTINATION" "lib" "LIBRARY_DESTINATION" "lib" "RUNTIME_DESTINATION" "bin" "DESTINATION" "lib/dexter_firmware")

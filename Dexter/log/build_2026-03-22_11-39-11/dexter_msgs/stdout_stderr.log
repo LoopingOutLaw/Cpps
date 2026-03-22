@@ -1,0 +1,46 @@
+-- Found ament_cmake: 2.5.5 (/opt/ros/jazzy/share/ament_cmake/cmake)
+-- Found Python3: /home/aditya/venv-ardupilot/bin/python3 (found version "3.12.3") found components: Interpreter 
+-- Override CMake install command with custom implementation using symlinks instead of copying resources
+-- Found std_msgs: 5.3.6 (/opt/ros/jazzy/share/std_msgs/cmake)
+-- Found rosidl_generator_c: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+-- Found rosidl_generator_cpp: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found rosidl_default_generators: 1.6.0 (/opt/ros/jazzy/share/rosidl_default_generators/cmake)
+-- Found rosidl_adapter: 4.6.7 (/opt/ros/jazzy/share/rosidl_adapter/cmake)
+-- Found ament_cmake_ros: 0.12.0 (/opt/ros/jazzy/share/ament_cmake_ros/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found python_cmake_module: 0.11.1 (/opt/ros/jazzy/share/python_cmake_module/cmake)
+-- Found Python3: /home/aditya/venv-ardupilot/bin/python3 (found version "3.12.3") found components: Interpreter Development NumPy Development.Module Development.Embed 
+-- Configuring done (3.6s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/aditya/Cpps/Dexter/build/dexter_msgs
+[  1%] Built target dexter_msgs__rosidl_generator_type_description
+[  1%] Built target ament_cmake_python_symlink_dexter_msgs
+[  2%] Built target dexter_msgs__cpp
+[ 26%] Built target dexter_msgs__rosidl_generator_c
+[ 36%] Built target dexter_msgs__rosidl_typesupport_c
+[ 45%] Built target dexter_msgs__rosidl_typesupport_introspection_c
+[ 55%] Built target dexter_msgs__rosidl_typesupport_introspection_cpp
+[ 64%] Built target dexter_msgs__rosidl_typesupport_fastrtps_c
+[ 74%] Built target dexter_msgs__rosidl_typesupport_cpp
+[ 84%] Built target dexter_msgs__rosidl_typesupport_fastrtps_cpp
+[ 84%] Built target dexter_msgs
+[ 85%] Built target dexter_msgs__py
+[ 93%] Built target dexter_msgs__rosidl_generator_py
+[ 94%] Linking C shared module rosidl_generator_py/dexter_msgs/dexter_msgs_s__rosidl_typesupport_introspection_c.so
+[ 95%] Linking C shared module rosidl_generator_py/dexter_msgs/dexter_msgs_s__rosidl_typesupport_c.so
+[ 96%] Linking C shared module rosidl_generator_py/dexter_msgs/dexter_msgs_s__rosidl_typesupport_fastrtps_c.so
+[ 97%] Built target dexter_msgs_s__rosidl_typesupport_fastrtps_c
+[ 98%] Built target dexter_msgs_s__rosidl_typesupport_c
+[100%] Built target dexter_msgs_s__rosidl_typesupport_introspection_c
+running egg_info
+creating dexter_msgs.egg-info
+writing dexter_msgs.egg-info/PKG-INFO
+writing dependency_links to dexter_msgs.egg-info/dependency_links.txt
+writing top-level names to dexter_msgs.egg-info/top_level.txt
+writing manifest file 'dexter_msgs.egg-info/SOURCES.txt'
+reading manifest file 'dexter_msgs.egg-info/SOURCES.txt'
+writing manifest file 'dexter_msgs.egg-info/SOURCES.txt'
+[100%] Built target ament_cmake_python_build_dexter_msgs_egg

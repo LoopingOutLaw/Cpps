@@ -224,17 +224,17 @@ dexter_controller/fast:
 .PHONY : dexter_controller/fast
 
 #=============================================================================
-# Target rules for targets named ament_cmake_python_copy_dexter_controller
+# Target rules for targets named ament_cmake_python_symlink_dexter_controller
 
 # Build rule for target.
-ament_cmake_python_copy_dexter_controller: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ament_cmake_python_copy_dexter_controller
-.PHONY : ament_cmake_python_copy_dexter_controller
+ament_cmake_python_symlink_dexter_controller: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ament_cmake_python_symlink_dexter_controller
+.PHONY : ament_cmake_python_symlink_dexter_controller
 
 # fast build rule for target.
-ament_cmake_python_copy_dexter_controller/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ament_cmake_python_copy_dexter_controller.dir/build.make CMakeFiles/ament_cmake_python_copy_dexter_controller.dir/build
-.PHONY : ament_cmake_python_copy_dexter_controller/fast
+ament_cmake_python_symlink_dexter_controller/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ament_cmake_python_symlink_dexter_controller.dir/build.make CMakeFiles/ament_cmake_python_symlink_dexter_controller.dir/build
+.PHONY : ament_cmake_python_symlink_dexter_controller/fast
 
 #=============================================================================
 # Target rules for targets named ament_cmake_python_build_dexter_controller_egg
@@ -311,7 +311,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... ament_cmake_python_build_dexter_controller_egg"
-	@echo "... ament_cmake_python_copy_dexter_controller"
+	@echo "... ament_cmake_python_symlink_dexter_controller"
 	@echo "... dexter_controller_uninstall"
 	@echo "... uninstall"
 	@echo "... dexter_controller"

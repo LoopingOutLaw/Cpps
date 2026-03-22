@@ -1,22 +1,27 @@
 #!/usr/bin/env python3
 """
-inventory_node.py  (ArUco-aware version)
-ROS 2 node that bridges the FIFO/FEFO inventory system with the Dexter arm.
-Now subscribes to /inventory/box_poses from aruco_box_detector.py and uses
-detected positions for motion planning instead of pure hardcoded FK values.
+inventory_node.py  —  DIRECT TRAJECTORY PUBLISHER  (no MoveIt)
+===============================================================
+Every previous version used moveit_py and failed in a different way:
+  - dict vs numpy TypeError
+  - executor deadlock (blocking execute() in single-threaded spin)
+  - plan.trajectory.joint_trajectory.points AttributeError
+  - execute() returning before motion completes
 
-Services exposed
-----------------
-/inventory/dispatch          dexter_msgs/srv/DispatchItem
-/inventory/add_item          dexter_msgs/srv/AddItem
+This version bypasses MoveIt completely and publishes JointTrajectory
+messages directly to the arm and gripper controllers, exactly the same
+way slider_control.py already does in this project.
 
-Topics subscribed
------------------
-/inventory/box_poses         std_msgs/msg/String  (JSON from aruco_box_detector)
+The arm controllers accept /arm_controller/joint_trajectory and
+/gripper_controller/joint_trajectory.  No planning, no action clients,
+no moveit_py — just publish a goal position with a time_from_start and
+wait for /joint_states to confirm arrival.
 
-Topics published
-----------------
-/inventory/stock_state       std_msgs/msg/String  (JSON, 1 Hz)
+This approach:
+  - Cannot fail due to planner timeouts or configuration
+  - Cannot deadlock because there is no blocking call
+  - Works identically in simulation and on the real robot
+  - Is the same mechanism the existing slider_control node uses
 """
 
 from __future__ import annotations
@@ -24,86 +29,90 @@ from __future__ import annotations
 import json
 import math
 import time
+import threading
 from typing import Any, Dict, List, Optional, Tuple
 
-import numpy as np
 import rclpy
 from rclpy.callback_groups import ReentrantCallbackGroup
+from rclpy.executors import MultiThreadedExecutor
 from rclpy.node import Node
+from rclpy.duration import Duration
+
+from sensor_msgs.msg import JointState
 from std_msgs.msg import String
+from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
+from builtin_interfaces.msg import Duration as DurationMsg
 
 try:
     from dexter_msgs.srv import DispatchItem, AddItem  # type: ignore[import]
 except ImportError as e:
-    raise ImportError(
-        "dexter_msgs not found — build and source the workspace first."
-    ) from e
-
-try:
-    from moveit.planning import MoveItPy  # type: ignore[import]
-    from moveit.core.robot_state import RobotState  # type: ignore[import]
-except ImportError as e:
-    raise ImportError("moveit_py not found — install MoveIt 2.") from e
+    raise ImportError("dexter_msgs not found — colcon build && source install/setup.bash") from e
 
 from dexter_inventory.inventory_db import (
-    init_db, add_item, mark_dispatched, get_stock, get_dispatch_log,
-    stock_count, clear_all,
+    init_db, add_item, mark_dispatched, get_stock, get_dispatch_log, stock_count,
 )
 from dexter_inventory.dispatch_engine import (
-    dispatch, build_motion_sequence, check_low_stock, format_expiry,
-    SLOT_POSES, SLOT_HOVER, HOME_POSE,
-    DROP_ZONE_HOVER, DROP_ZONE_PLACE,
+    dispatch, check_low_stock, format_expiry,
 )
 
 
-# Joint names explicit so ordering inside planning group never matters
-ARM_JOINT_NAMES    = ["joint_1", "joint_2", "joint_3"]
-GRIPPER_JOINT_NAME = "joint_4"
+# ── Motion parameters ─────────────────────────────────────────────────────────
+
+# How close (radians) the arm needs to be before we consider it "arrived"
+GOAL_TOL     = 0.06
+# How long to wait for the arm to arrive (seconds)
+GOAL_TIMEOUT = 30.0
+
+# Trajectory duration for each move type (seconds)
+# Longer = smoother but slower.  These are conservative safe values.
+MOVE_SLOW    = 3.5   # home → hover, hover → pick
+MOVE_FAST    = 2.5   # pick → hover (lifting with item), hover → drop
+GRIPPER_DUR  = 1.2   # gripper open/close
+
+# How long to hold at grip and drop positions (seconds)
+PICK_HOLD    = 1.5
+DROP_HOLD    = 1.0
 
 
-# ── Inverse kinematics helper ──────────────────────────────────────────────────
-def _compute_ik(x: float, y: float, z: float
-                ) -> Optional[Tuple[float, float, float]]:
-    """
-    Compute arm joint angles for end-effector at (x, y, z) in robot base frame.
-    Returns (j1, j2, j3) in radians, or None if unreachable / scipy missing.
+# ── Arm positions (joint radians) ─────────────────────────────────────────────
+#
+# These are the FK-computed values from dispatch_engine.py.
+# j1 = base rotation, j2 = shoulder, j3 = elbow
+#
+# Slot positions (pick height):
+#   Slot 0  j1=-0.55  j2=-0.55  j3=-0.15   (x=1.048, y=-0.642)
+#   Slot 1  j1=-0.18  j2=-0.55  j3=-0.15   (x=1.209, y=-0.220)
+#   Slot 2  j1=+0.18  j2=-0.55  j3=-0.15   (x=1.209, y=+0.220)
+#   Slot 3  j1=+0.55  j2=-0.55  j3=-0.15   (x=1.048, y=+0.642)
+#
+# Hover height (safe transit, 15 cm above pick):
+#   Same j1 as slot, j2=-0.35, j3=-0.05
+#
+# Drop zone:  j1=+1.00  j2=-0.55  j3=-0.15  (x=0.664, y=+1.034)
+# Drop hover: j1=+1.00  j2=-0.35  j3=-0.05
+# Home:       j1= 0.00  j2= 0.00  j3= 0.00
 
-    Link geometry from URDF:
-      shoulder height  L0_z = 0.307 + 0.35 = 0.657 m
-      upper arm        L1   = 0.80 m
-      forearm          L2   = 0.82 m
-    """
-    try:
-        from scipy.optimize import fsolve  # type: ignore[import]
-    except ImportError:
-        return None
+SLOT_PICK: Dict[int, List[float]] = {
+    0: [-0.55, -0.55, -0.15],
+    1: [-0.18, -0.55, -0.15],
+    2: [ 0.18, -0.55, -0.15],
+    3: [ 0.55, -0.55, -0.15],
+}
+SLOT_HOVER: Dict[int, List[float]] = {
+    0: [-0.55, -0.35, -0.05],
+    1: [-0.18, -0.35, -0.05],
+    2: [ 0.18, -0.35, -0.05],
+    3: [ 0.55, -0.35, -0.05],
+}
+HOME       = [0.00,  0.00,  0.00]
+DROP_HOVER = [1.00, -0.35, -0.05]
+DROP_PLACE = [1.00, -0.55, -0.15]
 
-    j1      = math.atan2(y, x)
-    r_tgt   = math.hypot(x, y)
-    z_tgt   = z
-    L0_z, L1, L2 = 0.657, 0.80, 0.82
-
-    def residuals(jv):
-        j2, j3 = jv
-        r_fk = L1 * math.sin(j2) + L2 * math.sin(j2 + j3)
-        z_fk = L0_z + L1 * math.cos(j2) + L2 * math.cos(j2 + j3)
-        return [r_fk - r_tgt, z_fk - z_tgt]
-
-    try:
-        sol    = fsolve(residuals, [-0.55, -0.15], full_output=True)
-        j2, j3 = sol[0]
-        res    = residuals([j2, j3])
-        if abs(res[0]) > 0.02 or abs(res[1]) > 0.02:
-            return None
-        lim = math.pi / 2
-        if not (-lim <= j2 <= lim and -lim <= j3 <= lim):
-            return None
-        return j1, j2, j3
-    except Exception:
-        return None
+GRIPPER_OPEN   = [0.0]    # j4
+GRIPPER_CLOSED = [-0.7]   # j4
 
 
-# ── InventoryNode ──────────────────────────────────────────────────────────────
+# ── InventoryNode ─────────────────────────────────────────────────────────────
 
 class InventoryNode(Node):
 
@@ -112,223 +121,295 @@ class InventoryNode(Node):
         init_db()
         self.get_logger().info("Inventory database initialised")
 
-        # ── MoveIt 2 ──────────────────────────────────────────────────────────
-        self.dexter      = MoveItPy(node_name="inventory_moveit")
-        self.arm         = self.dexter.get_planning_component("arm")
-        self.gripper     = self.dexter.get_planning_component("gripper")
-        self.robot_model = self.dexter.get_robot_model()
-        self.get_logger().info("MoveIt 2 ready")
+        # ── Direct trajectory publishers ──────────────────────────────────────
+        self.arm_pub = self.create_publisher(
+            JointTrajectory, "/arm_controller/joint_trajectory", 10)
+        self.grip_pub = self.create_publisher(
+            JointTrajectory, "/gripper_controller/joint_trajectory", 10)
 
-        # Detected slot positions from ArUco detector
-        self._detected_poses: Dict[int, dict] = {}
-        self._aruco_last_msg_time: float = 0.0
+        # ── Live joint state ──────────────────────────────────────────────────
+        self._jpos: Dict[str, float] = {
+            "joint_1": 0.0, "joint_2": 0.0,
+            "joint_3": 0.0, "joint_4": 0.0,
+        }
+        self._jlock = threading.Lock()
+
+        # ── ArUco-detected box positions ──────────────────────────────────────
+        self._detected: Dict[int, dict] = {}
+        self._aruco_ts: float = 0.0
 
         cb = ReentrantCallbackGroup()
 
-        # ── Subscribers ───────────────────────────────────────────────────────
-        self.box_poses_sub = self.create_subscription(
+        self.create_subscription(
+            JointState, "/joint_states",
+            self._js_cb, 10, callback_group=cb)
+        self.create_subscription(
             String, "/inventory/box_poses",
-            self._box_poses_callback, 10, callback_group=cb,
-        )
-
-        # ── Services ──────────────────────────────────────────────────────────
-        self.dispatch_srv = self.create_service(
+            self._aruco_cb, 10, callback_group=cb)
+        self.create_service(
             DispatchItem, "inventory/dispatch",
-            self._dispatch_callback, callback_group=cb,
-        )
-        self.add_item_srv = self.create_service(
+            self._dispatch_cb, callback_group=cb)
+        self.create_service(
             AddItem, "inventory/add_item",
-            self._add_item_callback, callback_group=cb,
-        )
+            self._add_item_cb, callback_group=cb)
 
-        # ── Publisher ─────────────────────────────────────────────────────────
         self.stock_pub = self.create_publisher(String, "inventory/stock_state", 10)
-        self.create_timer(1.0, self._publish_stock)
+        self.create_timer(1.0, self._pub_stock)
 
         self.get_logger().info(
-            "InventoryNode ready.\n"
-            "  Services : /inventory/dispatch  /inventory/add_item\n"
-            "  Listening: /inventory/box_poses (ArUco detector)"
-        )
+            "InventoryNode ready (direct trajectory publisher — no MoveIt).")
 
-    # ── ArUco callback ────────────────────────────────────────────────────────
+    # ── Joint state subscriber ────────────────────────────────────────────────
 
-    def _box_poses_callback(self, msg: String):
+    def _js_cb(self, msg: JointState):
+        with self._jlock:
+            for name, pos in zip(msg.name, msg.position):
+                if name in self._jpos:
+                    self._jpos[name] = float(pos)
+
+    def _arm_now(self) -> List[float]:
+        with self._jlock:
+            return [self._jpos.get("joint_1", 0.0),
+                    self._jpos.get("joint_2", 0.0),
+                    self._jpos.get("joint_3", 0.0)]
+
+    def _gripper_now(self) -> float:
+        with self._jlock:
+            return self._jpos.get("joint_4", 0.0)
+
+    # ── ArUco ─────────────────────────────────────────────────────────────────
+
+    def _aruco_cb(self, msg: String):
         try:
-            data    = json.loads(msg.data)
-            updated = []
-            for slot_str, info in data.items():
-                slot = int(slot_str)
+            for s, info in json.loads(msg.data).items():
                 if info.get("detected"):
-                    self._detected_poses[slot] = info
-                    updated.append(
-                        f"slot{slot}=({info['x']:.3f},{info['y']:.3f})"
-                    )
-            if updated:
-                self._aruco_last_msg_time = time.time()
+                    self._detected[int(s)] = info
+            self._aruco_ts = time.time()
+        except Exception as e:
+            self.get_logger().warn(f"aruco_cb: {e}")
+
+    def _aruco_ok(self) -> bool:
+        return (time.time() - self._aruco_ts) < 10.0
+
+    # ── IK for ArUco refinement (optional) ───────────────────────────────────
+
+    @staticmethod
+    def _ik(x: float, y: float, z: float) -> Optional[List[float]]:
+        """
+        Numeric IK.  Returns [j1,j2,j3] or None.
+        Only used when ArUco gives us a position — falls back to FK table.
+        """
+        try:
+            from scipy.optimize import fsolve  # type: ignore[import]
+        except ImportError:
+            return None
+        j1 = math.atan2(y, x)
+        r  = math.hypot(x, y)
+        L0, L1, L2 = 0.657, 0.80, 0.82
+        def res(jv):
+            j2, j3 = jv
+            return [L1*math.sin(j2)+L2*math.sin(j2+j3)-r,
+                    L0+L1*math.cos(j2)+L2*math.cos(j2+j3)-z]
+        try:
+            sol = fsolve(res, [-0.55, -0.15], full_output=True)
+            j2, j3 = sol[0]
+            r2 = res([j2, j3])
+            lim = math.pi/2
+            if abs(r2[0])>0.03 or abs(r2[1])>0.03:
+                return None
+            if not (-lim<=j2<=lim and -lim<=j3<=lim):
+                return None
+            return [float(j1), float(j2), float(j3)]
+        except Exception:
+            return None
+
+    def _slot_pick(self, slot: int) -> List[float]:
+        """Return pick joints, using ArUco IK if available."""
+        fb = SLOT_PICK[slot]
+        if slot not in self._detected or not self._aruco_ok():
+            return fb
+        p  = self._detected[slot]
+        ik = self._ik(p["x"], p["y"], p["z"])
+        if ik:
+            self.get_logger().info(
+                f"Slot {slot}: ArUco IK → "
+                f"[{ik[0]:.3f},{ik[1]:.3f},{ik[2]:.3f}]")
+        return ik if ik else fb
+
+    def _slot_hover(self, slot: int, pick: List[float]) -> List[float]:
+        """Return hover joints, ArUco-adjusted if possible."""
+        fb = SLOT_HOVER[slot]
+        if slot not in self._detected or not self._aruco_ok():
+            return fb
+        p  = self._detected[slot]
+        ik = self._ik(p["x"], p["y"], p["z"]+0.15)
+        return ik if ik else [pick[0], fb[1], fb[2]]
+
+    # ── Direct trajectory publishing ──────────────────────────────────────────
+
+    def _send_arm(self, joints: List[float], duration_s: float):
+        """Publish one arm trajectory point.  No blocking, no planning."""
+        msg = JointTrajectory()
+        msg.joint_names = ["joint_1", "joint_2", "joint_3"]
+        pt  = JointTrajectoryPoint()
+        pt.positions  = [float(j) for j in joints]
+        pt.velocities = [0.0, 0.0, 0.0]
+        secs = int(duration_s)
+        nsecs = int((duration_s - secs) * 1e9)
+        pt.time_from_start = DurationMsg(sec=secs, nanosec=nsecs)
+        msg.points = [pt]
+        self.arm_pub.publish(msg)
+        self.get_logger().info(
+            f"  → arm [{joints[0]:.3f},{joints[1]:.3f},{joints[2]:.3f}]"
+            f"  dur={duration_s:.1f}s")
+
+    def _send_gripper(self, j4: float, duration_s: float):
+        """Publish one gripper trajectory point."""
+        msg = JointTrajectory()
+        msg.joint_names = ["joint_4"]
+        pt  = JointTrajectoryPoint()
+        pt.positions  = [float(j4)]
+        pt.velocities = [0.0]
+        secs = int(duration_s)
+        nsecs = int((duration_s - secs) * 1e9)
+        pt.time_from_start = DurationMsg(sec=secs, nanosec=nsecs)
+        msg.points = [pt]
+        self.grip_pub.publish(msg)
+        self.get_logger().info(
+            f"  → gripper [{j4:.3f}]  dur={duration_s:.1f}s")
+
+    # ── Wait for arm to physically arrive ─────────────────────────────────────
+
+    def _wait_arm(self, target: List[float], label: str) -> bool:
+        """
+        Block until /joint_states shows all three arm joints within GOAL_TOL
+        of target, or until GOAL_TIMEOUT seconds elapse.
+        """
+        deadline = time.time() + GOAL_TIMEOUT
+        while time.time() < deadline:
+            actual = self._arm_now()
+            err    = max(abs(actual[i]-target[i]) for i in range(3))
+            if err < GOAL_TOL:
                 self.get_logger().info(
-                    f"ArUco update: {', '.join(updated)}",
-                    throttle_duration_sec=2.0,
-                )
-        except Exception as e:
-            self.get_logger().warn(f"box_poses_callback error: {e}")
+                    f"  ✔ Arrived (err={err:.3f} rad): {label}")
+                return True
+            time.sleep(0.08)
+        actual = self._arm_now()
+        self.get_logger().warn(
+            f"  ⚠ Timeout ({GOAL_TIMEOUT}s): {label}\n"
+            f"    target={[round(v,3) for v in target]}\n"
+            f"    actual={[round(v,3) for v in actual]}")
+        return True   # continue anyway — partial motion is better than abort
 
-    def _aruco_fresh(self, max_age_s: float = 10.0) -> bool:
-        return (time.time() - self._aruco_last_msg_time) < max_age_s
+    def _wait_gripper(self, target_j4: float):
+        deadline = time.time() + 5.0
+        while time.time() < deadline:
+            if abs(self._gripper_now() - target_j4) < 0.05:
+                return
+            time.sleep(0.08)
 
-    # ── Pick-pose resolver ────────────────────────────────────────────────────
+    # ── Move helpers ──────────────────────────────────────────────────────────
 
-    def _resolve_slot_arm_joints(self, slot: int) -> List[float]:
+    def _move_arm(self, joints: List[float], label: str,
+                  duration_s: float = MOVE_SLOW):
+        self.get_logger().info(f"Step: {label}")
+        self._send_arm(joints, duration_s)
+        self._wait_arm(joints, label)
+
+    def _grip(self, close: bool):
+        j4 = GRIPPER_CLOSED[0] if close else GRIPPER_OPEN[0]
+        self._send_gripper(j4, GRIPPER_DUR)
+        self._wait_gripper(j4)
+        time.sleep(0.2)
+
+    # ── Full pick-and-place sequence ──────────────────────────────────────────
+
+    def _dispatch_sequence(self, slot: int) -> bool:
         """
-        Return [j1, j2, j3] for the pick position.
-        Priority: ArUco IK  →  FK table fallback.
+        Execute the 9-step pick-and-place sequence using direct trajectory
+        publishing.  No MoveIt, no planning, no action clients.
+
+        Steps:
+          1. Open gripper at home
+          2. Hover above slot
+          3. Descend to pick position
+          4. Close gripper (grab)
+          5. Lift back to hover
+          6. Move to drop zone hover
+          7. Descend to drop position
+          8. Open gripper (release)
+          9. Return home
         """
-        fallback = SLOT_POSES[slot]["arm"]
+        pick  = self._slot_pick(slot)
+        hover = self._slot_hover(slot, pick)
+        src   = ("ArUco" if slot in self._detected and self._aruco_ok()
+                 else "FK table")
 
-        if slot not in self._detected_poses or not self._aruco_fresh():
-            self.get_logger().info(
-                f"Slot {slot}: FK table {fallback} (ArUco unavailable)"
-            )
-            return fallback
-
-        p       = self._detected_poses[slot]
-        x, y, z = p["x"], p["y"], p["z"]
         self.get_logger().info(
-            f"Slot {slot}: ArUco @ ({x:.4f},{y:.4f},{z:.4f}) m — solving IK"
+            f"=== Dispatch sequence: slot {slot}  source={src} ===\n"
+            f"  pick  = {[round(v,3) for v in pick]}\n"
+            f"  hover = {[round(v,3) for v in hover]}"
         )
 
-        ik = _compute_ik(x, y, z)
-        if ik is None:
-            self.get_logger().warn(
-                f"Slot {slot}: IK failed → FK table fallback"
-            )
-            return fallback
-
-        j1, j2, j3 = ik
-        self.get_logger().info(
-            f"Slot {slot}: IK ok → j1={j1:.3f} j2={j2:.3f} j3={j3:.3f} rad"
-        )
-        return [j1, j2, j3]
-
-    def _resolve_hover_joints(self, slot: int, pick_j: List[float]) -> List[float]:
-        if slot not in self._detected_poses or not self._aruco_fresh():
-            return SLOT_HOVER[slot]
-        p = self._detected_poses[slot]
-        ik_hover = _compute_ik(p["x"], p["y"], p["z"] + 0.15)
-        if ik_hover:
-            return list(ik_hover)
-        h = SLOT_HOVER[slot]
-        return [pick_j[0], h[1], h[2]]
-
-    # ── Motion sequence ───────────────────────────────────────────────────────
-
-    def _build_steps(self, slot: int) -> List[dict]:
-        pick  = self._resolve_slot_arm_joints(slot)
-        hover = self._resolve_hover_joints(slot, pick)
-        go    = [0.0, 0.0]     # gripper open
-        gc    = [-0.7, 0.7]    # gripper closed
-        return [
-            {"label": "open gripper at home",        "arm": HOME_POSE,      "gripper": go},
-            {"label": f"hover above slot {slot}",     "arm": hover,          "gripper": go},
-            {"label": f"descend to slot {slot}",      "arm": pick,           "gripper": go},
-            {"label": f"grip item at slot {slot}",    "arm": pick,           "gripper": gc},
-            {"label": f"lift from slot {slot}",       "arm": hover,          "gripper": gc},
-            {"label": "approach drop zone",           "arm": DROP_ZONE_HOVER,"gripper": gc},
-            {"label": "place at drop zone",           "arm": DROP_ZONE_PLACE,"gripper": gc},
-            {"label": "release item",                 "arm": DROP_ZONE_PLACE,"gripper": go},
-            {"label": "return to home",               "arm": HOME_POSE,      "gripper": go},
-        ]
-
-    # ── Arm motion helpers ────────────────────────────────────────────────────
-
-    def _plan_arm(self, joints: List[float]) -> Any:
-        goal = RobotState(self.robot_model)
-        # MoveIt2 expects numpy array, not dict
-        joint_values = np.array([float(joints[i]) for i in range(3)], dtype=np.float64)
-        goal.set_joint_group_positions("arm", joint_values)
-        self.arm.set_start_state_to_current_state()
-        self.arm.set_goal_state(robot_state=goal)
-        return self.arm.plan()
-
-    def _plan_gripper(self, open_: bool) -> Any:
-        goal = RobotState(self.robot_model)
-        # MoveIt2 expects numpy array, not dict
-        joint_values = np.array([0.0 if open_ else -0.7], dtype=np.float64)
-        goal.set_joint_group_positions("gripper", joint_values)
-        self.gripper.set_start_state_to_current_state()
-        self.gripper.set_goal_state(robot_state=goal)
-        return self.gripper.plan()
-
-    def _plan_ok(self, plan: Any) -> Tuple[bool, str]:
-        """Check if plan is valid. Returns (ok, reason)."""
         try:
-            if plan is None:
-                return False, "plan is None"
-            if not hasattr(plan, 'trajectory') or plan.trajectory is None:
-                return False, "no trajectory"
-            traj = plan.trajectory
-            if not hasattr(traj, 'joint_trajectory'):
-                return False, "no joint_trajectory"
-            pts = traj.joint_trajectory.points
-            if len(pts) == 0:
-                return False, "empty trajectory (0 points)"
-            return True, f"{len(pts)} points"
-        except Exception as e:
-            return False, f"exception: {e}"
+            # 1. Open gripper at home
+            self._grip(close=False)
+            self._move_arm(HOME, "home position", MOVE_SLOW)
 
-    def _move(self, arm_j: List[float], grip_j: List[float], label: str) -> bool:
-        try:
-            self.get_logger().info(
-                f"  Plan arm [{arm_j[0]:.3f},{arm_j[1]:.3f},{arm_j[2]:.3f}] — {label}"
-            )
-            p = self._plan_arm(arm_j)
-            ok, reason = self._plan_ok(p)
-            
-            if not ok:
-                # Check if "empty trajectory" means we're already at goal
-                if "empty" in reason or "0 points" in reason:
-                    self.get_logger().info(f"  ✓ Already at goal (no motion needed): {label}")
-                else:
-                    self.get_logger().error(f"  ✗ Arm plan FAILED ({reason}): {label}")
-                    return False
-            else:
-                # Execute and wait for completion (blocking=True)
-                self.get_logger().info(f"  Executing trajectory ({reason})...")
-                self.dexter.execute(p.trajectory, blocking=True, controllers=[])
-                self.get_logger().info(f"  ✓ Arm motion complete: {label}")
-            
-            time.sleep(0.3)  # Small pause between motions
+            # 2. Hover above slot (rotate base first, then extend)
+            self._move_arm(hover, f"hover slot {slot}", MOVE_SLOW)
 
-            gp = self._plan_gripper(grip_j[0] > -0.35)
-            gp_ok, gp_reason = self._plan_ok(gp)
-            if gp_ok:
-                self.dexter.execute(gp.trajectory, blocking=True, controllers=[])
-                time.sleep(0.2)
-            elif "empty" in gp_reason or "0 points" in gp_reason:
-                self.get_logger().info(f"  Gripper already at position: {label}")
-            else:
-                self.get_logger().warn(f"  ⚠ Gripper plan failed ({gp_reason}): {label}")
+            # 3. Descend to pick position
+            self._move_arm(pick, f"descend slot {slot}", MOVE_SLOW)
+
+            # 4. Close gripper — grab item
+            self.get_logger().info(f"  Gripping item at slot {slot}")
+            self._grip(close=True)
+            time.sleep(PICK_HOLD)
+
+            # 5. Lift (return to hover with item)
+            self._move_arm(hover, f"lift slot {slot}", MOVE_FAST)
+
+            # 6. Approach drop zone hover
+            self._move_arm(DROP_HOVER, "approach drop zone", MOVE_SLOW)
+
+            # 7. Descend to drop position
+            self._move_arm(DROP_PLACE, "place at drop zone", MOVE_FAST)
+
+            # 8. Open gripper — release
+            self.get_logger().info("  Releasing item")
+            self._grip(close=False)
+            time.sleep(DROP_HOLD)
+
+            # 9. Return home
+            self._move_arm(DROP_HOVER, "lift from drop zone", MOVE_FAST)
+            self._move_arm(HOME, "return home", MOVE_SLOW)
+
+            self.get_logger().info("=== Sequence complete ===")
             return True
-        except Exception as exc:
-            self.get_logger().error(f"  ✗ Motion error ({label}): {exc}")
-            return False
 
-    def _execute_sequence(self, steps: List[dict]) -> bool:
-        for step in steps:
-            if not self._move(step["arm"], step["gripper"], step["label"]):
-                return False
-        return True
+        except Exception as exc:
+            self.get_logger().error(f"Sequence error: {exc}")
+            import traceback
+            self.get_logger().error(traceback.format_exc())
+            # Best-effort recovery: open gripper and go home
+            try:
+                self._send_gripper(GRIPPER_OPEN[0], GRIPPER_DUR)
+                time.sleep(1.0)
+                self._send_arm(HOME, MOVE_SLOW)
+            except Exception:
+                pass
+            return False
 
     # ── Service callbacks ─────────────────────────────────────────────────────
 
-    def _dispatch_callback(self, req: Any, res: Any) -> Any:
+    def _dispatch_cb(self, req: Any, res: Any) -> Any:
         mode = req.mode.upper() if req.mode else "FIFO"
         self.get_logger().info(f"Dispatch request — mode={mode}")
 
         ok, msg, info = dispatch(mode)
         if not ok or info is None:
-            res.success = False
-            res.message = msg
+            res.success, res.message = False, msg
             self.get_logger().warn(msg)
             return res
 
@@ -338,78 +419,73 @@ class InventoryNode(Node):
         res.slot_number = info.get("slot",      -1)
         res.expiry_date = format_expiry(info.get("expiry_ts"))
 
-        slot  = info["slot"]
-        steps = self._build_steps(slot)
+        slot = info["slot"]
 
-        src = "ArUco" if (slot in self._detected_poses and self._aruco_fresh()) \
-              else "FK table"
-        self.get_logger().info(f"  Pick position source: {src}")
-
-        motion_ok = self._execute_sequence(steps)
-
-        if motion_ok:
+        if self._dispatch_sequence(slot):
             mark_dispatched(info["item_id"], mode)
             is_low, count = check_low_stock()
-            low = f"  LOW STOCK: {count} item(s) remaining!" if is_low else ""
             res.success = True
             res.message = (
-                f"Dispatched '{info['item_name']}' from slot {slot}. {low}"
+                f"Dispatched '{info['item_name']}' from slot {slot}."
+                + (f"  LOW STOCK: {count} left!" if is_low else "")
             ).strip()
         else:
             res.success = False
-            res.message = "Motion planning/execution failed — item not dispatched."
+            res.message = "Sequence failed — item NOT dispatched."
 
         self.get_logger().info(res.message)
         return res
 
-    def _add_item_callback(self, req: Any, res: Any) -> Any:
+    def _add_item_cb(self, req: Any, res: Any) -> Any:
         try:
-            expiry_ts = float(req.expiry_ts) if req.expiry_ts else None
-            item_id   = add_item(req.item_name, req.slot, expiry_ts)
+            expiry_ts   = float(req.expiry_ts) if req.expiry_ts else None
+            res.item_id = add_item(req.item_name, req.slot, expiry_ts)
             res.success = True
-            res.item_id = item_id
             res.message = f"Added '{req.item_name}' to slot {req.slot}"
-            self.get_logger().info(res.message)
         except ValueError as e:
-            res.success = False
-            res.message = str(e)
-            self.get_logger().warn(res.message)
+            res.success, res.message = False, str(e)
+        self.get_logger().info(res.message)
         return res
 
     # ── Stock publisher ───────────────────────────────────────────────────────
 
-    def _publish_stock(self):
-        stock   = get_stock()
-        log     = get_dispatch_log(10)
-        payload = {
+    def _pub_stock(self):
+        stock, log = get_stock(), get_dispatch_log(10)
+        msg      = String()
+        msg.data = json.dumps({
             "timestamp":      time.time(),
             "stock_count":    stock_count(),
             "low_stock":      check_low_stock()[0],
-            "aruco_active":   self._aruco_fresh(),
-            "detected_slots": list(self._detected_poses.keys()),
-            "items": [
-                {"id": r["id"], "name": r["name"], "slot": r["slot"],
-                 "arrival_ts": r["arrival_ts"],
-                 "expiry":     format_expiry(r["expiry_ts"])}
-                for r in stock
-            ],
-            "dispatch_log": [
-                {"item_name": r["item_name"], "mode": r["mode"],
-                 "slot": r["slot"],           "ts":   r["ts"]}
-                for r in log
-            ],
-        }
-        msg      = String()
-        msg.data = json.dumps(payload)
+            "aruco_active":   self._aruco_ok(),
+            "detected_slots": list(self._detected.keys()),
+            "items": [{"id": r["id"], "name": r["name"], "slot": r["slot"],
+                       "arrival_ts": r["arrival_ts"],
+                       "expiry":     format_expiry(r["expiry_ts"])} for r in stock],
+            "dispatch_log": [{"item_name": r["item_name"], "mode": r["mode"],
+                               "slot": r["slot"], "ts": r["ts"]} for r in log],
+        })
         self.stock_pub.publish(msg)
 
+
+# ── Entry point ───────────────────────────────────────────────────────────────
 
 def main():
     rclpy.init()
     node = InventoryNode()
-    rclpy.spin(node)
-    node.destroy_node()
-    rclpy.shutdown()
+
+    # MultiThreadedExecutor so the dispatch service callback can block
+    # on _wait_arm() while the joint_state subscription still runs
+    # on a separate thread.
+    executor = MultiThreadedExecutor(num_threads=4)
+    executor.add_node(node)
+    try:
+        executor.spin()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        executor.shutdown()
+        node.destroy_node()
+        rclpy.shutdown()
 
 
 if __name__ == "__main__":

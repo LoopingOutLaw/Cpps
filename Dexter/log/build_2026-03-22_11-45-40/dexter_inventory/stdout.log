@@ -1,0 +1,18 @@
+running develop
+running egg_info
+writing dexter_inventory.egg-info/PKG-INFO
+writing dependency_links to dexter_inventory.egg-info/dependency_links.txt
+writing entry points to dexter_inventory.egg-info/entry_points.txt
+writing requirements to dexter_inventory.egg-info/requires.txt
+writing top-level names to dexter_inventory.egg-info/top_level.txt
+reading manifest file 'dexter_inventory.egg-info/SOURCES.txt'
+writing manifest file 'dexter_inventory.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter-inventory.egg-link (link to .)
+Installing aruco_box_detector script to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory
+Installing inventory_node script to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory
+Installing seed_data script to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory
+Installing standalone_dashboard script to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory
+
+Installed /home/aditya/Cpps/Dexter/build/dexter_inventory
+running symlink_data

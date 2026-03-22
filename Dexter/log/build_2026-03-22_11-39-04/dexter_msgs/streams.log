@@ -1,0 +1,10 @@
+[0.045s] Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_msgs -- -j28 -l28
+[0.202s] [  1%] Built target dexter_msgs__rosidl_generator_type_description
+[0.204s] failed to create symbolic link '/home/aditya/Cpps/Dexter/build/dexter_msgs/ament_cmake_python/dexter_msgs/dexter_msgs' because existing path cannot be removed: Is a directory
+[0.206s] gmake[2]: *** [CMakeFiles/ament_cmake_python_symlink_dexter_msgs.dir/build.make:70: CMakeFiles/ament_cmake_python_symlink_dexter_msgs] Error 1
+[0.207s] gmake[1]: *** [CMakeFiles/Makefile2:452: CMakeFiles/ament_cmake_python_symlink_dexter_msgs.dir/all] Error 2
+[0.207s] gmake[1]: *** Waiting for unfinished jobs....
+[0.341s] [  2%] Built target dexter_msgs__cpp
+[0.341s] [ 26%] Built target dexter_msgs__rosidl_generator_c
+[0.342s] gmake: *** [Makefile:146: all] Error 2
+[0.344s] Invoked command in '/home/aditya/Cpps/Dexter/build/dexter_msgs' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_msgs -- -j28 -l28

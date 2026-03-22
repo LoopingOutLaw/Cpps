@@ -1,0 +1,47 @@
+[0.034s] Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_msgs -- -j28 -l28
+[0.111s] -- Found ament_cmake: 2.5.5 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.190s] -- Found Python3: /home/aditya/venv-ardupilot/bin/python3 (found version "3.12.3") found components: Interpreter 
+[0.411s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.430s] -- Found std_msgs: 5.3.6 (/opt/ros/jazzy/share/std_msgs/cmake)
+[0.513s] -- Found rosidl_generator_c: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.543s] -- Found rosidl_generator_cpp: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.587s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.641s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.745s] -- Found rosidl_default_generators: 1.6.0 (/opt/ros/jazzy/share/rosidl_default_generators/cmake)
+[0.774s] -- Found rosidl_adapter: 4.6.7 (/opt/ros/jazzy/share/rosidl_adapter/cmake)
+[1.962s] -- Found ament_cmake_ros: 0.12.0 (/opt/ros/jazzy/share/ament_cmake_ros/cmake)
+[2.553s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[2.774s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[2.777s] -- Found python_cmake_module: 0.11.1 (/opt/ros/jazzy/share/python_cmake_module/cmake)
+[3.648s] -- Found Python3: /home/aditya/venv-ardupilot/bin/python3 (found version "3.12.3") found components: Interpreter Development NumPy Development.Module Development.Embed 
+[3.717s] -- Configuring done (3.6s)
+[3.866s] -- Generating done (0.1s)
+[3.905s] -- Build files have been written to: /home/aditya/Cpps/Dexter/build/dexter_msgs
+[4.002s] [  1%] Built target dexter_msgs__rosidl_generator_type_description
+[4.026s] [  1%] Built target ament_cmake_python_symlink_dexter_msgs
+[4.069s] [  2%] Built target dexter_msgs__cpp
+[4.104s] [ 26%] Built target dexter_msgs__rosidl_generator_c
+[4.189s] [ 36%] Built target dexter_msgs__rosidl_typesupport_c
+[4.190s] [ 45%] Built target dexter_msgs__rosidl_typesupport_introspection_c
+[4.199s] [ 55%] Built target dexter_msgs__rosidl_typesupport_introspection_cpp
+[4.202s] [ 64%] Built target dexter_msgs__rosidl_typesupport_fastrtps_c
+[4.205s] [ 74%] Built target dexter_msgs__rosidl_typesupport_cpp
+[4.209s] [ 84%] Built target dexter_msgs__rosidl_typesupport_fastrtps_cpp
+[4.268s] [ 84%] Built target dexter_msgs
+[4.331s] [ 85%] Built target dexter_msgs__py
+[4.441s] [ 93%] Built target dexter_msgs__rosidl_generator_py
+[4.516s] [ 94%] Linking C shared module rosidl_generator_py/dexter_msgs/dexter_msgs_s__rosidl_typesupport_introspection_c.so
+[4.517s] [ 95%] Linking C shared module rosidl_generator_py/dexter_msgs/dexter_msgs_s__rosidl_typesupport_c.so
+[4.518s] [ 96%] Linking C shared module rosidl_generator_py/dexter_msgs/dexter_msgs_s__rosidl_typesupport_fastrtps_c.so
+[4.625s] [ 97%] Built target dexter_msgs_s__rosidl_typesupport_fastrtps_c
+[4.630s] [ 98%] Built target dexter_msgs_s__rosidl_typesupport_c
+[4.631s] [100%] Built target dexter_msgs_s__rosidl_typesupport_introspection_c
+[4.850s] running egg_info
+[4.921s] creating dexter_msgs.egg-info
+[4.922s] writing dexter_msgs.egg-info/PKG-INFO
+[4.923s] writing dependency_links to dexter_msgs.egg-info/dependency_links.txt
+[4.924s] writing top-level names to dexter_msgs.egg-info/top_level.txt
+[4.925s] writing manifest file 'dexter_msgs.egg-info/SOURCES.txt'
+[5.144s] reading manifest file 'dexter_msgs.egg-info/SOURCES.txt'
+[5.146s] writing manifest file 'dexter_msgs.egg-info/SOURCES.txt'
+[5.235s] [100%] Built target ament_cmake_python_build_dexter_msgs_egg

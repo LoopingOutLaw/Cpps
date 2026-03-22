@@ -1,3 +1,1 @@
-source;share/dexter_firmware/environment/ament_prefix_path.sh
-source;share/dexter_firmware/environment/path.sh
-source;share/dexter_firmware/environment/pythonpath.sh
+/home/aditya/Cpps/Dexter/build/dexter_firmware/ament_cmake_environment_hooks/local_setup.dsv

@@ -198,17 +198,17 @@ dexter_firmware_uninstall/fast:
 .PHONY : dexter_firmware_uninstall/fast
 
 #=============================================================================
-# Target rules for targets named ament_cmake_python_copy_dexter_firmware
+# Target rules for targets named ament_cmake_python_symlink_dexter_firmware
 
 # Build rule for target.
-ament_cmake_python_copy_dexter_firmware: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ament_cmake_python_copy_dexter_firmware
-.PHONY : ament_cmake_python_copy_dexter_firmware
+ament_cmake_python_symlink_dexter_firmware: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ament_cmake_python_symlink_dexter_firmware
+.PHONY : ament_cmake_python_symlink_dexter_firmware
 
 # fast build rule for target.
-ament_cmake_python_copy_dexter_firmware/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ament_cmake_python_copy_dexter_firmware.dir/build.make CMakeFiles/ament_cmake_python_copy_dexter_firmware.dir/build
-.PHONY : ament_cmake_python_copy_dexter_firmware/fast
+ament_cmake_python_symlink_dexter_firmware/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ament_cmake_python_symlink_dexter_firmware.dir/build.make CMakeFiles/ament_cmake_python_symlink_dexter_firmware.dir/build
+.PHONY : ament_cmake_python_symlink_dexter_firmware/fast
 
 #=============================================================================
 # Target rules for targets named ament_cmake_python_build_dexter_firmware_egg
@@ -311,7 +311,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... ament_cmake_python_build_dexter_firmware_egg"
-	@echo "... ament_cmake_python_copy_dexter_firmware"
+	@echo "... ament_cmake_python_symlink_dexter_firmware"
 	@echo "... dexter_firmware_uninstall"
 	@echo "... uninstall"
 	@echo "... simple_serial_receiver"

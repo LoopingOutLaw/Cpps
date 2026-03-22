@@ -1,0 +1,257 @@
+[0.041s] Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_msgs -- -j28 -l28
+[0.124s] -- Found ament_cmake: 2.5.5 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.208s] -- Found Python3: /home/aditya/venv-ardupilot/bin/python3 (found version "3.12.3") found components: Interpreter 
+[0.432s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.456s] -- Found std_msgs: 5.3.6 (/opt/ros/jazzy/share/std_msgs/cmake)
+[0.554s] -- Found rosidl_generator_c: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.582s] -- Found rosidl_generator_cpp: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.620s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.666s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.750s] -- Found rosidl_default_generators: 1.6.0 (/opt/ros/jazzy/share/rosidl_default_generators/cmake)
+[0.782s] -- Found rosidl_adapter: 4.6.7 (/opt/ros/jazzy/share/rosidl_adapter/cmake)
+[1.963s] -- Found ament_cmake_ros: 0.12.0 (/opt/ros/jazzy/share/ament_cmake_ros/cmake)
+[2.455s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[2.691s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[2.696s] -- Found python_cmake_module: 0.11.1 (/opt/ros/jazzy/share/python_cmake_module/cmake)
+[3.551s] -- Found Python3: /home/aditya/venv-ardupilot/bin/python3 (found version "3.12.3") found components: Interpreter Development NumPy Development.Module Development.Embed 
+[3.625s] -- Configuring done (3.5s)
+[3.789s] -- Generating done (0.1s)
+[3.830s] -- Build files have been written to: /home/aditya/Cpps/Dexter/build/dexter_msgs
+[3.953s] [  1%] Built target dexter_msgs__rosidl_generator_type_description
+[3.981s] [  1%] Built target ament_cmake_python_symlink_dexter_msgs
+[4.023s] [  2%] Built target dexter_msgs__cpp
+[4.054s] [ 26%] Built target dexter_msgs__rosidl_generator_c
+[4.132s] [ 36%] Built target dexter_msgs__rosidl_typesupport_introspection_c
+[4.140s] [ 45%] Built target dexter_msgs__rosidl_typesupport_c
+[4.142s] [ 55%] Built target dexter_msgs__rosidl_typesupport_cpp
+[4.153s] [ 74%] Built target dexter_msgs__rosidl_typesupport_fastrtps_cpp
+[4.153s] [ 74%] Built target dexter_msgs__rosidl_typesupport_fastrtps_c
+[4.156s] [ 84%] Built target dexter_msgs__rosidl_typesupport_introspection_cpp
+[4.217s] [ 84%] Built target dexter_msgs
+[4.283s] [ 85%] Built target dexter_msgs__py
+[4.392s] [ 93%] Built target dexter_msgs__rosidl_generator_py
+[4.464s] [ 95%] Built target dexter_msgs_s__rosidl_typesupport_fastrtps_c
+[4.466s] [ 97%] Built target dexter_msgs_s__rosidl_typesupport_introspection_c
+[4.468s] [100%] Built target dexter_msgs_s__rosidl_typesupport_c
+[4.868s] running egg_info
+[4.904s] creating dexter_msgs.egg-info
+[4.904s] writing dexter_msgs.egg-info/PKG-INFO
+[4.905s] writing dependency_links to dexter_msgs.egg-info/dependency_links.txt
+[4.906s] writing top-level names to dexter_msgs.egg-info/top_level.txt
+[4.907s] writing manifest file 'dexter_msgs.egg-info/SOURCES.txt'
+[5.106s] reading manifest file 'dexter_msgs.egg-info/SOURCES.txt'
+[5.109s] writing manifest file 'dexter_msgs.egg-info/SOURCES.txt'
+[5.198s] [100%] Built target ament_cmake_python_build_dexter_msgs_egg
+[5.234s] Invoked command in '/home/aditya/Cpps/Dexter/build/dexter_msgs' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_msgs -- -j28 -l28
+[5.236s] Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --install /home/aditya/Cpps/Dexter/build/dexter_msgs
+[5.269s] -- Install configuration: ""
+[5.271s] -- Execute custom install script
+[5.271s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/ament_index/resource_index/rosidl_interfaces/dexter_msgs
+[5.301s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/srv/AddTwoInts.json
+[5.330s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/srv/EulerToQuaternion.json
+[5.357s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/srv/QuaternionToEuler.json
+[5.384s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/action/Fibonacci.json
+[5.412s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/action/DexterTask.json
+[5.441s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/srv/DispatchItem.json
+[5.471s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/srv/AddItem.json
+[5.501s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/detail/dexter_task__functions.h
+[5.529s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/detail/dexter_task__struct.h
+[5.557s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/detail/dexter_task__type_support.h
+[5.585s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/detail/fibonacci__functions.h
+[5.613s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/detail/fibonacci__struct.h
+[5.641s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/detail/fibonacci__type_support.h
+[5.669s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/dexter_task.h
+[5.700s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/fibonacci.h
+[5.726s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/msg/rosidl_generator_c__visibility_control.h
+[5.757s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/add_item.h
+[5.782s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/add_two_ints.h
+[5.810s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/add_item__functions.h
+[5.841s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/add_item__struct.h
+[5.868s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/add_item__type_support.h
+[5.897s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/add_two_ints__functions.h
+[5.924s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/add_two_ints__struct.h
+[5.955s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/add_two_ints__type_support.h
+[5.983s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/dispatch_item__functions.h
+[6.017s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/dispatch_item__struct.h
+[6.044s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/dispatch_item__type_support.h
+[6.073s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/euler_to_quaternion__functions.h
+[6.100s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/euler_to_quaternion__struct.h
+[6.129s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/euler_to_quaternion__type_support.h
+[6.162s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/quaternion_to_euler__functions.h
+[6.193s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/quaternion_to_euler__struct.h
+[6.220s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/quaternion_to_euler__type_support.h
+[6.268s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/dispatch_item.h
+[6.278s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/euler_to_quaternion.h
+[6.306s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/quaternion_to_euler.h
+[6.338s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/environment/library_path.sh
+[6.364s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/environment/library_path.dsv
+[6.398s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/detail/dexter_task__rosidl_typesupport_fastrtps_c.h
+[6.428s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/detail/fibonacci__rosidl_typesupport_fastrtps_c.h
+[6.465s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[6.494s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/add_item__rosidl_typesupport_fastrtps_c.h
+[6.521s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/add_two_ints__rosidl_typesupport_fastrtps_c.h
+[6.550s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/dispatch_item__rosidl_typesupport_fastrtps_c.h
+[6.578s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/euler_to_quaternion__rosidl_typesupport_fastrtps_c.h
+[6.608s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/quaternion_to_euler__rosidl_typesupport_fastrtps_c.h
+[6.642s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/detail/dexter_task__builder.hpp
+[6.669s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/detail/dexter_task__struct.hpp
+[6.697s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/detail/dexter_task__traits.hpp
+[6.722s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/detail/dexter_task__type_support.hpp
+[6.749s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/detail/fibonacci__builder.hpp
+[6.775s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/detail/fibonacci__struct.hpp
+[6.802s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/detail/fibonacci__traits.hpp
+[6.828s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/detail/fibonacci__type_support.hpp
+[6.855s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/dexter_task.hpp
+[6.883s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/fibonacci.hpp
+[6.917s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/msg/rosidl_generator_cpp__visibility_control.hpp
+[6.950s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/add_item.hpp
+[6.984s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/add_two_ints.hpp
+[7.009s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/add_item__builder.hpp
+[7.040s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/add_item__struct.hpp
+[7.065s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/add_item__traits.hpp
+[7.094s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/add_item__type_support.hpp
+[7.126s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/add_two_ints__builder.hpp
+[7.151s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/add_two_ints__struct.hpp
+[7.177s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/add_two_ints__traits.hpp
+[7.206s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/add_two_ints__type_support.hpp
+[7.234s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/dispatch_item__builder.hpp
+[7.261s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/dispatch_item__struct.hpp
+[7.288s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/dispatch_item__traits.hpp
+[7.317s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/dispatch_item__type_support.hpp
+[7.344s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/euler_to_quaternion__builder.hpp
+[7.371s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/euler_to_quaternion__struct.hpp
+[7.404s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/euler_to_quaternion__traits.hpp
+[7.431s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/euler_to_quaternion__type_support.hpp
+[7.460s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/quaternion_to_euler__builder.hpp
+[7.487s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/quaternion_to_euler__struct.hpp
+[7.519s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/quaternion_to_euler__traits.hpp
+[7.547s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/quaternion_to_euler__type_support.hpp
+[7.575s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/dispatch_item.hpp
+[7.609s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/euler_to_quaternion.hpp
+[7.636s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/quaternion_to_euler.hpp
+[7.665s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/detail/dexter_task__rosidl_typesupport_fastrtps_cpp.hpp
+[7.695s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/detail/fibonacci__rosidl_typesupport_fastrtps_cpp.hpp
+[7.723s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[7.752s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/add_item__rosidl_typesupport_fastrtps_cpp.hpp
+[7.780s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/add_two_ints__rosidl_typesupport_fastrtps_cpp.hpp
+[7.808s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/dispatch_item__rosidl_typesupport_fastrtps_cpp.hpp
+[7.837s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/euler_to_quaternion__rosidl_typesupport_fastrtps_cpp.hpp
+[7.864s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/quaternion_to_euler__rosidl_typesupport_fastrtps_cpp.hpp
+[7.896s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/detail/dexter_task__rosidl_typesupport_introspection_c.h
+[7.924s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/detail/fibonacci__rosidl_typesupport_introspection_c.h
+[7.951s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[7.977s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/add_item__rosidl_typesupport_introspection_c.h
+[8.003s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/add_two_ints__rosidl_typesupport_introspection_c.h
+[8.031s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/dispatch_item__rosidl_typesupport_introspection_c.h
+[8.059s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/euler_to_quaternion__rosidl_typesupport_introspection_c.h
+[8.086s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/quaternion_to_euler__rosidl_typesupport_introspection_c.h
+[8.116s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/detail/dexter_task__rosidl_typesupport_introspection_cpp.hpp
+[8.142s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/action/detail/fibonacci__rosidl_typesupport_introspection_cpp.hpp
+[8.170s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/add_item__rosidl_typesupport_introspection_cpp.hpp
+[8.199s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/add_two_ints__rosidl_typesupport_introspection_cpp.hpp
+[8.224s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/dispatch_item__rosidl_typesupport_introspection_cpp.hpp
+[8.255s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/euler_to_quaternion__rosidl_typesupport_introspection_cpp.hpp
+[8.281s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/include/dexter_msgs/dexter_msgs/srv/detail/quaternion_to_euler__rosidl_typesupport_introspection_cpp.hpp
+[8.314s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/environment/pythonpath.sh
+[8.341s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/environment/pythonpath.dsv
+[8.372s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs-0.0.0-py3.12.egg-info/PKG-INFO
+[8.401s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs-0.0.0-py3.12.egg-info/SOURCES.txt
+[8.428s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs-0.0.0-py3.12.egg-info/dependency_links.txt
+[8.455s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs-0.0.0-py3.12.egg-info/top_level.txt
+[8.486s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/__init__.py
+[8.513s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/_dexter_msgs_s.ep.rosidl_typesupport_c.c
+[8.550s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/_dexter_msgs_s.ep.rosidl_typesupport_fastrtps_c.c
+[8.579s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/_dexter_msgs_s.ep.rosidl_typesupport_introspection_c.c
+[8.607s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/action/__init__.py
+[8.634s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/action/_dexter_task.py
+[8.660s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/action/_dexter_task_s.c
+[8.691s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/action/_fibonacci.py
+[8.719s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/action/_fibonacci_s.c
+[8.748s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/dexter_msgs_s__rosidl_typesupport_c.so
+[8.775s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/dexter_msgs_s__rosidl_typesupport_fastrtps_c.so
+[8.804s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/dexter_msgs_s__rosidl_typesupport_introspection_c.so
+[8.841s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/srv/__init__.py
+[8.868s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/srv/_add_item.py
+[8.902s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/srv/_add_item_s.c
+[8.931s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/srv/_add_two_ints.py
+[8.961s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/srv/_add_two_ints_s.c
+[8.993s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/srv/_dispatch_item.py
+[9.023s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/srv/_dispatch_item_s.c
+[9.049s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/srv/_euler_to_quaternion.py
+[9.085s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/srv/_euler_to_quaternion_s.c
+[9.112s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/srv/_quaternion_to_euler.py
+[9.145s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/srv/_quaternion_to_euler_s.c
+[9.174s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/dexter_msgs_s__rosidl_typesupport_fastrtps_c.so
+[9.175s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/dexter_msgs_s__rosidl_typesupport_introspection_c.so
+[9.175s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/dexter_msgs_s__rosidl_typesupport_c.so
+[9.175s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/srv/AddTwoInts.idl
+[9.206s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/srv/EulerToQuaternion.idl
+[9.235s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/srv/QuaternionToEuler.idl
+[9.263s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/action/Fibonacci.idl
+[9.291s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/action/DexterTask.idl
+[9.317s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/srv/DispatchItem.idl
+[9.349s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/srv/AddItem.idl
+[9.380s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/srv/AddTwoInts.srv
+[9.408s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/srv/EulerToQuaternion.srv
+[9.438s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/srv/QuaternionToEuler.srv
+[9.465s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/action/Fibonacci.action
+[9.496s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/action/DexterTask.action
+[9.525s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/srv/DispatchItem.srv
+[9.556s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/srv/AddItem.srv
+[9.587s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/ament_index/resource_index/package_run_dependencies/dexter_msgs
+[9.612s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/ament_index/resource_index/parent_prefix_path/dexter_msgs
+[9.641s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/environment/ament_prefix_path.sh
+[9.668s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/environment/ament_prefix_path.dsv
+[9.697s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/environment/path.sh
+[9.730s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/environment/path.dsv
+[9.761s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/local_setup.bash
+[9.792s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/local_setup.sh
+[9.824s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/local_setup.zsh
+[9.850s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/local_setup.dsv
+[9.878s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/package.dsv
+[9.904s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/ament_index/resource_index/packages/dexter_msgs
+[9.934s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/rosidl_cmake-extras.cmake
+[9.963s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/ament_cmake_export_dependencies-extras.cmake
+[9.991s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/ament_cmake_export_include_directories-extras.cmake
+[10.018s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/ament_cmake_export_libraries-extras.cmake
+[10.043s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/ament_cmake_export_targets-extras.cmake
+[10.071s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[10.096s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[10.126s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/dexter_msgsConfig.cmake
+[10.151s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/dexter_msgsConfig-version.cmake
+[10.184s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/package.xml
+[10.212s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/libdexter_msgs__rosidl_generator_c.so
+[10.212s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/libdexter_msgs__rosidl_typesupport_fastrtps_c.so
+[10.213s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/libdexter_msgs__rosidl_typesupport_fastrtps_cpp.so
+[10.214s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/libdexter_msgs__rosidl_typesupport_introspection_c.so
+[10.215s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/libdexter_msgs__rosidl_typesupport_c.so
+[10.216s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/libdexter_msgs__rosidl_typesupport_introspection_cpp.so
+[10.217s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/libdexter_msgs__rosidl_typesupport_cpp.so
+[10.411s] Listing '/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs'...
+[10.412s] Compiling '/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/__init__.py'...
+[10.412s] Listing '/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/action'...
+[10.412s] Listing '/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/srv'...
+[10.412s] Compiling '/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/srv/_add_item.py'...
+[10.412s] Compiling '/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/srv/_add_two_ints.py'...
+[10.412s] Compiling '/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/srv/_dispatch_item.py'...
+[10.412s] Compiling '/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/srv/_euler_to_quaternion.py'...
+[10.413s] Compiling '/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages/dexter_msgs/srv/_quaternion_to_euler.py'...
+[10.429s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/lib/libdexter_msgs__rosidl_generator_py.so
+[10.430s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/export_dexter_msgs__rosidl_generator_cExport.cmake
+[10.431s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/export_dexter_msgs__rosidl_generator_cExport-noconfig.cmake
+[10.432s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/export_dexter_msgs__rosidl_typesupport_fastrtps_cExport.cmake
+[10.432s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/export_dexter_msgs__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[10.433s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/export_dexter_msgs__rosidl_generator_cppExport.cmake
+[10.433s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/export_dexter_msgs__rosidl_typesupport_fastrtps_cppExport.cmake
+[10.433s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/export_dexter_msgs__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[10.434s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/dexter_msgs__rosidl_typesupport_introspection_cExport.cmake
+[10.434s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/dexter_msgs__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[10.434s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/dexter_msgs__rosidl_typesupport_cExport.cmake
+[10.434s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/dexter_msgs__rosidl_typesupport_cExport-noconfig.cmake
+[10.435s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/dexter_msgs__rosidl_typesupport_introspection_cppExport.cmake
+[10.435s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/dexter_msgs__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[10.435s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/dexter_msgs__rosidl_typesupport_cppExport.cmake
+[10.435s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/dexter_msgs__rosidl_typesupport_cppExport-noconfig.cmake
+[10.436s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/export_dexter_msgs__rosidl_generator_pyExport.cmake
+[10.436s] -- Up-to-date: /home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake/export_dexter_msgs__rosidl_generator_pyExport-noconfig.cmake
+[10.439s] Invoked command in '/home/aditya/Cpps/Dexter/build/dexter_msgs' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --install /home/aditya/Cpps/Dexter/build/dexter_msgs

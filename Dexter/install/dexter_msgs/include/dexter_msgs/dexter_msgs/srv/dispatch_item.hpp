@@ -1,12 +1,1 @@
-// generated from rosidl_generator_cpp/resource/idl.hpp.em
-// generated code does not contain a copyright notice
-
-#ifndef DEXTER_MSGS__SRV__DISPATCH_ITEM_HPP_
-#define DEXTER_MSGS__SRV__DISPATCH_ITEM_HPP_
-
-#include "dexter_msgs/srv/detail/dispatch_item__struct.hpp"
-#include "dexter_msgs/srv/detail/dispatch_item__builder.hpp"
-#include "dexter_msgs/srv/detail/dispatch_item__traits.hpp"
-#include "dexter_msgs/srv/detail/dispatch_item__type_support.hpp"
-
-#endif  // DEXTER_MSGS__SRV__DISPATCH_ITEM_HPP_
+/home/aditya/Cpps/Dexter/build/dexter_msgs/rosidl_generator_cpp/dexter_msgs/srv/dispatch_item.hpp

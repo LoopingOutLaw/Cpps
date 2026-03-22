@@ -1,0 +1,27 @@
+-- Found ament_cmake: 2.5.5 (/opt/ros/jazzy/share/ament_cmake/cmake)
+-- Override CMake install command with custom implementation using symlinks instead of copying resources
+-- Found rclcpp: 28.1.16 (/opt/ros/jazzy/share/rclcpp/cmake)
+-- Found rosidl_generator_c: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+-- Found rosidl_generator_cpp: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found rmw_implementation_cmake: 7.3.3 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+-- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+-- Using RMW implementation 'rmw_fastrtps_cpp' as default
+-- Found std_msgs: 5.3.6 (/opt/ros/jazzy/share/std_msgs/cmake)
+-- Found rclpy: 7.1.9 (/opt/ros/jazzy/share/rclpy/cmake)
+-- Configuring done (2.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/aditya/Cpps/Dexter/build/dexter_firmware
+[ 50%] Built target simple_serial_receiver
+[100%] Built target simple_serial_transmitter
+[100%] Built target ament_cmake_python_symlink_dexter_firmware
+running egg_info
+creating dexter_firmware.egg-info
+writing dexter_firmware.egg-info/PKG-INFO
+writing dependency_links to dexter_firmware.egg-info/dependency_links.txt
+writing top-level names to dexter_firmware.egg-info/top_level.txt
+writing manifest file 'dexter_firmware.egg-info/SOURCES.txt'
+reading manifest file 'dexter_firmware.egg-info/SOURCES.txt'
+writing manifest file 'dexter_firmware.egg-info/SOURCES.txt'
+[100%] Built target ament_cmake_python_build_dexter_firmware_egg

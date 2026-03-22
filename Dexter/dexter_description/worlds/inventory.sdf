@@ -14,306 +14,319 @@
     </plugin>
 
     <scene>
-      <ambient>0.6 0.6 0.65 1</ambient>
-      <background>0.12 0.14 0.18 1</background>
-      <shadows>true</shadows>
+      <ambient>0.85 0.85 0.85 1</ambient>
+      <background>0.15 0.17 0.21 1</background>
+      <shadows>false</shadows>
       <grid>false</grid>
     </scene>
 
+    <!-- Very bright even lighting -->
     <light name="sun" type="directional">
-      <cast_shadows>true</cast_shadows>
-      <pose>3 3 10 0 0 0</pose>
-      <diffuse>1.0 0.98 0.95 1</diffuse>
-      <specular>0.4 0.4 0.4 1</specular>
-      <direction>-0.4 -0.2 -0.8</direction>
-    </light>
-    <light name="fill" type="directional">
       <cast_shadows>false</cast_shadows>
-      <pose>-3 -3 8 0 0 0</pose>
-      <diffuse>0.45 0.48 0.55 1</diffuse>
-      <specular>0.0 0.0 0.0 1</specular>
-      <direction>0.4 0.3 -0.7</direction>
-    </light>
-    <light name="overhead" type="point">
-      <cast_shadows>false</cast_shadows>
-      <pose>0.5 0 3.5 0 0 0</pose>
-      <diffuse>0.9 0.92 1.0 1</diffuse>
-      <specular>0.2 0.2 0.2 1</specular>
-      <attenuation><range>12</range><constant>0.4</constant><linear>0.05</linear><quadratic>0.01</quadratic></attenuation>
-    </light>
-    <!-- Bright spot light for camera clarity -->
-    <light name="cam_fill" type="point">
-      <cast_shadows>false</cast_shadows>
-      <pose>1.0 0 2.4 0 0 0</pose>
+      <pose>0 0 10 0 0 0</pose>
       <diffuse>1.0 1.0 1.0 1</diffuse>
-      <specular>0.2 0.2 0.2 1</specular>
-      <attenuation><range>5</range><constant>0.2</constant><linear>0.05</linear><quadratic>0.01</quadratic></attenuation>
+      <specular>0.05 0.05 0.05 1</specular>
+      <direction>0 0 -1</direction>
     </light>
 
-    <!-- ================================================================ -->
-    <!-- OVERHEAD CAMERA
-         Mounted 2.6 m above floor, centred at x=1.0 y=0.
-         pitch=PI/2 makes the camera look straight down.
-         60 deg FOV covers ~3 m x 1.7 m at 2.6 m height — fits shelf + markers.
-         ROS2 topic via gz_ros2_bridge: /camera/image_raw
-    -->
+    <!-- ==================================================================
+         OVERHEAD CAMERA - Wide FOV to see entire workspace
+    ================================================================== -->
     <model name="overhead_camera_mount">
       <static>true</static>
-      <pose>1.0 0 2.6 0 1.5707963 0</pose>
+      <pose>1.0 0 3.0 0 1.5707963 0</pose>
       <link name="link">
         <visual name="body">
           <geometry><box><size>0.08 0.08 0.04</size></box></geometry>
-          <material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
-        </visual>
-        <visual name="lens">
-          <pose>0 0 -0.025 0 0 0</pose>
-          <geometry><cylinder><radius>0.018</radius><length>0.01</length></cylinder></geometry>
-          <material><ambient>0.0 0.0 0.05 1</ambient><diffuse>0.0 0.0 0.1 1</diffuse></material>
+          <material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.15 0.15 0.15 1</diffuse></material>
         </visual>
         <sensor name="overhead_cam" type="camera">
           <camera>
-            <horizontal_fov>1.0472</horizontal_fov>
+            <horizontal_fov>1.9199</horizontal_fov><!-- 110 degrees -->
             <image><width>1280</width><height>720</height><format>R8G8B8</format></image>
-            <clip><near>0.1</near><far>10.0</far></clip>
+            <clip><near>0.1</near><far>20.0</far></clip>
           </camera>
           <always_on>1</always_on>
           <update_rate>15</update_rate>
-          <visualize>false</visualize>
+          <visualize>true</visualize>
           <topic>/gz/camera/image</topic>
         </sensor>
       </link>
     </model>
-    <model name="camera_pole">
-      <static>true</static>
-      <pose>1.0 0 1.3 0 0 0</pose>
-      <link name="link">
-        <visual name="pole">
-          <geometry><cylinder><radius>0.018</radius><length>2.6</length></cylinder></geometry>
-          <material><ambient>0.15 0.15 0.18 1</ambient><diffuse>0.22 0.22 0.26 1</diffuse></material>
-        </visual>
-      </link>
-    </model>
 
-    <!-- ================================================================ -->
-    <!-- ARUCO REFERENCE MARKERS
-         Flat tiles at floor level matching aruco_box_detector.py coords.
-         In real life: print DICT_4X4_50 markers at 7cm, place at same XY.
-         Uses textured planes with actual ArUco patterns for camera detection.
-         Positions (robot base_link XY, meters):
-           ID 1 -> (0.700, -0.800)   ID 2 -> (1.450, -0.800)
-           ID 3 -> (0.700, +0.800)   ID 4 -> (1.450, +0.800)
-    -->
+    <!-- ==================================================================
+         COLORED REFERENCE MARKERS - Positioned to be fully visible in camera
+         All markers are placed on the visible floor area (yellow safety zone)
+         in front of the shelf, forming a clear rectangle.
+         
+         World coords (meters from base_link):
+           Marker 1 (CYAN)    → (0.30, -0.50)  front-left
+           Marker 2 (MAGENTA) → (1.10, -0.50)  front-right (in front of boxes)
+           Marker 3 (YELLOW)  → (0.30, +0.50)  back-left
+           Marker 4 (RED)     → (1.10, +0.50)  back-right (in front of boxes)
+    ================================================================== -->
+    
+    <!-- Marker 1 - CYAN at (0.3, -0.5) -->
     <model name="ref_marker_1">
-      <static>true</static><pose>0.700 -0.800 0.002 0 0 0</pose>
+      <static>true</static>
+      <pose>0.300 -0.500 0.008 0 0 0</pose>
       <link name="link">
-        <visual name="marker">
-          <geometry><box><size>0.10 0.10 0.001</size></box></geometry>
+        <visual name="base">
+          <geometry><cylinder><radius>0.08</radius><length>0.015</length></cylinder></geometry>
           <material>
-            <ambient>1 1 1 1</ambient>
-            <diffuse>1 1 1 1</diffuse>
-            <pbr>
-              <metal>
-                <albedo_map>model://dexter_description/textures/aruco_1.png</albedo_map>
-                <metalness>0.0</metalness>
-                <roughness>0.9</roughness>
-              </metal>
-            </pbr>
+            <ambient>0 1 1 1</ambient>
+            <diffuse>0 1 1 1</diffuse>
+            <emissive>0 0.5 0.5 1</emissive>
           </material>
         </visual>
-      </link>
-    </model>
-    <model name="ref_marker_2">
-      <static>true</static><pose>1.450 -0.800 0.002 0 0 0</pose>
-      <link name="link">
-        <visual name="marker">
-          <geometry><box><size>0.10 0.10 0.001</size></box></geometry>
-          <material>
-            <ambient>1 1 1 1</ambient>
-            <diffuse>1 1 1 1</diffuse>
-            <pbr>
-              <metal>
-                <albedo_map>model://dexter_description/textures/aruco_2.png</albedo_map>
-                <metalness>0.0</metalness>
-                <roughness>0.9</roughness>
-              </metal>
-            </pbr>
-          </material>
-        </visual>
-      </link>
-    </model>
-    <model name="ref_marker_3">
-      <static>true</static><pose>0.700 0.800 0.002 0 0 0</pose>
-      <link name="link">
-        <visual name="marker">
-          <geometry><box><size>0.10 0.10 0.001</size></box></geometry>
-          <material>
-            <ambient>1 1 1 1</ambient>
-            <diffuse>1 1 1 1</diffuse>
-            <pbr>
-              <metal>
-                <albedo_map>model://dexter_description/textures/aruco_3.png</albedo_map>
-                <metalness>0.0</metalness>
-                <roughness>0.9</roughness>
-              </metal>
-            </pbr>
-          </material>
-        </visual>
-      </link>
-    </model>
-    <model name="ref_marker_4">
-      <static>true</static><pose>1.450 0.800 0.002 0 0 0</pose>
-      <link name="link">
-        <visual name="marker">
-          <geometry><box><size>0.10 0.10 0.001</size></box></geometry>
-          <material>
-            <ambient>1 1 1 1</ambient>
-            <diffuse>1 1 1 1</diffuse>
-            <pbr>
-              <metal>
-                <albedo_map>model://dexter_description/textures/aruco_4.png</albedo_map>
-                <metalness>0.0</metalness>
-                <roughness>0.9</roughness>
-              </metal>
-            </pbr>
-          </material>
+        <visual name="center">
+          <pose>0 0 0.008 0 0 0</pose>
+          <geometry><cylinder><radius>0.025</radius><length>0.002</length></cylinder></geometry>
+          <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <!-- ================================================================ -->
-    <!-- FLOOR -->
-    <model name="warehouse_floor">
-      <static>true</static><pose>0 0 0 0 0 0</pose>
+    <!-- Marker 2 - MAGENTA at (1.1, -0.5) -->
+    <model name="ref_marker_2">
+      <static>true</static>
+      <pose>1.100 -0.500 0.008 0 0 0</pose>
+      <link name="link">
+        <visual name="base">
+          <geometry><cylinder><radius>0.08</radius><length>0.015</length></cylinder></geometry>
+          <material>
+            <ambient>1 0 1 1</ambient>
+            <diffuse>1 0 1 1</diffuse>
+            <emissive>0.5 0 0.5 1</emissive>
+          </material>
+        </visual>
+        <visual name="center">
+          <pose>0 0 0.008 0 0 0</pose>
+          <geometry><cylinder><radius>0.025</radius><length>0.002</length></cylinder></geometry>
+          <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Marker 3 - YELLOW at (0.3, +0.5) -->
+    <model name="ref_marker_3">
+      <static>true</static>
+      <pose>0.300 0.500 0.008 0 0 0</pose>
+      <link name="link">
+        <visual name="base">
+          <geometry><cylinder><radius>0.08</radius><length>0.015</length></cylinder></geometry>
+          <material>
+            <ambient>1 1 0 1</ambient>
+            <diffuse>1 1 0 1</diffuse>
+            <emissive>0.5 0.5 0 1</emissive>
+          </material>
+        </visual>
+        <visual name="center">
+          <pose>0 0 0.008 0 0 0</pose>
+          <geometry><cylinder><radius>0.025</radius><length>0.002</length></cylinder></geometry>
+          <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Marker 4 - BRIGHT RED at (1.1, +0.5) -->
+    <model name="ref_marker_4">
+      <static>true</static>
+      <pose>1.100 0.500 0.008 0 0 0</pose>
+      <link name="link">
+        <visual name="base">
+          <geometry><cylinder><radius>0.08</radius><length>0.015</length></cylinder></geometry>
+          <material>
+            <ambient>1 0.2 0 1</ambient>
+            <diffuse>1 0.2 0 1</diffuse>
+            <emissive>0.6 0.1 0 1</emissive>
+          </material>
+        </visual>
+        <visual name="center">
+          <pose>0 0 0.008 0 0 0</pose>
+          <geometry><cylinder><radius>0.025</radius><length>0.002</length></cylinder></geometry>
+          <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ================================================================== FLOOR -->
+    <model name="warehouse_floor"><static>true</static><pose>0 0 0 0 0 0</pose>
       <link name="link">
         <collision name="col"><geometry><plane><normal>0 0 1</normal><size>10 10</size></plane></geometry></collision>
         <visual name="vis"><geometry><plane><normal>0 0 1</normal><size>10 10</size></plane></geometry>
-          <material><ambient>0.22 0.23 0.25 1</ambient><diffuse>0.32 0.33 0.36 1</diffuse></material></visual>
+          <material><ambient>0.30 0.31 0.33 1</ambient><diffuse>0.40 0.41 0.43 1</diffuse></material>
+        </visual>
       </link>
     </model>
-    <model name="safety_zone">
-      <static>true</static><pose>0 0 0.003 0 0 0</pose>
-      <link name="link">
-        <visual name="vis"><geometry><cylinder><radius>1.5</radius><length>0.004</length></cylinder></geometry>
-          <material><ambient>0.7 0.55 0.0 1</ambient><diffuse>0.85 0.7 0.05 1</diffuse></material></visual>
-      </link>
+    <model name="safety_zone"><static>true</static><pose>0 0 0.002 0 0 0</pose>
+      <link name="link"><visual name="vis">
+        <geometry><cylinder><radius>1.5</radius><length>0.003</length></cylinder></geometry>
+        <material><ambient>0.6 0.45 0.0 1</ambient><diffuse>0.7 0.55 0.05 1</diffuse></material>
+      </visual></link>
     </model>
 
-    <!-- ================================================================ -->
-    <!-- SHELF (visual only — NO collision on any structural piece) -->
-    <model name="shelf_surface">
-      <static>true</static><pose>1.39 0 1.096 0 0 0</pose>
-      <link name="link"><visual name="vis"><geometry><box><size>0.25 1.45 0.025</size></box></geometry>
-        <material><ambient>0.42 0.36 0.28 1</ambient><diffuse>0.58 0.50 0.40 1</diffuse></material></visual></link>
+    <!-- ================================================================== SHELF -->
+    <model name="shelf_surface"><static>true</static><pose>1.39 0 1.096 0 0 0</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.25 1.45 0.025</size></box></geometry>
+        <material><ambient>0.55 0.47 0.37 1</ambient><diffuse>0.65 0.57 0.47 1</diffuse></material>
+      </visual></link>
     </model>
-    <model name="shelf_back">
-      <static>true</static><pose>1.56 0 1.37 0 0 0</pose>
-      <link name="link"><visual name="vis"><geometry><box><size>0.04 1.45 0.58</size></box></geometry>
-        <material><ambient>0.28 0.24 0.20 1</ambient><diffuse>0.38 0.32 0.26 1</diffuse></material></visual></link>
-    </model>
-    <model name="shelf_side_left">
-      <static>true</static><pose>1.39 -0.720 1.37 0 0 0</pose>
-      <link name="link"><visual name="vis"><geometry><box><size>0.25 0.03 0.58</size></box></geometry>
-        <material><ambient>0.25 0.22 0.18 1</ambient><diffuse>0.35 0.30 0.24 1</diffuse></material></visual></link>
-    </model>
-    <model name="shelf_side_right">
-      <static>true</static><pose>1.39 0.720 1.37 0 0 0</pose>
-      <link name="link"><visual name="vis"><geometry><box><size>0.25 0.03 0.58</size></box></geometry>
-        <material><ambient>0.25 0.22 0.18 1</ambient><diffuse>0.35 0.30 0.24 1</diffuse></material></visual></link>
+    <model name="shelf_back"><static>true</static><pose>1.56 0 1.37 0 0 0</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.04 1.45 0.58</size></box></geometry>
+        <material><ambient>0.35 0.30 0.24 1</ambient><diffuse>0.45 0.39 0.31 1</diffuse></material>
+      </visual></link>
     </model>
 
-    <!-- ITEM PEDESTALS (visual only) -->
+    <!-- ================================================================== PEDESTALS -->
     <model name="pedestal_slot0"><static>true</static><pose>1.048 -0.642 0 0 0 0</pose>
       <link name="link">
-        <visual name="post"><pose>0 0 0.538 0 0 0</pose><geometry><box><size>0.05 0.05 1.076</size></box></geometry><material><ambient>0.30 0.12 0.10 1</ambient><diffuse>0.40 0.16 0.13 1</diffuse></material></visual>
-        <visual name="top"><pose>0 0 1.086 0 0 0</pose><geometry><box><size>0.15 0.15 0.020</size></box></geometry><material><ambient>0.22 0.10 0.08 1</ambient><diffuse>0.30 0.14 0.11 1</diffuse></material></visual>
+        <visual name="post"><pose>0 0 0.538 0 0 0</pose><geometry><box><size>0.05 0.05 1.076</size></box></geometry>
+          <material><ambient>0.35 0.14 0.12 1</ambient><diffuse>0.45 0.18 0.15 1</diffuse></material></visual>
+        <visual name="top"><pose>0 0 1.086 0 0 0</pose><geometry><box><size>0.18 0.18 0.020</size></box></geometry>
+          <material><ambient>0.28 0.12 0.10 1</ambient><diffuse>0.36 0.16 0.13 1</diffuse></material></visual>
       </link></model>
     <model name="pedestal_slot1"><static>true</static><pose>1.209 -0.220 0 0 0 0</pose>
       <link name="link">
-        <visual name="post"><pose>0 0 0.538 0 0 0</pose><geometry><box><size>0.05 0.05 1.076</size></box></geometry><material><ambient>0.32 0.22 0.05 1</ambient><diffuse>0.42 0.30 0.07 1</diffuse></material></visual>
-        <visual name="top"><pose>0 0 1.086 0 0 0</pose><geometry><box><size>0.15 0.15 0.020</size></box></geometry><material><ambient>0.24 0.16 0.04 1</ambient><diffuse>0.32 0.22 0.06 1</diffuse></material></visual>
+        <visual name="post"><pose>0 0 0.538 0 0 0</pose><geometry><box><size>0.05 0.05 1.076</size></box></geometry>
+          <material><ambient>0.35 0.24 0.06 1</ambient><diffuse>0.45 0.32 0.08 1</diffuse></material></visual>
+        <visual name="top"><pose>0 0 1.086 0 0 0</pose><geometry><box><size>0.18 0.18 0.020</size></box></geometry>
+          <material><ambient>0.28 0.18 0.05 1</ambient><diffuse>0.36 0.24 0.07 1</diffuse></material></visual>
       </link></model>
     <model name="pedestal_slot2"><static>true</static><pose>1.209 0.220 0 0 0 0</pose>
       <link name="link">
-        <visual name="post"><pose>0 0 0.538 0 0 0</pose><geometry><box><size>0.05 0.05 1.076</size></box></geometry><material><ambient>0.08 0.22 0.50 1</ambient><diffuse>0.12 0.30 0.65 1</diffuse></material></visual>
-        <visual name="top"><pose>0 0 1.086 0 0 0</pose><geometry><box><size>0.15 0.15 0.020</size></box></geometry><material><ambient>0.06 0.16 0.38 1</ambient><diffuse>0.10 0.22 0.50 1</diffuse></material></visual>
+        <visual name="post"><pose>0 0 0.538 0 0 0</pose><geometry><box><size>0.05 0.05 1.076</size></box></geometry>
+          <material><ambient>0.10 0.25 0.55 1</ambient><diffuse>0.14 0.33 0.68 1</diffuse></material></visual>
+        <visual name="top"><pose>0 0 1.086 0 0 0</pose><geometry><box><size>0.18 0.18 0.020</size></box></geometry>
+          <material><ambient>0.08 0.18 0.42 1</ambient><diffuse>0.12 0.24 0.55 1</diffuse></material></visual>
       </link></model>
     <model name="pedestal_slot3"><static>true</static><pose>1.048 0.642 0 0 0 0</pose>
       <link name="link">
-        <visual name="post"><pose>0 0 0.538 0 0 0</pose><geometry><box><size>0.05 0.05 1.076</size></box></geometry><material><ambient>0.06 0.30 0.10 1</ambient><diffuse>0.10 0.42 0.15 1</diffuse></material></visual>
-        <visual name="top"><pose>0 0 1.086 0 0 0</pose><geometry><box><size>0.15 0.15 0.020</size></box></geometry><material><ambient>0.05 0.22 0.08 1</ambient><diffuse>0.08 0.32 0.12 1</diffuse></material></visual>
+        <visual name="post"><pose>0 0 0.538 0 0 0</pose><geometry><box><size>0.05 0.05 1.076</size></box></geometry>
+          <material><ambient>0.08 0.35 0.12 1</ambient><diffuse>0.12 0.45 0.16 1</diffuse></material></visual>
+        <visual name="top"><pose>0 0 1.086 0 0 0</pose><geometry><box><size>0.18 0.18 0.020</size></box></geometry>
+          <material><ambient>0.06 0.25 0.09 1</ambient><diffuse>0.10 0.34 0.12 1</diffuse></material></visual>
       </link></model>
 
-    <!-- ================================================================ -->
-    <!-- INVENTORY BOXES (positions unchanged — match dispatch_engine.py FK)
-         ArUco markers on top: ID 10=slot0, ID 11=slot1, ID 12=slot2, ID 13=slot3
-    -->
+    <!-- ==================================================================
+         INVENTORY BOXES with colored circular markers on top
+         Each box has a distinctive colored marker for detection:
+           Box 0 (RED box)    - WHITE marker with BLACK center
+           Box 1 (AMBER box)  - ORANGE marker with BLACK center
+           Box 2 (BLUE box)   - BLUE marker with WHITE center
+           Box 3 (GREEN box)  - GREEN marker with BLACK center
+    ================================================================== -->
+    
+    <!-- Box Slot 0 (Red box, White marker) -->
     <model name="box_slot0"><static>true</static><pose>1.048 -0.642 1.156 0 0 0</pose>
       <link name="link">
-        <collision name="col"><geometry><box><size>0.12 0.12 0.12</size></box></geometry></collision>
-        <visual name="body"><geometry><box><size>0.12 0.12 0.12</size></box></geometry><material><ambient>0.78 0.15 0.10 1</ambient><diffuse>0.90 0.22 0.15 1</diffuse></material></visual>
-        <visual name="aruco_marker"><pose>0 0 0.0605 0 0 0</pose>
-          <geometry><box><size>0.08 0.08 0.001</size></box></geometry>
-          <material>
-            <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
-            <pbr><metal><albedo_map>model://dexter_description/textures/aruco_10.png</albedo_map><metalness>0.0</metalness><roughness>0.9</roughness></metal></pbr>
-          </material>
+        <visual name="body"><geometry><box><size>0.12 0.12 0.12</size></box></geometry>
+          <material><ambient>0.85 0.18 0.12 1</ambient><diffuse>0.95 0.25 0.17 1</diffuse></material></visual>
+        <visual name="marker">
+          <pose>0 0 0.061 0 0 0</pose>
+          <geometry><cylinder><radius>0.045</radius><length>0.002</length></cylinder></geometry>
+          <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><emissive>0.5 0.5 0.5 1</emissive></material>
         </visual>
-      </link></model>
+        <visual name="marker_center">
+          <pose>0 0 0.0621 0 0 0</pose>
+          <geometry><cylinder><radius>0.015</radius><length>0.002</length></cylinder></geometry>
+          <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Box Slot 1 (Amber box, Orange marker) -->
     <model name="box_slot1"><static>true</static><pose>1.209 -0.220 1.156 0 0 0</pose>
       <link name="link">
-        <collision name="col"><geometry><box><size>0.12 0.12 0.12</size></box></geometry></collision>
-        <visual name="body"><geometry><box><size>0.12 0.12 0.12</size></box></geometry><material><ambient>0.82 0.56 0.08 1</ambient><diffuse>0.94 0.70 0.12 1</diffuse></material></visual>
-        <visual name="aruco_marker"><pose>0 0 0.0605 0 0 0</pose>
-          <geometry><box><size>0.08 0.08 0.001</size></box></geometry>
-          <material>
-            <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
-            <pbr><metal><albedo_map>model://dexter_description/textures/aruco_11.png</albedo_map><metalness>0.0</metalness><roughness>0.9</roughness></metal></pbr>
-          </material>
+        <visual name="body"><geometry><box><size>0.12 0.12 0.12</size></box></geometry>
+          <material><ambient>0.88 0.60 0.09 1</ambient><diffuse>0.98 0.73 0.13 1</diffuse></material></visual>
+        <visual name="marker">
+          <pose>0 0 0.061 0 0 0</pose>
+          <geometry><cylinder><radius>0.045</radius><length>0.002</length></cylinder></geometry>
+          <material><ambient>1 0.5 0 1</ambient><diffuse>1 0.5 0 1</diffuse><emissive>0.5 0.25 0 1</emissive></material>
         </visual>
-      </link></model>
+        <visual name="marker_center">
+          <pose>0 0 0.0621 0 0 0</pose>
+          <geometry><cylinder><radius>0.015</radius><length>0.002</length></cylinder></geometry>
+          <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+        </visual>
+        <visual name="expiry"><pose>-0.063 0.038 0.048 0 0 0</pose>
+          <geometry><sphere><radius>0.013</radius></sphere></geometry>
+          <material><ambient>0.95 0.08 0.08 1</ambient><diffuse>1 0.12 0.12 1</diffuse>
+            <emissive>0.4 0.02 0.02 1</emissive></material></visual>
+      </link>
+    </model>
+
+    <!-- Box Slot 2 (Blue box, Blue marker with white center) -->
     <model name="box_slot2"><static>true</static><pose>1.209 0.220 1.156 0 0 0</pose>
       <link name="link">
-        <collision name="col"><geometry><box><size>0.12 0.12 0.12</size></box></geometry></collision>
-        <visual name="body"><geometry><box><size>0.12 0.12 0.12</size></box></geometry><material><ambient>0.12 0.36 0.78 1</ambient><diffuse>0.18 0.48 0.90 1</diffuse></material></visual>
-        <visual name="aruco_marker"><pose>0 0 0.0605 0 0 0</pose>
-          <geometry><box><size>0.08 0.08 0.001</size></box></geometry>
-          <material>
-            <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
-            <pbr><metal><albedo_map>model://dexter_description/textures/aruco_12.png</albedo_map><metalness>0.0</metalness><roughness>0.9</roughness></metal></pbr>
-          </material>
+        <visual name="body"><geometry><box><size>0.12 0.12 0.12</size></box></geometry>
+          <material><ambient>0.14 0.38 0.82 1</ambient><diffuse>0.20 0.50 0.95 1</diffuse></material></visual>
+        <visual name="marker">
+          <pose>0 0 0.061 0 0 0</pose>
+          <geometry><cylinder><radius>0.045</radius><length>0.002</length></cylinder></geometry>
+          <material><ambient>0.2 0.4 1 1</ambient><diffuse>0.2 0.4 1 1</diffuse><emissive>0.1 0.2 0.5 1</emissive></material>
         </visual>
-      </link></model>
+        <visual name="marker_center">
+          <pose>0 0 0.0621 0 0 0</pose>
+          <geometry><cylinder><radius>0.015</radius><length>0.002</length></cylinder></geometry>
+          <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><emissive>0.3 0.3 0.3 1</emissive></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Box Slot 3 (Green box, Green marker) -->
     <model name="box_slot3"><static>true</static><pose>1.048 0.642 1.156 0 0 0</pose>
       <link name="link">
-        <collision name="col"><geometry><box><size>0.12 0.12 0.12</size></box></geometry></collision>
-        <visual name="body"><geometry><box><size>0.12 0.12 0.12</size></box></geometry><material><ambient>0.10 0.62 0.20 1</ambient><diffuse>0.16 0.76 0.28 1</diffuse></material></visual>
-        <visual name="aruco_marker"><pose>0 0 0.0605 0 0 0</pose>
-          <geometry><box><size>0.08 0.08 0.001</size></box></geometry>
-          <material>
-            <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
-            <pbr><metal><albedo_map>model://dexter_description/textures/aruco_13.png</albedo_map><metalness>0.0</metalness><roughness>0.9</roughness></metal></pbr>
-          </material>
+        <visual name="body"><geometry><box><size>0.12 0.12 0.12</size></box></geometry>
+          <material><ambient>0.12 0.66 0.22 1</ambient><diffuse>0.18 0.80 0.30 1</diffuse></material></visual>
+        <visual name="marker">
+          <pose>0 0 0.061 0 0 0</pose>
+          <geometry><cylinder><radius>0.045</radius><length>0.002</length></cylinder></geometry>
+          <material><ambient>0.2 0.9 0.3 1</ambient><diffuse>0.2 0.9 0.3 1</diffuse><emissive>0.1 0.4 0.15 1</emissive></material>
         </visual>
-      </link></model>
+        <visual name="marker_center">
+          <pose>0 0 0.0621 0 0 0</pose>
+          <geometry><cylinder><radius>0.015</radius><length>0.002</length></cylinder></geometry>
+          <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+        </visual>
+        <visual name="new_dot"><pose>-0.063 -0.038 0.048 0 0 0</pose>
+          <geometry><sphere><radius>0.010</radius></sphere></geometry>
+          <material><ambient>0.12 0.85 0.22 1</ambient><diffuse>0.16 1.0 0.28 1</diffuse>
+            <emissive>0.05 0.3 0.08 1</emissive></material></visual>
+      </link>
+    </model>
 
-    <!-- DISPATCH TRAY -->
+    <!-- ================================================================== DISPATCH TRAY -->
     <model name="dispatch_tray"><static>true</static><pose>0.664 1.034 1.147 0 0 1.0</pose>
       <link name="link">
-        <collision name="col"><geometry><box><size>0.28 0.20 0.018</size></box></geometry></collision>
-        <visual name="base"><geometry><box><size>0.28 0.20 0.018</size></box></geometry><material><ambient>0.12 0.14 0.18 1</ambient><diffuse>0.18 0.20 0.26 1</diffuse></material></visual>
-        <visual name="label"><pose>0 0 0.010 0 0 0</pose><geometry><box><size>0.20 0.08 0.001</size></box></geometry><material><ambient>0.15 0.55 0.20 1</ambient><diffuse>0.22 0.70 0.28 1</diffuse></material></visual>
+        <visual name="base"><geometry><box><size>0.28 0.20 0.018</size></box></geometry>
+          <material><ambient>0.12 0.14 0.18 1</ambient><diffuse>0.18 0.20 0.26 1</diffuse>
+            <specular>0.35 0.35 0.35 1</specular></material></visual>
+        <visual name="rim_f"><pose>0.13 0 0.022 0 0 0</pose><geometry><box><size>0.014 0.20 0.028</size></box></geometry>
+          <material><ambient>0.12 0.14 0.18 1</ambient><diffuse>0.18 0.20 0.26 1</diffuse></material></visual>
+        <visual name="rim_b"><pose>-0.13 0 0.022 0 0 0</pose><geometry><box><size>0.014 0.20 0.028</size></box></geometry>
+          <material><ambient>0.12 0.14 0.18 1</ambient><diffuse>0.18 0.20 0.26 1</diffuse></material></visual>
+        <visual name="rim_l"><pose>0 0.09 0.022 0 0 0</pose><geometry><box><size>0.28 0.014 0.028</size></box></geometry>
+          <material><ambient>0.12 0.14 0.18 1</ambient><diffuse>0.18 0.20 0.26 1</diffuse></material></visual>
+        <visual name="rim_r"><pose>0 -0.09 0.022 0 0 0</pose><geometry><box><size>0.28 0.014 0.028</size></box></geometry>
+          <material><ambient>0.12 0.14 0.18 1</ambient><diffuse>0.18 0.20 0.26 1</diffuse></material></visual>
       </link></model>
     <model name="dispatch_stand"><static>true</static><pose>0.664 1.034 0.573 0 0 0</pose>
-      <link name="link">
-        <visual name="pole"><geometry><cylinder><radius>0.025</radius><length>1.147</length></cylinder></geometry><material><ambient>0.15 0.15 0.18 1</ambient><diffuse>0.22 0.22 0.26 1</diffuse></material></visual>
+      <link name="link"><visual name="pole"><geometry><cylinder><radius>0.025</radius><length>1.147</length></cylinder></geometry>
+        <material><ambient>0.15 0.15 0.18 1</ambient><diffuse>0.22 0.22 0.26 1</diffuse></material></visual>
       </link></model>
 
-    <!-- WALLS -->
+    <!-- ================================================================== WALLS -->
     <model name="back_wall"><static>true</static><pose>2.5 0 1.5 0 0 0</pose>
-      <link name="link"><visual name="vis"><geometry><box><size>0.15 8 3.0</size></box></geometry><material><ambient>0.35 0.37 0.40 1</ambient><diffuse>0.45 0.47 0.50 1</diffuse></material></visual></link></model>
+      <link name="link"><visual name="v"><geometry><box><size>0.15 8 3.0</size></box></geometry>
+        <material><ambient>0.38 0.40 0.43 1</ambient><diffuse>0.48 0.50 0.53 1</diffuse></material></visual></link></model>
     <model name="wall_left"><static>true</static><pose>1.25 -2.5 1.5 0 0 0</pose>
-      <link name="link"><visual name="vis"><geometry><box><size>5 0.15 3.0</size></box></geometry><material><ambient>0.37 0.39 0.42 1</ambient><diffuse>0.47 0.49 0.52 1</diffuse></material></visual></link></model>
+      <link name="link"><visual name="v"><geometry><box><size>5 0.15 3.0</size></box></geometry>
+        <material><ambient>0.38 0.40 0.43 1</ambient><diffuse>0.48 0.50 0.53 1</diffuse></material></visual></link></model>
     <model name="wall_right"><static>true</static><pose>1.25 2.5 1.5 0 0 0</pose>
-      <link name="link"><visual name="vis"><geometry><box><size>5 0.15 3.0</size></box></geometry><material><ambient>0.37 0.39 0.42 1</ambient><diffuse>0.47 0.49 0.52 1</diffuse></material></visual></link></model>
+      <link name="link"><visual name="v"><geometry><box><size>5 0.15 3.0</size></box></geometry>
+        <material><ambient>0.38 0.40 0.43 1</ambient><diffuse>0.48 0.50 0.53 1</diffuse></material></visual></link></model>
+
   </world>
 </sdf>

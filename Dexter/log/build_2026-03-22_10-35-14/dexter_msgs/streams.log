@@ -1,0 +1,58 @@
+[0.041s] Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/Cpps/Dexter/install/dexter_py_examples:/home/aditya/Cpps/Dexter/install/dexter_inventory:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_msgs -- -j28 -l28
+[0.159s] [  1%] Built target dexter_msgs__rosidl_generator_type_description
+[0.175s] [  1%] Built target ament_cmake_python_copy_dexter_msgs
+[0.194s] [  2%] Built target dexter_msgs__cpp
+[0.200s] [ 26%] Built target dexter_msgs__rosidl_generator_c
+[0.262s] [ 36%] Built target dexter_msgs__rosidl_typesupport_c
+[0.263s] [ 45%] Built target dexter_msgs__rosidl_typesupport_introspection_c
+[0.264s] [ 55%] Built target dexter_msgs__rosidl_typesupport_cpp
+[0.267s] [ 64%] Built target dexter_msgs__rosidl_typesupport_fastrtps_c
+[0.270s] [ 74%] Built target dexter_msgs__rosidl_typesupport_introspection_cpp
+[0.280s] Traceback (most recent call last):
+[0.280s]   File "/home/aditya/Cpps/Dexter/build/dexter_msgs/ament_cmake_python/dexter_msgs/setup.py", line 1, in <module>
+[0.284s]     from setuptools import find_packages
+[0.284s]   File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/setuptools/__init__.py", line 21, in <module>
+[0.284s]     import _distutils_hack.override  # noqa: F401
+[0.284s]     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[0.285s]   File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/_distutils_hack/override.py", line 1, in <module>
+[0.285s]     __import__('_distutils_hack').do_override()
+[0.285s]   File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/_distutils_hack/__init__.py", line 89, in do_override
+[0.285s] gmake[1]: *** [CMakeFiles/Makefile2:321: CMakeFiles/dexter_msgs__rosidl_typesupport_fastrtps_cpp.dir/all] Interrupt
+[0.286s]     ensure_local_distutils()
+[0.286s]   File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/_distutils_hack/__init__.py", line 72, in ensure_local_distutils
+[0.286s]     importlib.import_module('distutils')
+[0.286s]   File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+[0.287s]     return _bootstrap._gcd_import(name[level:], package, level)
+[0.287s]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[0.287s]   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+[0.287s]   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+[0.288s]   File "<frozen importlib._bootstrap>", line 1322, in _find_and_load_unlocked
+[0.288s]   File "<frozen importlib._bootstrap>", line 1262, in _find_spec
+[0.288s]   File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/_distutils_hack/__init__.py", line 109, in find_spec
+[0.288s]     return method()
+[0.288s]            ^^^^^^^^
+[0.289s]   File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/_distutils_hack/__init__.py", line 116, in spec_for_distutils
+[0.289s]     import importlib.abc
+[0.289s]   File "/usr/lib/python3.12/importlib/abc.py", line 18, in <module>
+[0.289s]     from .resources import abc as _resources_abc
+[0.289s]   File "/usr/lib/python3.12/importlib/resources/__init__.py", line 3, in <module>
+[0.289s]     from ._common import (
+[0.290s]   File "/usr/lib/python3.12/importlib/resources/_common.py", line 3, in <module>
+[0.290s]     import tempfile
+[0.290s]   File "/usr/lib/python3.12/tempfile.py", line 44, in <module>
+[0.292s]     import shutil as _shutil
+[0.292s]   File "/usr/lib/python3.12/shutil.py", line 30, in <module>
+[0.292s]     import lzma
+[0.292s]   File "<frozen importlib._bootstrap>", line 1357, in _find_and_load
+[0.292s]   File "<frozen importlib._bootstrap>", line 418, in __enter__
+[0.292s]   File "<frozen importlib._bootstrap>", line 311, in acquire
+[0.293s]   File "<frozen importlib._bootstrap>", line 170, in __enter__
+[0.293s]   File "<frozen importlib._bootstrap>", line 132, in setdefault
+[0.293s]   File "<frozen importlib._bootstrap>", line 80, in __init__
+[0.293s] KeyboardInterrupt
+[0.295s] gmake[2]: *** [CMakeFiles/ament_cmake_python_build_dexter_msgs_egg.dir/build.make:70: CMakeFiles/ament_cmake_python_build_dexter_msgs_egg] Interrupt
+[0.296s] gmake[1]: *** [CMakeFiles/Makefile2:478: CMakeFiles/ament_cmake_python_build_dexter_msgs_egg.dir/all] Interrupt
+[0.296s] gmake[1]: *** wait: No child processes.  Stop.
+[0.296s] gmake[1]: *** Waiting for unfinished jobs....
+[0.296s] gmake[1]: *** wait: No child processes.  Stop.
+[0.296s] gmake: *** [Makefile:146: all] Error 2

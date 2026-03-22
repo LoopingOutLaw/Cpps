@@ -1,0 +1,4 @@
+[ 25%] Linking CXX executable slider_control
+[ 50%] Linking CXX shared library libdexter_controller.so
+[ 75%] Built target dexter_controller
+[100%] Built target slider_control

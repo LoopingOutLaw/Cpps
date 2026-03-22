@@ -1,0 +1,1 @@
+/home/aditya/Cpps/Dexter/dexter_description/scripts/generate_aruco_textures.py

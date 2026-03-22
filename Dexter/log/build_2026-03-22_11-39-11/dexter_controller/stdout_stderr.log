@@ -1,0 +1,9 @@
+failed to create symbolic link '/home/aditya/Cpps/Dexter/build/dexter_controller/ament_cmake_python/dexter_controller/dexter_controller' because existing path cannot be removed: Is a directory
+gmake[2]: *** [CMakeFiles/ament_cmake_python_symlink_dexter_controller.dir/build.make:70: CMakeFiles/ament_cmake_python_symlink_dexter_controller] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:194: CMakeFiles/ament_cmake_python_symlink_dexter_controller.dir/all] Error 2
+gmake[1]: *** Waiting for unfinished jobs....
+[ 25%] Linking CXX executable slider_control
+[ 50%] Linking CXX shared library libdexter_controller.so
+[ 75%] Built target dexter_controller
+[100%] Built target slider_control
+gmake: *** [Makefile:146: all] Error 2

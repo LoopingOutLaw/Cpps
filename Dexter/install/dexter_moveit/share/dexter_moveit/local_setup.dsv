@@ -1,2 +1,1 @@
-source;share/dexter_moveit/environment/ament_prefix_path.sh
-source;share/dexter_moveit/environment/path.sh
+/home/aditya/Cpps/Dexter/build/dexter_moveit/ament_cmake_environment_hooks/local_setup.dsv

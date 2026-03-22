@@ -3,7 +3,10 @@ from pathlib import Path
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, SetEnvironmentVariable
+from launch.actions import (
+    DeclareLaunchArgument, IncludeLaunchDescription,
+    SetEnvironmentVariable, ExecuteProcess,
+)
 from launch.substitutions import Command, LaunchConfiguration
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 
@@ -17,13 +20,10 @@ def generate_launch_description():
     model_arg = DeclareLaunchArgument(
         name="model",
         default_value=os.path.join(dexter_description, "urdf", "dexter.urdf.xacro"),
-        description="Absolute path to robot urdf file",
     )
-
     world_arg = DeclareLaunchArgument(
         name="world",
         default_value=os.path.join(dexter_description, "worlds", "inventory.sdf"),
-        description="Path to Gazebo world file",
     )
 
     gazebo_resource_path = SetEnvironmentVariable(
@@ -31,15 +31,14 @@ def generate_launch_description():
         value=[str(Path(dexter_description).parent.resolve())],
     )
 
-    ros_distro = os.environ.get("ROS_DISTRO", "iron")
+    ros_distro = os.environ.get("ROS_DISTRO", "jazzy")
     is_ignition = "True" if ros_distro == "humble" else "False"
 
     robot_description = ParameterValue(
         Command([
             "xacro ",
             LaunchConfiguration("model"),
-            " is_ignition:=",
-            is_ignition,
+            " is_ignition:=", is_ignition,
         ]),
         value_type=str,
     )
@@ -55,9 +54,7 @@ def generate_launch_description():
             os.path.join(get_package_share_directory("ros_gz_sim"), "launch"),
             "/gz_sim.launch.py",
         ]),
-        launch_arguments=[
-            ("gz_args", [" -v 4 -r ", LaunchConfiguration("world")])
-        ],
+        launch_arguments=[("gz_args", [" -v 4 -r ", LaunchConfiguration("world")])],
     )
 
     gz_spawn_entity = Node(
@@ -67,21 +64,32 @@ def generate_launch_description():
         arguments=["-topic", "robot_description", "-name", "dexter"],
     )
 
-    gz_ros2_bridge = Node(
+    # ── Bridge: clock + camera ────────────────────────────────────────────────
+    #
+    # For ROS 2 Jazzy + Gazebo Harmonic, ros_gz_bridge parameter_bridge is the
+    # standard way to bridge camera images.  ros_gz_image (image_bridge) is a
+    # separate optional package that is NOT installed by default.
+    #
+    # Type string syntax:
+    #   <gz_topic>@<ros_type>[<gz_type>    ← Gazebo → ROS2  (we only need this)
+    #   <gz_topic>@<ros_type>]<gz_type>    ← ROS2 → Gazebo
+    #   <gz_topic>@<ros_type>@<gz_type>    ← bidirectional
+    #
+    # The camera sensor in inventory.sdf publishes to /gz/camera/image.
+    # We remap it to /camera/image_raw for the ArUco detector.
+    # ──────────────────────────────────────────────────────────────────────────
+    gz_bridge = Node(
         package="ros_gz_bridge",
         executable="parameter_bridge",
+        output="screen",
         arguments=[
             "/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock",
+            "/gz/camera/image@sensor_msgs/msg/Image[gz.msgs.Image",
+            "/gz/camera/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo",
         ],
-    )
-
-    # Separate image bridge - more reliable for camera streams
-    gz_image_bridge = Node(
-        package="ros_gz_image",
-        executable="image_bridge",
-        arguments=["/gz/camera/image"],
         remappings=[
-            ("/gz/camera/image", "/camera/image_raw"),
+            ("/gz/camera/image",       "/camera/image_raw"),
+            ("/gz/camera/camera_info", "/camera/camera_info"),
         ],
     )
 
@@ -92,6 +100,5 @@ def generate_launch_description():
         robot_state_publisher_node,
         gazebo,
         gz_spawn_entity,
-        gz_ros2_bridge,
-        gz_image_bridge,
+        gz_bridge,
     ])

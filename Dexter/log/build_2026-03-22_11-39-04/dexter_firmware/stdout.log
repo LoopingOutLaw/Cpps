@@ -1,0 +1,10 @@
+[ 50%] Built target simple_serial_receiver
+[100%] Built target simple_serial_transmitter
+[100%] Built target ament_cmake_python_symlink_dexter_firmware
+running egg_info
+writing dexter_firmware.egg-info/PKG-INFO
+writing dependency_links to dexter_firmware.egg-info/dependency_links.txt
+writing top-level names to dexter_firmware.egg-info/top_level.txt
+reading manifest file 'dexter_firmware.egg-info/SOURCES.txt'
+writing manifest file 'dexter_firmware.egg-info/SOURCES.txt'
+[100%] Built target ament_cmake_python_build_dexter_firmware_egg

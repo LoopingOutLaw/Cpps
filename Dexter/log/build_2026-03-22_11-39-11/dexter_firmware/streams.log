@@ -1,0 +1,28 @@
+[0.035s] Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_firmware': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_firmware -- -j28 -l28
+[0.099s] -- Found ament_cmake: 2.5.5 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.725s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.746s] -- Found rclcpp: 28.1.16 (/opt/ros/jazzy/share/rclcpp/cmake)
+[0.851s] -- Found rosidl_generator_c: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.878s] -- Found rosidl_generator_cpp: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.916s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.957s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.176s] -- Found rmw_implementation_cmake: 7.3.3 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[1.180s] -- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[1.413s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.652s] -- Found std_msgs: 5.3.6 (/opt/ros/jazzy/share/std_msgs/cmake)
+[1.709s] -- Found rclpy: 7.1.9 (/opt/ros/jazzy/share/rclpy/cmake)
+[2.362s] -- Configuring done (2.3s)
+[2.404s] -- Generating done (0.0s)
+[2.417s] -- Build files have been written to: /home/aditya/Cpps/Dexter/build/dexter_firmware
+[2.555s] [ 50%] Built target simple_serial_receiver
+[2.557s] [100%] Built target simple_serial_transmitter
+[2.558s] [100%] Built target ament_cmake_python_symlink_dexter_firmware
+[3.346s] running egg_info
+[3.428s] creating dexter_firmware.egg-info
+[3.429s] writing dexter_firmware.egg-info/PKG-INFO
+[3.430s] writing dependency_links to dexter_firmware.egg-info/dependency_links.txt
+[3.431s] writing top-level names to dexter_firmware.egg-info/top_level.txt
+[3.431s] writing manifest file 'dexter_firmware.egg-info/SOURCES.txt'
+[3.680s] reading manifest file 'dexter_firmware.egg-info/SOURCES.txt'
+[3.683s] writing manifest file 'dexter_firmware.egg-info/SOURCES.txt'
+[3.774s] [100%] Built target ament_cmake_python_build_dexter_firmware_egg

@@ -1,10 +1,1 @@
-<library path="dexter_controller">
-    <class name="dexter_controller/DexterInterface"
-      type="dexter_controller::DexterInterface"
-      base_class_type="hardware_interface::SystemInterface"
-    >
-      <description>
-        Dexter Hardware Interface
-      </description>
-    </class>
-  </library>
+/home/aditya/Cpps/Dexter/dexter_controller/dexter_controller.xml
