@@ -1,32 +1,38 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="dexter">
 
-  <!-- ROS 2 Control -->
+  <!-- ── ros2_control plugin ─────────────────────────────────────────────── -->
   <gazebo>
-    <!-- ROS 2 Humble -->
     <xacro:if value="$(arg is_ignition)">
-      <plugin filename="ign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">
+      <plugin filename="ign_ros2_control-system"
+              name="ign_ros2_control::IgnitionROS2ControlPlugin">
         <parameters>$(find dexter_controller)/config/dexter_controllers.yaml</parameters>
       </plugin>
     </xacro:if>
-
-    <!-- ROS 2 Iron or above -->
     <xacro:unless value="$(arg is_ignition)">
-      <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+      <plugin filename="gz_ros2_control-system"
+              name="gz_ros2_control::GazeboSimROS2ControlPlugin">
         <parameters>$(find dexter_controller)/config/dexter_controllers.yaml</parameters>
       </plugin>
     </xacro:unless>
   </gazebo>
 
   <!--
-    ArUco ID 20 texture on the arm_aruco_plate link.
-    This link is attached to base_plate via a fixed joint so it rotates
-    with joint_1, letting the overhead camera track arm base orientation.
+    ── ArUco ID 21 on gripper_aruco_plate (claw_support child) ──────────────
 
-    The PBR albedo_map approach matches the box and floor markers in inventory.sdf.
-    Metalness=0, roughness=1 → purely diffuse white material with the ArUco pattern.
+    This marker is on the TIP of the gripper arm, attached to claw_support.
+    It is visible from the overhead camera when the arm bends toward the shelf
+    (j2≈−0.55, j3≈−1.17) because the top face of claw_support faces upward
+    in that configuration.
+
+    The detector tracks ID 21 and publishes the gripper world position,
+    which drives closed-loop arm-to-box positioning.
+
+    PBR settings:
+      metalness=0.0, roughness=1.0 → purely diffuse white background
+      → markers render clearly under the scene lighting in ogre2.
   -->
-  <gazebo reference="arm_aruco_plate">
+  <gazebo reference="gripper_aruco_plate">
     <visual name="visual">
       <cast_shadows>false</cast_shadows>
       <material>
@@ -35,7 +41,7 @@
         <specular>0 0 0 1</specular>
         <pbr>
           <metal>
-            <albedo_map>model://dexter_description/textures/aruco_20.png</albedo_map>
+            <albedo_map>model://dexter_description/textures/aruco_21.png</albedo_map>
             <metalness>0.0</metalness>
             <roughness>1.0</roughness>
           </metal>

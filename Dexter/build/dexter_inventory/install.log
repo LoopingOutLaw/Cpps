@@ -1,6 +1,7 @@
 /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/seed_data.py
 /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/standalone_dashboard.py
 /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/inventory_db.py
+/home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/visual_servo_node.py
 /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/inventory_node.py
 /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/dispatch_engine.py
 /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/ml_forecast.py
@@ -9,6 +10,7 @@
 /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/__pycache__/seed_data.cpython-312.pyc
 /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/__pycache__/standalone_dashboard.cpython-312.pyc
 /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/__pycache__/inventory_db.cpython-312.pyc
+/home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/__pycache__/visual_servo_node.cpython-312.pyc
 /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/__pycache__/inventory_node.cpython-312.pyc
 /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/__pycache__/dispatch_engine.cpython-312.pyc
 /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/__pycache__/ml_forecast.cpython-312.pyc
@@ -28,4 +30,4 @@
 /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory/aruco_box_detector
 /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory/inventory_node
 /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory/seed_data
-/home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory/standalone_dashboard
+/home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory/visual_servo_node

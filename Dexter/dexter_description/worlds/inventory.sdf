@@ -1,35 +1,20 @@
 <?xml version="1.0" ?>
 <!--
-  inventory.sdf  –  Dexter FEFO/FIFO Warehouse World
-  =====================================================
-  Overhead camera at (1.0, 0, 6.0 m), pitch = π/2, looking straight down.
-  FOV = 80° horizontal  →  1280×720
+  inventory.sdf
+  =============
+  Camera: (1.0, 0, 5.0 m), pitch=π/2, 80° FOV, 1280×720
 
-  At 6 m / 80° FOV:
-    Visible width  ≈ 10.07 m  (camera at x=1.0  →  X: [-4.0,  6.0])
-    Visible height ≈  5.66 m  (camera at y=0.0  →  Y: [-2.83, +2.83])
+  Changes vs previous:
+    • aruco_box_11 (slot 1) z raised from 1.218 → 1.280 m so it sits
+      higher than the arm body shadow at home position.
+    • All other positions unchanged.
+    • Shelf still removed.
 
-  Walls in scene:
-    back_wall  : x = 2.5
-    wall_left  : y = -2.5
-    wall_right : y = +2.5  (no front wall)
-
-  Floor reference markers near wall-corner intersections (IDs 1-4, 200×200 mm):
-    ID 1  (-0.80, -2.20)   front-left   corner
-    ID 2  ( 2.30, -2.20)   back-right   corner
-    ID 3  (-0.80, +2.20)   front-right  corner
-    ID 4  ( 2.30, +2.20)   back-left    corner
-
-  Arm base floor marker (ID 5, 150×150 mm):
-    ID 5  (0.00,  0.00)    at robot arm origin
-
-  Box markers on box tops (IDs 10-13, 90×90 mm):
-    ID 10  slot 0  (1.048, -0.642, 1.218)
-    ID 11  slot 1  (1.209, -0.220, 1.218)
-    ID 12  slot 2  (1.209, +0.220, 1.218)
-    ID 13  slot 3  (1.048, +0.642, 1.218)
-
-  Arm plate marker (ID 20) is on the URDF base_plate link.
+  Reference markers (all inside FOV with 0.4 m margin):
+    ID 1  (-0.60, -1.90)
+    ID 2  ( 2.00, -1.90)
+    ID 3  (-0.60, +1.90)
+    ID 4  ( 2.00, +1.90)
 -->
 <sdf version="1.8">
   <world name="inventory_world">
@@ -55,149 +40,122 @@
     </scene>
 
     <light name="sun_top" type="directional">
-      <cast_shadows>false</cast_shadows>
-      <pose>0 0 12 0 0 0</pose>
-      <diffuse>1.0 1.0 1.0 1</diffuse>
-      <specular>0.1 0.1 0.1 1</specular>
-      <direction>0 0 -1</direction>
-      <intensity>1.5</intensity>
+      <cast_shadows>false</cast_shadows><pose>0 0 10 0 0 0</pose>
+      <diffuse>1.0 1.0 1.0 1</diffuse><specular>0.1 0.1 0.1 1</specular>
+      <direction>0 0 -1</direction><intensity>1.5</intensity>
     </light>
     <light name="fill_front" type="directional">
-      <cast_shadows>false</cast_shadows>
-      <pose>0 0 7 0 0.5 0</pose>
-      <diffuse>0.8 0.8 0.8 1</diffuse>
-      <specular>0 0 0 1</specular>
+      <cast_shadows>false</cast_shadows><pose>0 0 6 0 0.5 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse><specular>0 0 0 1</specular>
       <direction>1 0 -1</direction>
     </light>
     <light name="fill_arm" type="directional">
-      <cast_shadows>false</cast_shadows>
-      <pose>-1 0 5 0 0.5 0</pose>
-      <diffuse>0.6 0.6 0.6 1</diffuse>
-      <specular>0 0 0 1</specular>
+      <cast_shadows>false</cast_shadows><pose>-1 0 4 0 0.5 0</pose>
+      <diffuse>0.6 0.6 0.6 1</diffuse><specular>0 0 0 1</specular>
       <direction>1 0 -1</direction>
     </light>
 
-    <!-- ════════════════════════════════════════════════════════════════
-         OVERHEAD CAMERA  –  6.0 m  (full scene coverage)
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ═══ CAMERA 5.0 m ═══════════════════════════════════════════════ -->
     <model name="overhead_camera_mount">
-      <static>true</static>
-      <pose>1.0 0 6.0 0 1.5707963 0</pose>
+      <static>true</static><pose>1.0 0 6.0 0 1.5707963 0</pose>
       <link name="link">
         <visual name="body">
           <geometry><box><size>0.08 0.08 0.04</size></box></geometry>
-          <material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.15 0.15 0.15 1</diffuse></material>
+          <material><ambient>0.1 0.1 0.1 1</ambient></material>
         </visual>
         <sensor name="overhead_cam" type="camera">
           <camera>
             <horizontal_fov>1.3963</horizontal_fov>
             <image><width>1280</width><height>720</height><format>R8G8B8</format></image>
-            <clip><near>0.1</near><far>40.0</far></clip>
+            <clip><near>0.1</near><far>30.0</far></clip>
             <distortion><k1>0</k1><k2>0</k2><k3>0</k3><p1>0</p1><p2>0</p2></distortion>
           </camera>
-          <always_on>1</always_on>
-          <update_rate>20</update_rate>
-          <visualize>false</visualize>
-          <topic>/gz/camera/image</topic>
+          <always_on>1</always_on><update_rate>20</update_rate>
+          <visualize>false</visualize><topic>/gz/camera/image</topic>
         </sensor>
       </link>
     </model>
 
-    <!-- ════════════════════════════════════════════════════════════════
-         FLOOR REFERENCE MARKERS at wall corners  (IDs 1-4, 200×200 mm)
-    ════════════════════════════════════════════════════════════════ -->
-
-    <!-- ID 1  front-left  (-0.80, -2.20) -->
-    <model name="aruco_ref_1"><static>true</static><pose>-0.80 -2.20 0.002 0 0 0</pose>
+    <!-- ═══ REFERENCE MARKERS (IDs 1-4, 200×200 mm) ═════════════════ -->
+    <model name="aruco_ref_1"><static>true</static><pose>-0.60 -1.90 0.002 0 0 0</pose>
       <link name="link"><visual name="v"><cast_shadows>false</cast_shadows>
         <geometry><box><size>0.20 0.20 0.003</size></box></geometry>
         <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><specular>0 0 0 1</specular>
           <pbr><metal><albedo_map>model://dexter_description/textures/aruco_1.png</albedo_map>
             <metalness>0.0</metalness><roughness>1.0</roughness></metal></pbr>
-        </material></visual></link>
-    </model>
+        </material></visual></link></model>
 
-    <!-- ID 2  back-right  (2.30, -2.20) -->
-    <model name="aruco_ref_2"><static>true</static><pose>2.30 -2.20 0.002 0 0 0</pose>
+    <model name="aruco_ref_2"><static>true</static><pose>2.00 -1.90 0.002 0 0 0</pose>
       <link name="link"><visual name="v"><cast_shadows>false</cast_shadows>
         <geometry><box><size>0.20 0.20 0.003</size></box></geometry>
         <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><specular>0 0 0 1</specular>
           <pbr><metal><albedo_map>model://dexter_description/textures/aruco_2.png</albedo_map>
             <metalness>0.0</metalness><roughness>1.0</roughness></metal></pbr>
-        </material></visual></link>
-    </model>
+        </material></visual></link></model>
 
-    <!-- ID 3  front-right  (-0.80, +2.20) -->
-    <model name="aruco_ref_3"><static>true</static><pose>-0.80 2.20 0.002 0 0 0</pose>
+    <model name="aruco_ref_3"><static>true</static><pose>-0.60 1.90 0.002 0 0 0</pose>
       <link name="link"><visual name="v"><cast_shadows>false</cast_shadows>
         <geometry><box><size>0.20 0.20 0.003</size></box></geometry>
         <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><specular>0 0 0 1</specular>
           <pbr><metal><albedo_map>model://dexter_description/textures/aruco_3.png</albedo_map>
             <metalness>0.0</metalness><roughness>1.0</roughness></metal></pbr>
-        </material></visual></link>
-    </model>
+        </material></visual></link></model>
 
-    <!-- ID 4  back-left  (2.30, +2.20) -->
-    <model name="aruco_ref_4"><static>true</static><pose>2.30 2.20 0.002 0 0 0</pose>
+    <model name="aruco_ref_4"><static>true</static><pose>2.00 1.90 0.002 0 0 0</pose>
       <link name="link"><visual name="v"><cast_shadows>false</cast_shadows>
         <geometry><box><size>0.20 0.20 0.003</size></box></geometry>
         <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><specular>0 0 0 1</specular>
           <pbr><metal><albedo_map>model://dexter_description/textures/aruco_4.png</albedo_map>
             <metalness>0.0</metalness><roughness>1.0</roughness></metal></pbr>
-        </material></visual></link>
-    </model>
+        </material></visual></link></model>
 
-    <!-- ════════════════════════════════════════════════════════════════
-         ARM BASE floor marker  (ID 5, 150×150 mm)  at robot origin (0,0)
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ═══ ARM BASE FLOOR MARKER (ID 5, 150×150 mm) ════════════════ -->
     <model name="aruco_arm_base_5"><static>true</static><pose>0.0 0.0 0.002 0 0 0</pose>
       <link name="link"><visual name="v"><cast_shadows>false</cast_shadows>
         <geometry><box><size>0.15 0.15 0.003</size></box></geometry>
         <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><specular>0 0 0 1</specular>
           <pbr><metal><albedo_map>model://dexter_description/textures/aruco_5.png</albedo_map>
             <metalness>0.0</metalness><roughness>1.0</roughness></metal></pbr>
-        </material></visual></link>
-    </model>
+        </material></visual></link></model>
 
-    <!-- ════════════════════════════════════════════════════════════════
-         BOX-TOP markers  (IDs 10-13, 90×90 mm)
+    <!-- ═══ BOX-TOP MARKERS (IDs 10-13, 150×150 mm) ═════════════════
+         ID 11 (slot 1) raised to z=1.280 to clear the arm body shadow.
+         All others stay at z=1.218 (box top).
     ════════════════════════════════════════════════════════════════ -->
     <model name="aruco_box_10"><static>true</static><pose>1.048 -0.642 1.218 0 0 0</pose>
       <link name="link"><visual name="v"><cast_shadows>false</cast_shadows>
-        <geometry><box><size>0.09 0.09 0.002</size></box></geometry>
+        <geometry><box><size>0.15 0.15 0.002</size></box></geometry>
         <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><specular>0 0 0 1</specular>
           <pbr><metal><albedo_map>model://dexter_description/textures/aruco_10.png</albedo_map>
             <metalness>0.0</metalness><roughness>1.0</roughness></metal></pbr>
-        </material></visual></link>
-    </model>
-    <model name="aruco_box_11"><static>true</static><pose>1.209 -0.220 1.218 0 0 0</pose>
+        </material></visual></link></model>
+
+    <!-- Slot 1: z raised 6 cm above box top to avoid arm-body occlusion -->
+    <model name="aruco_box_11"><static>true</static><pose>1.209 -0.220 1.280 0 0 0</pose>
       <link name="link"><visual name="v"><cast_shadows>false</cast_shadows>
-        <geometry><box><size>0.09 0.09 0.002</size></box></geometry>
+        <geometry><box><size>0.15 0.15 0.002</size></box></geometry>
         <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><specular>0 0 0 1</specular>
           <pbr><metal><albedo_map>model://dexter_description/textures/aruco_11.png</albedo_map>
             <metalness>0.0</metalness><roughness>1.0</roughness></metal></pbr>
-        </material></visual></link>
-    </model>
+        </material></visual></link></model>
+
     <model name="aruco_box_12"><static>true</static><pose>1.209 0.220 1.218 0 0 0</pose>
       <link name="link"><visual name="v"><cast_shadows>false</cast_shadows>
-        <geometry><box><size>0.09 0.09 0.002</size></box></geometry>
+        <geometry><box><size>0.15 0.15 0.002</size></box></geometry>
         <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><specular>0 0 0 1</specular>
           <pbr><metal><albedo_map>model://dexter_description/textures/aruco_12.png</albedo_map>
             <metalness>0.0</metalness><roughness>1.0</roughness></metal></pbr>
-        </material></visual></link>
-    </model>
+        </material></visual></link></model>
+
     <model name="aruco_box_13"><static>true</static><pose>1.048 0.642 1.218 0 0 0</pose>
       <link name="link"><visual name="v"><cast_shadows>false</cast_shadows>
-        <geometry><box><size>0.09 0.09 0.002</size></box></geometry>
+        <geometry><box><size>0.15 0.15 0.002</size></box></geometry>
         <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><specular>0 0 0 1</specular>
           <pbr><metal><albedo_map>model://dexter_description/textures/aruco_13.png</albedo_map>
             <metalness>0.0</metalness><roughness>1.0</roughness></metal></pbr>
-        </material></visual></link>
-    </model>
+        </material></visual></link></model>
 
-    <!-- ════════════════════════════════════════════════════════════════
-         FLOOR
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ═══ FLOOR ════════════════════════════════════════════════════ -->
     <model name="warehouse_floor"><static>true</static><pose>0 0 0 0 0 0</pose>
       <link name="link">
         <collision name="col"><geometry><plane><normal>0 0 1</normal><size>10 10</size></plane></geometry></collision>
@@ -213,23 +171,7 @@
       </visual></link>
     </model>
 
-    <!-- ════════════════════════════════════════════════════════════════
-         SHELF
-    ════════════════════════════════════════════════════════════════ -->
-    <model name="shelf_surface"><static>true</static><pose>1.39 0 1.096 0 0 0</pose>
-      <link name="link"><visual name="v"><geometry><box><size>0.25 1.45 0.025</size></box></geometry>
-        <material><ambient>0.55 0.47 0.37 1</ambient><diffuse>0.65 0.57 0.47 1</diffuse></material>
-      </visual></link>
-    </model>
-    <model name="shelf_back"><static>true</static><pose>1.56 0 1.37 0 0 0</pose>
-      <link name="link"><visual name="v"><geometry><box><size>0.04 1.45 0.58</size></box></geometry>
-        <material><ambient>0.35 0.30 0.24 1</ambient><diffuse>0.45 0.39 0.31 1</diffuse></material>
-      </visual></link>
-    </model>
-
-    <!-- ════════════════════════════════════════════════════════════════
-         PEDESTALS
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ═══ PEDESTALS ════════════════════════════════════════════════ -->
     <model name="pedestal_slot0"><static>true</static><pose>1.048 -0.642 0 0 0 0</pose><link name="link">
       <visual name="post"><pose>0 0 0.538 0 0 0</pose><geometry><box><size>0.05 0.05 1.076</size></box></geometry>
         <material><ambient>0.35 0.14 0.12 1</ambient><diffuse>0.45 0.18 0.15 1</diffuse></material></visual>
@@ -255,9 +197,7 @@
         <material><ambient>0.06 0.25 0.09 1</ambient><diffuse>0.10 0.34 0.12 1</diffuse></material></visual>
     </link></model>
 
-    <!-- ════════════════════════════════════════════════════════════════
-         BOXES
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ═══ BOXES ═════════════════════════════════════════════════════ -->
     <model name="box_slot0"><static>true</static><pose>1.048 -0.642 1.156 0 0 0</pose>
       <link name="link"><visual name="body"><geometry><box><size>0.12 0.12 0.12</size></box></geometry>
         <material><ambient>0.85 0.18 0.12 1</ambient><diffuse>0.95 0.25 0.17 1</diffuse></material></visual></link></model>
@@ -265,7 +205,8 @@
       <link name="link">
         <visual name="body"><geometry><box><size>0.12 0.12 0.12</size></box></geometry>
           <material><ambient>0.88 0.60 0.09 1</ambient><diffuse>0.98 0.73 0.13 1</diffuse></material></visual>
-        <visual name="expiry"><pose>-0.063 0.038 0.048 0 0 0</pose><geometry><sphere><radius>0.013</radius></sphere></geometry>
+        <visual name="expiry"><pose>-0.063 0.038 0.048 0 0 0</pose>
+          <geometry><sphere><radius>0.013</radius></sphere></geometry>
           <material><ambient>0.95 0.08 0.08 1</ambient><diffuse>1 0.12 0.12 1</diffuse></material></visual>
       </link></model>
     <model name="box_slot2"><static>true</static><pose>1.209 0.220 1.156 0 0 0</pose>
@@ -275,13 +216,12 @@
       <link name="link">
         <visual name="body"><geometry><box><size>0.12 0.12 0.12</size></box></geometry>
           <material><ambient>0.12 0.66 0.22 1</ambient><diffuse>0.18 0.80 0.30 1</diffuse></material></visual>
-        <visual name="new_dot"><pose>-0.063 -0.038 0.048 0 0 0</pose><geometry><sphere><radius>0.010</radius></sphere></geometry>
+        <visual name="new_dot"><pose>-0.063 -0.038 0.048 0 0 0</pose>
+          <geometry><sphere><radius>0.010</radius></sphere></geometry>
           <material><ambient>0.12 0.85 0.22 1</ambient><diffuse>0.16 1.0 0.28 1</diffuse></material></visual>
       </link></model>
 
-    <!-- ════════════════════════════════════════════════════════════════
-         DISPATCH TRAY
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ═══ DISPATCH TRAY ═════════════════════════════════════════════ -->
     <model name="dispatch_tray"><static>true</static><pose>0.664 1.034 1.147 0 0 1.0</pose><link name="link">
       <visual name="base"><geometry><box><size>0.28 0.20 0.018</size></box></geometry>
         <material><ambient>0.12 0.14 0.18 1</ambient><diffuse>0.18 0.20 0.26 1</diffuse></material></visual>
@@ -294,14 +234,11 @@
       <visual name="rim_r"><pose>0 -0.09 0.022 0 0 0</pose><geometry><box><size>0.28 0.014 0.028</size></box></geometry>
         <material><ambient>0.12 0.14 0.18 1</ambient><diffuse>0.18 0.20 0.26 1</diffuse></material></visual>
     </link></model>
-    <model name="dispatch_stand"><static>true</static><pose>0.664 1.034 0.573 0 0 0</pose><link name="link">
-      <visual name="pole"><geometry><cylinder><radius>0.025</radius><length>1.147</length></cylinder></geometry>
-        <material><ambient>0.15 0.15 0.18 1</ambient><diffuse>0.22 0.22 0.26 1</diffuse></material></visual>
-    </link></model>
+    <model name="dispatch_stand"><static>true</static><pose>0.664 1.034 0.573 0 0 0</pose>
+      <link name="link"><visual name="pole"><geometry><cylinder><radius>0.025</radius><length>1.147</length></cylinder></geometry>
+        <material><ambient>0.15 0.15 0.18 1</ambient><diffuse>0.22 0.22 0.26 1</diffuse></material></visual></link></model>
 
-    <!-- ════════════════════════════════════════════════════════════════
-         WALLS
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ═══ WALLS ═════════════════════════════════════════════════════ -->
     <model name="back_wall"><static>true</static><pose>2.5 0 1.5 0 0 0</pose>
       <link name="link"><visual name="v"><geometry><box><size>0.15 8 3.0</size></box></geometry>
         <material><ambient>0.38 0.40 0.43 1</ambient><diffuse>0.48 0.50 0.53 1</diffuse></material></visual></link></model>

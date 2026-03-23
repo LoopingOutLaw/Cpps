@@ -2,17 +2,19 @@
 """
 generate_aruco_textures.py
 ==========================
-Generates ArUco PNG textures used as Gazebo material albedo maps.
+Generates ArUco PNG textures (DICT_4X4_50) for Gazebo PBR albedo maps.
 
-DICT_4X4_50 markers generated:
-  IDs 1-4    → aruco_1.png … aruco_4.png     (floor reference corners)
-  ID  5      → aruco_5.png                   (arm base floor marker)
-  IDs 10-13  → aruco_10.png … aruco_13.png   (box-top markers)
-  ID  20     → aruco_20.png                   (arm base_plate rotating marker)
+Marker ID assignments:
+  IDs 1-4   → floor reference corners      (200×200 mm in world)
+  ID  5     → arm base floor marker        (150×150 mm)
+  IDs 10-13 → box-top markers per slot     ( 90× 90 mm)
+  ID  21    → gripper tip marker           (120×120 mm, on claw_support)
 
-Each PNG is 512×512 pixels with a white border (required by ArUco spec).
+ID 20 removed — was on base_plate, always hidden by arm body.
+ID 21 is on claw_support (gripper tip), visible from overhead camera
+when arm bends toward the shelf to pick boxes.
 
-Run once before or during colcon build:
+Run:
     python3 generate_aruco_textures.py [output_dir]
 """
 
@@ -20,53 +22,45 @@ import sys
 import os
 from pathlib import Path
 
-# ── Output directory ──────────────────────────────────────────────────────────
-
 if len(sys.argv) > 1:
     out_dir = Path(sys.argv[1])
 else:
-    script_dir = Path(__file__).resolve().parent
-    out_dir    = script_dir.parent / "textures"
+    out_dir = Path(__file__).resolve().parent.parent / "textures"
 
 out_dir.mkdir(parents=True, exist_ok=True)
 print(f"Output directory: {out_dir}")
 
 # ── Marker IDs ────────────────────────────────────────────────────────────────
+FLOOR_REF_IDS  = [1, 2, 3, 4]
+ARM_FLOOR_IDS  = [5]
+BOX_TOP_IDS    = [10, 11, 12, 13]
+GRIPPER_IDS    = [21]          # ← gripper tip, replaces old ID 20
 
-FLOOR_REF_IDS  = [1, 2, 3, 4]          # reference corners on floor (wide rectangle)
-ARM_FLOOR_IDS  = [5]                    # arm base floor marker
-BOX_TOP_IDS    = [10, 11, 12, 13]      # ArUco on each box slot top
-ARM_PLATE_IDS  = [20]                   # ArUco on arm base_plate (rotates with joint_1)
+MARKER_IDS = FLOOR_REF_IDS + ARM_FLOOR_IDS + BOX_TOP_IDS + GRIPPER_IDS
 
-MARKER_IDS = FLOOR_REF_IDS + ARM_FLOOR_IDS + BOX_TOP_IDS + ARM_PLATE_IDS
+IMAGE_SIZE  = 512
+BORDER_FRAC = 0.15
 
-IMAGE_SIZE  = 512    # px
-BORDER_FRAC = 0.15   # white border fraction
-
-# ── Generation ────────────────────────────────────────────────────────────────
-
+# ── OpenCV or fallback ────────────────────────────────────────────────────────
 try:
     import cv2
     import numpy as np
     _CV2_OK = True
 except ImportError:
     _CV2_OK = False
-    print("WARNING: opencv-python not installed.  Using PIL/minimal fallback.")
-    print("         pip install opencv-python")
+    print("WARNING: opencv-python not installed — using PIL fallback.")
 
 
 def generate_aruco_png(marker_id: int, out_path: Path) -> None:
     if _CV2_OK:
         aruco_dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_50)
-        inner_size = int(IMAGE_SIZE * (1.0 - 2 * BORDER_FRAC))
-        marker_img = cv2.aruco.generateImageMarker(aruco_dict, marker_id, inner_size)
-
-        canvas = np.full((IMAGE_SIZE, IMAGE_SIZE), 255, dtype=np.uint8)
-        b      = int(IMAGE_SIZE * BORDER_FRAC)
-        canvas[b:b + inner_size, b:b + inner_size] = marker_img
-
+        inner      = int(IMAGE_SIZE * (1.0 - 2 * BORDER_FRAC))
+        marker_img = cv2.aruco.generateImageMarker(aruco_dict, marker_id, inner)
+        canvas     = np.full((IMAGE_SIZE, IMAGE_SIZE), 255, dtype=np.uint8)
+        b          = int(IMAGE_SIZE * BORDER_FRAC)
+        canvas[b:b + inner, b:b + inner] = marker_img
         cv2.imwrite(str(out_path), canvas)
-        print(f"  ✓ {out_path.name}   (ArUco ID {marker_id}, {IMAGE_SIZE}px)")
+        print(f"  ✓ {out_path.name}  (ID {marker_id}, {IMAGE_SIZE}px)")
     else:
         _fallback_png(out_path, marker_id)
 
@@ -83,29 +77,25 @@ def _fallback_png(out_path: Path, marker_id: int) -> None:
                     draw.rectangle([c*sq, r*sq, (c+1)*sq-1, (r+1)*sq-1], fill=0)
         draw.text((10, 10), f"ID={marker_id}", fill=128)
         img.save(str(out_path))
-        print(f"  ~ {out_path.name}   (PIL fallback, ID {marker_id})")
+        print(f"  ~ {out_path.name}  (PIL fallback, ID {marker_id})")
     except ImportError:
         _minimal_png(out_path, marker_id)
 
 
 def _minimal_png(out_path: Path, marker_id: int) -> None:
     import struct, zlib
-    def chunk(name: bytes, data: bytes) -> bytes:
+    def chunk(name, data):
         raw = name + data
-        return (struct.pack(">I", len(data)) + raw
-                + struct.pack(">I", zlib.crc32(raw) & 0xFFFFFFFF))
-    size   = 16
+        return struct.pack(">I", len(data)) + raw + struct.pack(">I", zlib.crc32(raw) & 0xFFFFFFFF)
+    s = 16
     header = b"\x89PNG\r\n\x1a\n"
-    ihdr   = chunk(b"IHDR", struct.pack(">IIBBBBB", size, size, 8, 0, 0, 0, 0))
-    row    = b"\x00" + b"\xff" * size
-    idat   = chunk(b"IDAT", zlib.compress(row * size))
+    ihdr   = chunk(b"IHDR", struct.pack(">IIBBBBB", s, s, 8, 0, 0, 0, 0))
+    row    = b"\x00" + b"\xff" * s
+    idat   = chunk(b"IDAT", zlib.compress(row * s))
     iend   = chunk(b"IEND", b"")
-    with open(out_path, "wb") as f:
-        f.write(header + ihdr + idat + iend)
-    print(f"  ! {out_path.name}   (minimal 16px PNG, ID {marker_id})")
+    out_path.write_bytes(header + ihdr + idat + iend)
+    print(f"  ! {out_path.name}  (minimal PNG, ID {marker_id})")
 
-
-# ── Run ───────────────────────────────────────────────────────────────────────
 
 errors = 0
 for mid in MARKER_IDS:
@@ -117,12 +107,11 @@ for mid in MARKER_IDS:
 
 print()
 if errors == 0:
-    print(f"✓  All {len(MARKER_IDS)} ArUco textures generated in {out_dir}")
-    print(f"   Floor reference IDs : {FLOOR_REF_IDS}")
-    print(f"   Arm floor ID        : {ARM_FLOOR_IDS}")
-    print(f"   Box-top IDs         : {BOX_TOP_IDS}")
-    print(f"   Arm plate ID        : {ARM_PLATE_IDS}")
-    print("   Run:  colcon build --packages-select dexter_description")
+    print(f"✓  All {len(MARKER_IDS)} textures generated in {out_dir}")
+    print(f"   Floor corners : {FLOOR_REF_IDS}")
+    print(f"   Arm base      : {ARM_FLOOR_IDS}")
+    print(f"   Box tops      : {BOX_TOP_IDS}")
+    print(f"   Gripper tip   : {GRIPPER_IDS}  (ID 21 on claw_support)")
 else:
-    print(f"✗  {errors} error(s) — check output above")
+    print(f"✗  {errors} error(s)")
     sys.exit(1)

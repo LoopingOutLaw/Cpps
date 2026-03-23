@@ -16,6 +16,7 @@ dexter_inventory/inventory_node.py
 dexter_inventory/ml_forecast.py
 dexter_inventory/seed_data.py
 dexter_inventory/standalone_dashboard.py
+dexter_inventory/visual_servo_node.py
 launch/inventory.launch.py
 resource/dexter_inventory
 templates/index.html

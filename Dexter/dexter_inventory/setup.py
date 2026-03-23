@@ -11,28 +11,24 @@ setup(
     data_files=[
         ("share/ament_index/resource_index/packages", ["resource/" + package_name]),
         ("share/" + package_name, ["package.xml"]),
-        (
-            os.path.join("share", package_name, "launch"),
-            glob(os.path.join("launch", "*launch.[pxy][yma]*")),
-        ),
-        (
-            os.path.join("share", package_name, "templates"),
-            glob(os.path.join("templates", "*.html")),
-        ),
+        (os.path.join("share", package_name, "launch"),
+         glob(os.path.join("launch", "*launch.[pxy][yma]*"))),
+        (os.path.join("share", package_name, "templates"),
+         glob(os.path.join("templates", "*.html"))),
     ],
     install_requires=["setuptools"],
     zip_safe=True,
     maintainer="Your Name",
     maintainer_email="you@example.com",
-    description="FEFO/FIFO inventory system for Dexter arm with RFID simulation and RL optimization",
+    description="FEFO/FIFO inventory with ArUco visual servo",
     license="Apache 2.0",
     tests_require=["pytest"],
     entry_points={
         "console_scripts": [
-            "inventory_node = dexter_inventory.inventory_node:main",
-            "seed_data      = dexter_inventory.seed_data:seed",
-            "standalone_dashboard = dexter_inventory.standalone_dashboard:app.run",
+            "inventory_node     = dexter_inventory.inventory_node:main",
+            "seed_data          = dexter_inventory.seed_data:seed",
             "aruco_box_detector = dexter_inventory.aruco_box_detector:main",
+            "visual_servo_node  = dexter_inventory.visual_servo_node:main",
         ],
     },
 )

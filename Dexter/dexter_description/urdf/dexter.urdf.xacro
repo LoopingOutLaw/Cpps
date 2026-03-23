@@ -1,24 +1,16 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="dexter">
 
-    <!-- Start GZ or Ignition depending on ROS 2 Version -->
     <xacro:arg name="is_ignition" default="true"/>
+    <xacro:arg name="is_sim"      default="true"/>
 
-    <!-- Load Simulated or Real Hardware Interfaces -->
-    <xacro:arg name="is_sim" default="true"/>
-
-    <!-- Include Gazebo Parameters -->
     <xacro:include filename="$(find dexter_description)/urdf/dexter_gazebo.xacro" />
-
-    <!-- Include ros2_control Plugins -->
     <xacro:include filename="$(find dexter_description)/urdf/dexter_ros2_control.xacro" />
-    
-    <!-- Useful XACRO Variables (Properties) -->
-    <xacro:property name="PI" value="3.14159265359" />
-    <xacro:property name="effort" value="30.0" />
+
+    <xacro:property name="PI"       value="3.14159265359" />
+    <xacro:property name="effort"   value="30.0" />
     <xacro:property name="velocity" value="10.0" />
 
-    <!-- Useful Macros -->
     <xacro:macro name="default_inertial" params="mass">
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -29,8 +21,7 @@
         </inertial>
     </xacro:macro>
 
-
-    <!-- Links -->
+    <!-- ── Links ──────────────────────────────────────────────────────────── -->
     <link name="world"/>
 
     <link name="base_link">
@@ -38,13 +29,15 @@
         <visual>
             <origin rpy="0 0 0" xyz="-0.5 -0.5 0"/>
             <geometry>
-                <mesh filename="package://dexter_description/meshes/basement.STL" scale="0.01 0.01 0.01"/>
+                <mesh filename="package://dexter_description/meshes/basement.STL"
+                      scale="0.01 0.01 0.01"/>
             </geometry>
         </visual>
         <collision>
             <origin rpy="0 0 0" xyz="-0.5 -0.5 0"/>
             <geometry>
-                <mesh filename="package://dexter_description/meshes/basement.STL" scale="0.01 0.01 0.01"/>
+                <mesh filename="package://dexter_description/meshes/basement.STL"
+                      scale="0.01 0.01 0.01"/>
             </geometry>
         </collision>
     </link>
@@ -54,32 +47,17 @@
         <visual>
             <origin rpy="0 0 0" xyz="-0.39 -0.39 -0.56"/>
             <geometry>
-                <mesh filename="package://dexter_description/meshes/base_plate.STL" scale="0.01 0.01 0.01"/>
+                <mesh filename="package://dexter_description/meshes/base_plate.STL"
+                      scale="0.01 0.01 0.01"/>
             </geometry>
         </visual>
         <collision>
             <origin rpy="0 0 0" xyz="-0.39 -0.39 -0.56"/>
             <geometry>
-                <mesh filename="package://dexter_description/meshes/base_plate.STL" scale="0.01 0.01 0.01"/>
+                <mesh filename="package://dexter_description/meshes/base_plate.STL"
+                      scale="0.01 0.01 0.01"/>
             </geometry>
         </collision>
-    </link>
-
-    <!--
-      arm_aruco_plate  – a thin flat marker (ID 20) attached to base_plate.
-      It sits 12 cm above the base_plate joint origin, facing upward.
-      The overhead camera sees it as a rotating marker → tracks joint_1 yaw.
-      Physical size: 90×90 mm (matching box-top markers).
-    -->
-    <link name="arm_aruco_plate">
-        <xacro:default_inertial mass="0.001"/>
-        <visual>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
-            <geometry>
-                <box size="0.09 0.09 0.003"/>
-            </geometry>
-        </visual>
-        <!-- No collision – it's a visual-only tag -->
     </link>
 
     <link name="forward_drive_arm">
@@ -87,13 +65,15 @@
         <visual>
             <origin rpy=" 0 -${PI / 2} ${PI / 2}" xyz="0.19 0.06 -0.08"/>
             <geometry>
-                <mesh filename="package://dexter_description/meshes/forward_drive_arm.STL" scale="0.01 0.01 0.01"/>
+                <mesh filename="package://dexter_description/meshes/forward_drive_arm.STL"
+                      scale="0.01 0.01 0.01"/>
             </geometry>
         </visual>
         <collision>
             <origin rpy=" 0 -${PI / 2} ${PI / 2}" xyz="0.19 0.06 -0.08"/>
             <geometry>
-                <mesh filename="package://dexter_description/meshes/forward_drive_arm.STL" scale="0.01 0.01 0.01"/>
+                <mesh filename="package://dexter_description/meshes/forward_drive_arm.STL"
+                      scale="0.01 0.01 0.01"/>
             </geometry>
         </collision>
     </link>
@@ -103,13 +83,15 @@
         <visual>
             <origin rpy="${PI / 2} 0 ${PI / 2}" xyz="-0.03 -0.4 -0.06"/>
             <geometry>
-                <mesh filename="package://dexter_description/meshes/horizontal_arm.STL" scale="0.01 0.01 0.01"/>
+                <mesh filename="package://dexter_description/meshes/horizontal_arm.STL"
+                      scale="0.01 0.01 0.01"/>
             </geometry>
         </visual>
         <collision>
             <origin rpy="${PI / 2} 0 ${PI / 2}" xyz="-0.03 -0.4 -0.06"/>
             <geometry>
-                <mesh filename="package://dexter_description/meshes/horizontal_arm.STL" scale="0.01 0.01 0.01"/>
+                <mesh filename="package://dexter_description/meshes/horizontal_arm.STL"
+                      scale="0.01 0.01 0.01"/>
             </geometry>
         </collision>
     </link>
@@ -119,15 +101,57 @@
         <visual>
             <origin rpy="0 0 ${PI / 2}" xyz="0 -0.05 -0.15"/>
             <geometry>
-                <mesh filename="package://dexter_description/meshes/claw_support.STL" scale="0.01 0.01 0.01"/>
+                <mesh filename="package://dexter_description/meshes/claw_support.STL"
+                      scale="0.01 0.01 0.01"/>
             </geometry>
         </visual>
         <collision>
             <origin rpy="0 0 ${PI / 2}" xyz="0 -0.05 -0.15"/>
             <geometry>
-                <mesh filename="package://dexter_description/meshes/claw_support.STL" scale="0.01 0.01 0.01"/>
+                <mesh filename="package://dexter_description/meshes/claw_support.STL"
+                      scale="0.01 0.01 0.01"/>
             </geometry>
         </collision>
+    </link>
+
+    <!--
+      gripper_aruco_plate  –  ArUco ID 21, 120×120 mm flat square
+      ─────────────────────────────────────────────────────────────
+      WHY claw_support (not base_plate):
+        • base_plate is occluded by the arm body from above
+        • claw_support is at the gripper TIP — furthest from the base
+          and most exposed to the overhead camera view
+
+      JOINT PLACEMENT (in claw_support local frame):
+        The claw_support joint connects at horizontal_arm origin + 0.82 m
+        along the arm's local Y axis.
+        The claw_support visual mesh sits at xyz="0 -0.05 -0.15".
+        Joint_4 (gripper_right) is at xyz="-0.04 0.13 -0.1".
+
+        We place the marker plate at xyz="0 0 0.08" in claw_support
+        frame (8 cm above the joint origin, which is the "top" of the
+        claw body).
+
+      ORIENTATION (rpy in claw_support frame):
+        When the arm bends toward the shelf (j2≈−0.55, j3≈−1.17),
+        the claw_support's local +Z axis tilts toward world +Z.
+        rpy="0 0 0" makes the marker face the local +Z of claw_support,
+        which aligns roughly with world +Z during picking — exactly when
+        the overhead camera needs to see it.
+
+      SIZE: 120×120 mm (larger than box markers for better detection at
+      varying heights when arm moves).
+    -->
+    <link name="gripper_aruco_plate">
+        <xacro:default_inertial mass="0.001"/>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <!-- 120×120 mm, 3 mm thick – visually prominent -->
+                <box size="0.12 0.12 0.003"/>
+            </geometry>
+        </visual>
+        <!-- no collision – visual only -->
     </link>
 
     <link name="gripper_right">
@@ -135,13 +159,15 @@
         <visual>
             <origin rpy="0 0 -${PI / 2}" xyz="-0.1 0.50 -0.1"/>
             <geometry>
-                <mesh filename="package://dexter_description/meshes/right_finger.STL" scale="0.01 0.01 0.01"/>
+                <mesh filename="package://dexter_description/meshes/right_finger.STL"
+                      scale="0.01 0.01 0.01"/>
             </geometry>
         </visual>
         <collision>
             <origin rpy="0 0 -${PI / 2}" xyz="-0.1 0.50 -0.1"/>
             <geometry>
-                <mesh filename="package://dexter_description/meshes/right_finger.STL" scale="0.01 0.01 0.01"/>
+                <mesh filename="package://dexter_description/meshes/right_finger.STL"
+                      scale="0.01 0.01 0.01"/>
             </geometry>
         </collision>
     </link>
@@ -151,84 +177,86 @@
         <visual>
             <origin rpy="0 0 -${PI / 2}" xyz="-0.04 0.50 -0.1"/>
             <geometry>
-                <mesh filename="package://dexter_description/meshes/left_finger.STL" scale="0.01 0.01 0.01"/>
+                <mesh filename="package://dexter_description/meshes/left_finger.STL"
+                      scale="0.01 0.01 0.01"/>
             </geometry>
         </visual>
         <collision>
             <origin rpy="0 0 -${PI / 2}" xyz="-0.04 0.50 -0.1"/>
             <geometry>
-                <mesh filename="package://dexter_description/meshes/left_finger.STL" scale="0.01 0.01 0.01"/>
+                <mesh filename="package://dexter_description/meshes/left_finger.STL"
+                      scale="0.01 0.01 0.01"/>
             </geometry>
         </collision>
     </link>
 
-    
-    <!-- Joints -->  
+    <!-- ── Joints ─────────────────────────────────────────────────────────── -->
     <joint name="virtual_joint" type="fixed">
         <parent link="world"/>
-        <child link="base_link"/>
+        <child  link="base_link"/>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-    </joint> 
+    </joint>
 
-    <joint name ="joint_1" type="revolute">
+    <joint name="joint_1" type="revolute">
         <parent link="base_link"/>
-        <child link = "base_plate"/>
+        <child  link="base_plate"/>
         <origin xyz="0 0 0.307"/>
         <axis xyz="0 0 1"/>
-        <limit lower="-${PI / 2}" upper="${PI / 2}" 
+        <limit lower="-${PI / 2}" upper="${PI / 2}"
                effort="${effort}" velocity="${velocity}"/>
     </joint>
 
-    <!--
-      arm_aruco_joint: fixed joint attaching the ArUco marker plate to base_plate.
-      Origin is 0.12 m above the base_plate joint origin so it sits on top of
-      the rotating base section, clearly visible from the overhead camera.
-    -->
-    <joint name="arm_aruco_joint" type="fixed">
+    <joint name="joint_2" type="revolute">
         <parent link="base_plate"/>
-        <child link="arm_aruco_plate"/>
-        <origin xyz="0 0 0.12" rpy="0 0 0"/>
-    </joint>
-
-    <joint name ="joint_2" type="revolute">
-        <parent link="base_plate"/>
-        <child link = "forward_drive_arm"/>
+        <child  link="forward_drive_arm"/>
         <origin xyz="-0.02 0 0.35"/>
         <axis xyz="1 0 0"/>
         <limit lower="-${PI / 2}" upper="${PI / 2}"
-                effort="${effort}" velocity="${velocity}"/>
+               effort="${effort}" velocity="${velocity}"/>
     </joint>
 
-    <joint name ="joint_3" type="revolute">
+    <joint name="joint_3" type="revolute">
         <parent link="forward_drive_arm"/>
-        <child link = "horizontal_arm"/>
+        <child  link="horizontal_arm"/>
         <origin xyz="0 0 0.8"/>
         <axis xyz="1 0 0"/>
         <limit lower="-${PI / 2}" upper="${PI / 2}"
                effort="${effort}" velocity="${velocity}"/>
     </joint>
 
-    <joint name ="horizontal_arm_to_claw_support" type="fixed">
+    <joint name="horizontal_arm_to_claw_support" type="fixed">
         <parent link="horizontal_arm"/>
-        <child link = "claw_support"/>
+        <child  link="claw_support"/>
         <origin xyz="0 0.82 0"/>
     </joint>
 
-    <joint name ="joint_4" type="revolute">
+    <!--
+      gripper_aruco_joint – fixed, attaches the marker plate to claw_support.
+      xyz="0 0 0.08":  8 cm along claw_support local +Z (above the body).
+      rpy="0 0 0":     marker face aligns with claw_support local +Z, which
+                       faces the overhead camera during arm picking motion.
+    -->
+    <joint name="gripper_aruco_joint" type="fixed">
         <parent link="claw_support"/>
-        <child link = "gripper_right"/>
+        <child  link="gripper_aruco_plate"/>
+        <origin xyz="0 0 0.08" rpy="0 0 0"/>
+    </joint>
+
+    <joint name="joint_4" type="revolute">
+        <parent link="claw_support"/>
+        <child  link="gripper_right"/>
         <origin xyz="-0.04 0.13 -0.1"/>
         <axis xyz="0 0 1"/>
-        <limit lower="-${PI / 2}" upper="0.0" 
+        <limit lower="-${PI / 2}" upper="0.0"
                effort="${effort}" velocity="${velocity}"/>
     </joint>
 
-    <joint name ="joint_5" type="revolute">
+    <joint name="joint_5" type="revolute">
         <parent link="claw_support"/>
-        <child link = "gripper_left"/>
+        <child  link="gripper_left"/>
         <origin xyz="-0.22 0.13 -0.1"/>
         <axis xyz="0 0 1"/>
-        <limit lower="0.0" upper="${PI / 2}" 
+        <limit lower="0.0" upper="${PI / 2}"
                effort="${effort}" velocity="${velocity}"/>
         <mimic joint="joint_4" multiplier="-1"/>
     </joint>
