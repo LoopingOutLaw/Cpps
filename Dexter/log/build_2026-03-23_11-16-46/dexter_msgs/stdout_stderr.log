@@ -1,0 +1,30 @@
+[  1%] Built target dexter_msgs__rosidl_generator_type_description
+[  1%] Built target ament_cmake_python_symlink_dexter_msgs
+[  2%] Built target dexter_msgs__cpp
+[ 26%] Built target dexter_msgs__rosidl_generator_c
+[ 36%] Built target dexter_msgs__rosidl_typesupport_introspection_c
+[ 45%] Built target dexter_msgs__rosidl_typesupport_c
+[ 55%] Built target dexter_msgs__rosidl_typesupport_cpp
+[ 64%] Built target dexter_msgs__rosidl_typesupport_fastrtps_c
+[ 74%] Built target dexter_msgs__rosidl_typesupport_introspection_cpp
+[ 84%] Built target dexter_msgs__rosidl_typesupport_fastrtps_cpp
+Traceback (most recent call last):
+  File "/home/aditya/Cpps/Dexter/build/dexter_msgs/ament_cmake_python/dexter_msgs/setup.py", line 1, in <module>
+    from setuptools import find_packages
+  File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/setuptools/__init__.py", line 23, in <module>
+    from . import logging, monkey
+  File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/setuptools/logging.py", line 5, in <module>
+    from . import monkey
+  File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/setuptools/monkey.py", line 13, in <module>
+    import distutils.filelist
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 991, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1124, in get_code
+  File "<frozen importlib._bootstrap_external>", line 753, in _compile_bytecode
+KeyboardInterrupt
+gmake[1]: *** [CMakeFiles/Makefile2:190: CMakeFiles/dexter_msgs.dir/all] Interrupt
+gmake[2]: *** [CMakeFiles/ament_cmake_python_build_dexter_msgs_egg.dir/build.make:70: CMakeFiles/ament_cmake_python_build_dexter_msgs_egg] Interrupt
+gmake[1]: *** [CMakeFiles/Makefile2:478: CMakeFiles/ament_cmake_python_build_dexter_msgs_egg.dir/all] Interrupt
+gmake: *** [Makefile:146: all] Interrupt

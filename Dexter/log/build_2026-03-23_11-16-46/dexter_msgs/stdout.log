@@ -1,0 +1,10 @@
+[  1%] Built target dexter_msgs__rosidl_generator_type_description
+[  1%] Built target ament_cmake_python_symlink_dexter_msgs
+[  2%] Built target dexter_msgs__cpp
+[ 26%] Built target dexter_msgs__rosidl_generator_c
+[ 36%] Built target dexter_msgs__rosidl_typesupport_introspection_c
+[ 45%] Built target dexter_msgs__rosidl_typesupport_c
+[ 55%] Built target dexter_msgs__rosidl_typesupport_cpp
+[ 64%] Built target dexter_msgs__rosidl_typesupport_fastrtps_c
+[ 74%] Built target dexter_msgs__rosidl_typesupport_introspection_cpp
+[ 84%] Built target dexter_msgs__rosidl_typesupport_fastrtps_cpp

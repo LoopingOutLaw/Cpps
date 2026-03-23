@@ -1,0 +1,50 @@
+[ 50%] Built target slider_control
+[ 50%] Built target ament_cmake_python_symlink_dexter_controller
+[100%] Built target dexter_controller
+running egg_info
+writing dexter_controller.egg-info/PKG-INFO
+writing dependency_links to dexter_controller.egg-info/dependency_links.txt
+writing top-level names to dexter_controller.egg-info/top_level.txt
+reading manifest file 'dexter_controller.egg-info/SOURCES.txt'
+writing manifest file 'dexter_controller.egg-info/SOURCES.txt'
+[100%] Built target ament_cmake_python_build_dexter_controller_egg
+-- Install configuration: ""
+-- Execute custom install script
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller//dexter_controller.xml
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/pythonpath.sh
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/pythonpath.dsv
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller-0.0.0-py3.12.egg-info/PKG-INFO
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller-0.0.0-py3.12.egg-info/SOURCES.txt
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller-0.0.0-py3.12.egg-info/dependency_links.txt
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller-0.0.0-py3.12.egg-info/top_level.txt
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller/__init__.py
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller/slider_control.py
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/dexter_controller/slider_control
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/libdexter_controller.so
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/include/include/dexter_controller/dexter_interface.hpp
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/launch/controller.launch.py
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/launch/slider_controller.launch.py
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/config/dexter_controllers.yaml
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/dexter_controller/slider_control.py
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/library_path.sh
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/library_path.dsv
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/ament_index/resource_index/package_run_dependencies/dexter_controller
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/ament_index/resource_index/parent_prefix_path/dexter_controller
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/ament_prefix_path.sh
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/ament_prefix_path.dsv
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/path.sh
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/path.dsv
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/local_setup.bash
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/local_setup.sh
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/local_setup.zsh
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/local_setup.dsv
+-- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/package.dsv
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/ament_index/resource_index/packages/dexter_controller
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/ament_index/resource_index/hardware_interface__pluginlib__plugin/dexter_controller
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/cmake/ament_cmake_export_libraries-extras.cmake
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/cmake/dexter_controllerConfig.cmake
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/cmake/dexter_controllerConfig-version.cmake
+-- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/package.xml
+Listing '/home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller'...

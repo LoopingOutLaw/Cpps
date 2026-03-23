@@ -1,0 +1,31 @@
+[0.048s] Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/Cpps/Dexter/install/dexter_py_examples:/home/aditya/Cpps/Dexter/install/dexter_inventory:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_msgs -- -j28 -l28
+[0.171s] [  1%] Built target dexter_msgs__rosidl_generator_type_description
+[0.188s] [  1%] Built target ament_cmake_python_symlink_dexter_msgs
+[0.222s] [  2%] Built target dexter_msgs__cpp
+[0.248s] [ 26%] Built target dexter_msgs__rosidl_generator_c
+[0.316s] [ 36%] Built target dexter_msgs__rosidl_typesupport_introspection_c
+[0.316s] [ 45%] Built target dexter_msgs__rosidl_typesupport_c
+[0.319s] [ 55%] Built target dexter_msgs__rosidl_typesupport_cpp
+[0.324s] [ 64%] Built target dexter_msgs__rosidl_typesupport_fastrtps_c
+[0.327s] [ 74%] Built target dexter_msgs__rosidl_typesupport_introspection_cpp
+[0.333s] [ 84%] Built target dexter_msgs__rosidl_typesupport_fastrtps_cpp
+[0.384s] Traceback (most recent call last):
+[0.384s]   File "/home/aditya/Cpps/Dexter/build/dexter_msgs/ament_cmake_python/dexter_msgs/setup.py", line 1, in <module>
+[0.384s]     from setuptools import find_packages
+[0.384s]   File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/setuptools/__init__.py", line 23, in <module>
+[0.386s]     from . import logging, monkey
+[0.386s]   File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/setuptools/logging.py", line 5, in <module>
+[0.388s]     from . import monkey
+[0.388s]   File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/setuptools/monkey.py", line 13, in <module>
+[0.388s]     import distutils.filelist
+[0.388s]   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+[0.388s]   File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+[0.389s]   File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+[0.389s]   File "<frozen importlib._bootstrap_external>", line 991, in exec_module
+[0.389s]   File "<frozen importlib._bootstrap_external>", line 1124, in get_code
+[0.389s]   File "<frozen importlib._bootstrap_external>", line 753, in _compile_bytecode
+[0.389s] KeyboardInterrupt
+[0.389s] gmake[1]: *** [CMakeFiles/Makefile2:190: CMakeFiles/dexter_msgs.dir/all] Interrupt
+[0.405s] gmake[2]: *** [CMakeFiles/ament_cmake_python_build_dexter_msgs_egg.dir/build.make:70: CMakeFiles/ament_cmake_python_build_dexter_msgs_egg] Interrupt
+[0.406s] gmake[1]: *** [CMakeFiles/Makefile2:478: CMakeFiles/ament_cmake_python_build_dexter_msgs_egg.dir/all] Interrupt
+[0.407s] gmake: *** [Makefile:146: all] Interrupt
