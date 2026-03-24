@@ -3,10 +3,15 @@
 visual_servo_node.py - Visual Servo Pick-and-Place for Dexter Arm
 =================================================================
 
-3-Phase approach:
-  Phase 1: Move to HOVER height above boxes (z ≈ 1.25m)
-  Phase 2: Visual servo in X-Y plane to align with target box
-  Phase 3: Descend to PICK height (z ≈ 1.16m), grip, lift, drop
+5-Phase approach with safe collision-free motion:
+  Phase 1: Move to SAFE APPROACH point (behind target, toward robot)
+  Phase 2: Open gripper and move forward to HOVER above target
+  Phase 3: Visual servo in X-Y plane to align with target box
+  Phase 4: Descend to PICK height, close gripper
+  Phase 5: Lift, transit to drop zone, release
+
+The approach direction is always FROM the robot TOWARD the box, so the arm
+never passes over other boxes.
 
 Trigger:
     ros2 topic pub --once /visual_servo/pick_request std_msgs/msg/Int32 "{data: 0}"
@@ -59,10 +64,20 @@ def Rx(a: float) -> np.ndarray:
     c, s = math.cos(a), math.sin(a)
     return np.array([[1, 0, 0], [0, c, -s], [0, s, c]])
 
-def forward_kinematics(j1: float, j2: float, j3: float) -> Tuple[np.ndarray, np.ndarray]:
+def forward_kinematics(j1: float, j2: float, j3: float) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Compute forward kinematics.
-    Returns (claw_position, gripper_left_position) in world frame.
+    Returns (claw_position, gripper_left_position, grip_center_position) in world frame.
+    
+    Gripper geometry (offsets from claw_support in local frame):
+      - gripper_right: (-0.04, 0.13, -0.1)
+      - gripper_left:  (-0.22, 0.13, -0.1)
+      - grip_center:   (-0.13, 0.13, -0.1)  <- midpoint between fingers
+      
+    The fingertips extend further along local +Y. When arm reaches outward,
+    local +Y points AWAY from robot, so fingertips are furthest from robot.
+    
+    For picking, we want the GRIP CENTER (between fingers) at the box position.
     """
     p = np.array([0.0, 0.0, 0.0])
     R = np.eye(3)
@@ -83,20 +98,34 @@ def forward_kinematics(j1: float, j2: float, j3: float) -> Tuple[np.ndarray, np.
     p_claw = p + R @ np.array([0, 0.82, 0])
     
     # gripper_left: xyz="-0.22 0.13 -0.1"
-    p_gripper = p_claw + R @ np.array([-0.22, 0.13, -0.1])
+    p_gripper_left = p_claw + R @ np.array([-0.22, 0.13, -0.1])
     
-    return p_claw, p_gripper
+    # grip_center: midpoint between gripper_left and gripper_right
+    # gripper_right is at (-0.04, 0.13, -0.1), gripper_left at (-0.22, 0.13, -0.1)
+    # center x = (-0.04 + -0.22) / 2 = -0.13
+    p_grip_center = p_claw + R @ np.array([-0.13, 0.13, -0.1])
+    
+    return p_claw, p_gripper_left, p_grip_center
 
 def fk_gripper(j1: float, j2: float, j3: float) -> Tuple[float, float, float]:
-    """Get gripper_left position."""
-    _, p = forward_kinematics(j1, j2, j3)
+    """Get gripper_left position (legacy, for compatibility)."""
+    _, p, _ = forward_kinematics(j1, j2, j3)
+    return float(p[0]), float(p[1]), float(p[2])
+
+def fk_grip_center(j1: float, j2: float, j3: float) -> Tuple[float, float, float]:
+    """Get grip center position (between fingertips) - USE THIS FOR PICKING."""
+    _, _, p = forward_kinematics(j1, j2, j3)
     return float(p[0]), float(p[1]), float(p[2])
 
 def inverse_kinematics(target_x: float, target_y: float, target_z: float,
                        init_guess: Optional[List[float]] = None) -> Optional[List[float]]:
     """
-    Solve inverse kinematics for gripper_left to reach target position.
+    Solve inverse kinematics for GRIP CENTER to reach target position.
     Returns [j1, j2, j3] or None if no solution found.
+    
+    This targets the grip center (between fingertips), NOT gripper_left,
+    so when we command the arm to go to a box position, the grip center
+    (where the box will be held) ends up at that position.
     
     Joint limits: j1: ±171° (±2.98 rad), j2/j3: ±90° (±1.57 rad)
     """
@@ -104,7 +133,8 @@ def inverse_kinematics(target_x: float, target_y: float, target_z: float,
     
     def error(joints):
         j1, j2, j3 = joints
-        x, y, z = fk_gripper(j1, j2, j3)
+        # Use grip center, not gripper_left!
+        x, y, z = fk_grip_center(j1, j2, j3)
         return (x - target_x)**2 + (y - target_y)**2 + (z - target_z)**2
     
     # Compute initial j1 guess based on target direction
@@ -157,6 +187,9 @@ def inverse_kinematics(target_x: float, target_y: float, target_z: float,
 # CONFIGURATION
 # ═══════════════════════════════════════════════════════════════════════════════
 
+# Robot base position
+ROBOT_BASE = (0.0, 0.0)
+
 # Target positions for boxes (ground truth from SDF)
 SLOT_POSITIONS: Dict[int, Tuple[float, float, float]] = {
     0: (1.048, -0.642, 1.156),
@@ -166,29 +199,42 @@ SLOT_POSITIONS: Dict[int, Tuple[float, float, float]] = {
 }
 
 # Heights
-HOVER_Z = 1.25    # Hover height (gripper z)
-PICK_Z = 1.16     # Pick height (gripper z, at box level)
-DROP_Z = 1.25     # Drop zone height
+SAFE_Z = 1.45         # Safe height for approach (above all boxes)
+HOVER_Z = 1.32        # Hover height just above the box
+PICK_Z = 1.19         # Pick height (gripper z, slightly above box to grip sides)
+DROP_Z = 1.32         # Drop zone height
 
-# Drop zone position (to the side)
-DROP_X = 0.5
-DROP_Y = 0.9
+# Approach offset - how far back from target to start approach
+APPROACH_OFFSET = 0.20  # 20cm back from target (toward robot)
+
+# Grip offset - how far back from box center to position grip center
+# IMPORTANT: The FK/IK targets grip_center, but there's still an offset between
+# where the FK thinks the gripper is and where it physically ends up.
+# Positive value = arm stops CLOSER to robot (grip point is pulled back)
+# Tune this value until the gripper fingers are centered over the box
+GRIP_OFFSET = 0.50    # 35cm back from box - TUNE THIS VALUE
+
+# Drop zone position (dispatch tray)
+DROP_X = 0.664
+DROP_Y = 1.034
 
 # Timing
-TRAJ_DURATION = 4.0      # Trajectory execution time
-RESEND_INTERVAL = 2.0    # Resend trajectory every N seconds
+TRAJ_DURATION = 3.0      # Trajectory execution time
+RESEND_INTERVAL = 1.5    # Resend trajectory every N seconds
 JOINT_TOLERANCE = 0.03   # Joint position tolerance (rad)
-MAX_WAIT_TIME = 60.0     # Maximum wait for motion
+MAX_WAIT_TIME = 45.0     # Maximum wait for motion
 POLL_INTERVAL = 0.1      # Polling interval
 XY_TOLERANCE = 0.03      # XY position tolerance (m) = 30mm
-MAX_SERVO_ITERATIONS = 10
+MAX_SERVO_ITERATIONS = 8
 
 # Gripper
-GRIPPER_OPEN = 0.0
-GRIPPER_CLOSED = -0.7
-GRIP_DURATION = 1.5
-PICK_DWELL = 2.0
-DROP_DWELL = 1.0
+# joint_4 limits: -π/2 (open/spread) to 0.0 (closed/together)
+# joint_5 mimics joint_4 with multiplier -1
+GRIPPER_OPEN = -1.2      # Fingers spread apart (toward -π/2)
+GRIPPER_CLOSED = 0.0     # Fingers together (at 0)
+GRIP_DURATION = 1.0
+PICK_DWELL = 1.5         # Wait after closing gripper
+DROP_DWELL = 0.5
 
 # ArUco
 ARUCO_MAX_AGE = 5.0  # Maximum age of ArUco data (seconds)
@@ -200,13 +246,13 @@ ARUCO_MAX_AGE = 5.0  # Maximum age of ArUco data (seconds)
 
 class State(Enum):
     IDLE = auto()
-    PHASE1_HOVER = auto()
-    PHASE2_SERVO = auto()
-    PHASE3_DESCEND = auto()
-    GRIP = auto()
-    LIFT = auto()
-    TRANSIT = auto()
-    DROP = auto()
+    PHASE1_SAFE_APPROACH = auto()    # Move to safe point behind target
+    PHASE2_OPEN_AND_ADVANCE = auto() # Open gripper, move to hover above target
+    PHASE3_SERVO = auto()            # Visual servo alignment
+    PHASE4_DESCEND_AND_GRIP = auto() # Lower and grip
+    PHASE5_LIFT = auto()             # Lift with box
+    PHASE6_TRANSIT = auto()          # Move to drop zone
+    PHASE7_DROP = auto()             # Release box
     RETURN_HOME = auto()
 
 
@@ -251,9 +297,10 @@ class VisualServoNode(Node):
         x, y, z = fk_gripper(0, 0, 0)
         self.get_logger().info(
             f"\n{'='*70}\n"
-            f"  Visual Servo Node Started\n"
+            f"  Visual Servo Node Started (Safe Approach Version)\n"
             f"  HOME position: gripper at ({x:.3f}, {y:.3f}, {z:.3f})\n"
-            f"  HOVER height: {HOVER_Z}m, PICK height: {PICK_Z}m\n"
+            f"  SAFE_Z: {SAFE_Z}m, HOVER_Z: {HOVER_Z}m, PICK_Z: {PICK_Z}m\n"
+            f"  APPROACH_OFFSET: {APPROACH_OFFSET*100:.0f}cm\n"
             f"  XY tolerance: {XY_TOLERANCE*1000:.0f}mm\n"
             f"\n"
             f"  Trigger: ros2 topic pub --once /visual_servo/pick_request \\\n"
@@ -292,7 +339,7 @@ class VisualServoNode(Node):
                 self.get_logger().warn(f"Busy in state {self._state.name}")
                 return
             self._target_slot = slot
-            self._state = State.PHASE1_HOVER
+            self._state = State.PHASE1_SAFE_APPROACH
         
         self.get_logger().info(f"Pick request received: slot {slot}")
     
@@ -310,9 +357,9 @@ class VisualServoNode(Node):
             ]
     
     def _get_current_gripper_pos(self) -> Tuple[float, float, float]:
-        """Get current gripper position from FK."""
+        """Get current GRIP CENTER position from FK (between fingertips)."""
         joints = self._get_current_joints()
-        return fk_gripper(*joints)
+        return fk_grip_center(*joints)
     
     def _aruco_is_fresh(self) -> bool:
         """Check if ArUco data is recent."""
@@ -329,6 +376,57 @@ class VisualServoNode(Node):
         
         # Fall back to ground truth
         return SLOT_POSITIONS[slot][0], SLOT_POSITIONS[slot][1]
+    
+    def _compute_approach_point(self, target_x: float, target_y: float) -> Tuple[float, float]:
+        """
+        Compute approach point - offset from target TOWARD the robot base.
+        This ensures the arm approaches from behind, not passing over other boxes.
+        """
+        # Direction from robot to target
+        dx = target_x - ROBOT_BASE[0]
+        dy = target_y - ROBOT_BASE[1]
+        dist = math.hypot(dx, dy)
+        
+        if dist < 0.1:
+            return target_x, target_y
+        
+        # Unit vector from robot to target
+        ux, uy = dx / dist, dy / dist
+        
+        # Approach point is offset BACK from target (toward robot)
+        approach_x = target_x - ux * APPROACH_OFFSET
+        approach_y = target_y - uy * APPROACH_OFFSET
+        
+        return approach_x, approach_y
+    
+    def _compute_grip_point(self, target_x: float, target_y: float) -> Tuple[float, float]:
+        """
+        Compute grip point - where to position the GRIP CENTER to grab the box.
+        
+        Since the FK/IK now targets the grip center (between fingertips) directly,
+        we just need to apply GRIP_OFFSET if we want to grab off-center.
+        With GRIP_OFFSET=0, grip center goes directly to box center.
+        """
+        # Direction from robot to target
+        dx = target_x - ROBOT_BASE[0]
+        dy = target_y - ROBOT_BASE[1]
+        dist = math.hypot(dx, dy)
+        
+        if dist < 0.1:
+            return target_x, target_y
+        
+        # Unit vector from robot to target
+        ux, uy = dx / dist, dy / dist
+        
+        # GRIP_OFFSET: move toward robot if we want to grab the near edge of the box
+        # With GRIP_OFFSET=0, grip center aligns with box center
+        grip_x = target_x - ux * GRIP_OFFSET
+        grip_y = target_y - uy * GRIP_OFFSET
+        
+        self.get_logger().info(f"[GRIP] Box: ({target_x:.3f}, {target_y:.3f}) -> "
+                               f"Grip point: ({grip_x:.3f}, {grip_y:.3f})")
+        
+        return grip_x, grip_y
     
     def _log(self, msg: str):
         """Log and publish status."""
@@ -448,20 +546,20 @@ class VisualServoNode(Node):
                 continue
             
             try:
-                if state == State.PHASE1_HOVER:
-                    self._do_phase1_hover(slot)
-                elif state == State.PHASE2_SERVO:
-                    self._do_phase2_servo(slot)
-                elif state == State.PHASE3_DESCEND:
-                    self._do_phase3_descend(slot)
-                elif state == State.GRIP:
-                    self._do_grip(slot)
-                elif state == State.LIFT:
-                    self._do_lift(slot)
-                elif state == State.TRANSIT:
-                    self._do_transit(slot)
-                elif state == State.DROP:
-                    self._do_drop(slot)
+                if state == State.PHASE1_SAFE_APPROACH:
+                    self._do_phase1_safe_approach(slot)
+                elif state == State.PHASE2_OPEN_AND_ADVANCE:
+                    self._do_phase2_open_and_advance(slot)
+                elif state == State.PHASE3_SERVO:
+                    self._do_phase3_servo(slot)
+                elif state == State.PHASE4_DESCEND_AND_GRIP:
+                    self._do_phase4_descend_and_grip(slot)
+                elif state == State.PHASE5_LIFT:
+                    self._do_phase5_lift(slot)
+                elif state == State.PHASE6_TRANSIT:
+                    self._do_phase6_transit(slot)
+                elif state == State.PHASE7_DROP:
+                    self._do_phase7_drop(slot)
                 elif state == State.RETURN_HOME:
                     self._do_return_home(slot)
             except Exception as e:
@@ -471,47 +569,70 @@ class VisualServoNode(Node):
             
             time.sleep(0.05)
     
-    def _do_phase1_hover(self, slot: int):
-        """Phase 1: Move to hover height above the target area."""
-        self._log(f"═══ PHASE 1: HOVER ═══")
-        self._log(f"  Target: slot {slot}, hover z={HOVER_Z}m")
+    def _do_phase1_safe_approach(self, slot: int):
+        """Phase 1: Move to safe approach point (behind and above target)."""
+        self._log(f"═══ PHASE 1: SAFE APPROACH ═══")
         
-        # Open gripper first
-        self._publish_gripper(GRIPPER_OPEN)
-        time.sleep(GRIP_DURATION + 0.5)
-        
-        # Get target XY from ArUco or ground truth
+        # Get target position
         target_x, target_y = self._get_target_xy(slot)
-        self._log(f"  Target XY from {'ArUco' if self._aruco_is_fresh() else 'ground truth'}: "
-                  f"({target_x:.3f}, {target_y:.3f})")
+        self._log(f"  Target: slot {slot} at ({target_x:.3f}, {target_y:.3f})")
         
-        # Move to hover position
-        if not self._move_to_position(target_x, target_y, HOVER_Z, "phase1-hover"):
+        # Compute approach point (behind target, toward robot)
+        approach_x, approach_y = self._compute_approach_point(target_x, target_y)
+        self._log(f"  Approach point: ({approach_x:.3f}, {approach_y:.3f}) at z={SAFE_Z}m")
+        
+        # Move to safe approach point at high altitude
+        if not self._move_to_position(approach_x, approach_y, SAFE_Z, "safe-approach"):
             self._log("  Phase 1 FAILED - going home")
             self._set_state(State.RETURN_HOME)
             return
         
-        self._set_state(State.PHASE2_SERVO)
+        self._set_state(State.PHASE2_OPEN_AND_ADVANCE)
     
-    def _do_phase2_servo(self, slot: int):
-        """Phase 2: Visual servo to align precisely with target."""
-        self._log(f"═══ PHASE 2: VISUAL SERVO ═══")
+    def _do_phase2_open_and_advance(self, slot: int):
+        """Phase 2: Open gripper and advance to hover position above target."""
+        self._log(f"═══ PHASE 2: OPEN GRIPPER & ADVANCE ═══")
+        
+        # Open gripper
+        self._log("  Opening gripper...")
+        self._publish_gripper(GRIPPER_OPEN)
+        time.sleep(GRIP_DURATION + 0.3)
+        
+        # Get target position and compute grip point (offset toward robot)
+        target_x, target_y = self._get_target_xy(slot)
+        grip_x, grip_y = self._compute_grip_point(target_x, target_y)
+        source = "ArUco" if self._aruco_is_fresh() else "GT"
+        self._log(f"  Box center: ({target_x:.3f}, {target_y:.3f}) [{source}]")
+        self._log(f"  Grip point: ({grip_x:.3f}, {grip_y:.3f}) (offset {GRIP_OFFSET*100:.0f}cm toward robot)")
+        
+        # Move to hover position above grip point (not box center!)
+        if not self._move_to_position(grip_x, grip_y, HOVER_Z, "hover"):
+            self._log("  Phase 2 FAILED - going home")
+            self._set_state(State.RETURN_HOME)
+            return
+        
+        self._set_state(State.PHASE3_SERVO)
+    
+    def _do_phase3_servo(self, slot: int):
+        """Phase 3: Visual servo to align precisely with grip point."""
+        self._log(f"═══ PHASE 3: VISUAL SERVO ═══")
         
         for iteration in range(MAX_SERVO_ITERATIONS):
             # Get current gripper position
             curr_x, curr_y, curr_z = self._get_current_gripper_pos()
             
-            # Get target from ArUco
+            # Get target from ArUco and compute grip point
             target_x, target_y = self._get_target_xy(slot)
+            grip_x, grip_y = self._compute_grip_point(target_x, target_y)
             source = "ArUco" if self._aruco_is_fresh() else "GT"
             
-            # Compute error
-            err_x = target_x - curr_x
-            err_y = target_y - curr_y
+            # Compute error to grip point (not box center!)
+            err_x = grip_x - curr_x
+            err_y = grip_y - curr_y
             err_dist = math.hypot(err_x, err_y)
             
             self._log(f"  Iter {iteration+1}: pos=({curr_x:.3f}, {curr_y:.3f}), "
-                      f"target=({target_x:.3f}, {target_y:.3f}) [{source}], "
+                      f"grip=({grip_x:.3f}, {grip_y:.3f}) [{source}], "
                       f"err={err_dist*1000:.0f}mm")
             
             # Check if aligned
@@ -519,94 +640,108 @@ class VisualServoNode(Node):
                 self._log(f"  ALIGNED! err={err_dist*1000:.0f}mm < {XY_TOLERANCE*1000:.0f}mm")
                 break
             
-            # Move toward target (at hover height)
-            if not self._move_to_position(target_x, target_y, HOVER_Z, f"servo-{iteration+1}"):
+            # Move toward grip point (at hover height)
+            if not self._move_to_position(grip_x, grip_y, HOVER_Z, f"servo-{iteration+1}"):
                 self._log("  Servo move FAILED")
                 break
             
             # Small delay to let ArUco update
-            time.sleep(0.5)
+            time.sleep(0.3)
         
         # Final check
         curr_x, curr_y, curr_z = self._get_current_gripper_pos()
         target_x, target_y = self._get_target_xy(slot)
-        final_err = math.hypot(target_x - curr_x, target_y - curr_y)
+        grip_x, grip_y = self._compute_grip_point(target_x, target_y)
+        final_err = math.hypot(grip_x - curr_x, grip_y - curr_y)
         
         if final_err > 0.08:  # 8cm max acceptable error
             self._log(f"  ABORT: final error {final_err*1000:.0f}mm too large")
             self._set_state(State.RETURN_HOME)
             return
         
-        self._log(f"  Phase 2 complete: final error = {final_err*1000:.0f}mm")
-        self._set_state(State.PHASE3_DESCEND)
+        self._log(f"  Phase 3 complete: final error = {final_err*1000:.0f}mm")
+        self._set_state(State.PHASE4_DESCEND_AND_GRIP)
     
-    def _do_phase3_descend(self, slot: int):
-        """Phase 3: Descend to pick height."""
-        self._log(f"═══ PHASE 3: DESCEND ═══")
+    def _do_phase4_descend_and_grip(self, slot: int):
+        """Phase 4: Descend to pick height with open gripper, then close to grip."""
+        self._log(f"═══ PHASE 4: DESCEND & GRIP ═══")
+        
+        # ENSURE gripper is open before descending (re-assert in case command was lost)
+        self._log("  Ensuring gripper is OPEN before descent...")
+        self._publish_gripper(GRIPPER_OPEN)
+        time.sleep(0.5)  # Brief wait for gripper to open
         
         # Get current XY (keep it, just lower Z)
         curr_x, curr_y, _ = self._get_current_gripper_pos()
         
-        self._log(f"  Descending from z={HOVER_Z}m to z={PICK_Z}m")
-        self._log(f"  Keeping XY at ({curr_x:.3f}, {curr_y:.3f})")
+        self._log(f"  Descending with OPEN gripper from z={HOVER_Z}m to z={PICK_Z}m")
         
         if not self._move_to_position(curr_x, curr_y, PICK_Z, "descend"):
-            self._log("  Descend FAILED")
+            self._log("  Descend FAILED - going home")
             self._set_state(State.RETURN_HOME)
             return
         
-        self._set_state(State.GRIP)
-    
-    def _do_grip(self, slot: int):
-        """Close gripper to grab item."""
-        self._log(f"═══ GRIP ═══")
+        # Small dwell at pick height with gripper still open (box between fingers)
+        self._log("  At pick height - box should be between open fingers")
+        time.sleep(0.3)
         
+        # Now close gripper to grab the box
+        self._log("  CLOSING gripper to grab box...")
         self._publish_gripper(GRIPPER_CLOSED)
         time.sleep(GRIP_DURATION + PICK_DWELL)
         
-        self._set_state(State.LIFT)
+        self._set_state(State.PHASE5_LIFT)
     
-    def _do_lift(self, slot: int):
-        """Lift item to hover height."""
-        self._log(f"═══ LIFT ═══")
+    def _do_phase5_lift(self, slot: int):
+        """Phase 5: Lift with the box."""
+        self._log(f"═══ PHASE 5: LIFT ═══")
         
         curr_x, curr_y, _ = self._get_current_gripper_pos()
         
-        if not self._move_to_position(curr_x, curr_y, HOVER_Z, "lift"):
+        # Lift to safe height
+        if not self._move_to_position(curr_x, curr_y, SAFE_Z, "lift"):
             self._log("  Lift FAILED")
         
-        self._set_state(State.TRANSIT)
+        self._set_state(State.PHASE6_TRANSIT)
     
-    def _do_transit(self, slot: int):
-        """Move to drop zone."""
-        self._log(f"═══ TRANSIT TO DROP ZONE ═══")
+    def _do_phase6_transit(self, slot: int):
+        """Phase 6: Transit to drop zone."""
+        self._log(f"═══ PHASE 6: TRANSIT TO DROP ZONE ═══")
+        self._log(f"  Drop zone: ({DROP_X:.3f}, {DROP_Y:.3f})")
         
-        # Move to drop zone at hover height
-        if not self._move_to_position(DROP_X, DROP_Y, HOVER_Z, "transit-hover"):
-            self._log("  Transit hover FAILED")
+        # Move to drop zone at safe height
+        if not self._move_to_position(DROP_X, DROP_Y, SAFE_Z, "transit"):
+            self._log("  Transit FAILED")
         
         # Lower to drop height
-        if not self._move_to_position(DROP_X, DROP_Y, DROP_Z, "transit-lower"):
-            self._log("  Transit lower FAILED")
+        if not self._move_to_position(DROP_X, DROP_Y, DROP_Z, "lower-to-drop"):
+            self._log("  Lower FAILED")
         
-        self._set_state(State.DROP)
+        self._set_state(State.PHASE7_DROP)
     
-    def _do_drop(self, slot: int):
-        """Release item."""
-        self._log(f"═══ DROP ═══")
+    def _do_phase7_drop(self, slot: int):
+        """Phase 7: Release the box."""
+        self._log(f"═══ PHASE 7: DROP ═══")
         
+        # Open gripper to release
+        self._log("  Opening gripper to release...")
         self._publish_gripper(GRIPPER_OPEN)
         time.sleep(GRIP_DURATION + DROP_DWELL)
         
-        # Lift away
-        if not self._move_to_position(DROP_X, DROP_Y, HOVER_Z, "drop-retract"):
-            self._log("  Drop retract FAILED")
+        # Retract upward
+        if not self._move_to_position(DROP_X, DROP_Y, SAFE_Z, "retract"):
+            self._log("  Retract FAILED")
         
         self._set_state(State.RETURN_HOME)
     
     def _do_return_home(self, slot: int):
         """Return to home position."""
         self._log(f"═══ RETURN HOME ═══")
+        
+        # First move to a safe intermediate position
+        curr_x, curr_y, curr_z = self._get_current_gripper_pos()
+        if curr_z < SAFE_Z - 0.05:
+            self._move_to_position(curr_x, curr_y, SAFE_Z, "lift-to-safe")
         
         # Move to home using joints directly
         home_joints = [0.0, 0.0, 0.0]
