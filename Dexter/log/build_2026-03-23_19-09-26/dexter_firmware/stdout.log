@@ -1,0 +1,3 @@
+[ 50%] Built target simple_serial_transmitter
+[ 50%] Built target ament_cmake_python_symlink_dexter_firmware
+[100%] Built target simple_serial_receiver

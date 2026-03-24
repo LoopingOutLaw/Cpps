@@ -1,13 +1,6 @@
 package.xml
 setup.cfg
 setup.py
-../build/dexter_inventory/dexter_inventory.egg-info/PKG-INFO
-../build/dexter_inventory/dexter_inventory.egg-info/SOURCES.txt
-../build/dexter_inventory/dexter_inventory.egg-info/dependency_links.txt
-../build/dexter_inventory/dexter_inventory.egg-info/entry_points.txt
-../build/dexter_inventory/dexter_inventory.egg-info/requires.txt
-../build/dexter_inventory/dexter_inventory.egg-info/top_level.txt
-../build/dexter_inventory/dexter_inventory.egg-info/zip-safe
 dexter_inventory/__init__.py
 dexter_inventory/aruco_box_detector.py
 dexter_inventory/dispatch_engine.py
@@ -17,6 +10,13 @@ dexter_inventory/ml_forecast.py
 dexter_inventory/seed_data.py
 dexter_inventory/standalone_dashboard.py
 dexter_inventory/visual_servo_node.py
+dexter_inventory.egg-info/PKG-INFO
+dexter_inventory.egg-info/SOURCES.txt
+dexter_inventory.egg-info/dependency_links.txt
+dexter_inventory.egg-info/entry_points.txt
+dexter_inventory.egg-info/requires.txt
+dexter_inventory.egg-info/top_level.txt
+dexter_inventory.egg-info/zip-safe
 launch/inventory.launch.py
 resource/dexter_inventory
 templates/index.html

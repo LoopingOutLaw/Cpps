@@ -113,6 +113,8 @@ def ros_to_bgr(msg):
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
+from std_msgs.msg import String
+import json
 print("  rclpy OK  |  cv_bridge NOT used")
 
 # ── Constants ──────────────────────────────────────────────────────────────────
@@ -207,7 +209,9 @@ class ArucoNode(Node):
     def __init__(self):
         super().__init__("aruco_test")
         self.create_subscription(Image,"/camera/image_raw",self._cb,1)
-        self.get_logger().info("Subscribed /camera/image_raw")
+        # Publisher for box poses - used by visual_servo_node
+        self.box_poses_pub = self.create_publisher(String, "/inventory/box_poses", 10)
+        self.get_logger().info("Subscribed /camera/image_raw, publishing to /inventory/box_poses")
 
     def _cb(self,msg):
         global _latest,_count,_ids_now,_slot_meas,_grip_meas
@@ -279,6 +283,33 @@ class ArucoNode(Node):
                                 (ix+18,iy+18),cv2.FONT_HERSHEY_SIMPLEX,0.50,(0,80,255),2)
 
         _ids_now=sorted(det); _slot_meas=slot_m; _grip_meas=grip_m
+
+        # ── Publish box poses for visual_servo_node ──
+        # Format: {"0": {"x": 1.048, "y": -0.642, "z": 1.156, "detected": true}, ...}
+        box_poses = {}
+        for s in range(4):
+            if s in slot_m:
+                x_m, y_m = slot_m[s]
+                box_poses[str(s)] = {
+                    "x": x_m,
+                    "y": y_m,
+                    "z": 1.156,  # Box height
+                    "detected": True
+                }
+            else:
+                # Fall back to ground truth if not detected
+                gt_x, gt_y = SLOT_GT[s]
+                box_poses[str(s)] = {
+                    "x": gt_x / 1000.0,
+                    "y": gt_y / 1000.0,
+                    "z": 1.156,
+                    "detected": False
+                }
+        
+        # Publish
+        msg = String()
+        msg.data = json.dumps(box_poses)
+        self.box_poses_pub.publish(msg)
 
         refs_seen=sum(1 for m in det if m in REF_WORLD)
         h_ok=_H_stable is not None

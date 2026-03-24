@@ -1,0 +1,78 @@
+[0.000000] (-) TimerEvent: {}
+[0.000226] (-) JobUnselected: {'identifier': 'dexter_bringup'}
+[0.000330] (-) JobUnselected: {'identifier': 'dexter_controller'}
+[0.000395] (-) JobUnselected: {'identifier': 'dexter_description'}
+[0.000448] (-) JobUnselected: {'identifier': 'dexter_firmware'}
+[0.000498] (-) JobUnselected: {'identifier': 'dexter_moveit'}
+[0.000546] (-) JobUnselected: {'identifier': 'dexter_msgs'}
+[0.000591] (-) JobUnselected: {'identifier': 'dexter_remote'}
+[0.000638] (-) JobUnselected: {'identifier': 'dexter_utils'}
+[0.000695] (dexter_inventory) JobQueued: {'identifier': 'dexter_inventory', 'dependencies': OrderedDict({'dexter_description': '/home/aditya/Cpps/Dexter/install/dexter_description', 'dexter_msgs': '/home/aditya/Cpps/Dexter/install/dexter_msgs', 'dexter_moveit': '/home/aditya/Cpps/Dexter/install/dexter_moveit'})}
+[0.000814] (dexter_inventory) JobStarted: {'identifier': 'dexter_inventory'}
+[0.098021] (-) TimerEvent: {}
+[0.198434] (-) TimerEvent: {}
+[0.298882] (-) TimerEvent: {}
+[0.399328] (-) TimerEvent: {}
+[0.499721] (-) TimerEvent: {}
+[0.600092] (-) TimerEvent: {}
+[0.700424] (-) TimerEvent: {}
+[0.800846] (-) TimerEvent: {}
+[0.901252] (-) TimerEvent: {}
+[1.001647] (-) TimerEvent: {}
+[1.102063] (-) TimerEvent: {}
+[1.202454] (-) TimerEvent: {}
+[1.302879] (-) TimerEvent: {}
+[1.403350] (-) TimerEvent: {}
+[1.503670] (-) TimerEvent: {}
+[1.603988] (-) TimerEvent: {}
+[1.704266] (-) TimerEvent: {}
+[1.804609] (-) TimerEvent: {}
+[1.904899] (-) TimerEvent: {}
+[2.005144] (-) TimerEvent: {}
+[2.105399] (-) TimerEvent: {}
+[2.205742] (-) TimerEvent: {}
+[2.306076] (-) TimerEvent: {}
+[2.406462] (-) TimerEvent: {}
+[2.506889] (-) TimerEvent: {}
+[2.550556] (dexter_inventory) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'develop', '--editable', '--build-directory', '/home/aditya/Cpps/Dexter/build/dexter_inventory/build', '--no-deps', 'symlink_data', '--force'], 'cwd': '/home/aditya/Cpps/Dexter/build/dexter_inventory', 'env': {'GJS_DEBUG_TOPICS': 'JS ERROR;JS LOG', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'GZ_SIM_RESOURCE_PATH': '/opt/ros/jazzy/share', 'no_proxy': '127.0.0.1,localhost,::1', 'LANGUAGE': 'en_IN:en', 'OPENCODE_SERVER_USERNAME': 'opencode', 'USER': 'aditya', 'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/gz_sim_vendor/share/gz:/opt/ros/jazzy/opt/sdformat_vendor/share/gz:/opt/ros/jazzy/opt/gz_gui_vendor/share/gz:/opt/ros/jazzy/opt/gz_transport_vendor/share/gz:/opt/ros/jazzy/opt/gz_rendering_vendor/share/gz:/opt/ros/jazzy/opt/gz_plugin_vendor/share/gz:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/share/gz:/opt/ros/jazzy/opt/gz_msgs_vendor/share/gz:/opt/ros/jazzy/opt/gz_common_vendor/share/gz', 'AGENT': '1', 'XDG_SESSION_TYPE': 'x11', 'CLUTTER_DISABLE_MIPMAPPED_TEXT': '1', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/aditya/Cpps/Dexter/install/dexter_msgs/lib:/home/aditya/ros2_ws/install/my_robot_interfaces/lib:/opt/ros/jazzy/opt/gz_sim_vendor/lib:/opt/ros/jazzy/opt/gz_sensors_vendor/lib:/opt/ros/jazzy/opt/gz_physics_vendor/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_gui_vendor/lib:/opt/ros/jazzy/opt/gz_transport_vendor/lib:/opt/ros/jazzy/opt/gz_rendering_vendor/lib:/opt/ros/jazzy/opt/gz_plugin_vendor/lib:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/lib:/opt/ros/jazzy/opt/gz_msgs_vendor/lib:/opt/ros/jazzy/opt/gz_common_vendor/lib:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_ogre_next_vendor/lib:/opt/ros/jazzy/opt/gz_dartsim_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/aditya', 'OLDPWD': '/home/aditya/Cpps', 'DESKTOP_SESSION': 'ubuntu', 'NO_PROXY': '127.0.0.1,localhost,::1', 'GIO_LAUNCHED_DESKTOP_FILE': '/usr/share/applications/OpenCode.desktop', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'MANAGERPID': '3085', 'SYSTEMD_EXEC_PID': '3561', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'XDG_STATE_HOME': '/home/aditya/.local/share/ai.opencode.desktop/', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '29705', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'COLCON_PREFIX_PATH': '/home/aditya/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'aditya', 'OPENCODE_CLIENT': 'desktop', 'JOURNAL_STREAM': '8:44251', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.Shell@x11.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'aditya', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'WINDOWPATH': '2', 'OPENCODE': '1', 'PATH': '/usr/lib/ccache:/home/aditya/ardupilot/Tools/autotest:/opt/gcc-arm-none-eabi-10-2020-q4-major/bin:/home/aditya/venv-ardupilot/bin:/home/aditya/.local/bin:/usr/lib/ccache:/home/aditya/ardupilot/Tools/autotest:/opt/gcc-arm-none-eabi-10-2020-q4-major/bin:/home/aditya/venv-ardupilot/bin:/home/aditya/.local/bin:/opt/ros/jazzy/opt/gz_msgs_vendor/bin:/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/opt/gz_ogre_next_vendor/bin:/opt/ros/jazzy/bin:/usr/lib/ccache:/home/aditya/ardupilot/Tools/autotest:/opt/gcc-arm-none-eabi-10-2020-q4-major/bin:/home/aditya/venv-ardupilot/bin:/home/aditya/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/LoopingOutlaw:@/tmp/.ICE-unix/3496,unix/LoopingOutlaw:/tmp/.ICE-unix/3496', 'INVOCATION_ID': 'ef4a37ed8c58419ca9a1e2a2930c047c', 'OPENCODE_SERVER_PASSWORD': '29753d7a-defe-4cca-b4cc-23925560790e', 'GTK3_MODULES': 'xapp-gtk3-module', 'XDG_MENU_PREFIX': 'gnome-', 'XDG_RUNTIME_DIR': '/run/user/1000', 'OPENCODE_EXPERIMENTAL_FILEWATCHER': 'true', 'DISPLAY': ':1', 'OPENCODE_PID': '29833', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'OPENCODE_EXPERIMENTAL_ICON_DISCOVERY': 'true', 'VIRTUAL_ENV_PROMPT': '(venv-ardupilot)', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': '', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:/home/aditya/ros2_ws/install/my_robot_bringup:/home/aditya/ros2_ws/install/my_py_pkg:/home/aditya/ros2_ws/install/my_cpp_pkg:/home/aditya/ros2_ws/install/my_robot_interfaces:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'GJS_DEBUG_OUTPUT': 'stderr', 'VIRTUAL_ENV': '/home/aditya/venv-ardupilot', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/aditya/Cpps/Dexter/build/dexter_inventory', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'QTWEBENGINE_DICTIONARIES_PATH': '/usr/share/hunspell-bdic/', 'PYTHONPATH': '/home/aditya/Cpps/Dexter/build/dexter_inventory/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages:/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages:/home/aditya/ros2_ws/install/my_py_pkg/lib/python3.12/site-packages:/home/aditya/ros2_ws/install/my_robot_interfaces/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'CMAKE_PREFIX_PATH': '/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:/home/aditya/ros2_ws/install/my_robot_bringup:/home/aditya/ros2_ws/install/my_cpp_pkg:/home/aditya/ros2_ws/install/my_robot_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor'}, 'shell': False}
+[2.607006] (-) TimerEvent: {}
+[2.707378] (-) TimerEvent: {}
+[2.807791] (-) TimerEvent: {}
+[2.908096] (-) TimerEvent: {}
+[3.008473] (-) TimerEvent: {}
+[3.108840] (-) TimerEvent: {}
+[3.209444] (-) TimerEvent: {}
+[3.309936] (-) TimerEvent: {}
+[3.410356] (-) TimerEvent: {}
+[3.415752] (dexter_inventory) StdoutLine: {'line': b'running develop\n'}
+[3.510592] (-) TimerEvent: {}
+[3.610997] (-) TimerEvent: {}
+[3.711411] (-) TimerEvent: {}
+[3.811779] (-) TimerEvent: {}
+[3.839192] (dexter_inventory) StdoutLine: {'line': b'running egg_info\n'}
+[3.886030] (dexter_inventory) StdoutLine: {'line': b'writing dexter_inventory.egg-info/PKG-INFO\n'}
+[3.886734] (dexter_inventory) StdoutLine: {'line': b'writing dependency_links to dexter_inventory.egg-info/dependency_links.txt\n'}
+[3.887164] (dexter_inventory) StdoutLine: {'line': b'writing entry points to dexter_inventory.egg-info/entry_points.txt\n'}
+[3.887311] (dexter_inventory) StdoutLine: {'line': b'writing requirements to dexter_inventory.egg-info/requires.txt\n'}
+[3.887448] (dexter_inventory) StdoutLine: {'line': b'writing top-level names to dexter_inventory.egg-info/top_level.txt\n'}
+[3.911924] (-) TimerEvent: {}
+[3.983712] (dexter_inventory) StdoutLine: {'line': b"reading manifest file 'dexter_inventory.egg-info/SOURCES.txt'\n"}
+[3.986629] (dexter_inventory) StdoutLine: {'line': b"writing manifest file 'dexter_inventory.egg-info/SOURCES.txt'\n"}
+[4.012103] (-) TimerEvent: {}
+[4.038857] (dexter_inventory) StdoutLine: {'line': b'running build_ext\n'}
+[4.039327] (dexter_inventory) StdoutLine: {'line': b'Creating /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter-inventory.egg-link (link to .)\n'}
+[4.040641] (dexter_inventory) StdoutLine: {'line': b'Installing aruco_box_detector script to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory\n'}
+[4.041844] (dexter_inventory) StdoutLine: {'line': b'Installing inventory_node script to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory\n'}
+[4.042417] (dexter_inventory) StdoutLine: {'line': b'Installing seed_data script to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory\n'}
+[4.043149] (dexter_inventory) StdoutLine: {'line': b'Installing visual_servo_node script to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory\n'}
+[4.043733] (dexter_inventory) StdoutLine: {'line': b'\n'}
+[4.044052] (dexter_inventory) StdoutLine: {'line': b'Installed /home/aditya/Cpps/Dexter/build/dexter_inventory\n'}
+[4.044316] (dexter_inventory) StdoutLine: {'line': b'running symlink_data\n'}
+[4.044566] (dexter_inventory) StdoutLine: {'line': b'symbolically linking /home/aditya/Cpps/Dexter/build/dexter_inventory/resource/dexter_inventory -> /home/aditya/Cpps/Dexter/install/dexter_inventory/share/ament_index/resource_index/packages\n'}
+[4.044836] (dexter_inventory) StdoutLine: {'line': b'symbolically linking /home/aditya/Cpps/Dexter/build/dexter_inventory/package.xml -> /home/aditya/Cpps/Dexter/install/dexter_inventory/share/dexter_inventory\n'}
+[4.045112] (dexter_inventory) StdoutLine: {'line': b'symbolically linking /home/aditya/Cpps/Dexter/build/dexter_inventory/launch/inventory.launch.py -> /home/aditya/Cpps/Dexter/install/dexter_inventory/share/dexter_inventory/launch\n'}
+[4.045361] (dexter_inventory) StdoutLine: {'line': b'symbolically linking /home/aditya/Cpps/Dexter/build/dexter_inventory/templates/index.html -> /home/aditya/Cpps/Dexter/install/dexter_inventory/share/dexter_inventory/templates\n'}
+[4.112254] (-) TimerEvent: {}
+[4.122746] (dexter_inventory) CommandEnded: {'returncode': 0}
+[4.152761] (dexter_inventory) JobEnded: {'identifier': 'dexter_inventory', 'rc': 0}
+[4.154902] (-) EventReactorShutdown: {}

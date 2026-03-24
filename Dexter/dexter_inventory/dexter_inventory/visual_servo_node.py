@@ -1,25 +1,39 @@
 #!/usr/bin/env python3
 """
-visual_servo_node.py  -  2-Phase ArUco pick-and-place for Dexter Arm
+visual_servo_node.py - Visual Servo Pick-and-Place for Dexter Arm
+=================================================================
+
+3-Phase approach:
+  Phase 1: Move to HOVER height above boxes (z ≈ 1.25m)
+  Phase 2: Visual servo in X-Y plane to align with target box
+  Phase 3: Descend to PICK height (z ≈ 1.16m), grip, lift, drop
+
 Trigger:
     ros2 topic pub --once /visual_servo/pick_request std_msgs/msg/Int32 "{data: 0}"
 Watch:
     ros2 topic echo /visual_servo/status
 
-CORRECT FK (verified Gazebo HOME -> claw z=1.457, gripper_left z=1.357):
-    z = L0 + L1*cos(j2) + L2*sin(j2+j3)
-    r = -L1*sin(j2) + L2*cos(j2+j3)
+Robot structure (from URDF):
+    - joint_1: z-axis rotation at z=0.307m (base rotation)
+    - joint_2: x-axis rotation at z=0.657m (shoulder)  
+    - joint_3: x-axis rotation at z=1.457m (elbow)
+    - claw_support: fixed at 0.82m from joint_3
+    - gripper_left: offset from claw by (-0.22, 0.13, -0.1)
 
-2-Phase approach:
-    Phase1: j2+j3 only -> set gripper height (j1=0, arm along +x)
-    Phase2: j1 only    -> rotate to box (z fixed, pure 2D)
-    Descend: j2+j3 only -> lower onto box (j1 locked)
+At HOME (j1=j2=j3=0):
+    gripper_left is at (x=-0.24, y=0.95, z=1.357)
 """
 
 from __future__ import annotations
-import json, math, threading, time
+import json
+import math
+import threading
+import time
 from enum import Enum, auto
 from typing import Dict, List, Optional, Tuple
+
+import numpy as np
+from scipy.optimize import minimize
 
 import rclpy
 from builtin_interfaces.msg import Duration as DurationMsg
@@ -30,408 +44,597 @@ from sensor_msgs.msg import JointState
 from std_msgs.msg import String, Int32
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 
-L0, L1, L2  = 0.657, 0.800, 0.820
-GRIP_OFFSET  = 0.100   # gripper_left is 0.1m below claw_support
 
-CLAW_HOVER_Z = 1.420   # gripper ~1.320m  (above box)
-CLAW_PICK_Z  = 1.316   # gripper ~1.216m  (box top)
+# ═══════════════════════════════════════════════════════════════════════════════
+# KINEMATICS
+# ═══════════════════════════════════════════════════════════════════════════════
 
-J2_HOVER = -0.54203;  J3_HOVER = +0.63688
-J2_PICK  = -0.53736;  J3_PICK  = +0.50291
+def Rz(a: float) -> np.ndarray:
+    """Rotation matrix around z-axis."""
+    c, s = math.cos(a), math.sin(a)
+    return np.array([[c, -s, 0], [s, c, 0], [0, 0, 1]])
 
-J1_SLOT: Dict[int, float] = {0: -0.54963, 1: -0.18000, 2: +0.18000, 3: +0.54963}
+def Rx(a: float) -> np.ndarray:
+    """Rotation matrix around x-axis."""
+    c, s = math.cos(a), math.sin(a)
+    return np.array([[1, 0, 0], [0, c, -s], [0, s, c]])
 
-SLOT_GT: Dict[int, Tuple[float,float]] = {
-    0: (1.048, -0.642), 1: (1.209, -0.220),
-    2: (1.209, +0.220), 3: (1.048, +0.642),
+def forward_kinematics(j1: float, j2: float, j3: float) -> Tuple[np.ndarray, np.ndarray]:
+    """
+    Compute forward kinematics.
+    Returns (claw_position, gripper_left_position) in world frame.
+    """
+    p = np.array([0.0, 0.0, 0.0])
+    R = np.eye(3)
+    
+    # joint_1 origin: z=0.307
+    p = p + R @ np.array([0, 0, 0.307])
+    R = R @ Rz(j1)
+    
+    # joint_2 origin: xyz="-0.02 0 0.35"
+    p = p + R @ np.array([-0.02, 0, 0.35])
+    R = R @ Rx(j2)
+    
+    # joint_3 origin: xyz="0 0 0.8"
+    p = p + R @ np.array([0, 0, 0.8])
+    R = R @ Rx(j3)
+    
+    # claw_support: xyz="0 0.82 0"
+    p_claw = p + R @ np.array([0, 0.82, 0])
+    
+    # gripper_left: xyz="-0.22 0.13 -0.1"
+    p_gripper = p_claw + R @ np.array([-0.22, 0.13, -0.1])
+    
+    return p_claw, p_gripper
+
+def fk_gripper(j1: float, j2: float, j3: float) -> Tuple[float, float, float]:
+    """Get gripper_left position."""
+    _, p = forward_kinematics(j1, j2, j3)
+    return float(p[0]), float(p[1]), float(p[2])
+
+def inverse_kinematics(target_x: float, target_y: float, target_z: float,
+                       init_guess: Optional[List[float]] = None) -> Optional[List[float]]:
+    """
+    Solve inverse kinematics for gripper_left to reach target position.
+    Returns [j1, j2, j3] or None if no solution found.
+    
+    Joint limits: j1: ±171° (±2.98 rad), j2/j3: ±90° (±1.57 rad)
+    """
+    import math
+    
+    def error(joints):
+        j1, j2, j3 = joints
+        x, y, z = fk_gripper(j1, j2, j3)
+        return (x - target_x)**2 + (y - target_y)**2 + (z - target_z)**2
+    
+    # Compute initial j1 guess based on target direction
+    # The arm extends 90° from j1 direction (along local +Y)
+    target_angle = math.atan2(target_y, target_x)
+    j1_init = target_angle - math.pi/2
+    
+    # Try multiple initial guesses with expanded j1 range
+    guesses = [
+        init_guess if init_guess else [j1_init, -0.5, 0.4],
+        [j1_init, -0.5, 0.4],
+        [j1_init + 0.3, -0.5, 0.4],
+        [j1_init - 0.3, -0.5, 0.4],
+        [j1_init, -0.3, 0.3],
+        [j1_init, -0.7, 0.5],
+        [-2.0, -0.5, 0.4],
+        [-1.5, -0.5, 0.4],
+        [-1.0, -0.5, 0.4],
+        [2.0, -0.5, 0.4],
+        [1.5, -0.5, 0.4],
+    ]
+    
+    best_result = None
+    best_err = float('inf')
+    
+    # j1 limit: ±171° = ±2.98 rad (PI * 0.95)
+    J1_LIMIT = 2.98
+    
+    for guess in guesses:
+        try:
+            result = minimize(
+                error, guess,
+                bounds=[(-J1_LIMIT, J1_LIMIT), (-1.57, 1.57), (-1.57, 1.57)],
+                method='L-BFGS-B',
+                options={'maxiter': 300}
+            )
+            if result.fun < best_err:
+                best_err = result.fun
+                best_result = result
+        except:
+            pass
+    
+    if best_result is None or best_err > 0.01:  # 10cm tolerance
+        return None
+    
+    return [float(best_result.x[0]), float(best_result.x[1]), float(best_result.x[2])]
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# Target positions for boxes (ground truth from SDF)
+SLOT_POSITIONS: Dict[int, Tuple[float, float, float]] = {
+    0: (1.048, -0.642, 1.156),
+    1: (1.209, -0.220, 1.156),
+    2: (1.209, +0.220, 1.156),
+    3: (1.048, +0.642, 1.156),
 }
 
-HOME       = [0.00,    0.00,     0.00    ]
-DROP_HOVER = [1.0122,  J2_HOVER, J3_HOVER]
-DROP_PLACE = [1.0122,  J2_PICK,  J3_PICK ]
+# Heights
+HOVER_Z = 1.25    # Hover height (gripper z)
+PICK_Z = 1.16     # Pick height (gripper z, at box level)
+DROP_Z = 1.25     # Drop zone height
 
-TRAJ_S     = 6.0
-RESEND_S   = 3.0
-JOINT_TOL  = 0.03
-MAX_WAIT   = 300.0
-POLL_S     = 0.2
-ARUCO_AGE  = 6.0
-PICK_DWELL = 2.5
+# Drop zone position (to the side)
+DROP_X = 0.5
+DROP_Y = 0.9
+
+# Timing
+TRAJ_DURATION = 4.0      # Trajectory execution time
+RESEND_INTERVAL = 2.0    # Resend trajectory every N seconds
+JOINT_TOLERANCE = 0.03   # Joint position tolerance (rad)
+MAX_WAIT_TIME = 60.0     # Maximum wait for motion
+POLL_INTERVAL = 0.1      # Polling interval
+XY_TOLERANCE = 0.03      # XY position tolerance (m) = 30mm
+MAX_SERVO_ITERATIONS = 10
+
+# Gripper
+GRIPPER_OPEN = 0.0
+GRIPPER_CLOSED = -0.7
+GRIP_DURATION = 1.5
+PICK_DWELL = 2.0
 DROP_DWELL = 1.0
-GRIP_DUR   = 1.5
+
+# ArUco
+ARUCO_MAX_AGE = 5.0  # Maximum age of ArUco data (seconds)
 
 
-def fk(j1: float, j2: float, j3: float) -> Tuple[float,float,float]:
-    r = -L1*math.sin(j2) + L2*math.cos(j2+j3)
-    z =  L0 + L1*math.cos(j2) + L2*math.sin(j2+j3)
-    return round(r*math.cos(j1),4), round(r*math.sin(j1),4), round(z,4)
-
+# ═══════════════════════════════════════════════════════════════════════════════
+# STATE MACHINE
+# ═══════════════════════════════════════════════════════════════════════════════
 
 class State(Enum):
-    IDLE=auto(); PH1_Z=auto(); PH2_XY=auto(); DESCEND=auto()
-    GRIP=auto(); LIFT=auto(); TRANSIT=auto(); DROP=auto(); HOME=auto()
+    IDLE = auto()
+    PHASE1_HOVER = auto()
+    PHASE2_SERVO = auto()
+    PHASE3_DESCEND = auto()
+    GRIP = auto()
+    LIFT = auto()
+    TRANSIT = auto()
+    DROP = auto()
+    RETURN_HOME = auto()
 
 
 class VisualServoNode(Node):
-
     def __init__(self):
         super().__init__("visual_servo_node")
+        
         cb = ReentrantCallbackGroup()
-
-        self.arm_pub    = self.create_publisher(JointTrajectory, "/arm_controller/joint_trajectory", 10)
-        self.grip_pub   = self.create_publisher(JointTrajectory, "/gripper_controller/joint_trajectory", 10)
-        self.status_pub = self.create_publisher(String, "/visual_servo/status", 10)
-
-        self.create_subscription(JointState, "/joint_states",              self._js_cb,    10, callback_group=cb)
-        self.create_subscription(String,     "/inventory/box_poses",       self._boxes_cb, 10, callback_group=cb)
-        self.create_subscription(Int32,      "/visual_servo/pick_request", self._req_cb,   10, callback_group=cb)
-
-        self._state    = State.IDLE
-        self._slot:    Optional[int]             = None
-        self._lock_j1: float                     = 0.0
-        self._lock_xy: Optional[Tuple[float,float]] = None
-        self._mu       = threading.Lock()
-        self._j:       Dict[str, float] = {f"joint_{i}": 0.0 for i in range(1, 6)}
-        self._bdata:   Dict[int, dict]  = {}
-        self._ats:     float            = 0.0
-
-        threading.Thread(target=self._sm, daemon=True).start()
-
-        cx, cy, cz = fk(0, 0, 0)
+        
+        # Publishers
+        self.arm_pub = self.create_publisher(
+            JointTrajectory, "/arm_controller/joint_trajectory", 10)
+        self.grip_pub = self.create_publisher(
+            JointTrajectory, "/gripper_controller/joint_trajectory", 10)
+        self.status_pub = self.create_publisher(
+            String, "/visual_servo/status", 10)
+        
+        # Subscribers
+        self.create_subscription(
+            JointState, "/joint_states", self._joint_state_cb, 10, callback_group=cb)
+        self.create_subscription(
+            String, "/inventory/box_poses", self._box_poses_cb, 10, callback_group=cb)
+        self.create_subscription(
+            Int32, "/visual_servo/pick_request", self._pick_request_cb, 10, callback_group=cb)
+        
+        # State
+        self._state = State.IDLE
+        self._target_slot: Optional[int] = None
+        self._lock = threading.Lock()
+        
+        # Joint state
+        self._joints: Dict[str, float] = {f"joint_{i}": 0.0 for i in range(1, 6)}
+        
+        # ArUco box detection
+        self._box_data: Dict[int, dict] = {}
+        self._aruco_timestamp: float = 0.0
+        
+        # Start state machine thread
+        threading.Thread(target=self._state_machine_loop, daemon=True).start()
+        
+        # Log startup
+        x, y, z = fk_gripper(0, 0, 0)
         self.get_logger().info(
-            f"\n{'='*60}"
-            f"\n  Visual Servo Node"
-            f"\n  FK HOME: claw=({cx},{cy},{cz})  gripper~{cz-GRIP_OFFSET:.3f}m"
-            f"\n  Box top: 1.216m  Hover: {CLAW_HOVER_Z-GRIP_OFFSET:.3f}m"
-            f"\n  Trigger: ros2 topic pub --once /visual_servo/pick_request"
-            f"\n           std_msgs/msg/Int32 \"{{data: 0}}\""
-            f"\n{'='*60}"
+            f"\n{'='*70}\n"
+            f"  Visual Servo Node Started\n"
+            f"  HOME position: gripper at ({x:.3f}, {y:.3f}, {z:.3f})\n"
+            f"  HOVER height: {HOVER_Z}m, PICK height: {PICK_Z}m\n"
+            f"  XY tolerance: {XY_TOLERANCE*1000:.0f}mm\n"
+            f"\n"
+            f"  Trigger: ros2 topic pub --once /visual_servo/pick_request \\\n"
+            f"           std_msgs/msg/Int32 \"{{data: 0}}\"\n"
+            f"{'='*70}"
         )
-
-    # ── Callbacks ──────────────────────────────────────────────────────────────
-
-    def _js_cb(self, msg: JointState):
-        with self._mu:
-            for n, p in zip(msg.name, msg.position):
-                if n in self._j:
-                    self._j[n] = float(p)
-
-    def _boxes_cb(self, msg: String):
+    
+    # ───────────────────────────────────────────────────────────────────────────
+    # CALLBACKS
+    # ───────────────────────────────────────────────────────────────────────────
+    
+    def _joint_state_cb(self, msg: JointState):
+        with self._lock:
+            for name, pos in zip(msg.name, msg.position):
+                if name in self._joints:
+                    self._joints[name] = float(pos)
+    
+    def _box_poses_cb(self, msg: String):
         try:
-            d = json.loads(msg.data)
-            with self._mu:
-                for k, v in d.items():
-                    self._bdata[int(k)] = v
-                self._ats = time.time()
+            data = json.loads(msg.data)
+            with self._lock:
+                for k, v in data.items():
+                    self._box_data[int(k)] = v
+                self._aruco_timestamp = time.time()
         except Exception as e:
-            self.get_logger().warn(f"boxes: {e}")
-
-    def _req_cb(self, msg: Int32):
+            self.get_logger().warn(f"Box poses parse error: {e}")
+    
+    def _pick_request_cb(self, msg: Int32):
         slot = int(msg.data)
         if slot not in range(4):
-            self.get_logger().warn(f"Bad slot {slot}")
+            self.get_logger().warn(f"Invalid slot {slot}, must be 0-3")
             return
-        with self._mu:
+        
+        with self._lock:
             if self._state != State.IDLE:
-                self.get_logger().warn(f"Busy: {self._state.name}")
+                self.get_logger().warn(f"Busy in state {self._state.name}")
                 return
-            self._slot    = slot
-            self._lock_xy = None
-            self._state   = State.PH1_Z
-        self.get_logger().info(f"Pick request: slot {slot}")
-
-    # ── Helpers ────────────────────────────────────────────────────────────────
-
-    def _fresh(self) -> bool:
-        with self._mu:
-            return (time.time() - self._ats) < ARUCO_AGE
-
-    def _best_xy(self, slot: int) -> Tuple[float, float]:
-        with self._mu:
-            info = self._bdata.get(slot, {})
-        if info.get("detected") and self._fresh():
+            self._target_slot = slot
+            self._state = State.PHASE1_HOVER
+        
+        self.get_logger().info(f"Pick request received: slot {slot}")
+    
+    # ───────────────────────────────────────────────────────────────────────────
+    # HELPERS
+    # ───────────────────────────────────────────────────────────────────────────
+    
+    def _get_current_joints(self) -> List[float]:
+        """Get current arm joint positions [j1, j2, j3]."""
+        with self._lock:
+            return [
+                self._joints["joint_1"],
+                self._joints["joint_2"],
+                self._joints["joint_3"],
+            ]
+    
+    def _get_current_gripper_pos(self) -> Tuple[float, float, float]:
+        """Get current gripper position from FK."""
+        joints = self._get_current_joints()
+        return fk_gripper(*joints)
+    
+    def _aruco_is_fresh(self) -> bool:
+        """Check if ArUco data is recent."""
+        with self._lock:
+            return (time.time() - self._aruco_timestamp) < ARUCO_MAX_AGE
+    
+    def _get_target_xy(self, slot: int) -> Tuple[float, float]:
+        """Get target XY from ArUco or fall back to ground truth."""
+        with self._lock:
+            info = self._box_data.get(slot, {})
+        
+        if info.get("detected") and self._aruco_is_fresh():
             return float(info["x"]), float(info["y"])
-        return SLOT_GT[slot]
-
-    def _arm(self) -> List[float]:
-        with self._mu:
-            return [self._j["joint_1"], self._j["joint_2"], self._j["joint_3"]]
-
-    def _log(self, txt: str):
-        m = String()
-        m.data = txt
-        self.status_pub.publish(m)
-        self.get_logger().info(f"[SERVO] {txt}")
-
-    def _set(self, s: State):
-        with self._mu:
-            self._state = s
-        self._log(f"-> {s.name}")
-
-    # ── Trajectory helpers ─────────────────────────────────────────────────────
-
-    def _pub_arm(self, joints: List[float]):
+        
+        # Fall back to ground truth
+        return SLOT_POSITIONS[slot][0], SLOT_POSITIONS[slot][1]
+    
+    def _log(self, msg: str):
+        """Log and publish status."""
+        status_msg = String()
+        status_msg.data = msg
+        self.status_pub.publish(status_msg)
+        self.get_logger().info(f"[SERVO] {msg}")
+    
+    def _set_state(self, new_state: State):
+        """Set state machine state."""
+        with self._lock:
+            self._state = new_state
+        self._log(f"State -> {new_state.name}")
+    
+    # ───────────────────────────────────────────────────────────────────────────
+    # MOTION
+    # ───────────────────────────────────────────────────────────────────────────
+    
+    def _publish_arm_trajectory(self, joints: List[float], duration: float = TRAJ_DURATION):
+        """Publish arm trajectory command."""
         msg = JointTrajectory()
         msg.joint_names = ["joint_1", "joint_2", "joint_3"]
+        
         pt = JointTrajectoryPoint()
-        pt.positions  = [float(j) for j in joints]
+        pt.positions = [float(j) for j in joints]
         pt.velocities = [0.0, 0.0, 0.0]
-        s  = int(TRAJ_S)
-        ns = int((TRAJ_S - s) * 1e9)
-        pt.time_from_start = DurationMsg(sec=s, nanosec=ns)
+        
+        sec = int(duration)
+        nanosec = int((duration - sec) * 1e9)
+        pt.time_from_start = DurationMsg(sec=sec, nanosec=nanosec)
+        
         msg.points = [pt]
         self.arm_pub.publish(msg)
-
-    def _pub_grip(self, j4: float):
+    
+    def _publish_gripper(self, position: float):
+        """Publish gripper command."""
         msg = JointTrajectory()
         msg.joint_names = ["joint_4"]
+        
         pt = JointTrajectoryPoint()
-        pt.positions  = [float(j4)]
+        pt.positions = [float(position)]
         pt.velocities = [0.0]
-        pt.time_from_start = DurationMsg(sec=int(GRIP_DUR), nanosec=0)
+        pt.time_from_start = DurationMsg(sec=int(GRIP_DURATION), nanosec=0)
+        
         msg.points = [pt]
         self.grip_pub.publish(msg)
-
-    def _move(self, joints: List[float], label: str) -> bool:
+    
+    def _move_to_joints(self, target_joints: List[float], label: str) -> bool:
         """
-        Publish arm command every RESEND_S seconds until joints arrive.
-        Returns True on success, False on timeout.
+        Move arm to target joint positions.
+        Re-publishes trajectory periodically until reached or timeout.
+        Returns True on success.
         """
-        j1t, j2t, j3t = joints[0], joints[1], joints[2]
-        cx, cy, cz = fk(j1t, j2t, j3t)
-        self._log(
-            f"MOVE {label}  [{j1t:.4f},{j2t:.4f},{j3t:.4f}]"
-            f"  claw->({cx},{cy},{cz})  gripper~{cz-GRIP_OFFSET:.3f}m"
-        )
-
-        deadline  = time.time() + MAX_WAIT
+        x, y, z = fk_gripper(*target_joints)
+        self._log(f"MOVE {label}: joints=[{target_joints[0]:.3f}, {target_joints[1]:.3f}, {target_joints[2]:.3f}] "
+                  f"-> gripper=({x:.3f}, {y:.3f}, {z:.3f})")
+        
+        deadline = time.time() + MAX_WAIT_TIME
         last_send = 0.0
-        last_log  = 0.0
-
+        last_log = 0.0
+        
         while time.time() < deadline:
-            cur = self._arm()
-            err = max(abs(cur[i] - joints[i]) for i in range(3))
-            cx2, cy2, cz2 = fk(cur[0], cur[1], cur[2])
-            now = time.time()
-
-            if err < JOINT_TOL:
-                self._log(
-                    f"  OK {label}  err={err:.4f}"
-                    f"  claw=({cx2},{cy2},{cz2})  gripper~{cz2-GRIP_OFFSET:.3f}m"
-                )
+            current = self._get_current_joints()
+            err = max(abs(current[i] - target_joints[i]) for i in range(3))
+            
+            if err < JOINT_TOLERANCE:
+                cx, cy, cz = fk_gripper(*current)
+                self._log(f"  ARRIVED {label}: err={err:.4f}rad, gripper=({cx:.3f}, {cy:.3f}, {cz:.3f})")
                 return True
-
-            # Re-send every RESEND_S so controller can't ignore the goal
-            if now - last_send >= RESEND_S:
-                self._pub_arm(joints)
+            
+            now = time.time()
+            
+            # Re-send trajectory periodically
+            if now - last_send >= RESEND_INTERVAL:
+                self._publish_arm_trajectory(target_joints)
                 last_send = now
-
-            if now - last_log >= 5.0:
-                self._log(
-                    f"  [{label}] err={err:.4f}"
-                    f"  claw=({cx2},{cy2},{cz2})  gripper~{cz2-GRIP_OFFSET:.3f}m"
-                )
+            
+            # Log progress periodically
+            if now - last_log >= 3.0:
+                cx, cy, cz = fk_gripper(*current)
+                self._log(f"  MOVING {label}: err={err:.4f}rad, gripper=({cx:.3f}, {cy:.3f}, {cz:.3f})")
                 last_log = now
-
-            time.sleep(POLL_S)
-
+            
+            time.sleep(POLL_INTERVAL)
+        
         self._log(f"  TIMEOUT {label}")
         return False
-
-    # ── State machine ──────────────────────────────────────────────────────────
-
-    def _sm(self):
+    
+    def _move_to_position(self, target_x: float, target_y: float, target_z: float, 
+                          label: str) -> bool:
+        """
+        Move gripper to target XYZ position using IK.
+        Returns True on success.
+        """
+        current = self._get_current_joints()
+        joints = inverse_kinematics(target_x, target_y, target_z, current)
+        
+        if joints is None:
+            self._log(f"  IK FAILED for ({target_x:.3f}, {target_y:.3f}, {target_z:.3f})")
+            return False
+        
+        return self._move_to_joints(joints, label)
+    
+    # ───────────────────────────────────────────────────────────────────────────
+    # STATE MACHINE
+    # ───────────────────────────────────────────────────────────────────────────
+    
+    def _state_machine_loop(self):
+        """Main state machine loop."""
         while rclpy.ok():
-            with self._mu:
+            with self._lock:
                 state = self._state
-                slot  = self._slot
+                slot = self._target_slot
+            
             if state == State.IDLE or slot is None:
                 time.sleep(0.1)
                 continue
+            
             try:
-                {
-                    State.PH1_Z:   self._ph1_z,
-                    State.PH2_XY:  self._ph2_xy,
-                    State.DESCEND:  self._descend,
-                    State.GRIP:    self._do_grip,
-                    State.LIFT:    self._lift,
-                    State.TRANSIT: self._transit,
-                    State.DROP:    self._do_drop,
-                    State.HOME:    self._home,
-                }[state](slot)
+                if state == State.PHASE1_HOVER:
+                    self._do_phase1_hover(slot)
+                elif state == State.PHASE2_SERVO:
+                    self._do_phase2_servo(slot)
+                elif state == State.PHASE3_DESCEND:
+                    self._do_phase3_descend(slot)
+                elif state == State.GRIP:
+                    self._do_grip(slot)
+                elif state == State.LIFT:
+                    self._do_lift(slot)
+                elif state == State.TRANSIT:
+                    self._do_transit(slot)
+                elif state == State.DROP:
+                    self._do_drop(slot)
+                elif state == State.RETURN_HOME:
+                    self._do_return_home(slot)
             except Exception as e:
                 import traceback
-                self.get_logger().error(f"SM: {e}\n{traceback.format_exc()}")
-                self._set(State.HOME)
+                self.get_logger().error(f"State machine error: {e}\n{traceback.format_exc()}")
+                self._set_state(State.RETURN_HOME)
+            
             time.sleep(0.05)
-
-    # ── PHASE 1: set z, j1=0 ──────────────────────────────────────────────────
-
-    def _ph1_z(self, slot: int):
-        _, _, cz_home = fk(0, 0, 0)
-        self._log(
-            f"PHASE 1  set hover height  j1=0  j2={J2_HOVER:.4f}  j3={J3_HOVER:.4f}"
-            f"\n  gripper: {cz_home-GRIP_OFFSET:.3f}m -> {CLAW_HOVER_Z-GRIP_OFFSET:.3f}m"
-        )
-        self._pub_grip(0.0)
-        time.sleep(GRIP_DUR + 0.5)
-
-        ok = self._move([0.0, J2_HOVER, J3_HOVER], "ph1-hover")
-        if not ok:
-            self._log("Ph1 timeout -> HOME")
-            self._set(State.HOME)
+    
+    def _do_phase1_hover(self, slot: int):
+        """Phase 1: Move to hover height above the target area."""
+        self._log(f"═══ PHASE 1: HOVER ═══")
+        self._log(f"  Target: slot {slot}, hover z={HOVER_Z}m")
+        
+        # Open gripper first
+        self._publish_gripper(GRIPPER_OPEN)
+        time.sleep(GRIP_DURATION + 0.5)
+        
+        # Get target XY from ArUco or ground truth
+        target_x, target_y = self._get_target_xy(slot)
+        self._log(f"  Target XY from {'ArUco' if self._aruco_is_fresh() else 'ground truth'}: "
+                  f"({target_x:.3f}, {target_y:.3f})")
+        
+        # Move to hover position
+        if not self._move_to_position(target_x, target_y, HOVER_Z, "phase1-hover"):
+            self._log("  Phase 1 FAILED - going home")
+            self._set_state(State.RETURN_HOME)
             return
-
-        j = self._arm()
-        cx, cy, cz = fk(*j)
-        self._log(f"  Phase1 done  claw=({cx},{cy},{cz})  gripper~{cz-GRIP_OFFSET:.3f}m")
-        self._set(State.PH2_XY)
-
-    # ── PHASE 2: rotate j1 to box, j2+j3 frozen ──────────────────────────────
-
-    def _ph2_xy(self, slot: int):
-        tx, ty = self._best_xy(slot)
-        j1_tgt = J1_SLOT[slot]
-
-        self._log(
-            f"PHASE 2  rotate j1 to box  j2/j3 frozen"
-            f"\n  target=({tx:.3f},{ty:.3f})  j1={j1_tgt:.4f}  z={CLAW_HOVER_Z}m"
-        )
-
-        ok = self._move([j1_tgt, J2_HOVER, J3_HOVER], "ph2-rotate")
-        if not ok:
-            self._log("Ph2 timeout -> HOME")
-            self._set(State.HOME)
+        
+        self._set_state(State.PHASE2_SERVO)
+    
+    def _do_phase2_servo(self, slot: int):
+        """Phase 2: Visual servo to align precisely with target."""
+        self._log(f"═══ PHASE 2: VISUAL SERVO ═══")
+        
+        for iteration in range(MAX_SERVO_ITERATIONS):
+            # Get current gripper position
+            curr_x, curr_y, curr_z = self._get_current_gripper_pos()
+            
+            # Get target from ArUco
+            target_x, target_y = self._get_target_xy(slot)
+            source = "ArUco" if self._aruco_is_fresh() else "GT"
+            
+            # Compute error
+            err_x = target_x - curr_x
+            err_y = target_y - curr_y
+            err_dist = math.hypot(err_x, err_y)
+            
+            self._log(f"  Iter {iteration+1}: pos=({curr_x:.3f}, {curr_y:.3f}), "
+                      f"target=({target_x:.3f}, {target_y:.3f}) [{source}], "
+                      f"err={err_dist*1000:.0f}mm")
+            
+            # Check if aligned
+            if err_dist < XY_TOLERANCE:
+                self._log(f"  ALIGNED! err={err_dist*1000:.0f}mm < {XY_TOLERANCE*1000:.0f}mm")
+                break
+            
+            # Move toward target (at hover height)
+            if not self._move_to_position(target_x, target_y, HOVER_Z, f"servo-{iteration+1}"):
+                self._log("  Servo move FAILED")
+                break
+            
+            # Small delay to let ArUco update
+            time.sleep(0.5)
+        
+        # Final check
+        curr_x, curr_y, curr_z = self._get_current_gripper_pos()
+        target_x, target_y = self._get_target_xy(slot)
+        final_err = math.hypot(target_x - curr_x, target_y - curr_y)
+        
+        if final_err > 0.08:  # 8cm max acceptable error
+            self._log(f"  ABORT: final error {final_err*1000:.0f}mm too large")
+            self._set_state(State.RETURN_HOME)
             return
-
-        j = self._arm()
-        ax, ay, az = fk(*j)
-        err_mm = math.hypot(ax - tx, ay - ty) * 1000
-        self._log(f"  After rotate: claw=({ax},{ay},{az})  xy_err={err_mm:.0f}mm")
-
-        best_err = err_mm
-        for it in range(1, 8):
-            time.sleep(1.0)
-            tx, ty   = self._best_xy(slot)
-            j_now    = self._arm()
-            ax, ay, az = fk(*j_now)
-            err = math.hypot(ax - tx, ay - ty) * 1000
-            self._log(f"  ArUco {it}: target=({tx:.3f},{ty:.3f})  fk=({ax:.3f},{ay:.3f})  err={err:.0f}mm")
-            if err < best_err:
-                best_err = err
-            if err < 25.0:
-                self._log(f"  aligned  err={err:.0f}mm")
-                break
-            j1_corr = math.atan2(ty, tx)
-            diff = abs(j1_corr - j_now[0])
-            if diff < 0.003:
-                self._log(f"  j1 optimal (diff={diff:.4f}rad)")
-                break
-            self._log(f"  j1: {j_now[0]:.4f} -> {j1_corr:.4f}")
-            ok = self._move([j1_corr, J2_HOVER, J3_HOVER], f"ph2-refine-{it}")
-            if not ok:
-                self._log(f"  refine-{it} timeout")
-                break
-
-        if best_err > 60.0:
-            self._log(f"ABORT: err={best_err:.0f}mm > 60mm -> HOME")
-            self._set(State.HOME)
+        
+        self._log(f"  Phase 2 complete: final error = {final_err*1000:.0f}mm")
+        self._set_state(State.PHASE3_DESCEND)
+    
+    def _do_phase3_descend(self, slot: int):
+        """Phase 3: Descend to pick height."""
+        self._log(f"═══ PHASE 3: DESCEND ═══")
+        
+        # Get current XY (keep it, just lower Z)
+        curr_x, curr_y, _ = self._get_current_gripper_pos()
+        
+        self._log(f"  Descending from z={HOVER_Z}m to z={PICK_Z}m")
+        self._log(f"  Keeping XY at ({curr_x:.3f}, {curr_y:.3f})")
+        
+        if not self._move_to_position(curr_x, curr_y, PICK_Z, "descend"):
+            self._log("  Descend FAILED")
+            self._set_state(State.RETURN_HOME)
             return
-
-        j_now = self._arm()
-        with self._mu:
-            self._lock_j1 = j_now[0]
-            self._lock_xy = self._best_xy(slot)
-
-        self._log(f"  LOCKED  j1={self._lock_j1:.4f}  xy={self._lock_xy}  -> DESCEND")
-        self._set(State.DESCEND)
-
-    # ── DESCEND: lower j2+j3, j1 locked ──────────────────────────────────────
-
-    def _descend(self, slot: int):
-        with self._mu:
-            j1  = self._lock_j1
-            lxy = self._lock_xy
-
-        self._log(
-            f"DESCEND  j1={j1:.4f}  j2:{J2_HOVER:.4f}->{J2_PICK:.4f}  j3:{J3_HOVER:.4f}->{J3_PICK:.4f}"
-            f"\n  gripper: {CLAW_HOVER_Z-GRIP_OFFSET:.3f}m -> {CLAW_PICK_Z-GRIP_OFFSET:.3f}m  "
-            f"(drop {(CLAW_HOVER_Z-CLAW_PICK_Z)*1000:.0f}mm)"
-        )
-
-        self._move([j1, J2_PICK, J3_PICK], "descend")
-
-        j = self._arm()
-        cx, cy, cz = fk(*j)
-        xy_err = math.hypot(cx - lxy[0], cy - lxy[1]) * 1000 if lxy else -1
-        self._log(
-            f"  FK@pick: claw=({cx},{cy},{cz})"
-            f"  gripper~{cz-GRIP_OFFSET:.3f}m"
-            f"  xy_err={xy_err:.0f}mm"
-        )
-        self._set(State.GRIP)
-
-    # ── GRIP ──────────────────────────────────────────────────────────────────
-
+        
+        self._set_state(State.GRIP)
+    
     def _do_grip(self, slot: int):
-        self._log("GRIP  closing")
-        self._pub_grip(-0.7)
-        time.sleep(GRIP_DUR + PICK_DWELL)
-        self._set(State.LIFT)
-
-    # ── LIFT ──────────────────────────────────────────────────────────────────
-
-    def _lift(self, slot: int):
-        with self._mu:
-            j1 = self._lock_j1
-        self._log(f"LIFT  gripper -> {CLAW_HOVER_Z-GRIP_OFFSET:.3f}m")
-        self._move([j1, J2_HOVER, J3_HOVER], "lift")
-        self._set(State.TRANSIT)
-
-    # ── TRANSIT ───────────────────────────────────────────────────────────────
-
-    def _transit(self, slot: int):
-        self._log("TRANSIT  to drop zone")
-        self._move(DROP_HOVER, "drop-hover")
-        self._move(DROP_PLACE, "drop-place")
-        self._set(State.DROP)
-
-    # ── DROP ──────────────────────────────────────────────────────────────────
-
+        """Close gripper to grab item."""
+        self._log(f"═══ GRIP ═══")
+        
+        self._publish_gripper(GRIPPER_CLOSED)
+        time.sleep(GRIP_DURATION + PICK_DWELL)
+        
+        self._set_state(State.LIFT)
+    
+    def _do_lift(self, slot: int):
+        """Lift item to hover height."""
+        self._log(f"═══ LIFT ═══")
+        
+        curr_x, curr_y, _ = self._get_current_gripper_pos()
+        
+        if not self._move_to_position(curr_x, curr_y, HOVER_Z, "lift"):
+            self._log("  Lift FAILED")
+        
+        self._set_state(State.TRANSIT)
+    
+    def _do_transit(self, slot: int):
+        """Move to drop zone."""
+        self._log(f"═══ TRANSIT TO DROP ZONE ═══")
+        
+        # Move to drop zone at hover height
+        if not self._move_to_position(DROP_X, DROP_Y, HOVER_Z, "transit-hover"):
+            self._log("  Transit hover FAILED")
+        
+        # Lower to drop height
+        if not self._move_to_position(DROP_X, DROP_Y, DROP_Z, "transit-lower"):
+            self._log("  Transit lower FAILED")
+        
+        self._set_state(State.DROP)
+    
     def _do_drop(self, slot: int):
-        self._log("DROP  releasing")
-        self._pub_grip(0.0)
-        time.sleep(GRIP_DUR + DROP_DWELL)
-        self._move(DROP_HOVER, "drop-retract")
-        self._set(State.HOME)
-
-    # ── HOME ──────────────────────────────────────────────────────────────────
-
-    def _home(self, slot: int):
-        self._log("HOME  returning")
-        self._move(HOME, "home")
-        with self._mu:
-            self._state   = State.IDLE
-            self._slot    = None
-            self._lock_xy = None
-        self._log("IDLE  ready")
+        """Release item."""
+        self._log(f"═══ DROP ═══")
+        
+        self._publish_gripper(GRIPPER_OPEN)
+        time.sleep(GRIP_DURATION + DROP_DWELL)
+        
+        # Lift away
+        if not self._move_to_position(DROP_X, DROP_Y, HOVER_Z, "drop-retract"):
+            self._log("  Drop retract FAILED")
+        
+        self._set_state(State.RETURN_HOME)
+    
+    def _do_return_home(self, slot: int):
+        """Return to home position."""
+        self._log(f"═══ RETURN HOME ═══")
+        
+        # Move to home using joints directly
+        home_joints = [0.0, 0.0, 0.0]
+        self._move_to_joints(home_joints, "home")
+        
+        # Reset state
+        with self._lock:
+            self._state = State.IDLE
+            self._target_slot = None
+        
+        self._log("═══ COMPLETE - IDLE ═══")
 
 
 def main(args=None):
     rclpy.init(args=args)
     node = VisualServoNode()
-    exe  = MultiThreadedExecutor(num_threads=4)
-    exe.add_node(node)
+    executor = MultiThreadedExecutor(num_threads=4)
+    executor.add_node(node)
     try:
-        exe.spin()
+        executor.spin()
     except KeyboardInterrupt:
         pass
     finally:
-        exe.shutdown()
+        executor.shutdown()
         node.destroy_node()
         try:
             rclpy.shutdown()
-        except Exception:
+        except:
             pass
 
 

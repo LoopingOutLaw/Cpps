@@ -2,3 +2,5 @@ source;share/dexter_inventory/hook/pythonpath.dsv
 source;share/dexter_inventory/hook/pythonpath.sh
 source;share/dexter_inventory/hook/ament_prefix_path.dsv
 source;share/dexter_inventory/hook/ament_prefix_path.sh
+source;../../build/dexter_inventory/share/dexter_inventory/hook/pythonpath_develop.dsv
+source;../../build/dexter_inventory/share/dexter_inventory/hook/pythonpath_develop.sh

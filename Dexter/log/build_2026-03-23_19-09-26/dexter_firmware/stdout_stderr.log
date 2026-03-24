@@ -1,0 +1,43 @@
+[ 50%] Built target simple_serial_transmitter
+[ 50%] Built target ament_cmake_python_symlink_dexter_firmware
+[100%] Built target simple_serial_receiver
+Traceback (most recent call last):
+  File "/home/aditya/Cpps/Dexter/build/dexter_firmware/ament_cmake_python/dexter_firmware/setup.py", line 4, in <module>
+    setup(
+  File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/setuptools/__init__.py", line 115, in setup
+    return distutils.core.setup(**attrs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/setuptools/_distutils/core.py", line 148, in setup
+    _setup_distribution = dist = klass(attrs)
+                                 ^^^^^^^^^^^^
+  File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/setuptools/dist.py", line 315, in __init__
+    for ep in metadata.entry_points(group='distutils.setup_keywords'):
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/metadata/__init__.py", line 913, in entry_points
+    return EntryPoints(eps).select(**params)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/metadata/__init__.py", line 911, in <genexpr>
+    dist.entry_points for dist in _unique(distributions())
+    ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/metadata/__init__.py", line 471, in entry_points
+    return EntryPoints._from_text_for(self.read_text('entry_points.txt'), self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/metadata/__init__.py", line 312, in _from_text_for
+    return cls(ep._for(dist) for ep in cls._from_text(text))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/metadata/__init__.py", line 312, in <genexpr>
+    return cls(ep._for(dist) for ep in cls._from_text(text))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/metadata/__init__.py", line 316, in <genexpr>
+    return (
+           ^
+  File "/usr/lib/python3.12/importlib/metadata/__init__.py", line 103, in <genexpr>
+    return (
+           ^
+  File "/usr/lib/python3.12/importlib/metadata/__init__.py", line 111, in read
+    lines = filter(filter_, map(str.strip, text.splitlines()))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+gmake[2]: *** [CMakeFiles/ament_cmake_python_build_dexter_firmware_egg.dir/build.make:70: CMakeFiles/ament_cmake_python_build_dexter_firmware_egg] Interrupt
+gmake[1]: *** [CMakeFiles/Makefile2:168: CMakeFiles/ament_cmake_python_build_dexter_firmware_egg.dir/all] Interrupt
+gmake: *** [Makefile:146: all] Interrupt

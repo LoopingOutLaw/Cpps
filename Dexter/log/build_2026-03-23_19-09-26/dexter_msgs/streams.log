@@ -1,0 +1,47 @@
+[0.033s] Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/Cpps/Dexter/install/dexter_py_examples:/home/aditya/Cpps/Dexter/install/dexter_inventory:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_msgs -- -j28 -l28
+[0.132s] [  1%] Built target dexter_msgs__rosidl_generator_type_description
+[0.155s] [  1%] Built target ament_cmake_python_symlink_dexter_msgs
+[0.180s] [  2%] Built target dexter_msgs__cpp
+[0.185s] [ 26%] Built target dexter_msgs__rosidl_generator_c
+[0.235s] [ 36%] Built target dexter_msgs__rosidl_typesupport_introspection_c
+[0.236s] [ 50%] Built target dexter_msgs__rosidl_typesupport_cpp
+[0.237s] [ 55%] Built target dexter_msgs__rosidl_typesupport_introspection_cpp
+[0.239s] [ 64%] Built target dexter_msgs__rosidl_typesupport_c
+[0.247s] [ 74%] Built target dexter_msgs__rosidl_typesupport_fastrtps_c
+[0.249s] [ 84%] Built target dexter_msgs__rosidl_typesupport_fastrtps_cpp
+[0.298s] [ 84%] Built target dexter_msgs
+[0.363s] [ 85%] Built target dexter_msgs__py
+[0.481s] [ 93%] Built target dexter_msgs__rosidl_generator_py
+[0.545s] [ 95%] Built target dexter_msgs_s__rosidl_typesupport_fastrtps_c
+[0.548s] [ 97%] Built target dexter_msgs_s__rosidl_typesupport_c
+[0.550s] [100%] Built target dexter_msgs_s__rosidl_typesupport_introspection_c
+[0.632s] Traceback (most recent call last):
+[0.632s]   File "/home/aditya/Cpps/Dexter/build/dexter_msgs/ament_cmake_python/dexter_msgs/setup.py", line 4, in <module>
+[0.632s]     setup(
+[0.632s]   File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/setuptools/__init__.py", line 115, in setup
+[0.635s]     return distutils.core.setup(**attrs)
+[0.635s]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[0.635s]   File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/setuptools/_distutils/core.py", line 148, in setup
+[0.635s]     _setup_distribution = dist = klass(attrs)
+[0.636s]                                  ^^^^^^^^^^^^
+[0.636s]   File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/setuptools/dist.py", line 315, in __init__
+[0.636s]     for ep in metadata.entry_points(group='distutils.setup_keywords'):
+[0.636s]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[0.636s]   File "/usr/lib/python3.12/importlib/metadata/__init__.py", line 913, in entry_points
+[0.636s]     return EntryPoints(eps).select(**params)
+[0.636s]            ^^^^^^^^^^^^^^^^
+[0.637s]   File "/usr/lib/python3.12/importlib/metadata/__init__.py", line 910, in <genexpr>
+[0.637s]     eps = itertools.chain.from_iterable(
+[0.637s]                                        ^
+[0.638s]   File "/usr/lib/python3.12/importlib/metadata/_itertools.py", line 15, in unique_everseen
+[0.639s]     for element in iterable:
+[0.641s]   File "/usr/lib/python3.12/importlib/metadata/__init__.py", line 415, in <genexpr>
+[0.641s]     return itertools.chain.from_iterable(
+[0.641s]                                         ^
+[0.641s]   File "/usr/lib/python3.12/importlib/metadata/__init__.py", line 432, in <genexpr>
+[0.642s]     getattr(finder, 'find_distributions', None) for finder in sys.meta_path
+[0.642s]     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[0.642s] KeyboardInterrupt
+[0.681s] gmake[2]: *** [CMakeFiles/ament_cmake_python_build_dexter_msgs_egg.dir/build.make:70: CMakeFiles/ament_cmake_python_build_dexter_msgs_egg] Interrupt
+[0.683s] gmake[1]: *** [CMakeFiles/Makefile2:478: CMakeFiles/ament_cmake_python_build_dexter_msgs_egg.dir/all] Interrupt
+[0.683s] gmake: *** [Makefile:146: all] Interrupt

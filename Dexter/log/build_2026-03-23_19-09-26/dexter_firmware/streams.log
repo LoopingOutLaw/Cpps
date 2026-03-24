@@ -1,0 +1,44 @@
+[0.031s] Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_firmware': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aditya/Cpps/Dexter/install/dexter_py_examples:/home/aditya/Cpps/Dexter/install/dexter_inventory:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_firmware -- -j28 -l28
+[0.147s] [ 50%] Built target simple_serial_transmitter
+[0.155s] [ 50%] Built target ament_cmake_python_symlink_dexter_firmware
+[0.161s] [100%] Built target simple_serial_receiver
+[0.623s] Traceback (most recent call last):
+[0.623s]   File "/home/aditya/Cpps/Dexter/build/dexter_firmware/ament_cmake_python/dexter_firmware/setup.py", line 4, in <module>
+[0.623s]     setup(
+[0.624s]   File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/setuptools/__init__.py", line 115, in setup
+[0.625s]     return distutils.core.setup(**attrs)
+[0.628s]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[0.628s]   File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/setuptools/_distutils/core.py", line 148, in setup
+[0.628s]     _setup_distribution = dist = klass(attrs)
+[0.628s]                                  ^^^^^^^^^^^^
+[0.629s]   File "/home/aditya/venv-ardupilot/lib/python3.12/site-packages/setuptools/dist.py", line 315, in __init__
+[0.629s]     for ep in metadata.entry_points(group='distutils.setup_keywords'):
+[0.629s]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[0.629s]   File "/usr/lib/python3.12/importlib/metadata/__init__.py", line 913, in entry_points
+[0.629s]     return EntryPoints(eps).select(**params)
+[0.629s]            ^^^^^^^^^^^^^^^^
+[0.629s]   File "/usr/lib/python3.12/importlib/metadata/__init__.py", line 911, in <genexpr>
+[0.630s]     dist.entry_points for dist in _unique(distributions())
+[0.630s]     ^^^^^^^^^^^^^^^^^
+[0.630s]   File "/usr/lib/python3.12/importlib/metadata/__init__.py", line 471, in entry_points
+[0.630s]     return EntryPoints._from_text_for(self.read_text('entry_points.txt'), self)
+[0.630s]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[0.630s]   File "/usr/lib/python3.12/importlib/metadata/__init__.py", line 312, in _from_text_for
+[0.630s]     return cls(ep._for(dist) for ep in cls._from_text(text))
+[0.630s]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[0.631s]   File "/usr/lib/python3.12/importlib/metadata/__init__.py", line 312, in <genexpr>
+[0.631s]     return cls(ep._for(dist) for ep in cls._from_text(text))
+[0.631s]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[0.631s]   File "/usr/lib/python3.12/importlib/metadata/__init__.py", line 316, in <genexpr>
+[0.631s]     return (
+[0.631s]            ^
+[0.631s]   File "/usr/lib/python3.12/importlib/metadata/__init__.py", line 103, in <genexpr>
+[0.632s]     return (
+[0.632s]            ^
+[0.633s]   File "/usr/lib/python3.12/importlib/metadata/__init__.py", line 111, in read
+[0.633s]     lines = filter(filter_, map(str.strip, text.splitlines()))
+[0.633s]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[0.633s] KeyboardInterrupt
+[0.672s] gmake[2]: *** [CMakeFiles/ament_cmake_python_build_dexter_firmware_egg.dir/build.make:70: CMakeFiles/ament_cmake_python_build_dexter_firmware_egg] Interrupt
+[0.673s] gmake[1]: *** [CMakeFiles/Makefile2:168: CMakeFiles/ament_cmake_python_build_dexter_firmware_egg.dir/all] Interrupt
+[0.674s] gmake: *** [Makefile:146: all] Interrupt

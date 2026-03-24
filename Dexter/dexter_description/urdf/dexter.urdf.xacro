@@ -202,7 +202,7 @@
         <child  link="base_plate"/>
         <origin xyz="0 0 0.307"/>
         <axis xyz="0 0 1"/>
-        <limit lower="-${PI / 2}" upper="${PI / 2}"
+        <limit lower="-${PI * 0.95}" upper="${PI * 0.95}"
                effort="${effort}" velocity="${velocity}"/>
     </joint>
 
