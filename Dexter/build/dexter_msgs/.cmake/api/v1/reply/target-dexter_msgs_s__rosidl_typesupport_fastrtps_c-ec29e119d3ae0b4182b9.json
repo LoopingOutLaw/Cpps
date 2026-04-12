@@ -363,13 +363,13 @@
 			{
 				"command" : 10,
 				"file" : 2,
-				"line" : 181,
+				"line" : 216,
 				"parent" : 4
 			},
 			{
 				"command" : 10,
 				"file" : 2,
-				"line" : 216,
+				"line" : 181,
 				"parent" : 4
 			},
 			{
@@ -555,24 +555,24 @@
 	"dependencies" : 
 	[
 		{
-			"backtrace" : 57,
-			"id" : "dexter_msgs__py::@e140e341c228cb2d15a8"
+			"backtrace" : 8,
+			"id" : "dexter_msgs__rosidl_generator_c::@6890427a1f51a3e7e1df"
 		},
 		{
 			"backtrace" : 57,
-			"id" : "dexter_msgs__rosidl_typesupport_c::@6890427a1f51a3e7e1df"
+			"id" : "dexter_msgs__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df"
 		},
 		{
 			"backtrace" : 8,
 			"id" : "dexter_msgs__rosidl_generator_py::@6890427a1f51a3e7e1df"
 		},
 		{
-			"backtrace" : 8,
-			"id" : "dexter_msgs__rosidl_generator_c::@6890427a1f51a3e7e1df"
+			"backtrace" : 58,
+			"id" : "dexter_msgs__py::@e140e341c228cb2d15a8"
 		},
 		{
 			"backtrace" : 58,
-			"id" : "dexter_msgs__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df"
+			"id" : "dexter_msgs__rosidl_typesupport_c::@6890427a1f51a3e7e1df"
 		}
 	],
 	"id" : "dexter_msgs_s__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",

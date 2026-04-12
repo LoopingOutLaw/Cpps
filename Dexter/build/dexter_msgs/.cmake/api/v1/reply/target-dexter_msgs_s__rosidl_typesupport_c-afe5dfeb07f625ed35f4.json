@@ -451,20 +451,20 @@
 	"dependencies" : 
 	[
 		{
-			"backtrace" : 43,
-			"id" : "dexter_msgs__py::@e140e341c228cb2d15a8"
-		},
-		{
-			"backtrace" : 43,
-			"id" : "dexter_msgs__rosidl_typesupport_c::@6890427a1f51a3e7e1df"
+			"backtrace" : 8,
+			"id" : "dexter_msgs__rosidl_generator_c::@6890427a1f51a3e7e1df"
 		},
 		{
 			"backtrace" : 8,
 			"id" : "dexter_msgs__rosidl_generator_py::@6890427a1f51a3e7e1df"
 		},
 		{
-			"backtrace" : 8,
-			"id" : "dexter_msgs__rosidl_generator_c::@6890427a1f51a3e7e1df"
+			"backtrace" : 43,
+			"id" : "dexter_msgs__py::@e140e341c228cb2d15a8"
+		},
+		{
+			"backtrace" : 43,
+			"id" : "dexter_msgs__rosidl_typesupport_c::@6890427a1f51a3e7e1df"
 		}
 	],
 	"id" : "dexter_msgs_s__rosidl_typesupport_c::@6890427a1f51a3e7e1df",

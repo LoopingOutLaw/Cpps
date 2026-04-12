@@ -601,16 +601,16 @@
 	"dependencies" : 
 	[
 		{
+			"backtrace" : 12,
+			"id" : "dexter_msgs__rosidl_generator_c::@6890427a1f51a3e7e1df"
+		},
+		{
 			"backtrace" : 65,
 			"id" : "dexter_msgs__py::@e140e341c228cb2d15a8"
 		},
 		{
 			"backtrace" : 65,
 			"id" : "dexter_msgs__rosidl_typesupport_c::@6890427a1f51a3e7e1df"
-		},
-		{
-			"backtrace" : 12,
-			"id" : "dexter_msgs__rosidl_generator_c::@6890427a1f51a3e7e1df"
 		}
 	],
 	"id" : "dexter_msgs__rosidl_generator_py::@6890427a1f51a3e7e1df",

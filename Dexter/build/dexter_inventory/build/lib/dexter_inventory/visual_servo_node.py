@@ -1,31 +1,4 @@
 #!/usr/bin/env python3
-"""
-visual_servo_node.py - Visual Servo Pick-and-Place for Dexter Arm
-=================================================================
-
-5-Phase approach with safe collision-free motion:
-  Phase 1: Open gripper, move to SAFE APPROACH point (behind target)
-  Phase 2: Advance to HOVER above target (gripper stays open)
-  Phase 3: Visual servo in X-Y plane to align grip_center with box
-  Phase 4: OPEN gripper (wait fully), DESCEND, then CLOSE gripper
-  Phase 5: Lift, transit to drop zone, release
-
-FIXES applied vs previous version:
-  - GRIP_OFFSET set to 0.0  (grip_center FK already accounts for finger
-    geometry; the huge 0.50 m offset was parking the arm 50 cm short)
-  - Phase 4 now waits GRIP_DURATION + 0.5 s after publishing GRIPPER_OPEN
-    before starting the descent, so the gripper is fully open before the
-    arm moves down (previous 0.5 s sleep < GRIP_DURATION = 1.0 s)
-  - Phase 1 now opens the gripper immediately on entry
-  - Visual servo uses a proportional gain (SERVO_GAIN) to avoid overshoot
-    when stepping toward the target each iteration
-  - Logging is consistent: all position displays use fk_grip_center
-
-Trigger:
-    ros2 topic pub --once /visual_servo/pick_request std_msgs/msg/Int32 "{data: 0}"
-Watch:
-    ros2 topic echo /visual_servo/status
-"""
 
 from __future__ import annotations
 import json
@@ -168,7 +141,7 @@ SLOT_POSITIONS: Dict[int, Tuple[float, float, float]] = {
 # Heights for grip_center Z target
 SAFE_Z   = 1.45   # Clearance height for transit / safe approach
 HOVER_Z  = 1.32   # Just above box – start of servo loop
-PICK_Z   = 1.19   # Grip height (fingers descend around the box sides)
+PICK_Z   = 1.22   # Grip height (fingers descend around the box sides)
 DROP_Z   = 1.32
 
 # How far behind the box to start the safe approach (Phase 1)
