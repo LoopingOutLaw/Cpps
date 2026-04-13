@@ -1,0 +1,87 @@
+[0.007s] Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_controller': AMENT_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_description:/home/aditya/ros2_ws/install/my_robot_bringup:/home/aditya/ros2_ws/install/my_cpp_pkg:/home/aditya/ros2_ws/install/my_robot_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_controller -- -j28 -l28
+[0.034s] -- Found ament_cmake: 2.5.5 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.225s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.230s] -- Found trajectory_msgs: 5.3.6 (/opt/ros/jazzy/share/trajectory_msgs/cmake)
+[0.265s] -- Found rosidl_generator_c: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.275s] -- Found rosidl_generator_cpp: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.296s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.323s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.424s] -- Found sensor_msgs: 5.3.6 (/opt/ros/jazzy/share/sensor_msgs/cmake)
+[0.488s] -- Found rclcpp: 28.1.16 (/opt/ros/jazzy/share/rclcpp/cmake)
+[0.553s] -- Found rmw_implementation_cmake: 7.3.3 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[0.555s] -- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[0.624s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.676s] -- Found rclpy: 7.1.9 (/opt/ros/jazzy/share/rclpy/cmake)
+[0.676s] -- Found hardware_interface: 4.42.2 (/opt/ros/jazzy/share/hardware_interface/cmake)
+[1.165s] -- Configuring done (1.1s)
+[1.286s] -- Generating done (0.1s)
+[1.345s] -- Build files have been written to: /home/aditya/Cpps/Dexter/build/dexter_controller
+[1.593s] [ 25%] [32mBuilding CXX object CMakeFiles/dexter_controller.dir/src/dexter_interface.cpp.o[0m
+[1.630s] [ 25%] Built target ament_cmake_python_symlink_dexter_controller
+[1.668s] [ 50%] [32mBuilding CXX object CMakeFiles/slider_control.dir/src/slider_control.cpp.o[0m
+[2.014s] running egg_info
+[2.040s] writing dexter_controller.egg-info/PKG-INFO
+[2.040s] writing dependency_links to dexter_controller.egg-info/dependency_links.txt
+[2.040s] writing top-level names to dexter_controller.egg-info/top_level.txt
+[2.117s] reading manifest file 'dexter_controller.egg-info/SOURCES.txt'
+[2.118s] writing manifest file 'dexter_controller.egg-info/SOURCES.txt'
+[2.157s] [ 50%] Built target ament_cmake_python_build_dexter_controller_egg
+[4.541s] [01m[K/home/aditya/Cpps/Dexter/dexter_controller/src/dexter_interface.cpp:[m[K In member function ‘[01m[Kvirtual dexter_controller::CallbackReturn dexter_controller::DexterInterface::[01;32m[Kon_init[m[K(const hardware_interface::HardwareInfo&)[m[K’:
+[4.541s] [01m[K/home/aditya/Cpps/Dexter/dexter_controller/src/dexter_interface.cpp:46:71:[m[K [01;35m[Kwarning: [m[K‘[01m[Kvirtual rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn hardware_interface::HardwareComponentInterface::[01;32m[Kon_init[m[K(const hardware_interface::HardwareInfo&)[m[K’ is deprecated: Use on_init(const HardwareComponentInterfaceParams & params) instead. [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wdeprecated-declarations-Wdeprecated-declarations]8;;[m[K]
+[4.541s]    46 |   CallbackReturn result = [01;35m[Khardware_interface::SystemInterface::on_init(hardware_info)[m[K;
+[4.541s]       |                           [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~[m[K
+[4.541s] In file included from [01m[K/opt/ros/jazzy/include/hardware_interface/hardware_interface/system_interface.hpp:18[m[K,
+[4.541s]                  from [01m[K/home/aditya/Cpps/Dexter/dexter_controller/include/dexter_controller/dexter_interface.hpp:5[m[K,
+[4.541s]                  from [01m[K/home/aditya/Cpps/Dexter/dexter_controller/src/dexter_interface.cpp:1[m[K:
+[4.541s] [01m[K/opt/ros/jazzy/include/hardware_interface/hardware_interface/hardware_component_interface.hpp:140:26:[m[K [01;36m[Knote: [m[Kdeclared here
+[4.542s]   140 |   virtual CallbackReturn [01;36m[Kon_init[m[K(const HardwareInfo & hardware_info);
+[4.542s]       |                          [01;36m[K^~~~~~~[m[K
+[6.053s] [ 75%] [32m[1mLinking CXX shared library libdexter_controller.so[0m
+[6.232s] [ 75%] Built target dexter_controller
+[8.478s] [100%] [32m[1mLinking CXX executable slider_control[0m
+[8.689s] [100%] Built target slider_control
+[8.700s] Invoked command in '/home/aditya/Cpps/Dexter/build/dexter_controller' returned '0': AMENT_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_description:/home/aditya/ros2_ws/install/my_robot_bringup:/home/aditya/ros2_ws/install/my_cpp_pkg:/home/aditya/ros2_ws/install/my_robot_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_controller -- -j28 -l28
+[8.701s] Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_controller': AMENT_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_description:/home/aditya/ros2_ws/install/my_robot_bringup:/home/aditya/ros2_ws/install/my_cpp_pkg:/home/aditya/ros2_ws/install/my_robot_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --install /home/aditya/Cpps/Dexter/build/dexter_controller
+[8.708s] -- Install configuration: ""
+[8.708s] -- Execute custom install script
+[8.708s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller//dexter_controller.xml
+[8.708s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/pythonpath.sh
+[8.708s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/pythonpath.dsv
+[8.708s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller-0.0.0-py3.12.egg-info/PKG-INFO
+[8.708s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller-0.0.0-py3.12.egg-info/SOURCES.txt
+[8.709s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller-0.0.0-py3.12.egg-info/dependency_links.txt
+[8.709s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller-0.0.0-py3.12.egg-info/top_level.txt
+[8.709s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller/__init__.py
+[8.709s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller/slider_control.py
+[8.709s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/dexter_controller/slider_control
+[8.709s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/libdexter_controller.so
+[8.709s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/include/include/dexter_controller/dexter_interface.hpp
+[8.709s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/launch/controller.launch.py
+[8.709s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/launch/slider_controller.launch.py
+[8.709s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/config/dexter_controllers.yaml
+[8.709s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/lib/dexter_controller/slider_control.py
+[8.710s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/library_path.sh
+[8.710s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/library_path.dsv
+[8.710s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/ament_index/resource_index/package_run_dependencies/dexter_controller
+[8.710s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/ament_index/resource_index/parent_prefix_path/dexter_controller
+[8.710s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/ament_prefix_path.sh
+[8.710s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/ament_prefix_path.dsv
+[8.710s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/path.sh
+[8.710s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/path.dsv
+[8.710s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/local_setup.bash
+[8.710s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/local_setup.sh
+[8.710s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/local_setup.zsh
+[8.710s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/local_setup.dsv
+[8.710s] -- Symlinking: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/package.dsv
+[8.718s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/ament_index/resource_index/packages/dexter_controller
+[8.718s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/ament_index/resource_index/hardware_interface__pluginlib__plugin/dexter_controller
+[8.718s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/cmake/ament_cmake_export_include_directories-extras.cmake
+[8.718s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/cmake/ament_cmake_export_libraries-extras.cmake
+[8.718s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/cmake/ament_cmake_export_dependencies-extras.cmake
+[8.718s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/cmake/dexter_controllerConfig.cmake
+[8.718s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/cmake/dexter_controllerConfig-version.cmake
+[8.718s] -- Up-to-date symlink: /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/package.xml
+[8.746s] Listing '/home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller'...
+[8.746s] Compiling '/home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller/__init__.py'...
+[8.746s] Compiling '/home/aditya/Cpps/Dexter/install/dexter_controller/lib/python3.12/site-packages/dexter_controller/slider_control.py'...
+[8.751s] Invoked command in '/home/aditya/Cpps/Dexter/build/dexter_controller' returned '0': AMENT_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_description:/home/aditya/ros2_ws/install/my_robot_bringup:/home/aditya/ros2_ws/install/my_cpp_pkg:/home/aditya/ros2_ws/install/my_robot_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --install /home/aditya/Cpps/Dexter/build/dexter_controller

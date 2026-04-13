@@ -141,8 +141,8 @@ SLOT_POSITIONS: Dict[int, Tuple[float, float, float]] = {
 # Heights for grip_center Z target
 SAFE_Z   = 1.45   # Clearance height for transit / safe approach
 HOVER_Z  = 1.32   # Just above box – start of servo loop
-PICK_Z   = 1.22   # Grip height (fingers descend around the box sides)
-DROP_Z   = 1.32
+PICK_Z   = 1.20   # Grip height (fingers descend around the box sides)
+DROP_Z   = 0.70
 
 # How far behind the box to start the safe approach (Phase 1)
 APPROACH_OFFSET = 0.15   # m toward the robot from box centre

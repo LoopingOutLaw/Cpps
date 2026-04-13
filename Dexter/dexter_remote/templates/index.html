@@ -8,56 +8,80 @@
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#0d1117;--bg2:#161b22;--bg3:#21262d;
-  --bdr:#30363d;--bdr2:#21262d;
+  --bdr:#30363d;--bdr2:#1c2128;
   --tx:#f0f6fc;--tx2:#c9d1d9;--tx3:#8b949e;
   --blue:#378ADD;--green:#3fb950;--amber:#d29922;
-  --red:#f85149;--purple:#a371f7;
+  --red:#f85149;--purple:#a371f7;--teal:#1d9e75;
 }
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--tx2);min-height:100vh}
-canvas{display:block;width:100%;background:#0d1117;border-radius:10px 10px 0 0;border:1px solid var(--bdr)}
-header{display:flex;align-items:center;gap:14px;padding:14px 20px;background:var(--bg2);
-  border-bottom:1px solid var(--bdr);position:sticky;top:0;z-index:50}
-.logo{width:38px;height:38px;border-radius:9px;
+canvas{display:block;width:100%;background:#0a0e14;border-radius:10px 10px 0 0;border:1px solid var(--bdr)}
+
+/* ── Header ── */
+header{display:flex;align-items:center;gap:14px;padding:14px 22px;background:var(--bg2);
+  border-bottom:1px solid var(--bdr);position:sticky;top:0;z-index:50;backdrop-filter:blur(8px)}
+.logo{width:40px;height:40px;border-radius:10px;
   background:linear-gradient(135deg,var(--blue),var(--purple));
   display:flex;align-items:center;justify-content:center;
-  font-size:18px;font-weight:700;color:#fff;animation:glow 3s infinite}
-@keyframes glow{0%,100%{box-shadow:0 0 8px #378ADD44}50%{box-shadow:0 0 18px #378ADD88}}
-.hd h1{font-size:1.25rem;font-weight:600;color:var(--tx);letter-spacing:.3px}
-.hd p{font-size:.7rem;color:var(--tx3);text-transform:uppercase;letter-spacing:1px}
-.hbadge{margin-left:auto;display:flex;align-items:center;gap:10px}
-.pill{display:flex;align-items:center;gap:6px;padding:5px 11px;background:var(--bg3);border-radius:20px;font-size:.78rem}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2s infinite}
+  font-size:18px;font-weight:700;color:#fff;animation:glow 3s infinite;flex-shrink:0}
+@keyframes glow{0%,100%{box-shadow:0 0 8px #378ADD33}50%{box-shadow:0 0 20px #378ADD66}}
+.hd h1{font-size:1.2rem;font-weight:700;color:var(--tx);letter-spacing:.3px}
+.hd p{font-size:.68rem;color:var(--tx3);text-transform:uppercase;letter-spacing:1.2px;margin-top:1px}
+.hbadge{margin-left:auto;display:flex;align-items:center;gap:8px}
+.pill{display:flex;align-items:center;gap:7px;padding:5px 12px;background:var(--bg3);
+  border:1px solid var(--bdr);border-radius:20px;font-size:.76rem;white-space:nowrap}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2s infinite;flex-shrink:0}
 .dot.warn{background:var(--amber)}.dot.err{background:var(--red)}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
-.wrap{max-width:1320px;margin:0 auto;padding:18px 20px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* ── Layout ── */
+.wrap{max-width:1340px;margin:0 auto;padding:18px 20px;
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
 @media(max-width:900px){.wrap{grid-template-columns:1fr}}
 .full{grid-column:1/-1}
-.card{background:var(--bg2);border:1px solid var(--bdr);border-radius:10px;overflow:hidden;transition:border-color .2s}
-.card:hover{border-color:var(--blue)}
-.ch{padding:13px 16px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between}
-.ct{font-size:.75rem;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.9px}
+
+/* ── Cards ── */
+.card{background:var(--bg2);border:1px solid var(--bdr);border-radius:10px;
+  overflow:hidden;transition:border-color .2s,box-shadow .2s}
+.card:hover{border-color:#2d4a6e;box-shadow:0 0 18px rgba(55,138,221,.06)}
+.ch{padding:12px 16px;border-bottom:1px solid var(--bdr);
+  display:flex;align-items:center;justify-content:space-between}
+.ct{font-size:.72rem;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.9px}
 .cb{padding:16px}
+
+/* ── Dispatch controls ── */
 .simctrl{padding:9px 14px;background:var(--bg3);border:1px solid var(--bdr);border-top:none;
-  display:flex;align-items:center;gap:9px;flex-wrap:wrap;border-radius:0 0 10px 10px;margin-bottom:0}
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-radius:0 0 10px 10px}
 .msel{display:flex;border:1px solid var(--bdr);border-radius:7px;overflow:hidden}
-.mb{padding:5px 13px;font-size:.78rem;cursor:pointer;background:transparent;border:none;color:var(--tx3);transition:all .15s}
-.mb.on{background:rgba(55,138,221,.18);color:var(--blue);font-weight:500}
+.mb{padding:5px 14px;font-size:.78rem;cursor:pointer;background:transparent;
+  border:none;color:var(--tx3);transition:all .15s;letter-spacing:.3px}
+.mb.on{background:rgba(55,138,221,.18);color:var(--blue);font-weight:600}
 .sb{padding:6px 14px;border:1px solid var(--bdr);border-radius:7px;background:transparent;
   color:var(--tx2);font-size:.78rem;cursor:pointer;transition:all .15s;white-space:nowrap}
-.sb:hover:not(:disabled){background:var(--bg3)}.sb:disabled{opacity:.38;cursor:not-allowed}
-.sb-fifo{border-color:#185FA5;color:var(--blue)}.sb-fifo:hover:not(:disabled){background:rgba(55,138,221,.1)}
-.sb-fefo{border-color:#27622a;color:var(--green)}.sb-fefo:hover:not(:disabled){background:rgba(63,185,80,.1)}
-.sb-rl{border-color:#6e40c9;color:var(--purple)}.sb-rl:hover:not(:disabled){background:rgba(163,113,247,.1)}
+.sb:hover:not(:disabled){background:var(--bg);border-color:var(--tx3)}
+.sb:disabled{opacity:.35;cursor:not-allowed}
+.sb-fifo{border-color:rgba(55,138,221,.5);color:var(--blue)}
+.sb-fifo:hover:not(:disabled){background:rgba(55,138,221,.08)}
+.sb-fefo{border-color:rgba(63,185,80,.5);color:var(--green)}
+.sb-fefo:hover:not(:disabled){background:rgba(63,185,80,.08)}
+.sb-rl{border-color:rgba(163,113,247,.5);color:var(--purple)}
+.sb-rl:hover:not(:disabled){background:rgba(163,113,247,.08)}
 .sMsg{font-size:.75rem;color:var(--tx3);margin-left:2px}
-.mrow{display:flex;gap:9px;margin-bottom:12px}
-.mc{flex:1;background:var(--bg3);border-radius:8px;padding:10px;text-align:center}
-.mv{font-size:1.5rem;font-weight:500;color:var(--tx)}.ml{font-size:.68rem;color:var(--tx3);margin-top:2px}
+
+/* ── Metrics row ── */
+.mrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:13px}
+.mc{background:var(--bg3);border-radius:8px;padding:11px 10px;text-align:center;border:1px solid var(--bdr2)}
+.mv{font-size:1.6rem;font-weight:600;color:var(--tx);line-height:1}
+.ml{font-size:.68rem;color:var(--tx3);margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+
+/* ── Table ── */
 table{width:100%;border-collapse:collapse;font-size:.8rem}
-th{color:var(--tx3);font-weight:500;padding:6px 7px;text-align:left;border-bottom:1px solid var(--bdr);font-size:.7rem;white-space:nowrap}
-td{padding:6px 7px;border-bottom:1px solid var(--bdr2)}
+th{color:var(--tx3);font-weight:600;padding:7px 8px;text-align:left;
+  border-bottom:1px solid var(--bdr);font-size:.69rem;text-transform:uppercase;white-space:nowrap}
+td{padding:7px 8px;border-bottom:1px solid var(--bdr2)}
 tr:last-child td{border-bottom:none}
-tr:hover td{background:rgba(255,255,255,.02)}
-.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.67rem;font-weight:600;text-transform:uppercase}
+tr:hover td{background:rgba(55,138,221,.03)}
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:10px;
+  font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px}
 .b-fifo{background:rgba(55,138,221,.15);color:var(--blue)}
 .b-fefo{background:rgba(63,185,80,.15);color:var(--green)}
 .b-rl{background:rgba(163,113,247,.15);color:var(--purple)}
@@ -65,104 +89,153 @@ tr:hover td{background:rgba(255,255,255,.02)}
 .b-high{background:rgba(210,153,34,.15);color:var(--amber)}
 .b-med{background:rgba(55,138,221,.12);color:var(--blue)}
 .b-low{background:rgba(63,185,80,.12);color:var(--green)}
-.rlp{background:rgba(163,113,247,.07);border:1px solid rgba(163,113,247,.25);border-radius:8px;padding:12px;margin-bottom:12px}
-.rlp .lbl{font-size:.65rem;font-weight:700;text-transform:uppercase;color:var(--purple);background:rgba(163,113,247,.2);padding:2px 7px;border-radius:4px;margin-right:8px}
-.rlp .act{font-size:1.1rem;font-weight:700;color:var(--tx)}
+
+/* ── RL panel ── */
+.rlp{background:rgba(163,113,247,.06);border:1px solid rgba(163,113,247,.2);
+  border-radius:8px;padding:13px;margin-bottom:12px;transition:border-color .3s}
+.rlp .lbl{font-size:.64rem;font-weight:700;text-transform:uppercase;color:var(--purple);
+  background:rgba(163,113,247,.18);padding:2px 8px;border-radius:4px;margin-right:8px;letter-spacing:.5px}
+.rlp .act{font-size:1.15rem;font-weight:700;color:var(--tx)}
 .rlp .conf{font-size:.7rem;color:var(--tx3);margin-left:6px}
-.rlp .rsn{font-size:.78rem;color:var(--tx2);margin-top:6px}
-.rfid-box{background:var(--bg3);border-radius:8px;padding:14px;position:relative;overflow:hidden}
-.rfid-box::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:2px;
-  background:linear-gradient(90deg,transparent,var(--purple),transparent);animation:rscan 2s infinite}
-@keyframes rscan{0%{left:-100%}100%{left:100%}}
-.rfid-disp{font-family:monospace;font-size:1rem;color:var(--purple);text-align:center;
-  padding:10px;background:var(--bg);border-radius:6px;border:1px solid var(--bdr);margin-bottom:8px}
-.rfid-hist{max-height:80px;overflow-y:auto}
-.rfid-row{display:flex;justify-content:space-between;font-size:.7rem;padding:3px 0;border-bottom:1px solid var(--bdr2)}
-.ugrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
-.uc{text-align:center;padding:10px;border-radius:8px;background:var(--bg3)}
-.uc.u-c{border-left:3px solid var(--red)}.uc.u-h{border-left:3px solid var(--amber)}
-.uc.u-m{border-left:3px solid var(--blue)}.uc.u-l{border-left:3px solid var(--green)}
-.uv{font-size:1.6rem;font-weight:600;color:var(--tx)}.ul{font-size:.65rem;color:var(--tx3);text-transform:uppercase}
-.fmsg{font-size:.78rem;padding:9px 11px;border-radius:7px;
-  border-left:3px solid var(--blue);background:rgba(55,138,221,.08);color:var(--tx2);line-height:1.5}
-.fmsg.warn{border-color:var(--amber);background:rgba(210,153,34,.08);color:var(--amber)}
-.arow{display:flex;gap:7px;flex-wrap:wrap;align-items:flex-end;margin-top:11px;padding-top:11px;border-top:1px solid var(--bdr)}
-.arow input,.arow select{padding:5px 9px;border:1px solid var(--bdr);border-radius:6px;background:var(--bg3);color:var(--tx2);font-size:.78rem}
-.arow input:focus,.arow select:focus{outline:none;border-color:var(--blue)}
-.vrow{display:flex;align-items:center;gap:11px;padding:11px;background:var(--bg3);border-radius:8px;margin-top:11px}
-.mic{width:42px;height:42px;border-radius:50%;border:2px solid var(--blue);background:var(--bg);
-  color:var(--blue);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
-.mic:hover{background:var(--blue);color:#fff}
+.rlp .rsn{font-size:.78rem;color:var(--tx2);margin-top:7px;line-height:1.5}
+
+/* ── Voice ── */
+.vrow{display:flex;align-items:center;gap:11px;padding:11px;
+  background:var(--bg3);border-radius:8px;margin-top:11px;border:1px solid var(--bdr2)}
+.mic{width:40px;height:40px;border-radius:50%;border:2px solid var(--blue);background:var(--bg);
+  color:var(--blue);font-size:1.15rem;cursor:pointer;display:flex;align-items:center;
+  justify-content:center;transition:all .2s;flex-shrink:0}
+.mic:hover{background:var(--blue);color:#fff;box-shadow:0 0 12px rgba(55,138,221,.3)}
 .mic.on{background:var(--red);border-color:var(--red);color:#fff;animation:mpulse 1.2s infinite}
 @keyframes mpulse{0%,100%{box-shadow:0 0 0 0 rgba(248,81,73,.4)}50%{box-shadow:0 0 0 12px transparent}}
-.vtxt{font-size:.75rem;color:var(--tx3);font-style:italic}
-.logbox{max-height:170px;overflow-y:auto;font-family:monospace;font-size:.72rem}
-.le{display:flex;gap:7px;padding:4px 0;border-bottom:1px solid var(--bdr2)}
+.vtxt{font-size:.74rem;color:var(--tx3);font-style:italic;line-height:1.5}
+
+/* ── Urgency grid ── */
+.ugrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:13px}
+.uc{text-align:center;padding:10px 6px;border-radius:8px;background:var(--bg3);border:1px solid var(--bdr2)}
+.uc.u-c{border-left:3px solid var(--red)}.uc.u-h{border-left:3px solid var(--amber)}
+.uc.u-m{border-left:3px solid var(--blue)}.uc.u-l{border-left:3px solid var(--green)}
+.uv{font-size:1.7rem;font-weight:600;color:var(--tx);line-height:1}
+.ul{font-size:.65rem;color:var(--tx3);text-transform:uppercase;margin-top:3px}
+
+/* ── Shelf life panel ── */
+.sl-bar{background:var(--bg3);border-radius:8px;padding:14px;border:1px solid var(--bdr2)}
+.sl-item{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--bdr2)}
+.sl-item:last-child{border-bottom:none}
+.sl-name{flex:1;font-size:.8rem;color:var(--tx2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sl-track{flex:2;height:6px;background:var(--bdr);border-radius:3px;overflow:hidden}
+.sl-fill{height:100%;border-radius:3px;transition:width .5s}
+.sl-fill.sl-ok{background:var(--green)}
+.sl-fill.sl-warn{background:var(--amber)}
+.sl-fill.sl-crit{background:var(--red)}
+.sl-days{font-size:.72rem;color:var(--tx3);width:52px;text-align:right;white-space:nowrap}
+.sl-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.sl-stat{background:var(--bg3);border-radius:7px;padding:10px 12px;border:1px solid var(--bdr2)}
+.sl-stat-v{font-size:1.3rem;font-weight:600;color:var(--tx)}
+.sl-stat-l{font-size:.68rem;color:var(--tx3);margin-top:2px}
+
+/* ── Forecast alert ── */
+.fmsg{font-size:.79rem;padding:10px 12px;border-radius:7px;
+  border-left:3px solid var(--blue);background:rgba(55,138,221,.07);
+  color:var(--tx2);line-height:1.5}
+.fmsg.warn{border-color:var(--amber);background:rgba(210,153,34,.07);color:var(--amber)}
+
+/* ── Add-item form ── */
+.aform{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;
+  margin-top:12px;padding-top:12px;border-top:1px solid var(--bdr)}
+.fg{display:flex;flex-direction:column;gap:3px}
+.fg label{font-size:.67rem;color:var(--tx3);text-transform:uppercase;letter-spacing:.5px}
+.fg input,.fg select{padding:6px 10px;border:1px solid var(--bdr);border-radius:6px;
+  background:var(--bg3);color:var(--tx2);font-size:.8rem;transition:border-color .2s}
+.fg input:focus,.fg select:focus{outline:none;border-color:var(--blue);background:var(--bg)}
+.fg input::placeholder{color:var(--tx3)}
+
+/* ── Logs ── */
+.logbox{max-height:180px;overflow-y:auto;font-family:'Cascadia Code','Fira Code',monospace;font-size:.72rem}
+.le{display:flex;gap:7px;padding:4px 0;border-bottom:1px solid var(--bdr2);align-items:baseline}
 .le:last-child{border-bottom:none}
-.lt{color:var(--tx3);white-space:nowrap}
+.lt{color:var(--tx3);white-space:nowrap;font-size:.68rem}
 .lok{color:var(--green)}.lerr{color:var(--red)}.linf{color:var(--blue)}.lrl{color:var(--purple)}
-::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}
+
+/* ── Dispatch animation badge ── */
+.dbadge{display:flex;align-items:center;gap:6px;padding:6px 12px;
+  background:rgba(63,185,80,.1);border:1px solid rgba(63,185,80,.3);
+  border-radius:7px;font-size:.78rem;color:var(--green);margin-top:10px;
+  display:none;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--tx3)}
 </style>
 </head>
 <body>
+
 <header>
   <div class="logo">D</div>
-  <div class="hd"><h1>DEXTER</h1><p>FEFO / FIFO Inventory Control</p></div>
+  <div class="hd">
+    <h1>DEXTER</h1>
+    <p>FEFO &middot; FIFO &middot; ArUco Visual Servo</p>
+  </div>
   <div class="hbadge">
     <div class="pill"><span class="dot" id="sDot"></span><span id="sTxt">Connecting…</span></div>
-    <div class="pill"><span id="sCount">— items</span></div>
+    <div class="pill">📦 <span id="sCount">— items</span></div>
+    <div class="pill" id="urgBadge" style="display:none"></div>
   </div>
 </header>
 
 <div class="wrap">
 
+  <!-- ── Canvas + controls ── -->
   <div class="full">
-    <canvas id="sim" width="680" height="308"></canvas>
+    <canvas id="sim" width="720" height="310"></canvas>
     <div class="simctrl">
       <div class="msel">
         <button class="mb on" id="mb0" onclick="setMode('FIFO')">FIFO</button>
         <button class="mb"    id="mb1" onclick="setMode('FEFO')">FEFO</button>
-        <button class="mb"    id="mb2" onclick="setMode('RL')">RL</button>
+        <button class="mb"    id="mb2" onclick="setMode('RL')">RL / AI</button>
       </div>
-      <button class="sb sb-fifo" onclick="triggerDispatch('FIFO')">Dispatch FIFO</button>
-      <button class="sb sb-fefo" onclick="triggerDispatch('FEFO')">Dispatch FEFO</button>
-      <button class="sb sb-rl"   onclick="triggerDispatch('RL')">AI Optimised</button>
-      <button class="sb"         onclick="resetSim()">Reset demo</button>
+      <button class="sb sb-fifo" onclick="triggerDispatch('FIFO')">▶ Dispatch FIFO</button>
+      <button class="sb sb-fefo" onclick="triggerDispatch('FEFO')">▶ Dispatch FEFO</button>
+      <button class="sb sb-rl"   onclick="triggerDispatch('RL')">✦ AI Optimised</button>
+      <button class="sb"         onclick="resetSim()" style="margin-left:auto">↺ Reset demo</button>
       <span class="sMsg" id="sMsg"></span>
     </div>
   </div>
 
+  <!-- ── AI Recommendation + Voice ── -->
   <div class="card">
-    <div class="ch"><span class="ct">AI Dispatch Recommendation</span></div>
+    <div class="ch">
+      <span class="ct">✦ AI Dispatch Recommendation</span>
+    </div>
     <div class="cb">
       <div class="rlp" id="rlPanel">
-        <span class="lbl">RL Model</span><span class="act" id="rlAct">—</span>
-        <span class="conf" id="rlConf"></span>
+        <div>
+          <span class="lbl">RL Model</span>
+          <span class="act" id="rlAct">—</span>
+          <span class="conf" id="rlConf"></span>
+        </div>
         <div class="rsn" id="rlRsn">Analysing inventory state…</div>
       </div>
+      <div class="dbadge" id="dispBadge">
+        <span>✓</span><span id="dispMsg">Item dispatched</span>
+      </div>
       <div class="vrow">
-        <button class="mic" id="micBtn" onclick="toggleMic()">🎤</button>
-        <span class="vtxt" id="vtxt">Say: "dispatch FIFO" · "dispatch FEFO" · "use AI"</span>
+        <button class="mic" id="micBtn" onclick="toggleMic()" title="Voice commands">🎤</button>
+        <span class="vtxt" id="vtxt">Say: "dispatch FIFO" · "dispatch FEFO" · "use AI" · "go home"</span>
+      </div>
+      <div style="display:flex;gap:7px;margin-top:10px">
+        <button class="sb" style="flex:1" onclick="sendTask(0)">⌂ Home</button>
+        <button class="sb" style="flex:1" onclick="sendTask(2)">☾ Sleep</button>
       </div>
     </div>
   </div>
 
+  <!-- ── Urgency Classification ── -->
   <div class="card">
-    <div class="ch"><span class="ct">RFID Scanner</span></div>
-    <div class="cb">
-      <div class="rfid-box">
-        <div class="rfid-disp" id="rfidDisp">— NO TAG —</div>
-        <button class="sb" style="width:100%;margin-bottom:8px" onclick="scanRFID()">📡 Simulate RFID scan</button>
-        <div class="rfid-hist" id="rfidHist">
-          <div style="font-size:.72rem;color:var(--tx3);text-align:center">No scans yet</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="ch"><span class="ct">Urgency Classification</span></div>
+    <div class="ch"><span class="ct">⚠ Urgency Classification</span></div>
     <div class="cb">
       <div class="ugrid">
         <div class="uc u-c"><div class="uv" id="uC">0</div><div class="ul">Critical</div></div>
@@ -171,14 +244,15 @@ tr:hover td{background:rgba(255,255,255,.02)}
         <div class="uc u-l"><div class="uv" id="uL">0</div><div class="ul">Low</div></div>
       </div>
       <table>
-        <thead><tr><th>Item</th><th>Slot</th><th>Expiry</th><th>Level</th></tr></thead>
-        <tbody id="urgTb"><tr><td colspan="4" style="color:var(--tx3)">Loading…</td></tr></tbody>
+        <thead><tr><th>Item</th><th>Slot</th><th>Remaining</th><th>Level</th></tr></thead>
+        <tbody id="urgTb"><tr><td colspan="4" style="color:var(--tx3);text-align:center">Loading…</td></tr></tbody>
       </table>
     </div>
   </div>
 
+  <!-- ── ML Demand Forecast ── -->
   <div class="card">
-    <div class="ch"><span class="ct">ML Demand Forecast (Linear Regression)</span></div>
+    <div class="ch"><span class="ct">📈 ML Demand Forecast</span></div>
     <div class="cb">
       <div class="mrow">
         <div class="mc"><div class="mv" id="fDem">—</div><div class="ml">Predicted / day</div></div>
@@ -189,49 +263,112 @@ tr:hover td{background:rgba(255,255,255,.02)}
     </div>
   </div>
 
-  <div class="card full">
-    <div class="ch"><span class="ct">Current Stock</span></div>
+  <!-- ── Shelf Life Analysis (replaces RFID) ── -->
+  <div class="card">
+    <div class="ch"><span class="ct">⏱ Shelf Life Analysis</span></div>
     <div class="cb">
-      <table>
-        <thead><tr><th>Slot</th><th>Item</th><th>Age</th><th>Expiry</th><th>FIFO#</th><th>FEFO#</th><th>Status</th></tr></thead>
-        <tbody id="stb"><tr><td colspan="7" style="color:var(--tx3)">Loading…</td></tr></tbody>
-      </table>
-      <div class="arow">
-        <select id="aslot" style="width:72px"><option>0</option><option>1</option><option>2</option><option>3</option></select>
-        <input id="aname" placeholder="Item name" style="flex:1;min-width:90px">
-        <input id="aexp" placeholder="Expiry (days)" type="number" min="1" style="width:110px">
-        <button class="sb sb-fefo" onclick="addItem()">Add item</button>
-        <button class="sb" style="border-color:#6e1519;color:var(--red)" onclick="clearAll()">Clear all</button>
+      <div class="sl-stat-grid" id="slStats">
+        <div class="sl-stat"><div class="sl-stat-v" id="slAvg">—</div><div class="sl-stat-l">Avg shelf life (days)</div></div>
+        <div class="sl-stat"><div class="sl-stat-v" id="slMin">—</div><div class="sl-stat-l">Min remaining (days)</div></div>
+      </div>
+      <div class="sl-bar" id="slBars">
+        <div style="font-size:.75rem;color:var(--tx3);text-align:center;padding:8px">No items with expiry data</div>
       </div>
     </div>
   </div>
 
-  <div class="card">
-    <div class="ch"><span class="ct">Dispatch Log</span></div>
-    <div class="cb"><div class="logbox" id="dlog"><div style="font-size:.72rem;color:var(--tx3)">No dispatches yet</div></div></div>
+  <!-- ── Current Stock (full width) ── -->
+  <div class="card full">
+    <div class="ch">
+      <span class="ct">📋 Current Stock</span>
+      <span id="stockAlert" class="badge" style="display:none"></span>
+    </div>
+    <div class="cb">
+      <div style="overflow-x:auto">
+        <table>
+          <thead>
+            <tr>
+              <th>Slot</th>
+              <th>Item</th>
+              <th>Arrived</th>
+              <th>Shelf Life</th>
+              <th>Remaining</th>
+              <th>FIFO #</th>
+              <th>FEFO #</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="stb">
+            <tr><td colspan="8" style="color:var(--tx3);text-align:center">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Add Item Form -->
+      <div class="aform">
+        <div class="fg">
+          <label>Slot</label>
+          <select id="aSlot" style="width:68px">
+            <option>0</option><option>1</option><option>2</option><option>3</option>
+          </select>
+        </div>
+        <div class="fg" style="flex:2;min-width:110px">
+          <label>Item Name</label>
+          <input id="aName" placeholder="e.g. Resistors 10k">
+        </div>
+        <div class="fg" style="width:130px">
+          <label>Shelf Life (days)</label>
+          <input id="aShelf" type="number" min="1" placeholder="Optional" title="Days from today until expiry">
+        </div>
+        <div class="fg" style="justify-content:flex-end">
+          <label>&nbsp;</label>
+          <button class="sb sb-fefo" onclick="addItem()">＋ Add Item</button>
+        </div>
+        <div class="fg" style="justify-content:flex-end">
+          <label>&nbsp;</label>
+          <button class="sb" style="border-color:rgba(248,81,73,.4);color:var(--red)" onclick="clearAll()">✕ Clear All</button>
+        </div>
+      </div>
+    </div>
   </div>
 
+  <!-- ── Dispatch Log ── -->
   <div class="card">
-    <div class="ch"><span class="ct">Activity Log</span></div>
-    <div class="cb"><div class="logbox" id="alog"></div></div>
+    <div class="ch"><span class="ct">📄 Dispatch Log</span></div>
+    <div class="cb">
+      <div class="logbox" id="dlog">
+        <div style="font-size:.75rem;color:var(--tx3);text-align:center;padding:8px">No dispatches yet</div>
+      </div>
+    </div>
   </div>
 
-</div>
+  <!-- ── Activity Log ── -->
+  <div class="card">
+    <div class="ch"><span class="ct">📟 Activity Log</span></div>
+    <div class="cb">
+      <div class="logbox" id="alog"></div>
+    </div>
+  </div>
+
+</div><!-- /wrap -->
 
 <script>
+/* ============================================================================
+   CANVAS SIMULATION
+   ============================================================================ */
 const DAY=86400000;
 let t0=Date.now();
 let inv=[
-  {id:0,name:"Resistors",  slot:0,arrival:t0-3*DAY,expiry:t0+5*DAY},
-  {id:1,name:"Capacitors", slot:1,arrival:t0-2*DAY,expiry:t0+2*DAY},
-  {id:2,name:"LEDs",       slot:2,arrival:t0-1*DAY,expiry:null},
-  {id:3,name:"Arduino",    slot:3,arrival:t0,       expiry:t0+10*DAY},
+  {id:0,name:"Resistors",  slot:0,arrival:t0-3*DAY,expiry:t0+5*DAY,  sl:8},
+  {id:1,name:"Capacitors", slot:1,arrival:t0-2*DAY,expiry:t0+2*DAY,  sl:4},
+  {id:2,name:"LEDs",       slot:2,arrival:t0-1*DAY,expiry:null,       sl:null},
+  {id:3,name:"Arduino",    slot:3,arrival:t0,       expiry:t0+10*DAY, sl:10},
 ];
 let simDlog=[],dropItem=null,heldItem=null;
 let simMode='FIFO',busy=false,nid=10,backendOnline=false;
-const BASE={x:152,y:148},MR=150;
+const BASE={x:160,y:152},MR=152;
 const SA={0:-0.70,1:-0.25,2:0.25,3:0.70};
-const DA=1.20,DR=106;
+const DA=1.20,DR=110;
 let arm={a:0,r:0.42,open:true},prev={...arm};
 let queue=[],fst=null,lbl='Ready — press Dispatch or use voice';
 
@@ -260,91 +397,139 @@ function rr(ctx,x,y,w,h,r){
   ctx.arcTo(x,y+h,x,y+h-r,r);ctx.lineTo(x,y+r);
   ctx.arcTo(x,y,x+r,y,r);ctx.closePath();
 }
-function slotPt(s){return{x:BASE.x+MR*Math.cos(SA[s]),y:BASE.y+MR*Math.sin(SA[s])}}
 
 function drawCanvas(){
   const cv=document.getElementById('sim'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
-  ctx.fillStyle='#0d1117';ctx.fillRect(0,0,W,H);
-  ctx.fillStyle='#1c2128';
-  for(let x=22;x<W;x+=32)for(let y=22;y<H;y+=32){ctx.beginPath();ctx.arc(x,y,1,0,Math.PI*2);ctx.fill()}
+  ctx.fillStyle='#0a0e14';ctx.fillRect(0,0,W,H);
+  /* grid dots */
+  ctx.fillStyle='#1a2030';
+  for(let x=22;x<W;x+=34)for(let y=22;y<H;y+=34){ctx.beginPath();ctx.arc(x,y,1,0,Math.PI*2);ctx.fill()}
+
   const next=selectItem(simMode);
+
+  /* slot boxes */
   for(let s=0;s<4;s++){
     const {x,y}=slotPt(s);
     const isHeld=heldItem&&heldItem.slot===s;
     const item=isHeld?null:inv.find(i=>i.slot===s);
     const isNext=!isHeld&&next&&next.slot===s;
-    const sz=46;
-    ctx.fillStyle=item?(isNext?'#0d2a18':'#111a13'):'#111519';
-    ctx.strokeStyle=item?(isNext?'#3fb950':'#1a7f37'):'#21262d';
-    ctx.lineWidth=isNext?2:0.5;
-    rr(ctx,x-sz/2,y-sz/2,sz,sz,7);ctx.fill();ctx.stroke();
-    ctx.textAlign='center';ctx.fillStyle='#484f58';ctx.font='10px system-ui';
-    ctx.fillText('S'+s,x,y-sz/2+13);
+    const sz=50;
+    /* shadow */
+    ctx.shadowColor='rgba(0,0,0,.4)';ctx.shadowBlur=10;
+    ctx.fillStyle=item?(isNext?'#0a1f14':'#10191a'):'#0e1419';
+    ctx.strokeStyle=item?(isNext?'#3fb950':'#1f6431'):'#21262d';
+    ctx.lineWidth=isNext?1.5:1;
+    rr(ctx,x-sz/2,y-sz/2,sz,sz,8);ctx.fill();ctx.stroke();
+    ctx.shadowBlur=0;
+    ctx.textAlign='center';
+    ctx.fillStyle='#3a4248';ctx.font='bold 9px system-ui';
+    ctx.fillText('S'+s,x,y-sz/2+14);
     if(item){
-      ctx.fillStyle=isNext?'#3fb950':'#57ab5a';ctx.font='11px system-ui';
-      ctx.fillText(item.name.length>9?item.name.slice(0,9):item.name,x,y+4);
+      ctx.fillStyle=isNext?'#3fb950':'#4aad64';ctx.font='11px system-ui';
+      const nm=item.name.length>9?item.name.slice(0,9)+'…':item.name;
+      ctx.fillText(nm,x,y+3);
       if(item.expiry){
         const d=(item.expiry-Date.now())/DAY;
-        ctx.fillStyle=d<3?'#f85149':d<5?'#d29922':'#484f58';ctx.font='9px system-ui';
-        ctx.fillText(d<0?'EXP':Math.ceil(d)+'d',x,y+17);
+        ctx.fillStyle=d<2?'#f85149':d<5?'#d29922':'#3a4248';
+        ctx.font='9px system-ui';
+        ctx.fillText(d<0?'EXP':Math.ceil(d)+'d',x,y+16);
+      } else {
+        ctx.fillStyle='#2d3a3a';ctx.font='9px system-ui';ctx.fillText('no exp',x,y+16);
+      }
+      /* shelf-life progress bar */
+      if(item.sl&&item.expiry){
+        const pct=Math.max(0,Math.min(1,(item.expiry-Date.now())/(item.sl*DAY)));
+        const bw=sz-12,bh=3,bx=x-bw/2,by=y+sz/2-10;
+        ctx.fillStyle='#1a2030';rr(ctx,bx,by,bw,bh,1.5);ctx.fill();
+        ctx.fillStyle=pct<0.25?'#f85149':pct<0.5?'#d29922':'#3fb950';
+        rr(ctx,bx,by,bw*pct,bh,1.5);ctx.fill();
       }
     }
-    ctx.strokeStyle='#21262d';ctx.lineWidth=0.5;ctx.setLineDash([3,4]);
-    const d0=MR*0.62;
+    /* guide line to arm base */
+    ctx.strokeStyle='#1c2330';ctx.lineWidth=0.8;ctx.setLineDash([3,5]);
+    const d0=MR*0.58;
     ctx.beginPath();
     ctx.moveTo(BASE.x+d0*Math.cos(SA[s]),BASE.y+d0*Math.sin(SA[s]));
-    ctx.lineTo(x-(sz/2+3)*Math.cos(SA[s]),y-(sz/2+3)*Math.sin(SA[s]));
+    ctx.lineTo(x-(sz/2+4)*Math.cos(SA[s]),y-(sz/2+4)*Math.sin(SA[s]));
     ctx.stroke();ctx.setLineDash([]);
   }
+
+  /* drop tray */
   const dx=BASE.x+DR*Math.cos(DA),dy=BASE.y+DR*Math.sin(DA);
-  ctx.strokeStyle=dropItem?'#d85a30':'#6e3319';ctx.lineWidth=1;ctx.setLineDash([4,3]);
-  rr(ctx,dx-27,dy-27,54,54,7);ctx.stroke();ctx.setLineDash([]);
-  ctx.textAlign='center';ctx.fillStyle=dropItem?'#d85a30':'#6e3319';ctx.font='10px system-ui';
-  ctx.fillText('TRAY',dx,dy-14);
+  ctx.strokeStyle=dropItem?'#cf5a22':'#4a2a14';
+  ctx.lineWidth=1;ctx.setLineDash([4,3]);
+  rr(ctx,dx-30,dy-28,60,56,8);ctx.stroke();ctx.setLineDash([]);
+  ctx.textAlign='center';ctx.fillStyle=dropItem?'#cf5a22':'#4a2a14';
+  ctx.font='bold 9px system-ui';ctx.fillText('TRAY',dx,dy-15);
   if(dropItem){
-    ctx.fillStyle='#2d1407';ctx.strokeStyle='#d85a30';ctx.lineWidth=1.5;
-    rr(ctx,dx-17,dy-10,34,26,4);ctx.fill();ctx.stroke();
-    ctx.fillStyle='#d85a30';ctx.font='10px system-ui';
-    ctx.fillText(dropItem.name.slice(0,8),dx,dy+6);
+    ctx.shadowColor='rgba(207,90,34,.3)';ctx.shadowBlur=8;
+    ctx.fillStyle='#1e0d04';ctx.strokeStyle='#cf5a22';ctx.lineWidth=1.5;
+    rr(ctx,dx-18,dy-10,36,28,4);ctx.fill();ctx.stroke();ctx.shadowBlur=0;
+    ctx.fillStyle='#cf5a22';ctx.font='10px system-ui';
+    ctx.fillText(dropItem.name.slice(0,8),dx,dy+7);
   }
-  ctx.fillStyle='#484f58';ctx.font='10px system-ui';ctx.textAlign='left';ctx.fillText('SHELF',248,20);
-  const bend=(1-arm.r)*0.30,ea=arm.a+bend,ed=MR*0.44,td=MR*arm.r;
+
+  /* labels */
+  ctx.fillStyle='#2d3a48';ctx.font='bold 9px system-ui';
+  ctx.textAlign='left';ctx.fillText('SHELF SLOTS',268,18);
+  ctx.textAlign='left';ctx.fillText('BASE',BASE.x+18,BASE.y+28);
+
+  /* arm joint 2 bend */
+  const bend=(1-arm.r)*0.28,ea=arm.a+bend,ed=MR*0.43,td=MR*arm.r;
   const ex=BASE.x+ed*Math.cos(ea),ey=BASE.y+ed*Math.sin(ea);
   const tx2=BASE.x+td*Math.cos(arm.a),ty2=BASE.y+td*Math.sin(arm.a);
-  ctx.lineCap='round';
+  ctx.lineCap='round';ctx.lineJoin='round';
+  /* upper arm */
   ctx.beginPath();ctx.moveTo(BASE.x,BASE.y);ctx.lineTo(ex,ey);
-  ctx.strokeStyle='#085041';ctx.lineWidth=9;ctx.stroke();
-  ctx.strokeStyle='#1d9e75';ctx.lineWidth=6;ctx.stroke();
+  ctx.strokeStyle='#062a1e';ctx.lineWidth=10;ctx.stroke();
+  ctx.strokeStyle='#1d7a58';ctx.lineWidth=7;ctx.stroke();
+  /* forearm */
   ctx.beginPath();ctx.moveTo(ex,ey);ctx.lineTo(tx2,ty2);
-  ctx.strokeStyle='#063329';ctx.lineWidth=8;ctx.stroke();
-  ctx.strokeStyle='#5dcaa5';ctx.lineWidth=4.5;ctx.stroke();
-  ctx.beginPath();ctx.arc(BASE.x,BASE.y,16,0,Math.PI*2);ctx.fillStyle='#1a3a6e';ctx.fill();
-  ctx.beginPath();ctx.arc(BASE.x,BASE.y,10,0,Math.PI*2);ctx.fillStyle='#1f6feb';ctx.fill();
-  ctx.beginPath();ctx.arc(BASE.x,BASE.y,5,0,Math.PI*2);ctx.fillStyle='#388bfd';ctx.fill();
-  ctx.beginPath();ctx.arc(ex,ey,5,0,Math.PI*2);ctx.fillStyle='#1d9e75';ctx.fill();
+  ctx.strokeStyle='#041e14';ctx.lineWidth=9;ctx.stroke();
+  ctx.strokeStyle='#38b88a';ctx.lineWidth=5.5;ctx.stroke();
+  /* base circle */
+  ctx.beginPath();ctx.arc(BASE.x,BASE.y,18,0,Math.PI*2);
+  ctx.fillStyle='#0d1d42';ctx.fill();
+  ctx.beginPath();ctx.arc(BASE.x,BASE.y,12,0,Math.PI*2);
+  ctx.fillStyle='#1558b0';ctx.fill();
+  ctx.beginPath();ctx.arc(BASE.x,BASE.y,6,0,Math.PI*2);
+  ctx.fillStyle='#3080e0';ctx.fill();
+  /* elbow joint */
+  ctx.beginPath();ctx.arc(ex,ey,5,0,Math.PI*2);
+  ctx.fillStyle='#38b88a';ctx.fill();
+  /* gripper */
   if(arm.open){
-    ctx.strokeStyle='#d29922';ctx.lineWidth=2.5;ctx.lineCap='round';
-    const gl=13;
-    ctx.beginPath();ctx.moveTo(tx2,ty2);ctx.lineTo(tx2+gl*Math.cos(arm.a-0.40),ty2+gl*Math.sin(arm.a-0.40));ctx.stroke();
-    ctx.beginPath();ctx.moveTo(tx2,ty2);ctx.lineTo(tx2+gl*Math.cos(arm.a+0.40),ty2+gl*Math.sin(arm.a+0.40));ctx.stroke();
-  }else{
-    ctx.fillStyle='#d29922';ctx.beginPath();ctx.arc(tx2,ty2,8,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle='#ba7517';ctx.beginPath();ctx.arc(tx2,ty2,4,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle='#c9941a';ctx.lineWidth=2.5;ctx.lineCap='round';
+    const gl=14,gsp=0.38;
+    ctx.beginPath();ctx.moveTo(tx2,ty2);
+    ctx.lineTo(tx2+gl*Math.cos(arm.a-gsp),ty2+gl*Math.sin(arm.a-gsp));ctx.stroke();
+    ctx.beginPath();ctx.moveTo(tx2,ty2);
+    ctx.lineTo(tx2+gl*Math.cos(arm.a+gsp),ty2+gl*Math.sin(arm.a+gsp));ctx.stroke();
+  } else {
+    ctx.shadowColor='rgba(201,148,26,.4)';ctx.shadowBlur=10;
+    ctx.fillStyle='#c9941a';ctx.beginPath();ctx.arc(tx2,ty2,9,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#8a5d08';ctx.beginPath();ctx.arc(tx2,ty2,4,0,Math.PI*2);ctx.fill();
+    ctx.shadowBlur=0;
   }
+  /* held item */
   if(heldItem){
-    const ox=tx2+15*Math.cos(arm.a+Math.PI/2),oy=ty2+15*Math.sin(arm.a+Math.PI/2);
-    ctx.fillStyle='#2d1a0e';ctx.strokeStyle='#ef9f27';ctx.lineWidth=1.5;
-    rr(ctx,ox-14,oy-12,28,24,4);ctx.fill();ctx.stroke();
-    ctx.fillStyle='#ef9f27';ctx.font='9px system-ui';ctx.textAlign='center';
+    const ox=tx2+17*Math.cos(arm.a+Math.PI/2),oy=ty2+17*Math.sin(arm.a+Math.PI/2);
+    ctx.shadowColor='rgba(201,148,26,.35)';ctx.shadowBlur=8;
+    ctx.fillStyle='#1e1204';ctx.strokeStyle='#e0a830';ctx.lineWidth=1.5;
+    rr(ctx,ox-16,oy-13,32,26,4);ctx.fill();ctx.stroke();ctx.shadowBlur=0;
+    ctx.fillStyle='#e0a830';ctx.font='bold 9px system-ui';ctx.textAlign='center';
     ctx.fillText(heldItem.name.slice(0,8),ox,oy+3);
   }
-  ctx.fillStyle='#484f58';ctx.font='11px system-ui';ctx.textAlign='left';ctx.fillText(lbl,12,H-12);
-  ctx.fillStyle='#484f58';ctx.font='10px system-ui';ctx.textAlign='center';ctx.fillText('BASE',BASE.x,BASE.y+30);
+  /* status label */
+  ctx.fillStyle='#3a4860';ctx.font='10px system-ui';ctx.textAlign='left';
+  ctx.fillText(lbl,12,H-12);
 }
+
+function slotPt(s){return{x:BASE.x+MR*Math.cos(SA[s]),y:BASE.y+MR*Math.sin(SA[s])}}
 
 function selectItem(m){
   if(!inv.length)return null;
-  if(m==='FIFO'||m==='RL')return[...inv].sort((a,b)=>a.arrival-b.arrival)[0];
+  if(m==='FIFO'||m==='RL') return[...inv].sort((a,b)=>a.arrival-b.arrival)[0];
   return[...inv].sort((a,b)=>{
     if(!a.expiry&&!b.expiry)return a.arrival-b.arrival;
     if(!a.expiry)return 1;if(!b.expiry)return-1;return a.expiry-b.expiry;
@@ -352,34 +537,52 @@ function selectItem(m){
 }
 
 function playAnim(it,mode,onDone){
-  const sa=SA[it.slot],H=0.42,HV=0.74,FU=1.0,DHV=0.64,DFU=0.71;
+  const sa=SA[it.slot],H=0.42,HV=0.74,FU=1.0,DHV=0.62,DFU=0.70;
   queue=[
-    {a:sa,r:H,  open:true, lbl:`Rotating to slot ${it.slot} (j1=${SA[it.slot].toFixed(2)} rad)`,d:660},
-    {a:sa,r:HV, open:true, lbl:`Approaching slot ${it.slot} — extending joints 2+3`,d:400},
-    {a:sa,r:FU, open:true, lbl:`Descending to pick position`,d:340},
-    {a:sa,r:FU, open:false,lbl:`Gripping "${it.name}"`,d:310,grip:it},
-    {a:sa,r:HV, open:false,lbl:`Lifting from shelf`,d:340},
-    {a:DA,r:DHV,open:false,lbl:`Transporting to drop zone`,d:680},
+    {a:sa,r:H,  open:true, lbl:`Rotating → slot ${it.slot}  (j1 = ${SA[it.slot].toFixed(2)} rad)`,d:680},
+    {a:sa,r:HV, open:true, lbl:`Extending arm over slot ${it.slot}…`,d:420},
+    {a:sa,r:FU, open:true, lbl:`Descending to pick position`,d:360},
+    {a:sa,r:FU, open:false,lbl:`Gripping "${it.name}"`,d:320,grip:it},
+    {a:sa,r:HV, open:false,lbl:`Lifting from shelf`,d:360},
+    {a:DA,r:DHV,open:false,lbl:`Transporting to dispatch tray…`,d:700},
     {a:DA,r:DFU,open:false,lbl:`Placing "${it.name}" in tray`,d:340},
-    {a:DA,r:DFU,open:true, lbl:`Releasing — ${mode} dispatch complete`,d:290,drop:true},
-    {a:DA,r:DHV,open:true, lbl:`Retracting gripper`,d:260},
-    {a:0, r:H,  open:true, lbl:`Returned to home position`,d:620,done:onDone},
+    {a:DA,r:DFU,open:true, lbl:`Released — ${mode} dispatch complete ✓`,d:300,drop:true},
+    {a:DA,r:DHV,open:true, lbl:`Retracting…`,d:260},
+    {a:0, r:H,  open:true, lbl:`Home position — ready`,d:640,done:onDone},
   ];
 }
 
+/* ============================================================================
+   DISPATCH
+   ============================================================================ */
 async function triggerDispatch(mode){
   if(busy)return;
-  if(mode==='RL'&&backendOnline){
-    try{const r=await fetch('/inventory/rl_recommendation');if(r.ok){const d=await r.json();mode=d.action==='HOLD'?'FIFO':d.action;}}catch(e){}
-  }else if(mode==='RL'){mode=getLocalRL().action}
+  // Resolve RL locally if backend offline
+  if(mode==='RL'&&!backendOnline){
+    const rec=getLocalRL();mode=rec.action==='HOLD'?'FIFO':rec.action;
+  }
   const it=selectItem(mode);
   if(!it){setMsg('No items in stock.');return;}
   busy=true;setAllBtns(true);setMsg('');
+
   log(`Dispatch ${mode} → slot ${it.slot} "${it.name}"`,'inf');
+
   if(backendOnline){
-    fetch('/inventory/dispatch',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode})})
-    .then(r=>r.json()).then(d=>{d.success?log(`✓ ${d.message}`,'ok'):log(d.message,'err')}).catch(()=>{});
+    try{
+      const r=await fetch('/inventory/dispatch',{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({mode})
+      });
+      const d=await r.json();
+      if(d.success){
+        log(`✓ ${d.message}  [arm triggered]`,'ok');
+        showDispBadge(d.message);
+      } else {
+        log(d.message,'err');
+      }
+    }catch(e){log('Request error: '+e.message,'err');}
   }
+
   const localIt={...it};
   playAnim(it,mode,()=>{
     busy=false;setAllBtns(false);lbl='Ready';
@@ -390,13 +593,22 @@ async function triggerDispatch(mode){
   });
 }
 
+function showDispBadge(msg){
+  const b=document.getElementById('dispBadge');
+  document.getElementById('dispMsg').textContent=msg;
+  b.style.display='flex';
+  setTimeout(()=>b.style.display='none',5000);
+}
+
+/* ============================================================================
+   UI HELPERS
+   ============================================================================ */
 function setMsg(m){document.getElementById('sMsg').textContent=m}
 function setAllBtns(d){document.querySelectorAll('.sb,.mb').forEach(b=>b.disabled=d)}
 function setMode(m){
   simMode=m;
-  [['mb0','FIFO'],['mb1','FEFO'],['mb2','RL']].forEach(([id,v])=>{
-    document.getElementById(id).className='mb'+(v===m?' on':'');
-  });
+  [['mb0','FIFO'],['mb1','FEFO'],['mb2','RL']].forEach(([id,v])=>
+    document.getElementById(id).className='mb'+(v===m?' on':''));
   refreshPanels();
 }
 
@@ -412,15 +624,39 @@ function classifyUrgency(item){
 function getLocalRL(){
   if(!inv.length)return{action:'HOLD',reason:'No items in stock',conf:.99};
   const minD=Math.min(...inv.filter(i=>i.expiry).map(i=>(i.expiry-Date.now())/DAY).concat([999]));
-  if(minD<=0) return{action:'FEFO',reason:'Expired items — FEFO dispatches them first',conf:.97,urg:'critical'};
-  if(minD<=2) return{action:'FEFO',reason:'Items expiring in <2 days — FEFO prevents spoilage',conf:.92,urg:'warning'};
-  if(minD<=7) return{action:'FEFO',reason:'Items approaching expiry — FEFO recommended',conf:.78,urg:'warning'};
-  return{action:'FIFO',reason:'No urgent expiries — FIFO maintains arrival-order fairness',conf:.82,urg:'normal'};
+  if(minD<=0)  return{action:'FEFO',reason:'Expired items — FEFO dispatches first',conf:.97,urg:'critical'};
+  if(minD<=2)  return{action:'FEFO',reason:'Items expiring < 2 days — FEFO prevents waste',conf:.92,urg:'warning'};
+  if(minD<=7)  return{action:'FEFO',reason:'Items approaching expiry — FEFO recommended',conf:.78,urg:'warning'};
+  return{action:'FIFO',reason:'No urgent expiries — FIFO maintains arrival fairness',conf:.82,urg:'normal'};
 }
 
 function fifoR(){const s=[...inv].sort((a,b)=>a.arrival-b.arrival);return s.reduce((o,i,n)=>{o[i.id]=n+1;return o},{})}
-function fefoR(){const s=[...inv].sort((a,b)=>{if(!a.expiry&&!b.expiry)return a.arrival-b.arrival;if(!a.expiry)return 1;if(!b.expiry)return-1;return a.expiry-b.expiry});return s.reduce((o,i,n)=>{o[i.id]=n+1;return o},{})}
+function fefoR(){const s=[...inv].sort((a,b)=>{
+  if(!a.expiry&&!b.expiry)return a.arrival-b.arrival;
+  if(!a.expiry)return 1;if(!b.expiry)return-1;return a.expiry-b.expiry;
+});return s.reduce((o,i,n)=>{o[i.id]=n+1;return o},{});}
 
+function fmtDate(ts){
+  if(!ts)return'—';
+  return new Date(ts).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
+}
+function fmtShelfLife(arrival,expiry){
+  if(!expiry||!arrival)return'—';
+  const d=((expiry-arrival)/DAY);
+  return d<1?'<1d':Math.round(d)+'d';
+}
+function fmtRemaining(expiry){
+  if(!expiry)return'—';
+  const d=(expiry-Date.now())/DAY;
+  if(d<0)return'<span style="color:var(--red);font-weight:600">EXPIRED</span>';
+  if(d<2)return`<span style="color:var(--red)">${d.toFixed(1)}d</span>`;
+  if(d<7)return`<span style="color:var(--amber)">${d.toFixed(1)}d</span>`;
+  return`<span style="color:var(--green)">${d.toFixed(1)}d</span>`;
+}
+
+/* ============================================================================
+   LOCAL REFRESH (standalone mode)
+   ============================================================================ */
 function refreshPanels(){
   if(backendOnline)return;
   const fr=fifoR(),fe=fefoR(),next=selectItem(simMode);
@@ -428,54 +664,96 @@ function refreshPanels(){
   for(let s=0;s<4;s++){
     const item=inv.find(i=>i.slot===s),isN=next&&next.slot===s;
     if(item){
-      const age=((Date.now()-item.arrival)/DAY).toFixed(1);
-      const exp=item.expiry?((item.expiry-Date.now())/DAY).toFixed(1)+'d':'—';
-      const ec=item.expiry&&(item.expiry-Date.now())<3*DAY?'color:var(--red)':'';
+      const age=fmtDate(item.arrival);
+      const sl=fmtShelfLife(item.arrival,item.expiry);
+      const rem=fmtRemaining(item.expiry);
       const u=classifyUrgency(item);
-      h+=`<tr><td>${s}</td><td style="font-weight:500">${item.name}${isN?' ◀':''}</td><td>${age}d</td>
-          <td style="${ec}">${exp}</td><td>${fr[item.id]||'—'}</td><td>${fe[item.id]||'—'}</td>
-          <td><span class="badge ${u.cls}">${u.lv}</span></td></tr>`;
+      h+=`<tr>
+        <td><strong>${s}</strong></td>
+        <td style="font-weight:500">${item.name}${isN?' <span style="color:var(--green)">◀ next</span>':''}</td>
+        <td style="color:var(--tx3);font-size:.75rem">${age}</td>
+        <td>${sl}</td><td>${rem}</td>
+        <td>${fr[item.id]||'—'}</td><td>${fe[item.id]||'—'}</td>
+        <td><span class="badge ${u.cls}">${u.lv}</span></td></tr>`;
     }else{
-      h+=`<tr><td>${s}</td><td style="color:var(--tx3)">empty</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>`;
+      h+=`<tr><td>${s}</td><td style="color:var(--tx3)">empty</td>
+        <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>`;
     }
   }
   document.getElementById('stb').innerHTML=h;
   document.getElementById('sCount').textContent=`${inv.length} item${inv.length!==1?'s':''}`;
+
+  /* urgency */
   const urgs=inv.map(classifyUrgency);
   document.getElementById('uC').textContent=urgs.filter(u=>u.lv==='CRITICAL').length;
   document.getElementById('uH').textContent=urgs.filter(u=>u.lv==='HIGH').length;
   document.getElementById('uM').textContent=urgs.filter(u=>u.lv==='MEDIUM').length;
   document.getElementById('uL').textContent=urgs.filter(u=>u.lv==='LOW').length;
   document.getElementById('urgTb').innerHTML=inv.map(item=>{
-    const u=classifyUrgency(item);
-    const exp=item.expiry?((item.expiry-Date.now())/DAY).toFixed(1)+'d':'—';
-    return `<tr><td>${item.name}</td><td>${item.slot}</td><td>${exp}</td><td><span class="badge ${u.cls}">${u.lv}</span></td></tr>`;
+    const u=classifyUrgency(item);const rem=fmtRemaining(item.expiry);
+    return`<tr><td>${item.name}</td><td>${item.slot}</td><td>${rem}</td>
+      <td><span class="badge ${u.cls}">${u.lv}</span></td></tr>`;
   }).join('')||'<tr><td colspan="4" style="color:var(--tx3)">No items</td></tr>';
-  const n=simDlog.length;
-  let dem=0,reo=0;
-  if(n>0){const span=Math.max((Date.now()-simDlog[simDlog.length-1].ts)/DAY,0.5);dem=n/span;reo=Math.max(0,Math.ceil(dem*2*1.5-inv.length));}
+
+  /* shelf life bars */
+  updateShelfLifeBars(inv.map(i=>({name:i.name,shelf_life_days:i.sl,days_remaining:i.expiry?(i.expiry-Date.now())/DAY:null})));
+
+  /* forecast */
+  const n=simDlog.length;let dem=0,reo=0;
+  if(n>0){const span=Math.max((Date.now()-simDlog[simDlog.length-1].ts)/DAY,0.5);dem=n/span;
+    reo=Math.max(0,Math.ceil(dem*2*1.5-inv.length));}
   document.getElementById('fDem').textContent=n>0?dem.toFixed(2):'—';
   document.getElementById('fSto').textContent=inv.length;
   document.getElementById('fReo').textContent=n>0?reo:'—';
   const fm=document.getElementById('fMsg');
   if(n===0){fm.textContent='Awaiting dispatch history to train model…';fm.className='fmsg';}
-  else if(reo>0){fm.textContent=`⚠ Reorder ${reo} unit(s). Demand ${dem.toFixed(2)}/day, stock lasts ~${(inv.length/dem).toFixed(1)} days.`;fm.className='fmsg warn';}
-  else{fm.textContent=`Stock OK — forecast ${dem.toFixed(2)}/day. ~${(inv.length/dem).toFixed(1)} days remaining.`;fm.className='fmsg';}
+  else if(reo>0){fm.textContent=`⚠ Reorder ${reo} unit(s). Demand ~${dem.toFixed(2)}/day.`;fm.className='fmsg warn';}
+  else{fm.textContent=`Stock OK — forecast ${dem.toFixed(2)}/day (~${(inv.length/Math.max(dem,.01)).toFixed(1)} days left).`;fm.className='fmsg';}
+
+  /* dispatch log */
   const lb=document.getElementById('dlog');
-  if(!simDlog.length){lb.innerHTML='<div style="font-size:.72rem;color:var(--tx3)">No dispatches yet</div>';}
-  else lb.innerHTML=simDlog.slice(0,8).map(e=>{
+  lb.innerHTML=simDlog.length?simDlog.slice(0,8).map(e=>{
     const t=new Date(e.ts).toLocaleTimeString();
     const c=e.mode==='FIFO'?'b-fifo':e.mode==='FEFO'?'b-fefo':'b-rl';
-    return `<div class="le"><span class="lt">[${t}]</span><span class="badge ${c}">${e.mode}</span><span>slot ${e.item.slot} — ${e.item.name}</span></div>`;
-  }).join('');
+    return`<div class="le"><span class="lt">[${t}]</span>
+      <span class="badge ${c}">${e.mode}</span>
+      <span>slot ${e.item.slot} — ${e.item.name}</span></div>`;
+  }).join(''):'<div style="font-size:.75rem;color:var(--tx3);text-align:center;padding:8px">No dispatches yet</div>';
+
+  /* RL */
   const rl=getLocalRL();
   document.getElementById('rlAct').textContent=rl.action;
   document.getElementById('rlConf').textContent=`${Math.round(rl.conf*100)}% confidence`;
   document.getElementById('rlRsn').textContent=rl.reason;
   const p=document.getElementById('rlPanel');
-  p.style.borderColor=rl.urg==='critical'?'rgba(248,81,73,.4)':rl.urg==='warning'?'rgba(210,153,34,.4)':'rgba(163,113,247,.25)';
+  p.style.borderColor=rl.urg==='critical'?'rgba(248,81,73,.4)':rl.urg==='warning'?'rgba(210,153,34,.4)':'rgba(163,113,247,.2)';
 }
 
+function updateShelfLifeBars(items){
+  const withExp=items.filter(i=>i.shelf_life_days!=null&&i.days_remaining!=null);
+  if(!withExp.length){
+    document.getElementById('slBars').innerHTML='<div style="font-size:.75rem;color:var(--tx3);text-align:center;padding:10px">No items with expiry data</div>';
+    document.getElementById('slAvg').textContent='—';document.getElementById('slMin').textContent='—';return;
+  }
+  const avgSL=(withExp.reduce((s,i)=>s+i.shelf_life_days,0)/withExp.length).toFixed(1);
+  const minR=Math.min(...withExp.map(i=>i.days_remaining)).toFixed(1);
+  document.getElementById('slAvg').textContent=avgSL+'d';
+  document.getElementById('slMin').textContent=minR+'d';
+  document.getElementById('slBars').innerHTML=withExp.map(i=>{
+    const pct=Math.max(0,Math.min(1,i.days_remaining/i.shelf_life_days));
+    const cls=pct<0.25?'sl-crit':pct<0.5?'sl-warn':'sl-ok';
+    const rem=i.days_remaining<0?'EXP':i.days_remaining.toFixed(1)+'d remaining';
+    return`<div class="sl-item">
+      <span class="sl-name" title="${i.name}">${i.name}</span>
+      <div class="sl-track"><div class="sl-fill ${cls}" style="width:${pct*100}%"></div></div>
+      <span class="sl-days">${rem}</span>
+    </div>`;
+  }).join('');
+}
+
+/* ============================================================================
+   BACKEND STATE FETCH
+   ============================================================================ */
 async function fetchState(){
   try{
     const r=await fetch('/inventory/state');if(!r.ok)throw new Error();
@@ -483,38 +761,66 @@ async function fetchState(){
     document.getElementById('sDot').className='dot';
     document.getElementById('sTxt').textContent='Online';
     document.getElementById('sCount').textContent=`${d.stock_count} item${d.stock_count!==1?'s':''}`;
+
+    /* sync local inv for canvas */
     if(!busy&&d.items){
       inv=d.items.map(i=>({
-        id:parseInt(i.id.slice(0,8),16)&0xffff,name:i.name,slot:i.slot,
-        arrival:(i.arrival_ts||0)*1000,expiry:i.expiry_ts?(i.expiry_ts*1000):null
+        id:parseInt((i.id||'0').slice(0,8),16)&0x7fff,
+        name:i.name,slot:i.slot,
+        arrival:(i.arrival_ts||0)*1000,
+        expiry:i.expiry_ts?i.expiry_ts*1000:null,
+        sl:i.shelf_life_days,
       }));
     }
+
+    /* stock table */
     if(d.items){
       const fr=fifoR(),fe=fefoR();
-      let h=d.items.map(it=>{
-        const age=((Date.now()-it.arrival_ts*1000)/DAY).toFixed(1);
+      document.getElementById('stb').innerHTML=d.items.map(it=>{
         const urg=d.urgency?.items?.find(u=>u.item_id===it.id);
-        const bc=urg?({CRITICAL:'b-crit',HIGH:'b-high',MEDIUM:'b-med',LOW:'b-low'}[urg.level]||'b-low'):'b-low';
-        const lv2=urg?.level||'LOW';
+        const bc=urg?{CRITICAL:'b-crit',HIGH:'b-high',MEDIUM:'b-med',LOW:'b-low'}[urg.level]:'b-low';
+        const lv=urg?.level||'LOW';
         const simIt=inv.find(i=>i.name===it.name&&i.slot===it.slot);
-        return `<tr><td>${it.slot}</td><td style="font-weight:500">${it.name}</td><td>${age}d</td>
-          <td>${it.expiry}</td><td>${simIt?fr[simIt.id]||'—':'—'}</td><td>${simIt?fe[simIt.id]||'—':'—'}</td>
-          <td><span class="badge ${bc}">${lv2}</span></td></tr>`;
-      }).join('');
-      document.getElementById('stb').innerHTML=h||'<tr><td colspan="7" style="color:var(--tx3)">No items in stock</td></tr>';
+        const sl=it.shelf_life_days?it.shelf_life_days+'d':'—';
+        const rem=it.expiry_ts?fmtRemaining(it.expiry_ts*1000):'—';
+        return`<tr>
+          <td><strong>${it.slot}</strong></td>
+          <td style="font-weight:500">${it.name}</td>
+          <td style="color:var(--tx3);font-size:.75rem">${it.arrival_date||'—'}</td>
+          <td>${sl}</td><td>${rem}</td>
+          <td>${simIt?fr[simIt.id]||'—':'—'}</td>
+          <td>${simIt?fe[simIt.id]||'—':'—'}</td>
+          <td><span class="badge ${bc}">${lv}</span></td></tr>`;
+      }).join('')||'<tr><td colspan="8" style="color:var(--tx3);text-align:center">No items in stock</td></tr>';
     }
+
+    /* urgency */
     if(d.urgency?.summary){
       const s=d.urgency.summary;
-      document.getElementById('uC').textContent=s.CRITICAL||0;
-      document.getElementById('uH').textContent=s.HIGH||0;
-      document.getElementById('uM').textContent=s.MEDIUM||0;
-      document.getElementById('uL').textContent=s.LOW||0;
+      ['C','H','M','L'].forEach((k,i)=>
+        document.getElementById('u'+k).textContent=s[['CRITICAL','HIGH','MEDIUM','LOW'][i]]||0);
       document.getElementById('urgTb').innerHTML=(d.urgency.items||[]).map(u=>`
         <tr><td>${u.item_name}</td><td>—</td>
-        <td>${u.days_remaining!=null?u.days_remaining+'d':'—'}</td>
-        <td><span class="badge ${getBadgeClass(u.level)}">${u.level}</span></td></tr>
-      `).join('')||'<tr><td colspan="4" style="color:var(--tx3)">All clear</td></tr>';
+        <td>${u.days_remaining!=null?fmtRemaining(u.days_remaining!=null?(Date.now()/1000+u.days_remaining*86400)*1000:null):'—'}</td>
+        <td><span class="badge ${getBadgeCls(u.level)}">${u.level}</span></td></tr>`
+      ).join('')||'<tr><td colspan="4" style="color:var(--tx3)">All clear</td></tr>';
+      /* header badge */
+      const ob=d.urgency.overall;
+      const ub=document.getElementById('urgBadge');
+      if(ob.status!=='OK'){
+        ub.style.display='flex';ub.className='pill';
+        ub.innerHTML=`<span class="dot ${ob.status==='CRITICAL'?'err':'warn'}"></span>${ob.message}`;
+      }else{ub.style.display='none';}
     }
+
+    /* shelf life */
+    updateShelfLifeBars(d.items.map(i=>({
+      name:i.name,
+      shelf_life_days:i.shelf_life_days,
+      days_remaining:i.expiry_ts?(i.expiry_ts-Date.now()/1000)/86400:null,
+    })));
+
+    /* forecast */
     if(d.forecast){
       document.getElementById('fDem').textContent=(d.forecast.predicted_demand||0).toFixed(2);
       document.getElementById('fSto').textContent=d.forecast.current_stock||0;
@@ -522,27 +828,32 @@ async function fetchState(){
       const fm=document.getElementById('fMsg');
       fm.textContent=d.forecast.reason||'';fm.className='fmsg'+(d.forecast.reorder?' warn':'');
     }
+
+    /* RL */
     if(d.rl_recommendation){
       const rec=d.rl_recommendation;
       document.getElementById('rlAct').textContent=rec.action;
       document.getElementById('rlConf').textContent=`${Math.round((rec.confidence||0.8)*100)}% confidence`;
       document.getElementById('rlRsn').textContent=rec.reason;
       const p=document.getElementById('rlPanel');
-      p.style.borderColor=rec.urgency==='critical'?'rgba(248,81,73,.4)':rec.urgency==='warning'?'rgba(210,153,34,.4)':'rgba(163,113,247,.25)';
+      p.style.borderColor=rec.urgency==='critical'?'rgba(248,81,73,.4)':rec.urgency==='warning'?'rgba(210,153,34,.4)':'rgba(163,113,247,.2)';
     }
+
+    /* dispatch log */
     if(d.dispatch_log){
       const lb=document.getElementById('dlog');
       lb.innerHTML=d.dispatch_log.length?d.dispatch_log.map(e=>{
         const t=new Date(e.ts*1000).toLocaleTimeString();
         const c=e.mode==='FIFO'?'b-fifo':e.mode==='FEFO'?'b-fefo':'b-rl';
-        return `<div class="le"><span class="lt">[${t}]</span><span class="badge ${c}">${e.mode}</span><span>slot ${e.slot} — ${e.item_name}</span></div>`;
-      }).join(''):'<div style="font-size:.72rem;color:var(--tx3)">No dispatches yet</div>';
+        return`<div class="le"><span class="lt">[${t}]</span>
+          <span class="badge ${c}">${e.mode}</span>
+          <span>slot ${e.slot} — ${e.item_name}</span></div>`;
+      }).join(''):'<div style="font-size:.75rem;color:var(--tx3);text-align:center;padding:8px">No dispatches yet</div>';
     }
-    if(d.rfid_scans&&d.rfid_scans.length){
-      document.getElementById('rfidHist').innerHTML=d.rfid_scans.map(s=>`
-        <div class="rfid-row"><span style="color:var(--purple);font-family:monospace">${s.tag_id?.slice(-10)||'—'}</span>
-        <span>${new Date(s.timestamp*1000).toLocaleTimeString()}</span></div>`).join('');
-    }
+
+    /* low stock header */
+    if(d.low_stock)document.getElementById('sDot').className='dot warn';
+
   }catch(e){
     backendOnline=false;
     document.getElementById('sDot').className='dot err';
@@ -551,79 +862,87 @@ async function fetchState(){
   }
 }
 
+function getBadgeCls(level){
+  return{CRITICAL:'b-crit',HIGH:'b-high',MEDIUM:'b-med',LOW:'b-low'}[level]||'b-low';
+}
+
+/* ============================================================================
+   ADD / CLEAR
+   ============================================================================ */
 async function addItem(){
-  const slot=parseInt(document.getElementById('aslot').value);
-  const name=document.getElementById('aname').value.trim();
-  const exp=parseFloat(document.getElementById('aexp').value);
+  const slot=parseInt(document.getElementById('aSlot').value);
+  const name=document.getElementById('aName').value.trim();
+  const shelf=parseFloat(document.getElementById('aShelf').value);
   if(!name){setMsg('Enter item name');return;}
-  if(inv.find(i=>i.slot===slot)){setMsg(`Slot ${slot} occupied`);return;}
-  const expiry_ts=exp>0?String(Date.now()/1000+exp*86400):'';
+  if(inv.find(i=>i.slot===slot)){setMsg(`Slot ${slot} is occupied`);return;}
+  const sl_days=shelf>0?shelf:null;
+
   if(backendOnline){
-    try{const r=await fetch('/inventory/add_item',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({item_name:name,slot,expiry_ts})});
-      const d=await r.json();d.success?log(d.message,'ok'):log(d.message,'err');
+    try{
+      const body={item_name:name,slot};
+      if(sl_days)body.shelf_life_days=sl_days;
+      const r=await fetch('/inventory/add_item',{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(body)
+      });
+      const d=await r.json();
+      d.success?log(d.message,'ok'):log(d.message,'err');
       if(d.success)fetchState();
-    }catch(e){log('Connection error','err');}
+    }catch(e){log('Error: '+e.message,'err');}
   }else{
-    inv.push({id:nid++,name,slot,arrival:Date.now(),expiry:exp>0?Date.now()+exp*DAY:null});
-    log(`Added "${name}" to slot ${slot}`,'ok');refreshPanels();
+    const expiry=sl_days?Date.now()+sl_days*DAY:null;
+    inv.push({id:nid++,name,slot,arrival:Date.now(),expiry,sl:sl_days});
+    log(`Added "${name}" to slot ${slot}${sl_days?' (shelf life '+sl_days+'d)':''}` ,'ok');
+    refreshPanels();
   }
-  document.getElementById('aname').value='';document.getElementById('aexp').value='';
+  document.getElementById('aName').value='';document.getElementById('aShelf').value='';
 }
 
 async function clearAll(){
-  if(!confirm('Clear ALL inventory?'))return;
+  if(!confirm('Clear ALL inventory data?'))return;
   if(backendOnline){try{await fetch('/inventory/clear',{method:'POST'});fetchState();}catch(e){}}
   inv=[];simDlog=[];dropItem=null;heldItem=null;queue=[];
-  arm={a:0,r:0.42,open:true};lbl='Cleared';
-  log('Database cleared','ok');refreshPanels();
+  arm={a:0,r:0.42,open:true};lbl='Cleared — ready';
+  log('Inventory cleared','ok');refreshPanels();
 }
 
 function resetSim(){
   if(busy)return;t0=Date.now();
-  inv=[{id:0,name:"Resistors",slot:0,arrival:t0-3*DAY,expiry:t0+5*DAY},
-    {id:1,name:"Capacitors",slot:1,arrival:t0-2*DAY,expiry:t0+2*DAY},
-    {id:2,name:"LEDs",slot:2,arrival:t0-1*DAY,expiry:null},
-    {id:3,name:"Arduino",slot:3,arrival:t0,expiry:t0+10*DAY}];
+  inv=[
+    {id:0,name:"Resistors",  slot:0,arrival:t0-3*DAY,expiry:t0+5*DAY, sl:8},
+    {id:1,name:"Capacitors", slot:1,arrival:t0-2*DAY,expiry:t0+2*DAY, sl:4},
+    {id:2,name:"LEDs",       slot:2,arrival:t0-1*DAY,expiry:null,      sl:null},
+    {id:3,name:"Arduino",    slot:3,arrival:t0,       expiry:t0+10*DAY,sl:10},
+  ];
   simDlog=[];dropItem=null;heldItem=null;queue=[];
-  arm={a:0,r:0.42,open:true};prev={...arm};lbl='Reset — ready';
+  arm={a:0,r:0.42,open:true};prev={...arm};lbl='Demo reset — ready';
   setMsg('Demo data restored');log('Demo reset','ok');refreshPanels();
 }
 
-async function scanRFID(){
-  if(backendOnline){
-    try{const r=await fetch('/inventory/rfid_scan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({})});
-      const d=await r.json();
-      document.getElementById('rfidDisp').textContent=d.tag_id;
-      log(`RFID: ${d.tag_id} ${d.found?'→ '+d.item?.item_name:'(new tag)'}`,'inf');
-      fetchState();return;
-    }catch(e){}
-  }
-  const tag='RFID-'+Math.floor(Math.random()*9e9+1e9);
-  document.getElementById('rfidDisp').textContent=tag;
-  log(`RFID scan: ${tag}`,'inf');
+async function sendTask(n){
+  log(`Task ${n}…`,'inf');
+  if(!backendOnline){log('Backend not connected','err');return;}
+  try{
+    const r=await fetch('/task',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({task_number:n})});
+    const d=await r.json();d.success?log(d.message,'ok'):log(d.message,'err');
+  }catch(e){log('Error: '+e.message,'err');}
 }
 
-function getBadgeClass(level) {
-  const classes = {CRITICAL:'b-crit',HIGH:'b-high',MEDIUM:'b-med',LOW:'b-low'};
-  return classes[level] || 'b-low';
-}
-
-function log(msg,type='inf'){
-  const box=document.getElementById('alog');
-  const cls={ok:'lok',err:'lerr',rl:'lrl'}[type]||'linf';
-  box.innerHTML=`<div class="le"><span class="lt">[${new Date().toLocaleTimeString()}]</span><span class="${cls}">${msg}</span></div>`+box.innerHTML;
-}
-
+/* ============================================================================
+   VOICE CONTROL
+   ============================================================================ */
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
 let recog=null,listening=false;
 function toggleMic(){
-  if(!SR){log('Use Chrome/Edge for voice','err');return;}
+  if(!SR){log('Voice: use Chrome/Edge','err');return;}
   if(listening){recog&&recog.stop();return;}
   recog=new SR();recog.lang='en-US';recog.interimResults=true;recog.continuous=false;
   recog.onstart=()=>{listening=true;document.getElementById('micBtn').classList.add('on');log('Listening…');}
-  recog.onresult=e=>{let t='';for(let i=e.resultIndex;i<e.results.length;i++)t+=e.results[i][0].transcript;
+  recog.onresult=e=>{
+    let t='';for(let i=e.resultIndex;i<e.results.length;i++)t+=e.results[i][0].transcript;
     document.getElementById('vtxt').textContent=t;
-    if(e.results[e.resultIndex].isFinal)handleVoice(t.toLowerCase().trim());}
+    if(e.results[e.resultIndex].isFinal)handleVoice(t.toLowerCase().trim());
+  }
   recog.onerror=e=>{log('Voice: '+e.error,'err');stopMic();}
   recog.onend=stopMic;recog.start();
 }
@@ -632,12 +951,22 @@ function handleVoice(t){
   log(`Heard: "${t}"`);
   if(t.includes('fifo'))triggerDispatch('FIFO');
   else if(t.includes('fefo')||t.includes('expiry'))triggerDispatch('FEFO');
-  else if(t.includes('ai')||t.includes('optim'))triggerDispatch('RL');
-  else log(`Unknown: "${t}" — try "dispatch FIFO", "dispatch FEFO", "use AI"`,'err');
+  else if(t.includes('ai')||t.includes('optim')||t.includes('smart'))triggerDispatch('RL');
+  else if(t.includes('home')||t.includes('wake'))sendTask(0);
+  else if(t.includes('sleep'))sendTask(2);
+  else log(`Unknown: "${t}" — try "dispatch FIFO/FEFO", "use AI", "go home"`,'err');
 }
 
+function log(msg,type='inf'){
+  const box=document.getElementById('alog');
+  const cls={ok:'lok',err:'lerr',rl:'lrl'}[type]||'linf';
+  box.innerHTML=`<div class="le"><span class="lt">[${new Date().toLocaleTimeString()}]</span><span class="${cls}">${msg}</span></div>`+box.innerHTML;
+}
+
+/* ── Boot ── */
 setInterval(fetchState,2500);
-fetchState();refreshPanels();
+fetchState();
+refreshPanels();
 log('Dexter Inventory Control ready','ok');
 </script>
 </body>
