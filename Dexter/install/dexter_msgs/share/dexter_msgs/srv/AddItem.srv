@@ -1,1 +1,7 @@
-/home/aditya/Cpps/Dexter/dexter_msgs/srv/AddItem.srv
+string item_name
+int32  slot
+string expiry_ts    # Unix timestamp as string; empty = no expiry
+---
+bool   success
+string item_id
+string message

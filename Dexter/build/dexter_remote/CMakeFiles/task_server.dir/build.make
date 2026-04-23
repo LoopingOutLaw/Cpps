@@ -348,7 +348,7 @@ libtask_server.so: /opt/ros/jazzy/lib/libbuiltin_interfaces__rosidl_typesupport_
 libtask_server.so: /opt/ros/jazzy/lib/librosidl_typesupport_fastrtps_c.so
 libtask_server.so: /opt/ros/jazzy/lib/libbuiltin_interfaces__rosidl_typesupport_fastrtps_cpp.so
 libtask_server.so: /opt/ros/jazzy/lib/librosidl_typesupport_fastrtps_cpp.so
-libtask_server.so: /opt/ros/jazzy/lib/libfastcdr.so.2.2.5
+libtask_server.so: /opt/ros/jazzy/lib/libfastcdr.so.2.2.7
 libtask_server.so: /opt/ros/jazzy/lib/librmw.so
 libtask_server.so: /opt/ros/jazzy/lib/librosidl_dynamic_typesupport.so
 libtask_server.so: /opt/ros/jazzy/lib/libbuiltin_interfaces__rosidl_typesupport_introspection_c.so

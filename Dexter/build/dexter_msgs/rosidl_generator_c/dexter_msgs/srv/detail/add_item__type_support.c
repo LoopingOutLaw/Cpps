@@ -5,9 +5,9 @@
 #include <string.h>
 
 #include "dexter_msgs/srv/detail/add_item__type_support.h"
-#include "dexter_msgs/srv/detail/add_item__struct.h"
-#include "rosidl_typesupport_interface/macros.h"
 #include "dexter_msgs/srv/detail/add_item__functions.h"
+#include "rosidl_typesupport_interface/macros.h"
+#include "dexter_msgs/srv/detail/add_item__struct.h"
 
 #ifdef __cplusplus
 extern "C"

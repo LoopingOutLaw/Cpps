@@ -1,1 +1,8 @@
-/home/aditya/Cpps/Dexter/dexter_msgs/srv/DispatchItem.srv
+string mode        # "FIFO" or "FEFO"
+---
+bool   success
+string item_name
+string item_id
+int32  slot_number
+string expiry_date
+string message

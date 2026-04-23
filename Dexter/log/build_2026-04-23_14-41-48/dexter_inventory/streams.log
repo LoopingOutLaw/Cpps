@@ -1,0 +1,65 @@
+[0.665s] Invoking command in '/home/aditya/Cpps/Dexter/dexter_inventory': AMENT_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs/lib:${LD_LIBRARY_PATH} PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/aditya/Cpps/Dexter/build/dexter_inventory/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages:/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/dexter_inventory build --build-base /home/aditya/Cpps/Dexter/build/dexter_inventory/build install --record /home/aditya/Cpps/Dexter/build/dexter_inventory/install.log --single-version-externally-managed install_data
+[0.832s] running egg_info
+[0.832s] creating ../build/dexter_inventory/dexter_inventory.egg-info
+[0.843s] writing ../build/dexter_inventory/dexter_inventory.egg-info/PKG-INFO
+[0.843s] writing dependency_links to ../build/dexter_inventory/dexter_inventory.egg-info/dependency_links.txt
+[0.843s] writing entry points to ../build/dexter_inventory/dexter_inventory.egg-info/entry_points.txt
+[0.843s] writing requirements to ../build/dexter_inventory/dexter_inventory.egg-info/requires.txt
+[0.843s] writing top-level names to ../build/dexter_inventory/dexter_inventory.egg-info/top_level.txt
+[0.843s] writing manifest file '../build/dexter_inventory/dexter_inventory.egg-info/SOURCES.txt'
+[0.867s] reading manifest file '../build/dexter_inventory/dexter_inventory.egg-info/SOURCES.txt'
+[0.867s] writing manifest file '../build/dexter_inventory/dexter_inventory.egg-info/SOURCES.txt'
+[0.867s] running build
+[0.867s] running build_py
+[0.867s] creating /home/aditya/Cpps/Dexter/build/dexter_inventory/build
+[0.867s] creating /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib
+[0.867s] creating /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory
+[0.868s] copying dexter_inventory/seed_data.py -> /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory
+[0.868s] copying dexter_inventory/standalone_dashboard.py -> /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory
+[0.868s] copying dexter_inventory/inventory_db.py -> /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory
+[0.868s] copying dexter_inventory/visual_servo_node.py -> /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory
+[0.869s] copying dexter_inventory/inventory_node.py -> /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory
+[0.869s] copying dexter_inventory/dispatch_engine.py -> /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory
+[0.869s] copying dexter_inventory/ml_forecast.py -> /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory
+[0.869s] copying dexter_inventory/__init__.py -> /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory
+[0.869s] copying dexter_inventory/aruco_box_detector.py -> /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory
+[0.870s] running install
+[0.874s] running install_lib
+[0.886s] creating /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory
+[0.886s] copying /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory/seed_data.py -> /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory
+[0.886s] copying /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory/standalone_dashboard.py -> /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory
+[0.886s] copying /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory/inventory_db.py -> /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory
+[0.886s] copying /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory/visual_servo_node.py -> /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory
+[0.886s] copying /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory/inventory_node.py -> /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory
+[0.886s] copying /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory/dispatch_engine.py -> /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory
+[0.886s] copying /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory/ml_forecast.py -> /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory
+[0.886s] copying /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory/__init__.py -> /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory
+[0.886s] copying /home/aditya/Cpps/Dexter/build/dexter_inventory/build/lib/dexter_inventory/aruco_box_detector.py -> /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory
+[0.887s] byte-compiling /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/seed_data.py to seed_data.cpython-312.pyc
+[0.887s] byte-compiling /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/standalone_dashboard.py to standalone_dashboard.cpython-312.pyc
+[0.889s] byte-compiling /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/inventory_db.py to inventory_db.cpython-312.pyc
+[0.890s] byte-compiling /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/visual_servo_node.py to visual_servo_node.cpython-312.pyc
+[0.894s] byte-compiling /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/inventory_node.py to inventory_node.cpython-312.pyc
+[0.896s] byte-compiling /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/dispatch_engine.py to dispatch_engine.cpython-312.pyc
+[0.897s] byte-compiling /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/ml_forecast.py to ml_forecast.cpython-312.pyc
+[0.899s] byte-compiling /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/__init__.py to __init__.cpython-312.pyc
+[0.900s] byte-compiling /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory/aruco_box_detector.py to aruco_box_detector.cpython-312.pyc
+[0.903s] running install_data
+[0.903s] creating /home/aditya/Cpps/Dexter/install/dexter_inventory/share/ament_index
+[0.903s] creating /home/aditya/Cpps/Dexter/install/dexter_inventory/share/ament_index/resource_index
+[0.903s] creating /home/aditya/Cpps/Dexter/install/dexter_inventory/share/ament_index/resource_index/packages
+[0.903s] copying resource/dexter_inventory -> /home/aditya/Cpps/Dexter/install/dexter_inventory/share/ament_index/resource_index/packages
+[0.903s] copying package.xml -> /home/aditya/Cpps/Dexter/install/dexter_inventory/share/dexter_inventory
+[0.903s] creating /home/aditya/Cpps/Dexter/install/dexter_inventory/share/dexter_inventory/launch
+[0.903s] copying launch/inventory.launch.py -> /home/aditya/Cpps/Dexter/install/dexter_inventory/share/dexter_inventory/launch
+[0.903s] creating /home/aditya/Cpps/Dexter/install/dexter_inventory/share/dexter_inventory/templates
+[0.904s] copying templates/index.html -> /home/aditya/Cpps/Dexter/install/dexter_inventory/share/dexter_inventory/templates
+[0.904s] running install_egg_info
+[0.916s] Copying ../build/dexter_inventory/dexter_inventory.egg-info to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages/dexter_inventory-0.1.0-py3.12.egg-info
+[0.917s] running install_scripts
+[0.997s] Installing aruco_box_detector script to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory
+[0.997s] Installing inventory_node script to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory
+[0.997s] Installing seed_data script to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory
+[0.997s] Installing visual_servo_node script to /home/aditya/Cpps/Dexter/install/dexter_inventory/lib/dexter_inventory
+[0.998s] writing list of installed files to '/home/aditya/Cpps/Dexter/build/dexter_inventory/install.log'
+[1.014s] Invoked command in '/home/aditya/Cpps/Dexter/dexter_inventory' returned '0': AMENT_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_moveit:/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/Cpps/Dexter/install/dexter_description:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs/lib:${LD_LIBRARY_PATH} PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/aditya/Cpps/Dexter/build/dexter_inventory/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/aditya/Cpps/Dexter/install/dexter_inventory/lib/python3.12/site-packages:/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/dexter_inventory build --build-base /home/aditya/Cpps/Dexter/build/dexter_inventory/build install --record /home/aditya/Cpps/Dexter/build/dexter_inventory/install.log --single-version-externally-managed install_data

@@ -1,0 +1,267 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-b390e8ae735b0f923d18.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						15,
+						16,
+						17,
+						18,
+						19
+					]
+				},
+				{
+					"build" : "dexter_msgs__py",
+					"jsonFile" : "directory-dexter_msgs__py-d21ee0f9f19dfacd9745.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/home/aditya/Cpps/Dexter/build/dexter_msgs/dexter_msgs__py",
+					"targetIndexes" : 
+					[
+						4
+					]
+				},
+				{
+					"build" : "dexter_msgs__rs",
+					"jsonFile" : "directory-dexter_msgs__rs-a8cb64ab5ade5d944c67.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/home/aditya/Cpps/Dexter/build/dexter_msgs/dexter_msgs__rs",
+					"targetIndexes" : 
+					[
+						14
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2
+					],
+					"name" : "dexter_msgs",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_build_dexter_msgs_egg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_build_dexter_msgs_egg-717d8f87d33cd06fec2d.json",
+					"name" : "ament_cmake_python_build_dexter_msgs_egg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_copy_dexter_msgs::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_copy_dexter_msgs-349ebecfe270f1f2e907.json",
+					"name" : "ament_cmake_python_copy_dexter_msgs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dexter_msgs::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dexter_msgs-fdce804836a55deaf1d8.json",
+					"name" : "dexter_msgs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dexter_msgs__cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dexter_msgs__cpp-bdaa137c7ebeb63854b9.json",
+					"name" : "dexter_msgs__cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "dexter_msgs__py::@e140e341c228cb2d15a8",
+					"jsonFile" : "target-dexter_msgs__py-320574afb48beb29d897.json",
+					"name" : "dexter_msgs__py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dexter_msgs__rosidl_generator_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dexter_msgs__rosidl_generator_c-f83e3c67bf58709ab1d5.json",
+					"name" : "dexter_msgs__rosidl_generator_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dexter_msgs__rosidl_generator_py::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dexter_msgs__rosidl_generator_py-a7cd9dfecb6c61c9c5d0.json",
+					"name" : "dexter_msgs__rosidl_generator_py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dexter_msgs__rosidl_generator_type_description::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dexter_msgs__rosidl_generator_type_description-be6d570330cc3e28eb03.json",
+					"name" : "dexter_msgs__rosidl_generator_type_description",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dexter_msgs__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dexter_msgs__rosidl_typesupport_c-ed09d2ae347d182e7710.json",
+					"name" : "dexter_msgs__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dexter_msgs__rosidl_typesupport_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dexter_msgs__rosidl_typesupport_cpp-db2ba7cc88ba1e201de6.json",
+					"name" : "dexter_msgs__rosidl_typesupport_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dexter_msgs__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dexter_msgs__rosidl_typesupport_fastrtps_c-94070e9f2b285e99db79.json",
+					"name" : "dexter_msgs__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dexter_msgs__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dexter_msgs__rosidl_typesupport_fastrtps_cpp-017542b3698bd80ba01f.json",
+					"name" : "dexter_msgs__rosidl_typesupport_fastrtps_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dexter_msgs__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dexter_msgs__rosidl_typesupport_introspection_c-046fdfdb3d689a2c3974.json",
+					"name" : "dexter_msgs__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dexter_msgs__rosidl_typesupport_introspection_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dexter_msgs__rosidl_typesupport_introspection_cpp-bf1288d36c9b415a3499.json",
+					"name" : "dexter_msgs__rosidl_typesupport_introspection_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "dexter_msgs__rs::@ab99dc2ddec7914c667c",
+					"jsonFile" : "target-dexter_msgs__rs-eb13bf1647b75ea47b6e.json",
+					"name" : "dexter_msgs__rs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dexter_msgs_s__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dexter_msgs_s__rosidl_typesupport_c-e0f9d4b4a1a5bf808d3a.json",
+					"name" : "dexter_msgs_s__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dexter_msgs_s__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dexter_msgs_s__rosidl_typesupport_fastrtps_c-03a2b153834f30fcc096.json",
+					"name" : "dexter_msgs_s__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dexter_msgs_s__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dexter_msgs_s__rosidl_typesupport_introspection_c-22dd58a5522fed428c50.json",
+					"name" : "dexter_msgs_s__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dexter_msgs_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dexter_msgs_uninstall-0c48c83fe1b7d502644f.json",
+					"name" : "dexter_msgs_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-bc98a24fac00518243b5.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/aditya/Cpps/Dexter/build/dexter_msgs",
+		"source" : "/home/aditya/Cpps/Dexter/dexter_msgs"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

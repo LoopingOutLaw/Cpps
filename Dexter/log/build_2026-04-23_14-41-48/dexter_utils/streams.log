@@ -1,0 +1,81 @@
+[0.157s] Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_utils': AMENT_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/ros2_ws/install/my_robot_bringup:/home/aditya/ros2_ws/install/my_cpp_pkg:/home/aditya/ros2_ws/install/my_robot_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs/lib:${LD_LIBRARY_PATH} PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake /home/aditya/Cpps/Dexter/dexter_utils -DCMAKE_INSTALL_PREFIX=/home/aditya/Cpps/Dexter/install/dexter_utils
+[0.200s] -- The C compiler identification is GNU 13.3.0
+[0.244s] -- The CXX compiler identification is GNU 13.3.0
+[0.257s] -- Detecting C compiler ABI info
+[0.329s] -- Detecting C compiler ABI info - done
+[0.338s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.338s] -- Detecting C compile features
+[0.339s] -- Detecting C compile features - done
+[0.347s] -- Detecting CXX compiler ABI info
+[0.441s] -- Detecting CXX compiler ABI info - done
+[0.449s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.449s] -- Detecting CXX compile features
+[0.450s] -- Detecting CXX compile features - done
+[0.454s] -- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.567s] -- Found Python3: /home/aditya/venv-ardupilot/bin/python3 (found version "3.12.3") found components: Interpreter 
+[0.655s] -- Found rclcpp: 28.1.18 (/opt/ros/jazzy/share/rclcpp/cmake)
+[0.693s] -- Found rosidl_generator_c: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.705s] -- Found rosidl_generator_cpp: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.719s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.735s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.799s] -- Found rmw_implementation_cmake: 7.3.3 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[0.802s] -- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[0.876s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+[0.893s] -- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+[0.914s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.974s] -- Found rclpy: 7.1.11 (/opt/ros/jazzy/share/rclpy/cmake)
+[0.975s] -- Found dexter_msgs: 0.0.0 (/home/aditya/Cpps/Dexter/install/dexter_msgs/share/dexter_msgs/cmake)
+[1.035s] -- Found tf2: 0.36.20 (/opt/ros/jazzy/share/tf2/cmake)
+[1.219s] -- Configuring done (1.1s)
+[1.227s] -- Generating done (0.0s)
+[1.230s] -- Build files have been written to: /home/aditya/Cpps/Dexter/build/dexter_utils
+[1.237s] Invoked command in '/home/aditya/Cpps/Dexter/build/dexter_utils' returned '0': AMENT_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/ros2_ws/install/my_robot_bringup:/home/aditya/ros2_ws/install/my_cpp_pkg:/home/aditya/ros2_ws/install/my_robot_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs/lib:${LD_LIBRARY_PATH} PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake /home/aditya/Cpps/Dexter/dexter_utils -DCMAKE_INSTALL_PREFIX=/home/aditya/Cpps/Dexter/install/dexter_utils
+[1.237s] Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_utils': AMENT_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/ros2_ws/install/my_robot_bringup:/home/aditya/ros2_ws/install/my_cpp_pkg:/home/aditya/ros2_ws/install/my_robot_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs/lib:${LD_LIBRARY_PATH} PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_utils -- -j28 -l28
+[1.286s] [ 50%] [32mBuilding CXX object CMakeFiles/angle_conversion.dir/src/angle_conversion.cpp.o[0m
+[1.293s] [ 50%] Built target ament_cmake_python_copy_dexter_utils
+[1.454s] running egg_info
+[1.468s] creating dexter_utils.egg-info
+[1.468s] writing dexter_utils.egg-info/PKG-INFO
+[1.468s] writing dependency_links to dexter_utils.egg-info/dependency_links.txt
+[1.468s] writing top-level names to dexter_utils.egg-info/top_level.txt
+[1.468s] writing manifest file 'dexter_utils.egg-info/SOURCES.txt'
+[1.508s] reading manifest file 'dexter_utils.egg-info/SOURCES.txt'
+[1.509s] writing manifest file 'dexter_utils.egg-info/SOURCES.txt'
+[1.531s] [ 50%] Built target ament_cmake_python_build_dexter_utils_egg
+[3.822s] [100%] [32m[1mLinking CXX executable angle_conversion[0m
+[3.971s] [100%] Built target angle_conversion
+[3.982s] Invoked command in '/home/aditya/Cpps/Dexter/build/dexter_utils' returned '0': AMENT_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/ros2_ws/install/my_robot_bringup:/home/aditya/ros2_ws/install/my_cpp_pkg:/home/aditya/ros2_ws/install/my_robot_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs/lib:${LD_LIBRARY_PATH} PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --build /home/aditya/Cpps/Dexter/build/dexter_utils -- -j28 -l28
+[3.982s] Invoking command in '/home/aditya/Cpps/Dexter/build/dexter_utils': AMENT_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/ros2_ws/install/my_robot_bringup:/home/aditya/ros2_ws/install/my_cpp_pkg:/home/aditya/ros2_ws/install/my_robot_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs/lib:${LD_LIBRARY_PATH} PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --install /home/aditya/Cpps/Dexter/build/dexter_utils
+[3.990s] -- Install configuration: ""
+[3.990s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/share/dexter_utils/environment/pythonpath.sh
+[3.990s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/share/dexter_utils/environment/pythonpath.dsv
+[3.990s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/lib/python3.12/site-packages/dexter_utils-0.0.0-py3.12.egg-info
+[3.990s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/lib/python3.12/site-packages/dexter_utils-0.0.0-py3.12.egg-info/SOURCES.txt
+[3.990s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/lib/python3.12/site-packages/dexter_utils-0.0.0-py3.12.egg-info/PKG-INFO
+[3.991s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/lib/python3.12/site-packages/dexter_utils-0.0.0-py3.12.egg-info/dependency_links.txt
+[3.991s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/lib/python3.12/site-packages/dexter_utils-0.0.0-py3.12.egg-info/top_level.txt
+[3.991s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/lib/python3.12/site-packages/dexter_utils
+[3.991s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/lib/python3.12/site-packages/dexter_utils/angle_conversion.py
+[3.991s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/lib/python3.12/site-packages/dexter_utils/__init__.py
+[4.018s] Listing '/home/aditya/Cpps/Dexter/install/dexter_utils/lib/python3.12/site-packages/dexter_utils'...
+[4.018s] Compiling '/home/aditya/Cpps/Dexter/install/dexter_utils/lib/python3.12/site-packages/dexter_utils/__init__.py'...
+[4.018s] Compiling '/home/aditya/Cpps/Dexter/install/dexter_utils/lib/python3.12/site-packages/dexter_utils/angle_conversion.py'...
+[4.022s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/lib/dexter_utils/angle_conversion
+[4.023s] -- Set non-toolchain portion of runtime path of "/home/aditya/Cpps/Dexter/install/dexter_utils/lib/dexter_utils/angle_conversion" to ""
+[4.023s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/lib/dexter_utils/angle_conversion.py
+[4.023s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/share/ament_index/resource_index/package_run_dependencies/dexter_utils
+[4.023s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/share/ament_index/resource_index/parent_prefix_path/dexter_utils
+[4.024s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/share/dexter_utils/environment/ament_prefix_path.sh
+[4.024s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/share/dexter_utils/environment/ament_prefix_path.dsv
+[4.024s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/share/dexter_utils/environment/path.sh
+[4.024s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/share/dexter_utils/environment/path.dsv
+[4.024s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/share/dexter_utils/local_setup.bash
+[4.024s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/share/dexter_utils/local_setup.sh
+[4.024s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/share/dexter_utils/local_setup.zsh
+[4.024s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/share/dexter_utils/local_setup.dsv
+[4.024s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/share/dexter_utils/package.dsv
+[4.024s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/share/ament_index/resource_index/packages/dexter_utils
+[4.024s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/share/dexter_utils/cmake/dexter_utilsConfig.cmake
+[4.024s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/share/dexter_utils/cmake/dexter_utilsConfig-version.cmake
+[4.024s] -- Installing: /home/aditya/Cpps/Dexter/install/dexter_utils/share/dexter_utils/package.xml
+[4.025s] Invoked command in '/home/aditya/Cpps/Dexter/build/dexter_utils' returned '0': AMENT_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs:/home/aditya/ros2_ws/install/my_robot_bringup:/home/aditya/ros2_ws/install/my_cpp_pkg:/home/aditya/ros2_ws/install/my_robot_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/home/aditya/ros2_ws/install/my_py_pkg:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/aditya/Cpps/Dexter/install/dexter_msgs/lib:${LD_LIBRARY_PATH} PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/aditya/Cpps/Dexter/install/dexter_msgs/lib/python3.12/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(venv-ardupilot) /usr/bin/cmake --install /home/aditya/Cpps/Dexter/build/dexter_utils

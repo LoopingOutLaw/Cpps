@@ -6,8 +6,8 @@
 
 #include "rosidl_typesupport_interface/macros.h"
 #include "dexter_msgs/action/detail/dexter_task__struct.h"
-#include "dexter_msgs/action/detail/dexter_task__type_support.h"
 #include "dexter_msgs/action/detail/dexter_task__functions.h"
+#include "dexter_msgs/action/detail/dexter_task__type_support.h"
 
 #ifdef __cplusplus
 extern "C"

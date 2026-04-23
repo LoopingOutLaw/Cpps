@@ -181,7 +181,7 @@ angle_conversion: /opt/ros/jazzy/lib/libbuiltin_interfaces__rosidl_typesupport_f
 angle_conversion: /opt/ros/jazzy/lib/librosidl_typesupport_fastrtps_cpp.so
 angle_conversion: /opt/ros/jazzy/lib/librmw.so
 angle_conversion: /opt/ros/jazzy/lib/librosidl_dynamic_typesupport.so
-angle_conversion: /opt/ros/jazzy/lib/libfastcdr.so.2.2.5
+angle_conversion: /opt/ros/jazzy/lib/libfastcdr.so.2.2.7
 angle_conversion: /opt/ros/jazzy/lib/libbuiltin_interfaces__rosidl_typesupport_introspection_cpp.so
 angle_conversion: /opt/ros/jazzy/lib/librosidl_typesupport_introspection_cpp.so
 angle_conversion: /opt/ros/jazzy/lib/librosidl_typesupport_introspection_c.so
