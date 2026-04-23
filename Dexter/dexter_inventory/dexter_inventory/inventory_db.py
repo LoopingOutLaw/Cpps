@@ -177,35 +177,46 @@ def clear_all() -> None:
         conn.execute("DELETE FROM dispatch_log")
 
 
+"""
+PATCH — replace reset_with_defaults() in
+    Dexter/dexter_inventory/dexter_inventory/inventory_db.py
+
+Find the existing reset_with_defaults() function and replace it entirely
+with the one below. Everything else in the file stays the same.
+"""
+
+
 def reset_with_defaults() -> None:
     """
-    Reset database and populate with default demo items.
-    Call this on startup to ensure a fresh state for each simulation run.
+    Reset database and populate with 4 perishable demo items for the
+    Gazebo simulation.  Items are chosen to show both FIFO and FEFO
+    dispatch decisions clearly:
+
+    Slot 0 – Organic Milk 1L       (arrived 2 days ago, 5 days remaining)
+    Slot 1 – Strawberries 400g     (arrived 1 day ago,  2 days remaining → FEFO hot)
+    Slot 2 – Sourdough Bread       (arrived 1 day ago,  3 days remaining)
+    Slot 3 – Free-Range Eggs 12pk  (arrived 5 days ago, 16 days remaining → FIFO oldest)
     """
     clear_all()
-    
+
     now = time.time()
-    day = 86400  # seconds in a day
-    
-    # Default items matching the Gazebo world slots
-    # Slot 0: Resistors (Red box) - no expiry
-    # Slot 1: Capacitors (Amber box) - expiring soon (2 days)
-    # Slot 2: LEDs (Blue box) - expiring in 7 days
-    # Slot 3: Arduino (Green box) - no expiry, newest arrival
-    
+    day = 86400.0
+
     default_items = [
-        {"name": "Resistors 10k",    "slot": 0, "expiry_ts": None,           "arrival_offset": -3 * day},
-        {"name": "Capacitors 100uF", "slot": 1, "expiry_ts": now + 2 * day,  "arrival_offset": -2 * day},
-        {"name": "LED Pack RGB",     "slot": 2, "expiry_ts": now + 7 * day,  "arrival_offset": -1 * day},
-        {"name": "Arduino Nano",     "slot": 3, "expiry_ts": None,           "arrival_offset": -0.5 * day},
+        # (name, slot, arrival_offset_days, shelf_life_days)
+        ("Organic Milk 1L",       0, -2,  7),
+        ("Strawberries 400g",     1, -1,  3),
+        ("Sourdough Bread",       2, -1,  4),
+        ("Free-Range Eggs 12pk",  3, -5, 21),
     ]
-    
+
     with _connect() as conn:
-        for item in default_items:
-            item_id = uuid.uuid4().hex
-            arrival_ts = now + item["arrival_offset"]
+        for name, slot, arrival_offset, shelf_life in default_items:
+            item_id    = uuid.uuid4().hex
+            arrival_ts = now + arrival_offset * day
+            expiry_ts  = arrival_ts + shelf_life * day
             conn.execute(
                 """INSERT INTO items (id, name, arrival_ts, expiry_ts, slot)
                    VALUES (?, ?, ?, ?, ?)""",
-                (item_id, item["name"], arrival_ts, item["expiry_ts"], item["slot"]),
+                (item_id, name, arrival_ts, expiry_ts, slot),
             )
