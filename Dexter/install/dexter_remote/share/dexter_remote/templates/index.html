@@ -49,7 +49,6 @@ html, body {
   overflow: hidden;
 }
 
-/* ═══ SCANLINE OVERLAY ═══════════════════════════════════════════════════════ */
 body::before {
   content: '';
   position: fixed; inset: 0;
@@ -59,7 +58,6 @@ body::before {
   opacity: 0.4;
 }
 
-/* ═══ LAYOUT ═════════════════════════════════════════════════════════════════ */
 #root {
   display: grid;
   grid-template-rows: 48px 1fr 28px;
@@ -71,10 +69,8 @@ body::before {
 #topbar {
   display: flex;
   align-items: center;
-  gap: 0;
   background: var(--ink2);
   border-bottom: 2px solid var(--ember);
-  padding: 0;
   overflow: hidden;
 }
 
@@ -96,14 +92,11 @@ body::before {
   letter-spacing: 2px;
 }
 .tb-logo .sub {
-  font-size: 9px;
+  font-size: 7px;
   color: var(--ink3);
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  font-family: 'Space Mono', monospace;
 }
-
-.tb-sep { width: 1px; height: 32px; background: var(--wire); margin: 0 12px; }
 
 .tb-stat {
   display: flex;
@@ -114,9 +107,10 @@ body::before {
 }
 .tb-stat .lbl { font-size: 8px; color: var(--dim); letter-spacing: 1.2px; text-transform: uppercase; }
 .tb-stat .val { font-size: 13px; color: var(--bright); font-weight: 700; }
-.tb-stat .val.ok { color: var(--acid); }
-.tb-stat .val.warn { color: var(--solar); }
-.tb-stat .val.crit { color: var(--crimson); animation: pulse 1.2s infinite; }
+.tb-stat .val.ok     { color: var(--acid); }
+.tb-stat .val.warn   { color: var(--solar); }
+.tb-stat .val.crit   { color: var(--crimson); animation: pulse 1.2s infinite; }
+.tb-stat .val.ice    { color: var(--ice); }
 
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.45} }
 
@@ -124,7 +118,6 @@ body::before {
   margin-left: auto;
   display: flex;
   align-items: center;
-  gap: 0;
   height: 100%;
 }
 
@@ -137,7 +130,6 @@ body::before {
   border-left: 1px solid var(--wire);
   font-size: 10px;
   color: var(--muted);
-  letter-spacing: .5px;
 }
 .tb-pill .dot {
   width: 6px; height: 6px; border-radius: 50%;
@@ -165,7 +157,7 @@ body::before {
   overflow: hidden;
 }
 
-/* ═══ LEFT PANEL (ARM SIMULATION) ═══════════════════════════════════════════ */
+/* ═══ LEFT PANEL ═════════════════════════════════════════════════════════════ */
 #sim-panel {
   display: flex;
   flex-direction: column;
@@ -198,10 +190,9 @@ body::before {
   letter-spacing: 1px;
   text-transform: uppercase;
   border: 1px solid currentColor;
-  border-radius: 0;
 }
 .ph-badge.live { color: var(--acid); border-color: var(--acid); }
-.ph-badge.idle { color: var(--dim); border-color: var(--wire); }
+.ph-badge.idle { color: var(--dim);  border-color: var(--wire); }
 
 #sim-canvas {
   flex: 1;
@@ -223,7 +214,6 @@ body::before {
   margin-bottom: 6px;
   align-items: center;
 }
-
 .dc-label {
   font-size: 9px;
   color: var(--dim);
@@ -249,17 +239,16 @@ body::before {
 .btn:hover:not(:disabled) { opacity: 0.85; }
 .btn:active:not(:disabled) { opacity: 0.6; }
 .btn:disabled { opacity: 0.25; cursor: not-allowed; }
-
 .btn-ember { color: var(--ember); }
 .btn-ember:hover:not(:disabled) { background: var(--ember); color: var(--ink); }
-.btn-ice { color: var(--ice); }
-.btn-ice:hover:not(:disabled) { background: var(--ice); color: var(--ink); }
-.btn-acid { color: var(--acid); }
-.btn-acid:hover:not(:disabled) { background: var(--acid); color: var(--ink); }
+.btn-ice   { color: var(--ice); }
+.btn-ice:hover:not(:disabled)   { background: var(--ice); color: var(--ink); }
+.btn-acid  { color: var(--acid); }
+.btn-acid:hover:not(:disabled)  { background: var(--acid); color: var(--ink); }
 .btn-solar { color: var(--solar); }
 .btn-solar:hover:not(:disabled) { background: var(--solar); color: var(--ink); }
-.btn-dim { color: var(--dim); }
-.btn-dim:hover:not(:disabled) { background: var(--wire); color: var(--body); }
+.btn-dim   { color: var(--dim); }
+.btn-dim:hover:not(:disabled)   { background: var(--wire); color: var(--body); }
 
 .sim-status {
   font-size: 9px;
@@ -271,18 +260,17 @@ body::before {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.sim-status.ok    { color: var(--acid); }
-.sim-status.warn  { color: var(--solar); }
-.sim-status.err   { color: var(--crimson); }
+.sim-status.ok   { color: var(--acid); }
+.sim-status.warn { color: var(--solar); }
+.sim-status.err  { color: var(--crimson); }
 
-/* ═══ RIGHT PANEL (ANALYTICS) ═══════════════════════════════════════════════ */
+/* ═══ RIGHT PANEL ════════════════════════════════════════════════════════════ */
 #analytics-panel {
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
-/* ─── Tab bar ─── */
 #tabs {
   display: flex;
   align-items: stretch;
@@ -314,7 +302,7 @@ body::before {
   align-items: center;
   gap: 6px;
 }
-.tab:hover { color: var(--body); }
+.tab:hover  { color: var(--body); }
 .tab.active {
   color: var(--ember);
   border-bottom-color: var(--ember);
@@ -327,7 +315,6 @@ body::before {
 }
 .tab-dot.show { display: block; }
 
-/* ─── Tab content ─── */
 #tab-content {
   flex: 1;
   overflow: hidden;
@@ -349,11 +336,9 @@ body::before {
 .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
 .g4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; }
-.g-span2 { grid-column: span 2; }
 
 /* ═══ COMPONENTS ═════════════════════════════════════════════════════════════ */
 
-/* ─── Section title ─── */
 .sec-title {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 11px;
@@ -376,38 +361,21 @@ body::before {
   clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
 }
 
-/* ─── KPI Block ─── */
 .kpi-block {
   background: var(--ink3);
   border: 1px solid var(--wire);
   border-top: 2px solid var(--ember);
   padding: 10px 12px;
 }
-.kpi-lbl {
-  font-size: 9px;
-  color: var(--dim);
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  margin-bottom: 4px;
-}
-.kpi-val {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--bright);
-  line-height: 1;
-}
+.kpi-lbl { font-size: 9px; color: var(--dim); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 4px; }
+.kpi-val { font-size: 22px; font-weight: 700; color: var(--bright); line-height: 1; }
 .kpi-val.ok     { color: var(--acid); }
 .kpi-val.warn   { color: var(--solar); }
 .kpi-val.crit   { color: var(--crimson); }
 .kpi-val.ice    { color: var(--ice); }
 .kpi-val.ember  { color: var(--ember); }
-.kpi-sub {
-  font-size: 9px;
-  color: var(--muted);
-  margin-top: 3px;
-}
+.kpi-sub { font-size: 9px; color: var(--muted); margin-top: 3px; }
 
-/* ─── Data row ─── */
 .data-row {
   display: flex;
   justify-content: space-between;
@@ -424,7 +392,6 @@ body::before {
 .data-row .drv.solar { color: var(--solar); }
 .data-row .drv.crit  { color: var(--crimson); }
 
-/* ─── Alert box ─── */
 .alert {
   padding: 8px 12px;
   border-left: 3px solid var(--dim);
@@ -439,72 +406,34 @@ body::before {
 .alert.ok   { border-color: var(--acid);    background: rgba(168,255,0,.04);  color: var(--acid2); }
 .alert.ice  { border-color: var(--ice);     background: rgba(0,196,232,.05);  color: var(--ice2); }
 
-/* ─── Progress bar ─── */
-.prog-wrap {
-  height: 4px;
-  background: var(--ink5);
-  margin: 6px 0;
-  overflow: hidden;
-}
-.prog-fill {
-  height: 100%;
-  transition: width .5s;
-  background: var(--acid);
-}
+.prog-wrap { height: 4px; background: var(--ink5); margin: 6px 0; overflow: hidden; }
+.prog-fill { height: 100%; transition: width .5s; background: var(--acid); }
 .prog-fill.warn  { background: var(--solar); }
 .prog-fill.crit  { background: var(--crimson); }
 .prog-fill.ember { background: var(--ember); }
 .prog-fill.ice   { background: var(--ice); }
 
-/* ─── Stock table ─── */
-.stk-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 10px;
-}
+.stk-table { width: 100%; border-collapse: collapse; font-size: 10px; }
 .stk-table th {
-  text-align: left;
-  padding: 5px 8px;
-  font-size: 8.5px;
-  color: var(--dim);
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  border-bottom: 1px solid var(--wire);
-  white-space: nowrap;
-  font-weight: 400;
+  text-align: left; padding: 5px 8px; font-size: 8.5px;
+  color: var(--dim); letter-spacing: 1.2px; text-transform: uppercase;
+  border-bottom: 1px solid var(--wire); white-space: nowrap; font-weight: 400;
 }
-.stk-table td {
-  padding: 5px 8px;
-  border-bottom: 1px solid var(--ink4);
-  vertical-align: middle;
-  white-space: nowrap;
-}
+.stk-table td { padding: 5px 8px; border-bottom: 1px solid var(--ink4); vertical-align: middle; white-space: nowrap; }
 .stk-table tr:hover td { background: rgba(255,107,43,.04); }
 .stk-table td.td-name  { color: var(--text); font-weight: 700; max-width: 140px; overflow: hidden; text-overflow: ellipsis; }
 .stk-table td.td-slot  { color: var(--ember); font-weight: 700; text-align: center; }
 .stk-table td.td-mono  { font-family: 'Space Mono', monospace; color: var(--body); }
 .stk-table td.td-rank  { color: var(--ice); font-weight: 700; text-align: center; }
 
-/* ─── Canvas chart wrapper ─── */
 .chart-wrap {
   background: var(--ink3);
   border: 1px solid var(--wire);
   padding: 4px;
-  position: relative;
 }
-.chart-title {
-  font-size: 9px;
-  color: var(--dim);
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  padding: 6px 8px 4px;
-}
-.chart-canvas {
-  display: block;
-  width: 100%;
-}
+.chart-title { font-size: 9px; color: var(--dim); letter-spacing: 1.2px; text-transform: uppercase; padding: 6px 8px 4px; }
+.chart-canvas { display: block; width: 100%; }
 
-/* ─── RL Panel ─── */
 .rl-wrap {
   background: rgba(192,112,255,.04);
   border: 1px solid rgba(192,112,255,.2);
@@ -512,223 +441,91 @@ body::before {
   padding: 12px;
   margin-bottom: 10px;
 }
-.rl-header {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  margin-bottom: 8px;
-}
-.rl-tag {
-  font-size: 8px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--purple);
-  background: rgba(192,112,255,.15);
-  padding: 2px 7px;
-}
-.rl-action {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 22px;
-  font-weight: 900;
-  color: var(--bright);
-  letter-spacing: 2px;
-}
-.rl-conf {
-  font-size: 10px;
-  color: var(--muted);
-}
-.rl-reason {
-  font-size: 10px;
-  color: var(--body);
-  line-height: 1.6;
-}
-.rl-qvals {
-  display: flex;
-  gap: 6px;
-  margin-top: 10px;
-  flex-wrap: wrap;
-}
-.ql-item {
-  flex: 1;
-  min-width: 60px;
-  background: var(--ink4);
-  border: 1px solid var(--wire);
-  padding: 5px 8px;
-  text-align: center;
-}
-.ql-act { font-size: 9px; color: var(--dim); letter-spacing: 1px; }
-.ql-val { font-size: 14px; font-weight: 700; color: var(--text); }
+.rl-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+.rl-tag { font-size: 8px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--purple); background: rgba(192,112,255,.15); padding: 2px 7px; }
+.rl-action { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 900; color: var(--bright); letter-spacing: 2px; }
+.rl-conf   { font-size: 10px; color: var(--muted); }
+.rl-reason { font-size: 10px; color: var(--body); line-height: 1.6; }
+.rl-qvals  { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+.ql-item   { flex: 1; min-width: 60px; background: var(--ink4); border: 1px solid var(--wire); padding: 5px 8px; text-align: center; }
+.ql-act    { font-size: 9px; color: var(--dim); letter-spacing: 1px; }
+.ql-val    { font-size: 14px; font-weight: 700; color: var(--text); }
 .ql-val.best { color: var(--purple); }
 
-/* ─── DoW heatmap ─── */
-.dow-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
-  margin-top: 8px;
-}
-.dow-cell {
-  text-align: center;
-  padding: 8px 4px;
-  background: var(--ink4);
-  border: 1px solid var(--wire);
-}
-.dow-day { font-size: 8px; color: var(--dim); letter-spacing: .5px; margin-bottom: 4px; }
-.dow-val { font-size: 13px; font-weight: 700; color: var(--text); }
-.dow-bar { height: 3px; background: var(--wire2); margin-top: 4px; }
+.dow-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 8px; }
+.dow-cell { text-align: center; padding: 8px 4px; background: var(--ink4); border: 1px solid var(--wire); }
+.dow-day  { font-size: 8px; color: var(--dim); letter-spacing: .5px; margin-bottom: 4px; }
+.dow-val  { font-size: 13px; font-weight: 700; color: var(--text); }
+.dow-bar  { height: 3px; background: var(--wire2); margin-top: 4px; }
 .dow-fill { height: 100%; background: var(--ember); }
 
-/* ─── Log list ─── */
-.log-list {
-  font-size: 10px;
-  max-height: 400px;
-  overflow-y: auto;
-}
+.log-list { font-size: 10px; max-height: 400px; overflow-y: auto; }
 .log-list::-webkit-scrollbar { width: 3px; }
 .log-list::-webkit-scrollbar-thumb { background: var(--wire2); }
-.log-entry {
-  display: flex;
-  gap: 8px;
-  padding: 5px 0;
-  border-bottom: 1px solid var(--ink4);
-  align-items: baseline;
-}
-.log-time { color: var(--dim); font-size: 9px; white-space: nowrap; }
-.log-tag {
-  font-size: 8px;
-  padding: 1px 6px;
-  letter-spacing: .8px;
-  text-transform: uppercase;
-  font-weight: 700;
-  white-space: nowrap;
-}
-.log-tag.fifo  { color: var(--ice); border: 1px solid var(--ice); }
-.log-tag.fefo  { color: var(--acid); border: 1px solid var(--acid); }
-.log-tag.rl    { color: var(--purple); border: 1px solid var(--purple); }
-.log-tag.sys   { color: var(--dim); border: 1px solid var(--wire); }
-.log-tag.ok    { color: var(--teal); border: 1px solid var(--teal); }
-.log-tag.err   { color: var(--crimson); border: 1px solid var(--crimson); }
+.log-entry { display: flex; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--ink4); align-items: baseline; }
+.log-time  { color: var(--dim); font-size: 9px; white-space: nowrap; }
+.log-tag   { font-size: 8px; padding: 1px 6px; letter-spacing: .8px; text-transform: uppercase; font-weight: 700; white-space: nowrap; }
+.log-tag.fifo { color: var(--ice);    border: 1px solid var(--ice); }
+.log-tag.fefo { color: var(--acid);   border: 1px solid var(--acid); }
+.log-tag.rl   { color: var(--purple); border: 1px solid var(--purple); }
+.log-tag.sys  { color: var(--dim);    border: 1px solid var(--wire); }
+.log-tag.ok   { color: var(--teal);   border: 1px solid var(--teal); }
+.log-tag.err  { color: var(--crimson);border: 1px solid var(--crimson); }
 .log-msg { color: var(--body); flex: 1; }
 
-/* ─── Badge ─── */
-.bdg {
-  display: inline-block;
-  font-size: 8px;
-  padding: 1px 6px;
-  letter-spacing: .8px;
-  text-transform: uppercase;
-  font-weight: 700;
-}
-.bdg-crit  { color: var(--crimson); border: 1px solid var(--crimson); background: rgba(255,37,37,.1); }
-.bdg-high  { color: var(--solar);   border: 1px solid var(--solar);   background: rgba(255,214,0,.08); }
-.bdg-med   { color: var(--ice);     border: 1px solid var(--ice);     background: rgba(0,196,232,.08); }
-.bdg-low   { color: var(--acid);    border: 1px solid var(--acid);    background: rgba(168,255,0,.07); }
-.bdg-ok    { color: var(--teal);    border: 1px solid var(--teal);    background: rgba(0,229,160,.07); }
+.bdg      { display: inline-block; font-size: 8px; padding: 1px 6px; letter-spacing: .8px; text-transform: uppercase; font-weight: 700; }
+.bdg-crit { color: var(--crimson); border: 1px solid var(--crimson); background: rgba(255,37,37,.1); }
+.bdg-high { color: var(--solar);   border: 1px solid var(--solar);   background: rgba(255,214,0,.08); }
+.bdg-med  { color: var(--ice);     border: 1px solid var(--ice);     background: rgba(0,196,232,.08); }
+.bdg-low  { color: var(--acid);    border: 1px solid var(--acid);    background: rgba(168,255,0,.07); }
+.bdg-ok   { color: var(--teal);    border: 1px solid var(--teal);    background: rgba(0,229,160,.07); }
 
-/* ─── Cost bar ─── */
-.cost-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 5px 0;
-  border-bottom: 1px solid var(--ink4);
-}
+.cost-row   { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--ink4); }
 .cost-label { font-size: 10px; color: var(--muted); width: 90px; flex-shrink: 0; }
 .cost-track { flex: 1; height: 6px; background: var(--ink5); overflow: hidden; }
 .cost-fill  { height: 100%; }
 .cost-val   { font-size: 10px; color: var(--text); font-weight: 700; width: 60px; text-align: right; }
 
-/* ─── Add item form ─── */
 .form-row {
-  display: flex;
-  gap: 6px;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  padding: 10px;
-  background: var(--ink3);
-  border: 1px solid var(--wire);
-  margin-top: 10px;
+  display: flex; gap: 6px; align-items: flex-end; flex-wrap: wrap;
+  padding: 10px; background: var(--ink3); border: 1px solid var(--wire); margin-top: 10px;
 }
 .fg { display: flex; flex-direction: column; gap: 3px; }
-.fg label {
-  font-size: 8px;
-  color: var(--dim);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
+.fg label { font-size: 8px; color: var(--dim); letter-spacing: 1px; text-transform: uppercase; }
 .fg input, .fg select {
-  background: var(--ink);
-  border: 1px solid var(--wire);
-  color: var(--text);
-  padding: 5px 8px;
-  font-family: 'Space Mono', monospace;
-  font-size: 10px;
-  outline: none;
-  border-radius: 0;
-  transition: border-color .15s;
+  background: var(--ink); border: 1px solid var(--wire);
+  color: var(--text); padding: 5px 8px;
+  font-family: 'Space Mono', monospace; font-size: 10px;
+  outline: none; border-radius: 0; transition: border-color .15s;
 }
 .fg input:focus, .fg select:focus { border-color: var(--ember); }
 .fg input::placeholder { color: var(--wire2); }
 
-/* ─── Statusbar ─── */
 #statusbar {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  background: var(--ink2);
-  border-top: 1px solid var(--wire);
-  height: 28px;
-  padding: 0;
-  overflow: hidden;
+  display: flex; align-items: center;
+  background: var(--ink2); border-top: 1px solid var(--wire);
+  height: 28px; overflow: hidden;
 }
 .sb-item {
-  padding: 0 14px;
-  font-size: 9px;
-  color: var(--dim);
-  letter-spacing: .5px;
-  border-right: 1px solid var(--wire);
-  height: 100%;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  white-space: nowrap;
+  padding: 0 14px; font-size: 9px; color: var(--dim);
+  letter-spacing: .5px; border-right: 1px solid var(--wire);
+  height: 100%; display: flex; align-items: center; gap: 5px; white-space: nowrap;
 }
 .sb-item .dot { width: 5px; height: 5px; border-radius: 50%; }
 #activity-log-bar {
-  flex: 1;
-  padding: 0 14px;
-  font-size: 9px;
-  color: var(--muted);
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  flex: 1; padding: 0 14px; font-size: 9px; color: var(--muted);
+  overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
 }
 
-/* ═══ MISC ═══════════════════════════════════════════════════════════════════ */
 .mt8  { margin-top: 8px; }
 .mt12 { margin-top: 12px; }
 .mb8  { margin-bottom: 8px; }
 
-.animate-in {
-  animation: fadeUp .3s ease;
-}
+.animate-in { animation: fadeUp .3s ease; }
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: none; }
 }
-
-.num-highlight {
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--ember);
-  line-height: 1;
-}
-
-.inline-chart-wrap {
-  width: 100%;
-  margin-top: 6px;
-}
-
 </style>
 </head>
 <body>
@@ -739,16 +536,14 @@ body::before {
   <div id="topbar">
     <div class="tb-logo">
       <span class="mark">DEXTER</span>
-      <div>
-        <div class="sub" style="font-size:7px;letter-spacing:1px">INVENTORY INTELLIGENCE</div>
-      </div>
+      <div><div class="sub">INVENTORY INTELLIGENCE</div></div>
     </div>
 
     <div class="tb-stat" id="stat-stock">
       <div class="lbl">In Stock</div>
       <div class="val" id="ts-stock">—</div>
     </div>
-    <div class="tb-stat" id="stat-demand">
+    <div class="tb-stat">
       <div class="lbl">Demand/Day</div>
       <div class="val ice" id="ts-demand">—</div>
     </div>
@@ -764,14 +559,14 @@ body::before {
       <div class="lbl">EOQ</div>
       <div class="val" id="ts-eoq">—</div>
     </div>
-    <div class="tb-stat" id="stat-rl">
+    <div class="tb-stat">
       <div class="lbl">RL Policy</div>
       <div class="val" id="ts-rl">—</div>
     </div>
 
     <div class="tb-right">
       <div class="tb-pill">
-        <span class="dot" id="sys-dot"></span>
+        <span class="dot warn" id="sys-dot"></span>
         <span id="sys-txt">CONNECTING</span>
       </div>
       <div class="tb-pill">
@@ -785,7 +580,7 @@ body::before {
   <!-- ══════ MAIN ════════════════════════════════════════════════════════════ -->
   <div id="main">
 
-    <!-- ─── LEFT: ARM SIMULATION PANEL ─────────────────────────────────── -->
+    <!-- ─── LEFT: ARM SIMULATION ────────────────────────────────────────── -->
     <div id="sim-panel">
       <div class="panel-header">
         <span class="ph-title">ARM DISPATCH SIMULATOR</span>
@@ -803,8 +598,6 @@ body::before {
           <button class="btn btn-dim"   onclick="resetDemo()" id="btn-reset" style="margin-left:auto">RESET</button>
         </div>
         <div class="sim-status" id="sim-status">Ready — select a dispatch mode</div>
-
-        <!-- Mini stock shelf overview -->
         <div class="dc-row" style="margin-top:8px;gap:4px">
           <span class="dc-label" style="font-size:8px">SHELF</span>
           <div id="shelf-mini" style="display:flex;gap:4px;flex:1"></div>
@@ -812,48 +605,41 @@ body::before {
       </div>
     </div>
 
-    <!-- ─── RIGHT: ANALYTICS PANEL ──────────────────────────────────────── -->
+    <!-- ─── RIGHT: ANALYTICS ─────────────────────────────────────────────── -->
     <div id="analytics-panel">
 
-      <!-- Tabs -->
       <div id="tabs">
         <button class="tab active" onclick="switchTab('overview')">Overview</button>
         <button class="tab" onclick="switchTab('forecast')">
-          Forecast
-          <span class="tab-dot" id="dot-forecast"></span>
+          Forecast<span class="tab-dot" id="dot-forecast"></span>
         </button>
         <button class="tab" onclick="switchTab('costs')">Cost Model</button>
         <button class="tab" onclick="switchTab('policy')">RL Policy</button>
         <button class="tab" onclick="switchTab('stock')">Stock</button>
         <button class="tab" onclick="switchTab('log')">Log</button>
         <button class="tab" onclick="switchTab('trainer')">⚙ RL Trainer</button>
-        <button class="tab" onclick="switchTab('guide')">? How To Use</button>
       </div>
 
       <div id="tab-content">
 
-        <!-- ── OVERVIEW TAB ──────────────────────────────────────────── -->
+        <!-- ── OVERVIEW ───────────────────────────────────────────────── -->
         <div class="tab-pane active" id="pane-overview">
-
-          <!-- Alerts -->
           <div id="overview-alerts"></div>
-
-          <!-- KPI row -->
-          <div class="g4 mt8" id="kpi-row">
+          <div class="g4 mt8">
             <div class="kpi-block">
               <div class="kpi-lbl">Total Stock</div>
               <div class="kpi-val" id="kpi-stock">—</div>
-              <div class="kpi-sub" id="kpi-stock-sub">units on shelf</div>
+              <div class="kpi-sub">units on shelf</div>
             </div>
             <div class="kpi-block" style="border-top-color:var(--ice)">
               <div class="kpi-lbl">Daily Demand</div>
               <div class="kpi-val ice" id="kpi-demand">—</div>
-              <div class="kpi-sub" id="kpi-demand-sub">forecast units/day</div>
+              <div class="kpi-sub">forecast units/day</div>
             </div>
             <div class="kpi-block" style="border-top-color:var(--acid)">
               <div class="kpi-lbl">Days of Stock</div>
               <div class="kpi-val" id="kpi-dos">—</div>
-              <div class="kpi-sub">at current demand rate</div>
+              <div class="kpi-sub">at current demand</div>
             </div>
             <div class="kpi-block" style="border-top-color:var(--purple)">
               <div class="kpi-lbl">Waste Risk</div>
@@ -862,7 +648,6 @@ body::before {
             </div>
           </div>
 
-          <!-- RL Recommendation -->
           <div class="rl-wrap mt12" id="rl-panel">
             <div class="rl-header">
               <span class="rl-tag">RL POLICY</span>
@@ -873,10 +658,9 @@ body::before {
             <div class="rl-qvals" id="rl-qvals"></div>
           </div>
 
-          <!-- Cost snapshot & Demand side-by-side -->
           <div class="g2 mt8">
             <div>
-              <div class="sec-title">Cost Snapshot (30-day horizon)</div>
+              <div class="sec-title">Cost Snapshot (30-day)</div>
               <div id="cost-snapshot"></div>
             </div>
             <div>
@@ -885,10 +669,9 @@ body::before {
             </div>
           </div>
 
-          <!-- Urgency breakdown -->
           <div class="mt12">
             <div class="sec-title">Urgency Classification</div>
-            <div class="g4" id="urgency-stats">
+            <div class="g4">
               <div class="kpi-block" style="border-top-color:var(--crimson)">
                 <div class="kpi-lbl">Critical</div>
                 <div class="kpi-val crit" id="urg-crit">0</div>
@@ -907,17 +690,15 @@ body::before {
               </div>
             </div>
           </div>
-
         </div>
 
-        <!-- ── FORECAST TAB ──────────────────────────────────────────── -->
+        <!-- ── FORECAST ───────────────────────────────────────────────── -->
         <div class="tab-pane" id="pane-forecast">
           <div class="sec-title">7-DAY ENSEMBLE DEMAND FORECAST</div>
           <div class="chart-wrap">
-            <div class="chart-title">UNITS / DAY · 80% and 95% prediction intervals shown</div>
+            <div class="chart-title">UNITS / DAY · 80% and 95% prediction intervals</div>
             <canvas class="chart-canvas" id="chart-forecast" height="180"></canvas>
           </div>
-
           <div class="g2 mt12">
             <div>
               <div class="sec-title">Day-of-Week Demand Pattern</div>
@@ -928,28 +709,24 @@ body::before {
               <div id="model-stats"></div>
             </div>
           </div>
-
           <div class="mt12">
             <div class="sec-title">7-Day Detail Table</div>
-            <table class="stk-table" id="forecast-table">
+            <table class="stk-table">
               <thead>
-                <tr>
-                  <th>Date</th><th>Forecast</th><th>Low 80%</th><th>High 80%</th>
-                  <th>Low 95%</th><th>High 95%</th>
-                </tr>
+                <tr><th>Date</th><th>Forecast</th><th>Low 80%</th><th>High 80%</th><th>Low 95%</th><th>High 95%</th></tr>
               </thead>
               <tbody id="forecast-tbody"></tbody>
             </table>
           </div>
         </div>
 
-        <!-- ── COSTS TAB ─────────────────────────────────────────────── -->
+        <!-- ── COSTS ──────────────────────────────────────────────────── -->
         <div class="tab-pane" id="pane-costs">
           <div class="g2">
             <div>
               <div class="sec-title">Total Cost vs Order Quantity</div>
               <div class="chart-wrap">
-                <div class="chart-title">OPTIMAL Q* SHOWN — PROFIT MAXIMISING</div>
+                <div class="chart-title">OPTIMAL Q* — PROFIT MAXIMISING</div>
                 <canvas class="chart-canvas" id="chart-costs" height="200"></canvas>
               </div>
             </div>
@@ -960,22 +737,19 @@ body::before {
               <div id="newsvendor-panel"></div>
             </div>
           </div>
-
           <div class="mt12">
-            <div class="sec-title">Cost Breakdown (Current Order Qty vs Optimal)</div>
+            <div class="sec-title">Cost Breakdown</div>
             <div id="cost-breakdown-table"></div>
           </div>
-
           <div class="mt12">
-            <div class="sec-title">Economic Order Quantity Analysis</div>
+            <div class="sec-title">EOQ Analysis</div>
             <div id="eoq-panel"></div>
           </div>
         </div>
 
-        <!-- ── POLICY TAB ────────────────────────────────────────────── -->
+        <!-- ── POLICY ─────────────────────────────────────────────────── -->
         <div class="tab-pane" id="pane-policy">
           <div class="sec-title">REINFORCEMENT LEARNING DISPATCH POLICY</div>
-
           <div class="g2">
             <div>
               <div class="sec-title">Q-Value State Map</div>
@@ -989,34 +763,31 @@ body::before {
               <canvas class="chart-canvas" id="chart-reward" height="200"></canvas>
             </div>
           </div>
-
           <div class="mt12">
             <div class="sec-title">Policy State Analysis</div>
             <div id="policy-state-panel"></div>
           </div>
-
           <div class="mt12">
             <div class="sec-title">Policy vs Naive Comparison</div>
             <div id="policy-compare"></div>
           </div>
         </div>
 
-        <!-- ── STOCK TAB ─────────────────────────────────────────────── -->
+        <!-- ── STOCK ──────────────────────────────────────────────────── -->
         <div class="tab-pane" id="pane-stock">
           <div class="sec-title">CURRENT INVENTORY</div>
           <div style="overflow-x:auto">
-            <table class="stk-table" id="stock-table">
+            <table class="stk-table">
               <thead>
                 <tr>
                   <th>Slot</th><th>Item</th><th>Arrived</th>
                   <th>Shelf Life</th><th>Remaining</th><th>Status</th>
-                  <th>FIFO#</th><th>FEFO#</th><th>Est. Value</th>
+                  <th>FIFO#</th><th>FEFO#</th>
                 </tr>
               </thead>
               <tbody id="stock-tbody"></tbody>
             </table>
           </div>
-
           <div class="form-row">
             <div class="fg">
               <label>Slot</label>
@@ -1026,7 +797,7 @@ body::before {
             </div>
             <div class="fg" style="flex:2;min-width:120px">
               <label>Item Name</label>
-              <input id="f-name" placeholder="e.g. Resistors 10k">
+              <input id="f-name" placeholder="e.g. Organic Milk 1L">
             </div>
             <div class="fg" style="width:110px">
               <label>Shelf Life (days)</label>
@@ -1043,7 +814,7 @@ body::before {
           </div>
         </div>
 
-        <!-- ── LOG TAB ───────────────────────────────────────────────── -->
+        <!-- ── LOG ───────────────────────────────────────────────────── -->
         <div class="tab-pane" id="pane-log">
           <div class="g2">
             <div>
@@ -1057,22 +828,19 @@ body::before {
           </div>
         </div>
 
-        <!-- ── RL TRAINER TAB ─────────────────────────────────────────── -->
+        <!-- ── RL TRAINER ─────────────────────────────────────────────── -->
         <div class="tab-pane" id="pane-trainer">
           <div class="g2">
             <div>
               <div class="sec-title">PYTHON RL TRAINER — LIVE CONNECTION</div>
-              <div class="alert ice" style="margin-bottom:10px" id="trainer-status-box">
-                <strong>Status:</strong> <span id="trainer-status">Not connected — run train_rl.py first (see instructions below)</span>
+              <div class="alert ice mb8" id="trainer-status-box">
+                <strong>Status:</strong> <span id="trainer-status">Not connected — run train_rl.py first</span>
               </div>
-              <div style="background:var(--ink3);border:1px solid var(--wire);padding:12px;font-family:'Space Mono',monospace;font-size:10px;color:var(--body);margin-bottom:10px">
-                <div style="color:var(--ember);margin-bottom:8px;letter-spacing:1px;font-size:9px">TERMINAL — HOW TO START TRAINING</div>
-                <div style="color:var(--acid);margin-bottom:4px"># 1. Install dependencies (once)</div>
-                <div style="color:var(--text);margin-bottom:8px">pip install flask flask-cors numpy</div>
-                <div style="color:var(--acid);margin-bottom:4px"># 2. Run the trainer (in the Dexter project root)</div>
-                <div style="color:var(--text);margin-bottom:8px">python3 train_rl.py</div>
-                <div style="color:var(--acid);margin-bottom:4px"># 3. Watch live training here (auto-connects on port 5001)</div>
-                <div style="color:var(--dim)">Training runs 10,000 episodes, then saves q_table.json</div>
+              <div style="background:var(--ink3);border:1px solid var(--wire);padding:12px;font-size:10px;margin-bottom:10px">
+                <div style="color:var(--ember);margin-bottom:8px;font-size:9px;letter-spacing:1px">TERMINAL — START TRAINING</div>
+                <div style="color:var(--acid);margin-bottom:2px"># In project root:</div>
+                <div style="color:var(--text)">python3 train_rl.py</div>
+                <div style="color:var(--dim);margin-top:8px;font-size:9px">Dashboard connects on port 5001 automatically</div>
               </div>
               <div class="sec-title">LIVE EPISODE METRICS</div>
               <div id="trainer-metrics">
@@ -1089,92 +857,18 @@ body::before {
               </div>
             </div>
             <div>
-              <div class="sec-title">LIVE REWARD CURVE (from trainer)</div>
-              <div class="chart-wrap" style="margin-bottom:10px">
+              <div class="sec-title">LIVE REWARD CURVE</div>
+              <div class="chart-wrap mb8">
                 <canvas class="chart-canvas" id="chart-trainer-reward" height="160"></canvas>
               </div>
-              <div class="sec-title">Q-TABLE SNAPSHOT (from trainer)</div>
+              <div class="sec-title">Q-TABLE SNAPSHOT</div>
               <div id="trainer-qtable" style="font-family:'Space Mono',monospace;font-size:9px;color:var(--body);background:var(--ink3);border:1px solid var(--wire);padding:10px;max-height:200px;overflow-y:auto">
-                <span style="color:var(--dim)">Waiting for trainer connection…</span>
+                <span style="color:var(--dim)">Waiting for trainer…</span>
               </div>
-              <div class="sec-title" style="margin-top:10px">IMPORTED Q-TABLE STATUS</div>
-              <div class="data-row"><span class="drk">Source</span><span class="drv" id="qt-source">JS built-in pre-warm</span></div>
+              <div class="sec-title mt12">IMPORTED Q-TABLE</div>
+              <div class="data-row"><span class="drk">Source</span><span class="drv" id="qt-source">JS built-in (untrained)</span></div>
               <div class="data-row"><span class="drk">Last sync</span><span class="drv" id="qt-sync">—</span></div>
               <button class="btn btn-acid" style="margin-top:8px" onclick="importQTable()">↓ IMPORT Q-TABLE FROM TRAINER</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- ── HOW TO USE TAB ─────────────────────────────────────────── -->
-        <div class="tab-pane" id="pane-guide">
-          <div class="g2">
-            <div>
-              <div class="sec-title">WHAT IS THIS SYSTEM?</div>
-              <div class="alert ice" style="margin-bottom:12px">
-                DEXTER Inventory Intelligence is an industry-grade perishable supply chain platform combining demand forecasting, cost optimisation (Newsvendor + EOQ + ROP), and reinforcement learning dispatch policy. The robotic arm simulation on the left mirrors real physical dispatch commands.
-              </div>
-
-              <div class="sec-title">QUICK START — 5 STEPS</div>
-              <div style="background:var(--ink3);border:1px solid var(--wire);padding:12px;margin-bottom:10px">
-                <div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--ink4)">
-                  <div style="width:22px;height:22px;background:var(--ember);color:var(--ink);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
-                  <div><div style="color:var(--text);font-weight:700;margin-bottom:3px">Look at the Overview tab</div><div style="font-size:10px;color:var(--body);line-height:1.7">The system already has 45 days of synthetic pharma dispatch history loaded. The RL model is pre-warmed. See the RL recommendation and urgency alerts — mRNA Vaccine Vials expire in 1 day, so the system recommends FEFO immediately.</div></div>
-                </div>
-                <div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--ink4)">
-                  <div style="width:22px;height:22px;background:var(--ember);color:var(--ink);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
-                  <div><div style="color:var(--text);font-weight:700;margin-bottom:3px">Dispatch using FIFO, FEFO, or RL-OPT</div><div style="font-size:10px;color:var(--body);line-height:1.7"><strong style="color:var(--ice)">FIFO</strong> = oldest item first (naive baseline). <strong style="color:var(--acid)">FEFO</strong> = soonest-expiry first (waste prevention). <strong style="color:var(--ember)">RL-OPT</strong> = AI picks based on Q-values, cost state, and demand. Watch the arm animation. Each dispatch updates the RL reward history.</div></div>
-                </div>
-                <div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--ink4)">
-                  <div style="width:22px;height:22px;background:var(--ember);color:var(--ink);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
-                  <div><div style="color:var(--text);font-weight:700;margin-bottom:3px">Check the Forecast tab</div><div style="font-size:10px;color:var(--body);line-height:1.7">7-day ensemble prediction with 80%+95% confidence bands. The day-of-week grid shows pharma demand peaks Mon–Wed and troughs on weekends. CV (coefficient of variation) = σ/μ: &lt;0.3 stable, 0.3–0.5 moderate, &gt;0.5 volatile. High CV → larger safety stock in the ROP formula.</div></div>
-                </div>
-                <div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--ink4)">
-                  <div style="width:22px;height:22px;background:var(--ember);color:var(--ink);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0">4</div>
-                  <div><div style="color:var(--text);font-weight:700;margin-bottom:3px">Read the Cost Model tab</div><div style="font-size:10px;color:var(--body);line-height:1.7">The profit curve shows every possible order quantity. The green peak = profit-maximising Q*. Newsvendor Q* solves F⁻¹(Cᵤ/(Cᵤ+Cₒ)) — balancing waste cost vs stockout cost. For pharma, stockout multiplier is 2.0× (patient safety), so the model keeps higher safety stock than grocery would.</div></div>
-                </div>
-                <div style="display:flex;gap:10px;padding:8px 0">
-                  <div style="width:22px;height:22px;background:var(--ember);color:var(--ink);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0">5</div>
-                  <div><div style="color:var(--text);font-weight:700;margin-bottom:3px">Run the Python trainer for deep RL</div><div style="font-size:10px;color:var(--body);line-height:1.7">Run <code style="color:var(--acid)">python3 train_rl.py</code> in terminal. It trains 10,000 episodes, simulates full demand + cost dynamics, and streams live metrics to the RL Trainer tab here. After training, click Import Q-Table to push the trained policy into the live dashboard.</div></div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="sec-title">COST MODEL EQUATIONS</div>
-              <div style="background:var(--ink3);border:1px solid var(--wire);padding:12px;font-size:10px;margin-bottom:10px">
-                <div class="data-row"><span class="drk">Unit Cost Cₚ</span><span class="drv">$18 (pharma cold-chain)</span></div>
-                <div class="data-row"><span class="drk">Selling Price</span><span class="drv ok">$45 (hospital dispensary)</span></div>
-                <div class="data-row"><span class="drk">Gross Margin</span><span class="drv">60%</span></div>
-                <div class="data-row"><span class="drk">Holding cost</span><span class="drv">$0.008/unit/day (refrigerated)</span></div>
-                <div class="data-row"><span class="drk">Waste cost</span><span class="drv crimson">1.5× Cₚ (disposal + regulatory)</span></div>
-                <div class="data-row"><span class="drk">Stockout cost</span><span class="drv solar">2.0× margin (patient safety)</span></div>
-                <div class="data-row"><span class="drk">Newsvendor Q*</span><span class="drv">F⁻¹(Cᵤ/(Cᵤ+Cₒ)) — normal CDF inverse</span></div>
-                <div class="data-row"><span class="drk">EOQ</span><span class="drv">√(2DK/h) — annual demand, order cost, holding</span></div>
-                <div class="data-row"><span class="drk">ROP</span><span class="drv">μ_lt + z(SL)·σ·√(LT) — safety stock driven</span></div>
-                <div class="data-row"><span class="drk">Service Level</span><span class="drv ember">95% (pharma standard)</span></div>
-              </div>
-
-              <div class="sec-title">RL Q-LEARNING EXPLAINED</div>
-              <div style="background:var(--ink3);border:1px solid var(--wire);padding:12px;font-size:10px;margin-bottom:10px">
-                <div class="data-row"><span class="drk">State space</span><span class="drv">(expiry_bucket, stock_level, demand_level, cost_pressure)</span></div>
-                <div class="data-row"><span class="drk">Expiry buckets</span><span class="drv">0=expired, 1=≤2d, 2=≤7d, 3=≤14d, 4=safe</span></div>
-                <div class="data-row"><span class="drk">Actions</span><span class="drv">FIFO · FEFO · HOLD</span></div>
-                <div class="data-row"><span class="drk">Reward: sold</span><span class="drv ok">+12 per dispatch</span></div>
-                <div class="data-row"><span class="drk">Reward: expiry bonus</span><span class="drv ok">+3 if days remaining &gt; 0</span></div>
-                <div class="data-row"><span class="drk">Reward: expired penalty</span><span class="drv crimson">−6 if item already expired</span></div>
-                <div class="data-row"><span class="drk">Reward: HOLD+waste risk</span><span class="drv crimson">−4 if HOLD with ≤2d items</span></div>
-                <div class="data-row"><span class="drk">Holding penalty</span><span class="drv">−0.05 × stock (lean incentive)</span></div>
-                <div class="data-row"><span class="drk">Update rule</span><span class="drv">Q(s,a) ← Q + α(r + γ·maxQ(s') − Q)</span></div>
-                <div class="data-row"><span class="drk">α / γ / ε</span><span class="drv">0.15 / 0.90 / 0.10→0.02 decay</span></div>
-              </div>
-
-              <div class="sec-title">FORECAST MODEL</div>
-              <div style="background:var(--ink3);border:1px solid var(--wire);padding:12px;font-size:10px">
-                <div class="data-row"><span class="drk">Model 1</span><span class="drv">Holt-Winters (level α=0.30, trend β=0.10)</span></div>
-                <div class="data-row"><span class="drk">Model 2</span><span class="drk">Multiplicative day-of-week seasonality</span></div>
-                <div class="data-row"><span class="drk">Ensemble</span><span class="drv">Inverse-MAE weighted combination</span></div>
-                <div class="data-row"><span class="drk">Intervals</span><span class="drv">80% = ±1.28σ · 95% = ±1.96σ</span></div>
-                <div class="data-row"><span class="drk">Key insight</span><span class="drv">Wed demand ≠ Sun demand — DoW fixes this</span></div>
-              </div>
             </div>
           </div>
         </div>
@@ -1187,9 +881,9 @@ body::before {
   <div id="statusbar">
     <div class="sb-item">
       <span class="dot" id="sb-dot" style="background:var(--dim)"></span>
-      <span id="sb-mode">STANDALONE</span>
+      <span id="sb-mode">CONNECTING</span>
     </div>
-    <div class="sb-item">DEXTER INVENTORY INTELLIGENCE v2.0</div>
+    <div class="sb-item">DEXTER INVENTORY INTELLIGENCE v2.1</div>
     <div class="sb-item" id="sb-forecast">FORECAST: —</div>
     <div class="sb-item" id="sb-rop">ROP: —</div>
     <div id="activity-log-bar">System initialising…</div>
@@ -1200,16 +894,15 @@ body::before {
 
 <script>
 /* ╔══════════════════════════════════════════════════════════════════════════╗
-   ║  DEXTER INVENTORY INTELLIGENCE  –  Full-stack Client                    ║
+   ║  DEXTER INVENTORY INTELLIGENCE  –  Dashboard v2.1                       ║
+   ║  Fixes: newsvendorQ bug, no pre-training, no How-To-Use tab             ║
    ╚══════════════════════════════════════════════════════════════════════════╝ */
 
 const DAY = 86400000;
 let backendOnline = false;
 let isBusy = false;
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   CLOCK
-───────────────────────────────────────────────────────────────────────────── */
+// ── Clock ────────────────────────────────────────────────────────────────────
 function updateClock() {
   document.getElementById('clock').textContent = new Date().toLocaleTimeString('en-GB');
   document.getElementById('sb-ts').textContent = new Date().toLocaleString('en-GB', { hour12: false });
@@ -1217,14 +910,12 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   TABS
-───────────────────────────────────────────────────────────────────────────── */
+// ── Tabs ─────────────────────────────────────────────────────────────────────
 function switchTab(name) {
   document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById('pane-' + name).classList.add('active');
-  const idx = ['overview','forecast','costs','policy','stock','log','trainer','guide'].indexOf(name);
+  const idx = ['overview','forecast','costs','policy','stock','log','trainer'].indexOf(name);
   if (idx >= 0) document.querySelectorAll('.tab')[idx].classList.add('active');
   if (name === 'forecast') drawForecastChart();
   if (name === 'costs')    drawCostChart();
@@ -1232,102 +923,59 @@ function switchTab(name) {
   if (name === 'trainer')  drawTrainerRewardChart();
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   DEMO INVENTORY  (local state, synced from backend when available)
-───────────────────────────────────────────────────────────────────────────── */
+// ── Demo inventory — matches reset_with_defaults() in inventory_db.py ────────
+// NO synthetic pre-training history. Starts clean.
 let t0 = Date.now();
 let inv = [
-  { id:0, name:'Plasma Bags O+',       batch:'LOT-PL042', slot:0, arrival: t0 - 5*DAY, expiry: t0 + 4*DAY,  sl:42 },
-  { id:1, name:'mRNA Vaccine Vials',   batch:'LOT-VX891', slot:1, arrival: t0 - 2*DAY, expiry: t0 + 1*DAY,  sl:30 },
-  { id:2, name:'Insulin Glargine 3mL', batch:'LOT-IN310', slot:2, arrival: t0 - 1*DAY, expiry: t0 + 7*DAY,  sl:28 },
-  { id:3, name:'Packed Red Cells',     batch:'LOT-RC077', slot:3, arrival: t0,          expiry: t0 + 10*DAY, sl:42 },
+  { id: 0, name: 'Organic Milk 1L',       slot: 0, arrival: t0 - 2*DAY, expiry: t0 + 5*DAY,  sl: 7  },
+  { id: 1, name: 'Strawberries 400g',      slot: 1, arrival: t0 - 1*DAY, expiry: t0 + 2*DAY,  sl: 3  },
+  { id: 2, name: 'Sourdough Bread',        slot: 2, arrival: t0 - 1*DAY, expiry: t0 + 3*DAY,  sl: 4  },
+  { id: 3, name: 'Free-Range Eggs 12pk',   slot: 3, arrival: t0 - 5*DAY, expiry: t0 + 16*DAY, sl: 21 },
 ];
 let dispatchLog = [];
 let actLog = [];
 let nid = 10;
 
-/* ── Synthetic pre-training: 45 days of realistic pharma DoW demand ─────────
-   Pharma distribution centres peak Mon/Tue/Wed, weekend trough.
-   This gives the forecaster real data on load + seeds the RL Q-table.
-   Items: [Plasma, Vaccine, Insulin, RedCells]
-────────────────────────────────────────────────────────────────────────────── */
-(function seedTrainingHistory() {
-  // Day-of-week multipliers [Sun, Mon, Tue, Wed, Thu, Fri, Sat]
-  const dowMult = [0.40, 1.45, 1.35, 1.55, 1.20, 1.05, 0.55];
-  const itemNames = ['Plasma Bags O+','mRNA Vaccine Vials','Insulin Glargine 3mL','Packed Red Cells'];
-  const BASE_DEMAND = 2.8; // pharma daily baseline units
-  const now = Date.now();
-  for (let d = 45; d >= 1; d--) {
-    const dayTs = now - d * DAY;
-    const dow = new Date(dayTs).getDay();
-    const demandMu = BASE_DEMAND * dowMult[dow];
-    // Poisson-like: sample integer demand
-    const demand = Math.round(demandMu * (0.7 + Math.random() * 0.6));
-    for (let j = 0; j < demand; j++) {
-      // FEFO more likely (pharma best practice)
-      const r = Math.random();
-      const mode = r < 0.45 ? 'FEFO' : r < 0.75 ? 'FIFO' : 'RL';
-      const slot = Math.floor(Math.random() * 4);
-      // Reward signal: FEFO gets better rewards on average
-      const reward = mode === 'FEFO' ? 9 + Math.random() * 5
-                   : mode === 'RL'   ? 8 + Math.random() * 5
-                   :                   6 + Math.random() * 4;
-      dispatchLog.push({
-        item: { name: itemNames[slot], slot, id: slot, expiry: dayTs + (3 + Math.random()*10)*DAY, sl:28 },
-        mode, ts: dayTs + Math.random() * DAY * 0.9,
-        reward: Math.round(reward * 100) / 100,
-        synthetic: true,
-      });
-    }
-  }
-  dispatchLog.sort((a, b) => a.ts - b.ts);
-})();
-
-function logActivity(msg, type='sys') {
+function logActivity(msg, type = 'sys') {
   actLog.unshift({ msg, type, ts: Date.now() });
   actLog = actLog.slice(0, 100);
   document.getElementById('activity-log-bar').textContent = msg;
   renderLogs();
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   DEMAND FORECASTER  (JavaScript port of ml_forecast.py)
-───────────────────────────────────────────────────────────────────────────── */
+// ── Demand Forecaster ────────────────────────────────────────────────────────
+// Cost defaults match inventory_db.py DEFAULT_COST
 class DemandForecaster {
   constructor(costParams = {}) {
     this.cp = {
-      unit_cost: 10, selling_price: 22, holding_cost_rate: 0.005,
-      waste_cost_mult: 1.2, stockout_cost_mult: 1.5,
-      ordering_fixed_cost: 15, lead_time_days: 2, service_level: 0.92,
+      unit_cost:            2.50,
+      selling_price:        5.00,
+      holding_cost_rate:    0.005,
+      waste_cost_mult:      1.80,
+      stockout_cost_mult:   1.20,
+      ordering_fixed_cost:  8.00,
+      lead_time_days:       2,
+      service_level:        0.92,
       ...costParams
     };
-    // Holt-Winters state
     this.hwLevel = 0; this.hwTrend = 0;
     this.hwAlpha = 0.3; this.hwBeta = 0.1;
-    // DoW seasonal indices
-    this.dowIdx = new Array(7).fill(1.0);
-    // Ensemble weights
+    this.dowIdx  = new Array(7).fill(1.0);
     this.weights = [0.5, 0.5];
     this.mean = 0; this.std = 0.3; this.cv = 0;
     this.trained = false;
     this.daily = [];
   }
 
-  // Build daily series from local dispatch log
   buildSeries() {
-    const log = dispatchLog.concat(
-      (window._backendLog || []).map(r => ({ ts: r.ts * 1000 }))
-    );
+    const log = dispatchLog.concat((window._backendLog || []).map(r => ({ ts: r.ts * 1000 })));
     if (!log.length) return { series: [], dows: [] };
     const buckets = {};
-    log.forEach(r => {
-      const b = Math.floor(r.ts / DAY);
-      buckets[b] = (buckets[b] || 0) + 1;
-    });
+    log.forEach(r => { const b = Math.floor(r.ts / DAY); buckets[b] = (buckets[b] || 0) + 1; });
     const keys = Object.keys(buckets).map(Number).sort();
     if (!keys.length) return { series: [], dows: [] };
     const series = [], dows = [];
-    for (let b = keys[0]; b <= keys[keys.length-1]; b++) {
+    for (let b = keys[0]; b <= keys[keys.length - 1]; b++) {
       series.push(buckets[b] || 0);
       dows.push(new Date(b * DAY).getDay());
     }
@@ -1335,19 +983,13 @@ class DemandForecaster {
   }
 
   fitHoltWinters(series) {
-    if (series.length < 2) {
-      this.hwLevel = series[0] || 0; this.hwTrend = 0;
-      return [...series];
-    }
+    if (series.length < 2) { this.hwLevel = series[0] || 0; this.hwTrend = 0; return [...series]; }
     const α = this.hwAlpha, β = this.hwBeta;
     let L = series[0], T = series[1] - series[0];
     const fitted = [L];
     for (let i = 1; i < series.length; i++) {
-      const obs = series[i];
-      const Ln = α * obs + (1-α) * (L + T);
-      const Tn = β * (Ln - L) + (1-β) * T;
-      fitted.push(L + T);
-      L = Ln; T = Tn;
+      const obs = series[i], Ln = α * obs + (1 - α) * (L + T), Tn = β * (Ln - L) + (1 - β) * T;
+      fitted.push(L + T); L = Ln; T = Tn;
     }
     this.hwLevel = L; this.hwTrend = T;
     return fitted;
@@ -1357,18 +999,17 @@ class DemandForecaster {
 
   fitDoW(series, dows) {
     if (!series.length) return [];
-    const mu = series.reduce((a,b) => a+b, 0) / series.length || 1;
+    const mu = series.reduce((a, b) => a + b, 0) / series.length || 1;
     const totals = new Array(7).fill(0), counts = new Array(7).fill(0);
     series.forEach((v, i) => { totals[dows[i]] += v; counts[dows[i]]++; });
     const idx = totals.map((t, i) => counts[i] > 0 ? (t / counts[i]) / mu : 1.0);
-    const avgIdx = idx.reduce((a,b) => a+b, 0) / 7;
+    const avgIdx = idx.reduce((a, b) => a + b, 0) / 7;
     this.dowIdx = idx.map(v => v / avgIdx);
     return series.map((_, i) => mu * this.dowIdx[dows[i]]);
   }
 
   dowPredict(h = 1) {
-    const today = new Date().getDay();
-    const dow = (today + h - 1) % 7;
+    const dow = (new Date().getDay() + h - 1) % 7;
     return Math.max(0, this.mean * this.dowIdx[dow]);
   }
 
@@ -1376,54 +1017,45 @@ class DemandForecaster {
     const { series, dows } = this.buildSeries();
     this.daily = series;
     if (series.length < 2) {
-      const recentDispatches = dispatchLog.filter(d => Date.now() - d.ts < 14 * DAY).length;
-      this.mean = recentDispatches / 14;
-      this.std = Math.max(this.mean * 0.35, 0.05);
-      this.cv = this.std / Math.max(this.mean, 0.001);
-      this.trained = false;
-      return false;
+      this.mean = dispatchLog.filter(d => Date.now() - d.ts < 14 * DAY).length / 14;
+      this.std  = Math.max(this.mean * 0.35, 0.05);
+      this.cv   = this.std / Math.max(this.mean, 0.001);
+      this.trained = false; return false;
     }
-    const arr = series;
-    this.mean = arr.reduce((a,b) => a+b, 0) / arr.length;
-    const variance = arr.reduce((a,b) => a + (b - this.mean)**2, 0) / arr.length;
+    this.mean = series.reduce((a, b) => a + b, 0) / series.length;
+    const variance = series.reduce((a, b) => a + (b - this.mean) ** 2, 0) / series.length;
     this.std = Math.max(Math.sqrt(variance), 0.01);
-    this.cv = this.std / Math.max(this.mean, 0.001);
+    this.cv  = this.std / Math.max(this.mean, 0.001);
     const hwFit  = this.fitHoltWinters(series);
     const dowFit = this.fitDoW(series, dows);
-    // Inverse-MAE weights
     const n = Math.min(14, series.length);
     let hwMae = 0, dowMae = 0;
     for (let i = series.length - n; i < series.length; i++) {
       hwMae  += Math.abs(series[i] - hwFit[i]);
       dowMae += Math.abs(series[i] - dowFit[i]);
     }
-    hwMae = hwMae / n + 1e-6;
-    dowMae = dowMae / n + 1e-6;
-    const total = 1/hwMae + 1/dowMae;
-    this.weights = [(1/hwMae)/total, (1/dowMae)/total];
+    hwMae = hwMae / n + 1e-6; dowMae = dowMae / n + 1e-6;
+    const total = 1 / hwMae + 1 / dowMae;
+    this.weights = [(1 / hwMae) / total, (1 / dowMae) / total];
     this.trained = series.length >= 7;
     return this.trained;
   }
 
-  predictNextDay() {
-    return Math.max(0, this.weights[0] * this.hwPredict(1) + this.weights[1] * this.dowPredict(1));
-  }
+  predictNextDay() { return Math.max(0, this.weights[0] * this.hwPredict(1) + this.weights[1] * this.dowPredict(1)); }
 
   predictHorizon(days = 7) {
-    const now = Date.now();
-    const results = [];
+    const now = Date.now(), results = [];
     for (let h = 1; h <= days; h++) {
-      const mu = Math.max(0, this.weights[0] * this.hwPredict(h) + this.weights[1] * this.dowPredict(h));
-      const sigma = Math.max(this.std * (1 + 0.08*(h-1)), 0.05);
-      const date = new Date(now + h * DAY);
+      const mu    = Math.max(0, this.weights[0] * this.hwPredict(h) + this.weights[1] * this.dowPredict(h));
+      const sigma = Math.max(this.std * (1 + 0.08 * (h - 1)), 0.05);
+      const date  = new Date(now + h * DAY).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
       results.push({
-        day: h,
-        date: date.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'}),
-        forecast: Math.round(mu*100)/100,
-        lo80: Math.max(0, Math.round((mu - 1.282*sigma)*100)/100),
-        hi80: Math.round((mu + 1.282*sigma)*100)/100,
-        lo95: Math.max(0, Math.round((mu - 1.960*sigma)*100)/100),
-        hi95: Math.round((mu + 1.960*sigma)*100)/100,
+        day: h, date,
+        forecast: Math.round(mu * 100) / 100,
+        lo80: Math.max(0, Math.round((mu - 1.282 * sigma) * 100) / 100),
+        hi80: Math.round((mu + 1.282 * sigma) * 100) / 100,
+        lo95: Math.max(0, Math.round((mu - 1.960 * sigma) * 100) / 100),
+        hi95: Math.round((mu + 1.960 * sigma) * 100) / 100,
       });
     }
     return results;
@@ -1432,105 +1064,88 @@ class DemandForecaster {
   dowProfile() {
     const names = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
     return this.dowIdx.map((idx, i) => ({
-      day: names[i], index: Math.round(idx*1000)/1000,
+      day: names[i], index: Math.round(idx * 1000) / 1000,
       demand: Math.round(this.mean * idx * 100) / 100
     }));
   }
 
-  // Inverse normal CDF (Abramowitz & Stegun)
   _invNorm(p) {
-    p = Math.max(1e-9, Math.min(1-1e-9, p));
-    const sign = p > 0.5 ? 1 : -1;
-    const q = p > 0.5 ? p : 1 - p;
+    p = Math.max(1e-9, Math.min(1 - 1e-9, p));
+    const sign = p > 0.5 ? 1 : -1, q = p > 0.5 ? p : 1 - p;
     const t = Math.sqrt(-2 * Math.log(1 - q));
-    const c = 2.515517 + 0.802853*t + 0.010328*t*t;
-    const d = 1 + 1.432788*t + 0.189269*t*t + 0.001308*t*t*t;
-    return sign * (t - c/d);
+    const c = 2.515517 + 0.802853 * t + 0.010328 * t * t;
+    const d = 1 + 1.432788 * t + 0.189269 * t * t + 0.001308 * t * t * t;
+    return sign * (t - c / d);
   }
 
+  // FIX: method name is newsvendorQ (was called as newsvendor_q which caused the crash)
   newsvendorQ(leadTime) {
-    const lt = leadTime || this.cp.lead_time_days;
-    const d = this.predictNextDay();
-    const muLt = d * lt;
-    const sigLt = Math.max(this.std * Math.sqrt(Math.max(lt,1)), 0.1);
+    const lt    = leadTime || this.cp.lead_time_days;
+    const d     = this.predictNextDay();
+    const muLt  = d * lt;
+    const sigLt = Math.max(this.std * Math.sqrt(Math.max(lt, 1)), 0.1);
     const margin = this.cp.selling_price - this.cp.unit_cost;
     const Cu = this.cp.stockout_cost_mult * margin;
     const Co = this.cp.holding_cost_rate * lt + (1 - this.cp.service_level) * this.cp.waste_cost_mult * this.cp.unit_cost;
     const cr = Cu / (Cu + Co);
-    const z = this._invNorm(cr);
-    const qStar = Math.max(0, Math.ceil(muLt + z * sigLt));
-    return { optimal_qty: qStar, critical_ratio: cr, z_score: z, mu_lt: muLt, sigma_lt: sigLt, Cu, Co };
+    const z  = this._invNorm(cr);
+    return {
+      optimal_qty: Math.max(0, Math.ceil(muLt + z * sigLt)),
+      critical_ratio: cr, z_score: z, mu_lt: muLt, sigma_lt: sigLt, Cu, Co
+    };
   }
 
   eoq() {
     const D = Math.max(this.predictNextDay() * 365, 0.1);
     const K = this.cp.ordering_fixed_cost;
     const h = this.cp.holding_cost_rate * 365 * this.cp.unit_cost;
-    const q = Math.max(1, Math.ceil(Math.sqrt(2*D*K / Math.max(h, 0.001))));
-    return { eoq: q, annual_demand: D, order_cost_pa: K*D/Math.max(q,1), holding_cost_pa: h*q/2 };
+    const q = Math.max(1, Math.ceil(Math.sqrt(2 * D * K / Math.max(h, 0.001))));
+    return { eoq: q, annual_demand: D, order_cost_pa: K * D / Math.max(q, 1), holding_cost_pa: h * q / 2 };
   }
 
   rop() {
-    const lt = this.cp.lead_time_days;
-    const d = this.predictNextDay();
-    const z = this._invNorm(this.cp.service_level);
-    const mu = d * lt;
-    const sig = Math.max(this.std * Math.sqrt(Math.max(lt,1)), 0.05);
-    const ss = Math.ceil(z * sig);
-    return { rop: Math.ceil(mu + ss), safety_stock: ss, mu_lt: mu, sigma_lt: sig };
+    const lt  = this.cp.lead_time_days, d = this.predictNextDay();
+    const z   = this._invNorm(this.cp.service_level);
+    const mu  = d * lt, sig = Math.max(this.std * Math.sqrt(Math.max(lt, 1)), 0.05);
+    return { rop: Math.ceil(mu + Math.ceil(z * sig)), safety_stock: Math.ceil(z * sig), mu_lt: mu, sigma_lt: sig };
   }
 
   costCurve(maxQ) {
-    const d = this.predictNextDay();
-    const totalDemand = Math.max(d * 30, 0.01);
+    const d = this.predictNextDay(), totalDemand = Math.max(d * 30, 0.01);
     maxQ = maxQ || Math.max(Math.ceil(totalDemand * 2.5) + 1, 10);
     const results = [];
     for (let q = 0; q <= maxQ; q++) {
-      const sold = Math.min(q, totalDemand);
-      const wasted = Math.max(0, q - totalDemand);
-      const short = Math.max(0, totalDemand - q);
+      const sold = Math.min(q, totalDemand), wasted = Math.max(0, q - totalDemand), short = Math.max(0, totalDemand - q);
       const margin = this.cp.selling_price - this.cp.unit_cost;
-      const purchase = q * this.cp.unit_cost;
-      const holding  = q * this.cp.holding_cost_rate * 15;
-      const waste    = wasted * this.cp.waste_cost_mult * this.cp.unit_cost;
-      const stockout = short  * this.cp.stockout_cost_mult * margin;
-      const ordering = this.cp.ordering_fixed_cost;
-      const revenue  = sold  * this.cp.selling_price;
+      const purchase = q * this.cp.unit_cost, holding = q * this.cp.holding_cost_rate * 15;
+      const waste = wasted * this.cp.waste_cost_mult * this.cp.unit_cost;
+      const stockout = short * this.cp.stockout_cost_mult * margin;
+      const ordering = this.cp.ordering_fixed_cost, revenue = sold * this.cp.selling_price;
       results.push({ qty: q, revenue, purchase, holding, waste, stockout, ordering,
-                     total: purchase+holding+waste+stockout+ordering,
-                     profit: revenue - (purchase+holding+waste+stockout+ordering) });
+                     total: purchase + holding + waste + stockout + ordering,
+                     profit: revenue - (purchase + holding + waste + stockout + ordering) });
     }
     return results;
   }
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   RL OPTIMIZER
-───────────────────────────────────────────────────────────────────────────── */
+// ── RL Optimizer ─────────────────────────────────────────────────────────────
 class RLOptimizer {
   constructor() {
-    this.qTable = {};
-    this.step = 0;
+    this.qTable = {}; this.step = 0;
     this.rewardHistory = [];
     this.alpha = 0.15; this.gamma = 0.90; this.epsilon = 0.10;
   }
 
-  // State: (expiry_bucket, stock_bucket, demand_bucket, cost_pressure)
   getState(items, forecaster) {
     const now = Date.now();
-    // Expiry bucket
-    const minExpiry = items.length ? Math.min(...items.map(i =>
-      i.expiry ? (i.expiry - now) / DAY : Infinity
-    )) : Infinity;
-    let eb = minExpiry === Infinity ? 4 : minExpiry <= 0 ? 0 : minExpiry <= 2 ? 1 : minExpiry <= 7 ? 2 : minExpiry <= 14 ? 3 : 4;
-    // Stock bucket
-    const n = items.length;
+    const minExpiry = items.length ? Math.min(...items.map(i => i.expiry ? (i.expiry - now) / DAY : Infinity)) : Infinity;
+    const eb = minExpiry === Infinity ? 4 : minExpiry <= 0 ? 0 : minExpiry <= 2 ? 1 : minExpiry <= 7 ? 2 : minExpiry <= 14 ? 3 : 4;
+    const n  = items.length;
     const sb = n === 0 ? 0 : n === 1 ? 1 : n === 2 ? 2 : n <= 3 ? 3 : 4;
-    // Demand bucket
-    const d = forecaster ? forecaster.predictNextDay() : 0;
+    const d  = forecaster ? forecaster.predictNextDay() : 0;
     const db = d <= 0 ? 0 : d <= 0.5 ? 1 : d <= 1.5 ? 2 : 3;
-    // Cost pressure
-    const wasteRisk = items.some(i => i.expiry && (i.expiry - now) / DAY <= 3);
+    const wasteRisk    = items.some(i => i.expiry && (i.expiry - now) / DAY <= 3);
     const stockoutRisk = n <= 1 && d > 0.5;
     const cp = stockoutRisk ? 3 : wasteRisk ? 2 : (n * 0.005 > 0.04) ? 1 : 0;
     return [eb, sb, db, cp];
@@ -1540,11 +1155,7 @@ class RLOptimizer {
     const k = state.join(',');
     if (!this.qTable[k]) {
       const [eb] = state;
-      this.qTable[k] = {
-        FIFO: 1.0,
-        FEFO: eb <= 2 ? 1.8 : 1.0,
-        HOLD: eb >= 3 ? 1.3 : 0.4,
-      };
+      this.qTable[k] = { FIFO: 1.0, FEFO: eb <= 2 ? 1.8 : 1.0, HOLD: eb >= 3 ? 1.3 : 0.4 };
     }
     return this.qTable[k];
   }
@@ -1556,29 +1167,23 @@ class RLOptimizer {
     const eps = Math.max(0.02, this.epsilon * Math.pow(0.997, Math.floor(this.step / 5)));
     if (explore && Math.random() < eps) return Math.random() < 0.5 ? 'FIFO' : 'FEFO';
     const q = this.getQ(state);
-    const avail = ['FIFO', 'FEFO'];
-    return avail.reduce((best, a) => (q[a] || 0) > (q[best] || 0) ? a : best, avail[0]);
+    return ['FIFO','FEFO'].reduce((b, a) => (q[a] || 0) > (q[b] || 0) ? a : b, 'FIFO');
   }
 
   calcReward(item, action, itemsAfter) {
-    const now = Date.now();
-    let r = 0;
+    const now = Date.now(); let r = 0;
     if (item) {
-      r += 12; // sold
-      if (item.expiry) {
-        const d = (item.expiry - now) / DAY;
-        r += d > 0 ? 3 : -6;
-      }
+      r += 12;
+      if (item.expiry) { const d = (item.expiry - now) / DAY; r += d > 0 ? 3 : -6; }
     }
     r -= itemsAfter.length * 0.05;
-    const wasteRisk = itemsAfter.some(i => i.expiry && (i.expiry - now)/DAY <= 2);
+    const wasteRisk = itemsAfter.some(i => i.expiry && (i.expiry - now) / DAY <= 2);
     if (action === 'HOLD' && wasteRisk) r -= 4;
     return Math.round(r * 100) / 100;
   }
 
   update(state, action, reward, nextState) {
-    const q = this.getQ(state);
-    const qn = this.getQ(nextState);
+    const q = this.getQ(state), qn = this.getQ(nextState);
     const bestNext = Math.max(...Object.values(qn));
     q[action] = (q[action] || 0) + this.alpha * (reward + this.gamma * bestNext - (q[action] || 0));
     this.rewardHistory.push(reward);
@@ -1587,38 +1192,34 @@ class RLOptimizer {
 
   getRecommendation(items, forecaster) {
     if (!items.length) return { action: 'HOLD', confidence: 1, reason: 'No stock', urgency: 'none', qValues: {}, state: [] };
-    const state = this.getState(items, forecaster);
-    const q = this.getQ(state);
+    const state  = this.getState(items, forecaster);
+    const q      = this.getQ(state);
     const action = this.chooseAction(items, forecaster, false);
-    const qVals = Object.values(q).sort((a,b) => b-a);
-    const gap = qVals.length > 1 ? qVals[0] - qVals[1] : 1;
-    const conf = Math.min(0.98, 0.60 + gap * 0.12);
+    const qVals  = Object.values(q).sort((a, b) => b - a);
+    const gap    = qVals.length > 1 ? qVals[0] - qVals[1] : 1;
+    const conf   = Math.min(0.98, 0.60 + gap * 0.12);
     const [eb,,, cp] = state;
-    let urgency = eb <= 1 || cp === 3 ? 'critical' : eb <= 2 || cp === 2 ? 'warning' : 'normal';
-    const reasons = {
-      'FEFO-0': 'Expired items detected — FEFO prevents total loss, partial value recovery',
-      'FEFO-1': 'Items expiring in ≤2 days — FEFO minimises waste cost by dispatching soonest-expiry first',
-      'FEFO-2': 'Items expiring ≤7 days — FEFO recommended; holding cost now exceeds future margin on these units',
-      'FIFO-3': 'Moderate shelf life remaining — FIFO maintains arrival fairness and demand fill rate',
-      'FIFO-4': 'Long shelf life across all stock — FIFO is cost-optimal; no waste risk detected',
+    const urgency = eb <= 1 || cp === 3 ? 'critical' : eb <= 2 || cp === 2 ? 'warning' : 'normal';
+    const reasonMap = {
+      'FEFO-0': 'Expired items — FEFO prevents total loss',
+      'FEFO-1': 'Expiring in ≤2 days — FEFO minimises waste cost',
+      'FEFO-2': 'Expiring ≤7 days — holding cost now exceeds future margin',
+      'FIFO-3': 'Moderate shelf life — FIFO maintains fairness',
+      'FIFO-4': 'Long shelf life — FIFO cost-optimal, no waste risk',
     };
-    const reason = reasons[`${action}-${eb}`] || `${action} selected (Q=${(q[action]||0).toFixed(2)}, state=${state.join(',')})`;
+    const reason = reasonMap[`${action}-${eb}`] || `${action} (Q=${(q[action] || 0).toFixed(2)}, state=${state.join(',')})`;
     const avgReward = this.rewardHistory.length
-      ? this.rewardHistory.slice(-50).reduce((a,b) => a+b, 0) / Math.min(50, this.rewardHistory.length)
+      ? this.rewardHistory.slice(-50).reduce((a, b) => a + b, 0) / Math.min(50, this.rewardHistory.length)
       : 0;
-    return { action, confidence: Math.round(conf*1000)/1000, reason, urgency, qValues: q, state, avgReward };
+    return { action, confidence: Math.round(conf * 1000) / 1000, reason, urgency, qValues: q, state, avgReward };
   }
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   GLOBAL INSTANCES
-───────────────────────────────────────────────────────────────────────────── */
+// ── Global instances ──────────────────────────────────────────────────────────
 const forecaster = new DemandForecaster();
 const rl = new RLOptimizer();
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   URGENCY CLASSIFICATION
-───────────────────────────────────────────────────────────────────────────── */
+// ── Urgency ───────────────────────────────────────────────────────────────────
 function classifyUrgency(item) {
   if (!item.expiry) return { lv: 'LOW', cls: 'bdg-low', color: 'var(--acid)' };
   const d = (item.expiry - Date.now()) / DAY;
@@ -1628,90 +1229,69 @@ function classifyUrgency(item) {
   return { lv: 'LOW', cls: 'bdg-low', color: 'var(--acid)' };
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   INVENTORY HELPERS
-───────────────────────────────────────────────────────────────────────────── */
-function selectFIFO() { return inv.length ? [...inv].sort((a,b) => a.arrival - b.arrival)[0] : null; }
+// ── Inventory helpers ─────────────────────────────────────────────────────────
+function selectFIFO() { return inv.length ? [...inv].sort((a, b) => a.arrival - b.arrival)[0] : null; }
 function selectFEFO() {
   if (!inv.length) return null;
-  return [...inv].sort((a,b) => {
+  return [...inv].sort((a, b) => {
     if (!a.expiry && !b.expiry) return a.arrival - b.arrival;
     if (!a.expiry) return 1; if (!b.expiry) return -1;
     return a.expiry - b.expiry;
   })[0];
 }
-function fifoRanks() {
-  const s = [...inv].sort((a,b) => a.arrival - b.arrival);
-  const r = {}; s.forEach((it,i) => r[it.id] = i+1); return r;
-}
+function fifoRanks() { const s = [...inv].sort((a, b) => a.arrival - b.arrival), r = {}; s.forEach((it, i) => r[it.id] = i + 1); return r; }
 function fefoRanks() {
-  const s = [...inv].sort((a,b) => {
+  const s = [...inv].sort((a, b) => {
     if (!a.expiry && !b.expiry) return a.arrival - b.arrival;
-    if (!a.expiry) return 1; if (!b.expiry) return -1;
-    return a.expiry - b.expiry;
-  });
-  const r = {}; s.forEach((it,i) => r[it.id] = i+1); return r;
+    if (!a.expiry) return 1; if (!b.expiry) return -1; return a.expiry - b.expiry;
+  }), r = {}; s.forEach((it, i) => r[it.id] = i + 1); return r;
 }
-
-function fmtDate(ts) {
-  if (!ts) return '—';
-  return new Date(ts).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'2-digit'});
-}
+function fmtDate(ts) { return ts ? new Date(ts).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' }) : '—'; }
 function fmtRemaining(expiry) {
   if (!expiry) return '—';
   const d = (expiry - Date.now()) / DAY;
-  if (d < 0) return '<span style="color:var(--crimson);font-weight:700">EXPIRED</span>';
+  if (d < 0)  return `<span style="color:var(--crimson);font-weight:700">EXPIRED</span>`;
   if (d < 2)  return `<span style="color:var(--crimson)">${d.toFixed(1)}d</span>`;
   if (d < 7)  return `<span style="color:var(--solar)">${d.toFixed(1)}d</span>`;
   return `<span style="color:var(--acid)">${d.toFixed(1)}d</span>`;
 }
-function fmtShelfLife(arrival, expiry) {
-  if (!expiry || !arrival) return '—';
-  return Math.round((expiry - arrival) / DAY) + 'd';
-}
+function fmtSL(arrival, expiry) { return (expiry && arrival) ? Math.round((expiry - arrival) / DAY) + 'd' : '—'; }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   DISPATCH
-───────────────────────────────────────────────────────────────────────────── */
+// ── Dispatch ──────────────────────────────────────────────────────────────────
 async function triggerDispatch(mode) {
   if (isBusy) return;
   forecaster.train();
-
   let resolvedMode = mode;
   if (mode === 'RL') resolvedMode = rl.chooseAction(inv, forecaster, false);
   const item = resolvedMode === 'FEFO' ? selectFEFO() : selectFIFO();
   if (!item) { logActivity('No items in stock', 'err'); return; }
 
-  isBusy = true;
-  setAllBtns(true);
+  isBusy = true; setAllBtns(true);
   document.getElementById('sim-badge').textContent = 'DISPATCHING';
   document.getElementById('sim-badge').className = 'ph-badge live';
   setStatus(`[${mode}] Dispatching "${item.name}" from slot ${item.slot}…`, 'ok');
   logActivity(`Dispatch ${mode}→${resolvedMode}: "${item.name}" slot ${item.slot}`, mode.toLowerCase());
 
-  // RL update
   const stateBefore = rl.getState(inv, forecaster);
-  const reward = rl.calcReward(item, resolvedMode, inv.filter(i => i.id !== item.id));
-  const stateAfter = rl.getState(inv.filter(i => i.id !== item.id), forecaster);
+  const reward      = rl.calcReward(item, resolvedMode, inv.filter(i => i.id !== item.id));
+  const stateAfter  = rl.getState(inv.filter(i => i.id !== item.id), forecaster);
   rl.update(stateBefore, resolvedMode, reward, stateAfter);
 
   if (backendOnline) {
     try {
       const r = await fetch('/inventory/dispatch', {
-        method: 'POST', headers: {'Content-Type':'application/json'},
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ mode })
       });
       const d = await r.json();
       if (!d.success) logActivity(d.message, 'err');
-    } catch(e) { logActivity('Backend error: ' + e.message, 'err'); }
+    } catch (e) { logActivity('Backend error: ' + e.message, 'err'); }
   }
 
-  // Animate and remove from local state
   playAnim(item, resolvedMode, () => {
     inv = inv.filter(i => i.id !== item.id);
     dispatchLog.unshift({ item, mode: resolvedMode, ts: Date.now(), reward });
-    isBusy = false;
-    setAllBtns(false);
+    isBusy = false; setAllBtns(false);
     document.getElementById('sim-badge').textContent = 'IDLE';
     document.getElementById('sim-badge').className = 'ph-badge idle';
     setStatus(`✓ "${item.name}" dispatched (${resolvedMode}, reward ${reward.toFixed(2)})`, 'ok');
@@ -1719,37 +1299,26 @@ async function triggerDispatch(mode) {
   });
 }
 
-async function sendTask(n) {
-  logActivity(`Task ${n} request`, 'sys');
-  if (!backendOnline) { logActivity('Backend offline', 'err'); return; }
-  try {
-    const r = await fetch('/task', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({task_number:n}) });
-    const d = await r.json();
-    logActivity(d.message, d.success ? 'ok' : 'err');
-  } catch(e) { logActivity('Task error: '+e.message, 'err'); }
-}
-
 async function addItem() {
-  const slot = parseInt(document.getElementById('f-slot').value);
-  const name = document.getElementById('f-name').value.trim();
+  const slot  = parseInt(document.getElementById('f-slot').value);
+  const name  = document.getElementById('f-name').value.trim();
   const shelf = parseFloat(document.getElementById('f-shelf').value);
   if (!name) { logActivity('Enter item name', 'err'); return; }
   if (inv.find(i => i.slot === slot)) { logActivity(`Slot ${slot} occupied`, 'err'); return; }
   const expiry = shelf > 0 ? Date.now() + shelf * DAY : null;
-  const slDays = shelf > 0 ? shelf : null;
 
   if (backendOnline) {
     try {
       const body = { item_name: name, slot };
-      if (slDays) body.shelf_life_days = slDays;
-      const r = await fetch('/inventory/add_item', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
+      if (shelf > 0) body.shelf_life_days = shelf;
+      const r = await fetch('/inventory/add_item', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
       const d = await r.json();
       logActivity(d.message, d.success ? 'ok' : 'err');
       if (d.success) { await fetchState(); return; }
-    } catch(e) {}
+    } catch (e) {}
   }
-  inv.push({ id: nid++, name, slot, arrival: Date.now(), expiry, sl: slDays });
-  logActivity(`Added "${name}" slot ${slot}${slDays ? ' ('+slDays+'d shelf life)' : ''}`, 'ok');
+  inv.push({ id: nid++, name, slot, arrival: Date.now(), expiry, sl: shelf > 0 ? shelf : null });
+  logActivity(`Added "${name}" slot ${slot}`, 'ok');
   document.getElementById('f-name').value = '';
   document.getElementById('f-shelf').value = '';
   refresh();
@@ -1757,9 +1326,7 @@ async function addItem() {
 
 async function clearAll() {
   if (!confirm('Clear ALL inventory?')) return;
-  if (backendOnline) {
-    try { await fetch('/inventory/clear', { method: 'POST' }); } catch(e) {}
-  }
+  if (backendOnline) { try { await fetch('/inventory/clear', { method: 'POST' }); } catch (e) {} }
   inv = []; dispatchLog = [];
   logActivity('Inventory cleared', 'sys');
   refresh();
@@ -1769,184 +1336,140 @@ function resetDemo() {
   if (isBusy) return;
   t0 = Date.now();
   inv = [
-    { id:0, name:'Resistors 10k',    slot:0, arrival: t0-3*DAY, expiry: t0+5*DAY, sl:8  },
-    { id:1, name:'Capacitors 100uF', slot:1, arrival: t0-2*DAY, expiry: t0+2*DAY, sl:4  },
-    { id:2, name:'LED Pack RGB',     slot:2, arrival: t0-1*DAY, expiry: null,      sl:null },
-    { id:3, name:'Arduino Nano',     slot:3, arrival: t0,        expiry: t0+10*DAY, sl:10 },
+    { id: 0, name: 'Organic Milk 1L',      slot: 0, arrival: t0 - 2*DAY, expiry: t0 + 5*DAY,  sl: 7  },
+    { id: 1, name: 'Strawberries 400g',     slot: 1, arrival: t0 - 1*DAY, expiry: t0 + 2*DAY,  sl: 3  },
+    { id: 2, name: 'Sourdough Bread',       slot: 2, arrival: t0 - 1*DAY, expiry: t0 + 3*DAY,  sl: 4  },
+    { id: 3, name: 'Free-Range Eggs 12pk',  slot: 3, arrival: t0 - 5*DAY, expiry: t0 + 16*DAY, sl: 21 },
   ];
   dispatchLog = []; animQueue = []; heldItem = null; dropItem = null;
-  arm = { a: 0, r: 0.42, open: true }; lbl = 'Demo reset — ready';
-  logActivity('Demo data restored', 'sys');
+  arm = { a: 0, r: 0.38, open: true }; lbl = 'Demo reset — ready';
+  setStatus('Demo reset — ready', '');
+  logActivity('Demo data restored to default warehouse items', 'sys');
   refresh();
 }
 
 function setStatus(msg, type = '') {
   const el = document.getElementById('sim-status');
-  el.textContent = msg;
-  el.className = 'sim-status ' + type;
+  el.textContent = msg; el.className = 'sim-status ' + type;
 }
-
 function setAllBtns(d) {
-  ['btn-fifo','btn-fefo','btn-rl','btn-reset','btn-dispatch'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.disabled = d;
-  });
+  ['btn-fifo','btn-fefo','btn-rl','btn-reset'].forEach(id => { const el = document.getElementById(id); if (el) el.disabled = d; });
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   BACKEND FETCH
-───────────────────────────────────────────────────────────────────────────── */
+// ── Backend fetch ─────────────────────────────────────────────────────────────
 async function fetchState() {
   try {
     const r = await fetch('/inventory/state');
-    if (!r.ok) throw new Error();
+    if (!r.ok) throw new Error('HTTP ' + r.status);
     const d = await r.json();
     backendOnline = true;
-    document.getElementById('sb-mode').textContent = 'LIVE';
+    document.getElementById('sb-mode').textContent   = 'LIVE';
     document.getElementById('sb-dot').style.background = 'var(--acid)';
-    document.getElementById('sys-dot').className = 'dot';
-    document.getElementById('sys-txt').textContent = 'ONLINE';
+    document.getElementById('sys-dot').className     = 'dot';
+    document.getElementById('sys-txt').textContent   = 'ONLINE';
     window._backendLog = d.dispatch_log || [];
 
-    // Sync local inventory from backend
+    // Sync local inv from backend (only when not animating)
     if (!isBusy && d.items) {
       inv = d.items.map(it => ({
-        id: parseInt((it.id || '0').slice(0,8), 16) & 0x7fff,
-        name: it.name, slot: it.slot,
+        id:      parseInt((it.id || '0').slice(0, 8), 16) & 0x7fff,
+        name:    it.name,
+        slot:    it.slot,
         arrival: (it.arrival_ts || 0) * 1000,
-        expiry: it.expiry_ts ? it.expiry_ts * 1000 : null,
-        sl: it.shelf_life_days || null,
+        expiry:  it.expiry_ts ? it.expiry_ts * 1000 : null,
+        sl:      it.shelf_life_days || null,
       }));
     }
+    if (d.forecast) forecaster.mean = d.forecast.predicted_demand || forecaster.mean;
+    if (d.rl_recommendation) window._backendRL = d.rl_recommendation;
 
-    if (d.forecast) {
-      forecaster.mean = d.forecast.predicted_demand || forecaster.mean;
-    }
-    if (d.rl_recommendation) {
-      window._backendRL = d.rl_recommendation;
-    }
-
-  } catch(e) {
+  } catch (e) {
     backendOnline = false;
-    document.getElementById('sb-mode').textContent = 'STANDALONE';
+    document.getElementById('sb-mode').textContent     = 'STANDALONE';
     document.getElementById('sb-dot').style.background = 'var(--ember)';
-    document.getElementById('sys-dot').className = 'dot warn';
-    document.getElementById('sys-txt').textContent = 'STANDALONE';
+    document.getElementById('sys-dot').className       = 'dot warn';
+    document.getElementById('sys-txt').textContent     = 'STANDALONE';
   }
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   RENDER — master refresh
-───────────────────────────────────────────────────────────────────────────── */
+// ── Master refresh ────────────────────────────────────────────────────────────
 function refresh() {
   forecaster.train();
-  const d = forecaster.predictNextDay();
+  const d       = forecaster.predictNextDay();
   const ropData = forecaster.rop();
   const eoqData = forecaster.eoq();
-  const nv = forecaster.newsvendor_q();
-  const rec = rl.getRecommendation(inv, forecaster);
+  const nv      = forecaster.newsvendorQ();   // FIX: was newsvendor_q() causing crash
+  const rec     = rl.getRecommendation(inv, forecaster);
   const fr = fifoRanks(), fe = fefoRanks();
-  const stock = inv.length;
+  const stock   = inv.length;
 
-  // ── Topbar stats ──
+  // Topbar
   const tsStock = document.getElementById('ts-stock');
   tsStock.textContent = stock;
-  tsStock.className = 'val ' + (stock === 0 ? 'crit' : stock <= 1 ? 'warn' : 'ok');
-
+  tsStock.className   = 'val ' + (stock === 0 ? 'crit' : stock <= 1 ? 'warn' : 'ok');
   document.getElementById('ts-demand').textContent = d.toFixed(2);
-  document.getElementById('ts-cv').textContent = forecaster.cv.toFixed(2);
+  document.getElementById('ts-cv').textContent     = forecaster.cv.toFixed(2);
   const ropEl = document.getElementById('ts-rop');
   ropEl.textContent = ropData.rop;
-  ropEl.className = 'val ' + (stock <= ropData.rop ? 'warn' : 'ok');
+  ropEl.className   = 'val ' + (stock <= ropData.rop ? 'warn' : 'ok');
   document.getElementById('ts-eoq').textContent = eoqData.eoq;
   const rlEl = document.getElementById('ts-rl');
-  rlEl.textContent = rec.action;
-  rlEl.className = 'val ' + (rec.urgency === 'critical' ? 'crit' : rec.urgency === 'warning' ? 'warn' : 'ice');
+  rlEl.textContent  = rec.action;
+  rlEl.className    = 'val ' + (rec.urgency === 'critical' ? 'crit' : rec.urgency === 'warning' ? 'warn' : 'ice');
 
-  // ── Status bar ──
+  // Statusbar
   document.getElementById('sb-forecast').textContent = `FORECAST: ${d.toFixed(2)}/d`;
-  document.getElementById('sb-rop').textContent = `ROP: ${ropData.rop} / SAFETY: ${ropData.safety_stock}`;
+  document.getElementById('sb-rop').textContent      = `ROP: ${ropData.rop} / SS: ${ropData.safety_stock}`;
 
-  // ── Alerts ──
   renderAlerts(rec, ropData, stock);
 
-  // ── Urgency ──
-  const urgs = { CRITICAL:0, HIGH:0, MEDIUM:0, LOW:0 };
+  // Urgency
+  const urgs = { CRITICAL: 0, HIGH: 0, MEDIUM: 0, LOW: 0 };
   inv.forEach(i => urgs[classifyUrgency(i).lv]++);
   document.getElementById('urg-crit').textContent = urgs.CRITICAL;
   document.getElementById('urg-high').textContent = urgs.HIGH;
-  document.getElementById('urg-med').textContent = urgs.MEDIUM;
-  document.getElementById('urg-low').textContent = urgs.LOW;
+  document.getElementById('urg-med').textContent  = urgs.MEDIUM;
+  document.getElementById('urg-low').textContent  = urgs.LOW;
+
   const alertDot = document.getElementById('alert-dot');
   const alertTxt = document.getElementById('alert-txt');
-  if (urgs.CRITICAL > 0) {
-    alertDot.style.display = ''; alertDot.className = 'dot err';
-    alertTxt.textContent = urgs.CRITICAL + ' EXPIRED';
-  } else if (urgs.HIGH > 0) {
-    alertDot.style.display = ''; alertDot.className = 'dot warn';
-    alertTxt.textContent = urgs.HIGH + ' EXPIRING SOON';
-  } else {
-    alertDot.style.display = 'none'; alertTxt.textContent = 'STOCK OK';
-  }
+  if (urgs.CRITICAL > 0)     { alertDot.style.display=''; alertDot.className='dot err';  alertTxt.textContent=urgs.CRITICAL+' EXPIRED'; }
+  else if (urgs.HIGH > 0)    { alertDot.style.display=''; alertDot.className='dot warn'; alertTxt.textContent=urgs.HIGH+' EXPIRING SOON'; }
+  else                       { alertDot.style.display='none'; alertTxt.textContent='STOCK OK'; }
 
-  // ── KPI overview ──
+  // KPIs
   const dos = d > 0 ? (stock / d).toFixed(1) : '∞';
   document.getElementById('kpi-stock').textContent = stock;
-  document.getElementById('kpi-stock').className = 'kpi-val ' + (stock === 0 ? 'crit' : stock <= 1 ? 'warn' : 'ok');
+  document.getElementById('kpi-stock').className   = 'kpi-val ' + (stock === 0 ? 'crit' : stock <= 1 ? 'warn' : 'ok');
   document.getElementById('kpi-demand').textContent = d.toFixed(2);
   const dosEl = document.getElementById('kpi-dos');
-  dosEl.textContent = dos;
-  dosEl.className = 'kpi-val ' + (parseFloat(dos) < 2 ? 'crit' : parseFloat(dos) < 7 ? 'warn' : 'ok');
-  const wasteCount = inv.filter(i => classifyUrgency(i).lv === 'CRITICAL' || classifyUrgency(i).lv === 'HIGH').length;
+  dosEl.textContent = dos; dosEl.className = 'kpi-val ' + (parseFloat(dos) < 2 ? 'crit' : parseFloat(dos) < 7 ? 'warn' : 'ok');
+  const wasteCount = inv.filter(i => ['CRITICAL','HIGH'].includes(classifyUrgency(i).lv)).length;
   const wasteEl = document.getElementById('kpi-waste');
-  wasteEl.textContent = wasteCount;
-  wasteEl.className = 'kpi-val ' + (wasteCount > 0 ? 'crit' : 'ok');
+  wasteEl.textContent = wasteCount; wasteEl.className = 'kpi-val ' + (wasteCount > 0 ? 'crit' : 'ok');
   document.getElementById('kpi-waste-sub').textContent = wasteCount > 0 ? 'ACTION REQUIRED' : 'none at risk';
 
-  // ── RL panel ──
+  // RL panel
   document.getElementById('rl-action').textContent = rec.action;
-  document.getElementById('rl-conf').textContent = (rec.confidence*100).toFixed(0) + '% confidence · avg reward ' + (rec.avgReward||0).toFixed(2);
+  document.getElementById('rl-conf').textContent   = (rec.confidence * 100).toFixed(0) + '% conf · avg reward ' + (rec.avgReward || 0).toFixed(2);
   document.getElementById('rl-reason').textContent = rec.reason;
-  const rlPanel = document.getElementById('rl-panel');
-  rlPanel.style.borderLeftColor = rec.urgency === 'critical' ? 'var(--crimson)' : rec.urgency === 'warning' ? 'var(--solar)' : 'var(--purple)';
-  // Q-values display
-  const qvDiv = document.getElementById('rl-qvals');
-  const bestQ = Math.max(...Object.values(rec.qValues||{}));
-  qvDiv.innerHTML = Object.entries(rec.qValues||{}).map(([a, v]) =>
-    `<div class="ql-item"><div class="ql-act">${a}</div><div class="ql-val${v===bestQ?' best':''}">${v.toFixed(2)}</div></div>`
+  document.getElementById('rl-panel').style.borderLeftColor =
+    rec.urgency === 'critical' ? 'var(--crimson)' : rec.urgency === 'warning' ? 'var(--solar)' : 'var(--purple)';
+  const bestQ = Math.max(...Object.values(rec.qValues || {}));
+  document.getElementById('rl-qvals').innerHTML = Object.entries(rec.qValues || {}).map(([a, v]) =>
+    `<div class="ql-item"><div class="ql-act">${a}</div><div class="ql-val${v === bestQ ? ' best' : ''}">${v.toFixed(2)}</div></div>`
   ).join('');
 
-  // ── Cost snapshot ──
   renderCostSnapshot(stock, d);
-
-  // ── Reorder panel ──
   renderReorderPanel(ropData, nv, eoqData, stock);
-
-  // ── Stock table ──
   renderStockTable(fr, fe);
-
-  // ── Logs ──
   renderLogs();
-
-  // ── Shelf mini ──
   renderShelfMini();
-
-  // ── Forecast table (if visible) ──
   renderForecastTable();
-
-  // ── Cost params panel ──
-  renderCostParamsPanel();
-
-  // ── DoW grid ──
+  renderCostParamsPanel(nv);   // FIX: pass nv directly
   renderDowGrid();
-
-  // ── Model stats ──
   renderModelStats();
-
-  // ── Policy state ──
   renderPolicyState(rec);
-
-  // ── Policy compare ──
   renderPolicyCompare();
 }
 
@@ -1954,32 +1477,27 @@ function renderAlerts(rec, ropData, stock) {
   const div = document.getElementById('overview-alerts');
   let html = '';
   if (stock === 0) {
-    html += `<div class="alert crit">⬥ STOCKOUT: No units available. Immediate reorder of ${forecaster.newsvendor_q().optimal_qty} units recommended.</div>`;
+    html += `<div class="alert crit">⬥ STOCKOUT — immediate reorder of ${forecaster.newsvendorQ().optimal_qty} units recommended.</div>`;
   } else if (stock <= ropData.rop) {
-    html += `<div class="alert warn">▲ REORDER POINT BREACH: ${stock} units ≤ ROP ${ropData.rop}. Order ${Math.max(0, forecaster.newsvendor_q().optimal_qty - stock)} units.</div>`;
+    html += `<div class="alert warn">▲ REORDER POINT BREACH: ${stock} units ≤ ROP ${ropData.rop}. Order ${Math.max(0, forecaster.newsvendorQ().optimal_qty - stock)} units.</div>`;
   }
   const critical = inv.filter(i => classifyUrgency(i).lv === 'CRITICAL');
-  if (critical.length) {
-    html += `<div class="alert crit">⬥ EXPIRED: ${critical.map(i=>i.name).join(', ')} — dispatch immediately or write off.</div>`;
-  }
+  if (critical.length) html += `<div class="alert crit">⬥ EXPIRED: ${critical.map(i => i.name).join(', ')} — dispatch or write off.</div>`;
   const high = inv.filter(i => classifyUrgency(i).lv === 'HIGH');
-  if (high.length && !critical.length) {
-    html += `<div class="alert warn">▲ EXPIRY RISK: ${high.map(i=>i.name).join(', ')} expiring within 2 days. ${rec.action} recommended.</div>`;
-  }
+  if (high.length && !critical.length) html += `<div class="alert warn">▲ EXPIRY RISK: ${high.map(i => i.name).join(', ')} — expiring within 2 days. ${rec.action} recommended.</div>`;
   if (!html) html = '<div class="alert ok">◆ All systems nominal — stock, demand and costs within optimal range.</div>';
   div.innerHTML = html;
 }
 
 function renderCostSnapshot(stock, d) {
   const curve = forecaster.costCurve();
-  const currentEntry = curve[stock] || { total: 0, holding: 0, waste: 0, stockout: 0, profit: 0 };
+  const current = curve[Math.min(stock, curve.length - 1)] || { purchase: 0, holding: 0, waste: 0, stockout: 0, total: 0, profit: 0 };
   const optimal = curve.reduce((b, c) => c.profit > b.profit ? c : b, curve[0] || { qty: 0, profit: -999 });
-  const cp = forecaster.cp;
-  const colors = [
-    { label: 'Purchase', val: currentEntry.purchase, color: 'var(--muted)' },
-    { label: 'Holding',  val: currentEntry.holding,  color: 'var(--ice)' },
-    { label: 'Waste',    val: currentEntry.waste,     color: 'var(--crimson)' },
-    { label: 'Stockout', val: currentEntry.stockout,  color: 'var(--solar)' },
+  const colors  = [
+    { label: 'Purchase', val: current.purchase, color: 'var(--muted)' },
+    { label: 'Holding',  val: current.holding,  color: 'var(--ice)' },
+    { label: 'Waste',    val: current.waste,     color: 'var(--crimson)' },
+    { label: 'Stockout', val: current.stockout,  color: 'var(--solar)' },
   ];
   const maxVal = Math.max(...colors.map(c => c.val), 1);
   let html = colors.map(c => `
@@ -1987,10 +1505,9 @@ function renderCostSnapshot(stock, d) {
       <div class="cost-label">${c.label}</div>
       <div class="cost-track"><div class="cost-fill" style="width:${(c.val/maxVal*100).toFixed(0)}%;background:${c.color}"></div></div>
       <div class="cost-val">$${c.val.toFixed(2)}</div>
-    </div>
-  `).join('');
-  html += `<div class="data-row mt8"><span class="drk">Total Cost</span><span class="drv ember">$${currentEntry.total.toFixed(2)}</span></div>`;
-  html += `<div class="data-row"><span class="drk">Est. Profit</span><span class="drv ${currentEntry.profit >= 0 ? 'acid':'crit'}">$${currentEntry.profit.toFixed(2)}</span></div>`;
+    </div>`).join('');
+  html += `<div class="data-row mt8"><span class="drk">Total Cost</span><span class="drv ember">$${current.total.toFixed(2)}</span></div>`;
+  html += `<div class="data-row"><span class="drk">Est. Profit</span><span class="drv ${current.profit >= 0 ? 'acid' : 'crit'}">$${current.profit.toFixed(2)}</span></div>`;
   html += `<div class="data-row"><span class="drk">Optimal Q*</span><span class="drv ice">${optimal.qty} units ($${optimal.profit.toFixed(2)})</span></div>`;
   document.getElementById('cost-snapshot').innerHTML = html;
 }
@@ -1998,43 +1515,34 @@ function renderCostSnapshot(stock, d) {
 function renderReorderPanel(ropData, nv, eoqData, stock) {
   const needsReorder = stock <= ropData.rop;
   let html = `
-    <div class="data-row"><span class="drk">Reorder Point</span><span class="drv ${needsReorder?'crit':'acid'}">${ropData.rop}</span></div>
+    <div class="data-row"><span class="drk">Reorder Point</span><span class="drv ${needsReorder ? 'crit' : 'acid'}">${ropData.rop}</span></div>
     <div class="data-row"><span class="drk">Safety Stock</span><span class="drv ice">${ropData.safety_stock}</span></div>
     <div class="data-row"><span class="drk">Avg LT Demand</span><span class="drv">${ropData.mu_lt.toFixed(2)}</span></div>
     <div class="data-row"><span class="drk">Demand σ</span><span class="drv">${ropData.sigma_lt.toFixed(2)}</span></div>
     <div class="data-row"><span class="drk">EOQ</span><span class="drv ember">${eoqData.eoq}</span></div>
     <div class="data-row"><span class="drk">Newsvendor Q*</span><span class="drv ember">${nv.optimal_qty}</span></div>
-    <div class="data-row"><span class="drk">Critical Ratio</span><span class="drv">${(nv.critical_ratio*100).toFixed(1)}%</span></div>
-    <div class="data-row"><span class="drk">Service Level</span><span class="drv acid">${(forecaster.cp.service_level*100).toFixed(0)}%</span></div>
+    <div class="data-row"><span class="drk">Critical Ratio</span><span class="drv">${(nv.critical_ratio * 100).toFixed(1)}%</span></div>
+    <div class="data-row"><span class="drk">Service Level</span><span class="drv acid">${(forecaster.cp.service_level * 100).toFixed(0)}%</span></div>
   `;
-  if (needsReorder) {
-    const orderQty = Math.max(0, nv.optimal_qty - stock);
-    html += `<div class="alert warn mt8">ORDER ${orderQty} UNITS — stock below ROP</div>`;
-  }
+  if (needsReorder) html += `<div class="alert warn mt8">ORDER ${Math.max(0, nv.optimal_qty - stock)} UNITS — stock below ROP</div>`;
   document.getElementById('reorder-panel').innerHTML = html;
 }
 
 function renderStockTable(fr, fe) {
-  const cp = forecaster.cp;
   const tbody = document.getElementById('stock-tbody');
-  if (!inv.length) {
-    tbody.innerHTML = '<tr><td colspan="9" style="color:var(--dim);text-align:center;padding:16px">No items in stock</td></tr>';
-    return;
-  }
+  if (!inv.length) { tbody.innerHTML = '<tr><td colspan="8" style="color:var(--dim);text-align:center;padding:16px">No items in stock</td></tr>'; return; }
   tbody.innerHTML = inv.map(it => {
-    const u = classifyUrgency(it);
+    const u   = classifyUrgency(it);
     const age = ((Date.now() - it.arrival) / DAY).toFixed(1);
-    const val = Math.round(cp.unit_cost + Math.max(0, cp.selling_price - cp.unit_cost) * (it.expiry ? Math.max(0, (it.expiry-Date.now())/DAY) / (it.sl || 30) : 1) * 10) / 10;
     return `<tr>
       <td class="td-slot">${it.slot}</td>
       <td class="td-name">${it.name}</td>
       <td class="td-mono">${fmtDate(it.arrival)}</td>
-      <td class="td-mono">${fmtShelfLife(it.arrival, it.expiry)}</td>
+      <td class="td-mono">${fmtSL(it.arrival, it.expiry)}</td>
       <td>${fmtRemaining(it.expiry)}</td>
       <td><span class="bdg ${u.cls}">${u.lv}</span></td>
-      <td class="td-rank">${fr[it.id]||'—'}</td>
-      <td class="td-rank" style="color:var(--acid)">${fe[it.id]||'—'}</td>
-      <td class="td-mono" style="color:var(--solar)">$${val.toFixed(2)}</td>
+      <td class="td-rank">${fr[it.id] || '—'}</td>
+      <td class="td-rank" style="color:var(--acid)">${fe[it.id] || '—'}</td>
     </tr>`;
   }).join('');
 }
@@ -2045,13 +1553,9 @@ function renderLogs() {
     dispatch.innerHTML = '<div style="color:var(--dim);text-align:center;padding:12px;font-size:10px">No dispatches yet</div>';
   } else {
     dispatch.innerHTML = dispatchLog.slice(0, 30).map(e => {
-      const t = new Date(e.ts).toLocaleTimeString('en-GB');
+      const t   = new Date(e.ts).toLocaleTimeString('en-GB');
       const cls = e.mode === 'FIFO' ? 'fifo' : e.mode === 'FEFO' ? 'fefo' : 'rl';
-      return `<div class="log-entry">
-        <span class="log-time">${t}</span>
-        <span class="log-tag ${cls}">${e.mode}</span>
-        <span class="log-msg">S${e.item.slot} · ${e.item.name} · r=${(e.reward||0).toFixed(2)}</span>
-      </div>`;
+      return `<div class="log-entry"><span class="log-time">${t}</span><span class="log-tag ${cls}">${e.mode}</span><span class="log-msg">S${e.item.slot} · ${e.item.name} · r=${(e.reward || 0).toFixed(2)}</span></div>`;
     }).join('');
   }
   const activity = document.getElementById('activity-log');
@@ -2060,22 +1564,16 @@ function renderLogs() {
   } else {
     activity.innerHTML = actLog.slice(0, 50).map(e => {
       const t = new Date(e.ts).toLocaleTimeString('en-GB');
-      return `<div class="log-entry">
-        <span class="log-time">${t}</span>
-        <span class="log-tag ${e.type||'sys'}">${e.type||'SYS'}</span>
-        <span class="log-msg">${e.msg}</span>
-      </div>`;
+      return `<div class="log-entry"><span class="log-time">${t}</span><span class="log-tag ${e.type || 'sys'}">${e.type || 'SYS'}</span><span class="log-msg">${e.msg}</span></div>`;
     }).join('');
   }
 }
 
 function renderShelfMini() {
   const wrap = document.getElementById('shelf-mini');
-  wrap.innerHTML = [0,1,2,3].map(slot => {
+  wrap.innerHTML = [0, 1, 2, 3].map(slot => {
     const item = inv.find(i => i.slot === slot);
-    if (!item) {
-      return `<div style="flex:1;height:20px;background:var(--ink4);border:1px solid var(--wire);display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--wire2)">S${slot}</div>`;
-    }
+    if (!item) return `<div style="flex:1;height:20px;background:var(--ink4);border:1px solid var(--wire);display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--wire2)">S${slot}</div>`;
     const u = classifyUrgency(item);
     return `<div style="flex:1;height:20px;background:${u.color}22;border:1px solid ${u.color};display:flex;align-items:center;justify-content:center;font-size:8px;color:${u.color}" title="${item.name}">S${slot}</div>`;
   }).join('');
@@ -2084,8 +1582,7 @@ function renderShelfMini() {
 function renderForecastTable() {
   const tbody = document.getElementById('forecast-tbody');
   if (!tbody) return;
-  const rows = forecaster.predictHorizon(7);
-  tbody.innerHTML = rows.map(r => `<tr>
+  tbody.innerHTML = forecaster.predictHorizon(7).map(r => `<tr>
     <td class="td-mono">${r.date}</td>
     <td class="td-mono" style="color:var(--ember);font-weight:700">${r.forecast}</td>
     <td class="td-mono" style="color:var(--muted)">${r.lo80}</td>
@@ -2098,49 +1595,46 @@ function renderForecastTable() {
 function renderDowGrid() {
   const div = document.getElementById('dow-grid');
   if (!div) return;
-  const profile = forecaster.dowProfile();
+  const profile  = forecaster.dowProfile();
   const maxDemand = Math.max(...profile.map(p => p.demand), 0.01);
   div.innerHTML = profile.map(p => `
     <div class="dow-cell">
       <div class="dow-day">${p.day}</div>
       <div class="dow-val" style="color:${p.index > 1.2 ? 'var(--ember)' : p.index > 0.8 ? 'var(--text)' : 'var(--dim)'}">${p.demand.toFixed(1)}</div>
-      <div class="dow-bar"><div class="dow-fill" style="width:${(p.demand/maxDemand*100).toFixed(0)}%;background:${p.index > 1.2 ? 'var(--ember)' : p.index > 0.8 ? 'var(--ice)' : 'var(--dim)'}"></div></div>
-    </div>
-  `).join('');
+      <div class="dow-bar"><div class="dow-fill" style="width:${(p.demand/maxDemand*100).toFixed(0)}%;background:${p.index>1.2?'var(--ember)':p.index>0.8?'var(--ice)':'var(--dim)'}"></div></div>
+    </div>`).join('');
 }
 
 function renderModelStats() {
   const div = document.getElementById('model-stats');
   if (!div) return;
-  const n = forecaster.daily.length;
   const [w0, w1] = forecaster.weights;
   div.innerHTML = `
-    <div class="data-row"><span class="drk">Data Points</span><span class="drv">${n} days</span></div>
+    <div class="data-row"><span class="drk">Data Points</span><span class="drv">${forecaster.daily.length} days</span></div>
     <div class="data-row"><span class="drk">Mean Demand</span><span class="drv ember">${forecaster.mean.toFixed(3)}</span></div>
     <div class="data-row"><span class="drk">Std Dev</span><span class="drv">${forecaster.std.toFixed(3)}</span></div>
     <div class="data-row"><span class="drk">CV (σ/μ)</span><span class="drv ${forecaster.cv > 0.5 ? 'crit' : forecaster.cv > 0.3 ? 'solar' : 'acid'}">${forecaster.cv.toFixed(3)}</span></div>
     <div class="data-row"><span class="drk">HW Weight</span><span class="drv ice">${(w0*100).toFixed(0)}%</span></div>
     <div class="data-row"><span class="drk">DoW Weight</span><span class="drv ice">${(w1*100).toFixed(0)}%</span></div>
-    <div class="data-row"><span class="drk">Trained</span><span class="drv ${forecaster.trained?'acid':'solar'}">${forecaster.trained ? 'YES' : 'SPARSE DATA'}</span></div>
-    <div class="data-row"><span class="drk">Lead Time</span><span class="drv">${forecaster.cp.lead_time_days}d</span></div>
+    <div class="data-row"><span class="drk">Trained</span><span class="drv ${forecaster.trained ? 'acid' : 'solar'}">${forecaster.trained ? 'YES' : 'SPARSE DATA'}</span></div>
   `;
 }
 
-function renderCostParamsPanel() {
+function renderCostParamsPanel(nvArg) {
   const div = document.getElementById('cost-params-panel');
   if (!div) return;
   const cp = forecaster.cp;
+  const nv = nvArg || forecaster.newsvendorQ();   // FIX: was newsvendor_q()
   div.innerHTML = `
     <div class="data-row"><span class="drk">Unit Cost</span><span class="drv">$${cp.unit_cost}</span></div>
     <div class="data-row"><span class="drk">Selling Price</span><span class="drv acid">$${cp.selling_price}</span></div>
     <div class="data-row"><span class="drk">Gross Margin</span><span class="drv">${(((cp.selling_price-cp.unit_cost)/cp.selling_price)*100).toFixed(0)}%</span></div>
     <div class="data-row"><span class="drk">Holding/unit/day</span><span class="drv">$${cp.holding_cost_rate}</span></div>
-    <div class="data-row"><span class="drk">Waste Cost Mult</span><span class="drv crimson">${cp.waste_cost_mult}×</span></div>
+    <div class="data-row"><span class="drk">Waste Cost Mult</span><span class="drv crit">${cp.waste_cost_mult}×</span></div>
     <div class="data-row"><span class="drk">Stockout Mult</span><span class="drv solar">${cp.stockout_cost_mult}×</span></div>
     <div class="data-row"><span class="drk">Order Fixed Cost</span><span class="drv">$${cp.ordering_fixed_cost}</span></div>
     <div class="data-row"><span class="drk">Service Level</span><span class="drv ember">${(cp.service_level*100).toFixed(0)}%</span></div>
   `;
-  const nv = forecaster.newsvendor_q();
   document.getElementById('newsvendor-panel').innerHTML = `
     <div class="data-row"><span class="drk">Optimal Q*</span><span class="drv ember">${nv.optimal_qty} units</span></div>
     <div class="data-row"><span class="drk">Critical Ratio</span><span class="drv">${(nv.critical_ratio*100).toFixed(1)}%</span></div>
@@ -2156,34 +1650,19 @@ function renderCostParamsPanel() {
       <div class="kpi-block"><div class="kpi-lbl">EOQ</div><div class="kpi-val ember">${eoqData.eoq}</div><div class="kpi-sub">optimal order qty</div></div>
       <div class="kpi-block"><div class="kpi-lbl">Order Cost pa</div><div class="kpi-val">$${eoqData.order_cost_pa.toFixed(0)}</div><div class="kpi-sub">annual ordering</div></div>
       <div class="kpi-block"><div class="kpi-lbl">Holding Cost pa</div><div class="kpi-val">$${eoqData.holding_cost_pa.toFixed(0)}</div><div class="kpi-sub">annual holding</div></div>
-    </div>
-  `;
-  // Cost breakdown
-  const curve = forecaster.costCurve();
-  const nqEntry = curve[Math.min(nv.optimal_qty, curve.length-1)] || curve[0] || {};
-  const curEntry = curve[Math.min(inv.length, curve.length-1)] || curve[0] || {};
+    </div>`;
+  const curve   = forecaster.costCurve();
+  const curEntry = curve[Math.min(inv.length,  curve.length - 1)] || {};
+  const nqEntry  = curve[Math.min(nv.optimal_qty, curve.length - 1)] || {};
   document.getElementById('cost-breakdown-table').innerHTML = `
     <table class="stk-table">
-      <thead><tr><th>Cost Component</th><th>Current (${inv.length} units)</th><th>Optimal Q* (${nv.optimal_qty} units)</th><th>Δ</th></tr></thead>
-      <tbody>
-        ${['purchase','holding','waste','stockout','ordering','total'].map(k => {
-          const cur = curEntry[k]||0, opt = nqEntry[k]||0, delta = cur - opt;
-          return `<tr>
-            <td class="drk" style="text-transform:capitalize">${k}</td>
-            <td class="td-mono">$${cur.toFixed(2)}</td>
-            <td class="td-mono">$${opt.toFixed(2)}</td>
-            <td class="td-mono" style="color:${delta>0?'var(--crimson)':delta<0?'var(--acid)':'var(--dim)'}">${delta>=0?'+':''}$${delta.toFixed(2)}</td>
-          </tr>`;
-        }).join('')}
-        <tr style="border-top:1px solid var(--wire)">
-          <td class="drk">PROFIT</td>
-          <td class="td-mono" style="color:${(curEntry.profit||0)>=0?'var(--acid)':'var(--crimson)'}">$${(curEntry.profit||0).toFixed(2)}</td>
-          <td class="td-mono" style="color:var(--acid)">$${(nqEntry.profit||0).toFixed(2)}</td>
-          <td class="td-mono" style="color:var(--solar)">$${((nqEntry.profit||0)-(curEntry.profit||0)).toFixed(2)}</td>
-        </tr>
-      </tbody>
-    </table>
-  `;
+      <thead><tr><th>Component</th><th>Current (${inv.length}u)</th><th>Q* (${nv.optimal_qty}u)</th><th>Δ</th></tr></thead>
+      <tbody>${['purchase','holding','waste','stockout','ordering','total'].map(k => {
+        const cur = curEntry[k] || 0, opt = nqEntry[k] || 0, delta = cur - opt;
+        return `<tr><td class="drk" style="text-transform:capitalize">${k}</td><td class="td-mono">$${cur.toFixed(2)}</td><td class="td-mono">$${opt.toFixed(2)}</td><td class="td-mono" style="color:${delta>0?'var(--crimson)':delta<0?'var(--acid)':'var(--dim)'}">${delta>=0?'+':''}$${delta.toFixed(2)}</td></tr>`;
+      }).join('')}
+      <tr style="border-top:1px solid var(--wire)"><td class="drk">PROFIT</td><td class="td-mono" style="color:${(curEntry.profit||0)>=0?'var(--acid)':'var(--crimson)'}">$${(curEntry.profit||0).toFixed(2)}</td><td class="td-mono" style="color:var(--acid)">$${(nqEntry.profit||0).toFixed(2)}</td><td class="td-mono" style="color:var(--solar)">$${((nqEntry.profit||0)-(curEntry.profit||0)).toFixed(2)}</td></tr>
+      </tbody></table>`;
 }
 
 function renderPolicyState(rec) {
@@ -2196,355 +1675,190 @@ function renderPolicyState(rec) {
     ['Demand Bucket', ['No data','Low(≤0.5)','Med(≤1.5)','High(>1.5)']],
     ['Cost Pressure', ['OK','Holding↑','Waste risk','Stockout risk']],
   ];
-  div.innerHTML = `<div class="g2">${labels.map(([lbl, vals], i) => `
-    <div class="kpi-block" style="border-top-color:var(--purple)">
+  div.innerHTML = `<div class="g2">${labels.map(([lbl, vals], i) =>
+    `<div class="kpi-block" style="border-top-color:var(--purple)">
       <div class="kpi-lbl">${lbl}</div>
       <div class="kpi-val" style="font-size:14px;color:var(--purple)">${vals[s[i]] || s[i] || '—'}</div>
       <div class="kpi-sub">bucket ${s[i] !== undefined ? s[i] : '?'} / ${vals.length-1}</div>
-    </div>
-  `).join('')}</div>
-  <div class="data-row mt8"><span class="drk">RL Steps</span><span class="drv">${rl.step}</span></div>
-  <div class="data-row"><span class="drk">States Explored</span><span class="drv ice">${Object.keys(rl.qTable).length}</span></div>
-  <div class="data-row"><span class="drk">Avg Reward (50)</span><span class="drv ${(rec.avgReward||0)>=0?'acid':'crit'}">${(rec.avgReward||0).toFixed(3)}</span></div>
-  `;
+    </div>`).join('')}</div>
+    <div class="data-row mt8"><span class="drk">RL Steps</span><span class="drv">${rl.step}</span></div>
+    <div class="data-row"><span class="drk">States Explored</span><span class="drv ice">${Object.keys(rl.qTable).length}</span></div>
+    <div class="data-row"><span class="drk">Avg Reward (50)</span><span class="drv ${(rec.avgReward||0)>=0?'acid':'crit'}">${(rec.avgReward||0).toFixed(3)}</span></div>`;
 }
 
 function renderPolicyCompare() {
   const div = document.getElementById('policy-compare');
-  if (!div || !dispatchLog.length) {
-    if (div) div.innerHTML = '<div style="color:var(--dim);font-size:10px;padding:8px">Dispatch items to see policy comparison</div>';
-    return;
+  if (!div) return;
+  if (!dispatchLog.length) {
+    div.innerHTML = '<div style="color:var(--dim);font-size:10px;padding:8px">Dispatch items to see comparison</div>'; return;
   }
-  // Naive (FIFO always) vs RL: compare waste in each
-  const rlDispatches = dispatchLog.filter(d => d.mode === 'RL' || d.mode === 'FEFO');
+  const rlDispatches   = dispatchLog.filter(d => d.mode === 'RL' || d.mode === 'FEFO');
   const fifoDispatches = dispatchLog.filter(d => d.mode === 'FIFO');
-  const rlRewards = rl.rewardHistory;
-  const avgRL = rlRewards.length ? rlRewards.reduce((a,b)=>a+b,0)/rlRewards.length : 0;
+  const hist = rl.rewardHistory;
+  const avgRL = hist.length ? hist.reduce((a, b) => a + b, 0) / hist.length : 0;
   div.innerHTML = `
     <table class="stk-table">
       <thead><tr><th>Metric</th><th>FIFO (Naive)</th><th>RL/FEFO (Optimised)</th></tr></thead>
       <tbody>
         <tr><td class="drk">Dispatches</td><td>${fifoDispatches.length}</td><td>${rlDispatches.length}</td></tr>
         <tr><td class="drk">Avg Reward</td><td>—</td><td class="td-mono" style="color:var(--acid)">${avgRL.toFixed(3)}</td></tr>
-        <tr><td class="drk">Total Dispatches</td><td colspan="2" class="td-mono">${dispatchLog.length}</td></tr>
+        <tr><td class="drk">Total</td><td colspan="2" class="td-mono">${dispatchLog.length}</td></tr>
       </tbody>
-    </table>
-  `;
+    </table>`;
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   CHARTS (Canvas 2D)
-───────────────────────────────────────────────────────────────────────────── */
-
+// ── Charts ────────────────────────────────────────────────────────────────────
 function drawForecastChart() {
-  const canvas = document.getElementById('chart-forecast');
-  if (!canvas) return;
+  const canvas = document.getElementById('chart-forecast'); if (!canvas) return;
   const ctx = canvas.getContext('2d');
   const W = canvas.offsetWidth || 600, H = 180;
   canvas.width = W; canvas.height = H;
-  const pad = { t: 20, r: 20, b: 35, l: 45 };
-  const cW = W - pad.l - pad.r, cH = H - pad.t - pad.b;
-
-  const rows = forecaster.predictHorizon(7);
+  const pad = { t: 20, r: 20, b: 35, l: 45 }, cW = W-pad.l-pad.r, cH = H-pad.t-pad.b;
+  const rows = forecaster.predictHorizon(7), N = rows.length;
   const maxVal = Math.max(...rows.map(r => r.hi95), 1) * 1.15;
-  const minVal = 0;
-  const N = rows.length;
-
-  const xScale = i => pad.l + (i / (N-1)) * cW;
-  const yScale = v => pad.t + cH - ((v - minVal) / (maxVal - minVal)) * cH;
-
-  // Background
-  ctx.fillStyle = '#0a0905';
-  ctx.fillRect(0, 0, W, H);
-
-  // Grid lines
+  const xS = i => pad.l + (i / (N-1)) * cW, yS = v => pad.t + cH - ((v / maxVal)) * cH;
+  ctx.fillStyle = '#0a0905'; ctx.fillRect(0,0,W,H);
   ctx.strokeStyle = '#2a2415'; ctx.lineWidth = 1;
   for (let i = 0; i <= 4; i++) {
-    const y = pad.t + (i/4) * cH;
-    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + cW, y); ctx.stroke();
-    const v = maxVal - i * maxVal / 4;
-    ctx.fillStyle = '#6a5a44'; ctx.font = '9px Space Mono';
-    ctx.textAlign = 'right'; ctx.fillText(v.toFixed(1), pad.l - 4, y + 3);
+    const y = pad.t + (i/4)*cH; ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(pad.l+cW,y); ctx.stroke();
+    ctx.fillStyle = '#6a5a44'; ctx.font = '9px Space Mono'; ctx.textAlign = 'right';
+    ctx.fillText((maxVal*(1-i/4)).toFixed(1), pad.l-4, y+3);
   }
-
-  // 95% CI band
-  ctx.fillStyle = 'rgba(255,107,43,0.06)';
-  ctx.beginPath();
-  rows.forEach((r, i) => { if (i===0) ctx.moveTo(xScale(i), yScale(r.hi95)); else ctx.lineTo(xScale(i), yScale(r.hi95)); });
-  rows.slice().reverse().forEach((r, i) => ctx.lineTo(xScale(N-1-i), yScale(r.lo95)));
+  ctx.fillStyle = 'rgba(255,107,43,0.06)'; ctx.beginPath();
+  rows.forEach((r,i) => { if(i===0) ctx.moveTo(xS(i),yS(r.hi95)); else ctx.lineTo(xS(i),yS(r.hi95)); });
+  rows.slice().reverse().forEach((r,i) => ctx.lineTo(xS(N-1-i),yS(r.lo95)));
   ctx.closePath(); ctx.fill();
-
-  // 80% CI band
-  ctx.fillStyle = 'rgba(255,107,43,0.12)';
-  ctx.beginPath();
-  rows.forEach((r, i) => { if (i===0) ctx.moveTo(xScale(i), yScale(r.hi80)); else ctx.lineTo(xScale(i), yScale(r.hi80)); });
-  rows.slice().reverse().forEach((r, i) => ctx.lineTo(xScale(N-1-i), yScale(r.lo80)));
+  ctx.fillStyle = 'rgba(255,107,43,0.12)'; ctx.beginPath();
+  rows.forEach((r,i) => { if(i===0) ctx.moveTo(xS(i),yS(r.hi80)); else ctx.lineTo(xS(i),yS(r.hi80)); });
+  rows.slice().reverse().forEach((r,i) => ctx.lineTo(xS(N-1-i),yS(r.lo80)));
   ctx.closePath(); ctx.fill();
-
-  // Forecast line
-  ctx.strokeStyle = '#ff6b2b'; ctx.lineWidth = 2.5; ctx.setLineDash([]);
-  ctx.shadowColor = '#ff6b2b'; ctx.shadowBlur = 8;
-  ctx.beginPath();
-  rows.forEach((r, i) => { if (i===0) ctx.moveTo(xScale(i), yScale(r.forecast)); else ctx.lineTo(xScale(i), yScale(r.forecast)); });
-  ctx.stroke(); ctx.shadowBlur = 0;
-
-  // Points
-  rows.forEach((r, i) => {
-    ctx.fillStyle = '#ff6b2b'; ctx.beginPath();
-    ctx.arc(xScale(i), yScale(r.forecast), 3.5, 0, Math.PI*2); ctx.fill();
-    ctx.fillStyle = '#4a3a28'; ctx.font = 'bold 9px Space Mono';
-    ctx.textAlign = 'center';
-    ctx.fillText(r.date.split(' ')[0], xScale(i), H - 8);
+  ctx.strokeStyle = '#ff6b2b'; ctx.lineWidth = 2.5; ctx.shadowColor = '#ff6b2b'; ctx.shadowBlur = 8;
+  ctx.beginPath(); rows.forEach((r,i) => { if(i===0) ctx.moveTo(xS(i),yS(r.forecast)); else ctx.lineTo(xS(i),yS(r.forecast)); }); ctx.stroke(); ctx.shadowBlur = 0;
+  rows.forEach((r,i) => {
+    ctx.fillStyle = '#ff6b2b'; ctx.beginPath(); ctx.arc(xS(i),yS(r.forecast),3.5,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle = '#4a3a28'; ctx.font = '9px Space Mono'; ctx.textAlign = 'center';
+    ctx.fillText(r.date.split(' ')[0], xS(i), H-8);
     ctx.fillStyle = '#e8d8c0'; ctx.font = '9px Space Mono';
-    ctx.fillText(r.forecast.toFixed(1), xScale(i), yScale(r.forecast) - 8);
+    ctx.fillText(r.forecast.toFixed(1), xS(i), yS(r.forecast)-8);
   });
-
-  // Legend
-  ctx.fillStyle = 'rgba(255,107,43,0.25)'; ctx.fillRect(pad.l + cW - 140, pad.t + 4, 10, 10);
-  ctx.fillStyle = '#8a7a66'; ctx.font = '8px Space Mono'; ctx.textAlign = 'left';
-  ctx.fillText('95% CI', pad.l + cW - 126, pad.t + 13);
-  ctx.fillStyle = 'rgba(255,107,43,0.45)'; ctx.fillRect(pad.l + cW - 75, pad.t + 4, 10, 10);
-  ctx.fillText('80% CI', pad.l + cW - 61, pad.t + 13);
 }
 
 function drawCostChart() {
-  const canvas = document.getElementById('chart-costs');
-  if (!canvas) return;
+  const canvas = document.getElementById('chart-costs'); if (!canvas) return;
   const ctx = canvas.getContext('2d');
   const W = canvas.offsetWidth || 500, H = 200;
   canvas.width = W; canvas.height = H;
-  const pad = { t: 20, r: 20, b: 35, l: 55 };
-  const cW = W - pad.l - pad.r, cH = H - pad.t - pad.b;
-
-  const curve = forecaster.costCurve();
-  if (!curve.length) return;
-  const maxProfit = Math.max(...curve.map(c => c.profit));
-  const minProfit = Math.min(...curve.map(c => c.profit));
-  const maxCost   = Math.max(...curve.map(c => c.total));
-  const optIdx    = curve.reduce((bi, c, i) => c.profit > curve[bi].profit ? i : bi, 0);
-  const nv        = forecaster.newsvendor_q();
-  const N         = curve.length;
-
-  const xScale = i => pad.l + (i / Math.max(N-1,1)) * cW;
-  const profitRange = Math.max(maxProfit - minProfit, 1);
-  const yScaleProfit = v => pad.t + cH - ((v - minProfit) / profitRange) * cH;
-  const yScaleCost = v => pad.t + cH - (v / Math.max(maxCost,1)) * cH;
-
+  const pad = { t:20,r:20,b:35,l:55 }, cW = W-pad.l-pad.r, cH = H-pad.t-pad.b;
+  const curve = forecaster.costCurve(); if (!curve.length) return;
+  const maxProfit = Math.max(...curve.map(c=>c.profit)), minProfit = Math.min(...curve.map(c=>c.profit));
+  const maxCost = Math.max(...curve.map(c=>c.total));
+  const optIdx = curve.reduce((bi,c,i) => c.profit > curve[bi].profit ? i : bi, 0);
+  const nv = forecaster.newsvendorQ(), N = curve.length;
+  const xS = i => pad.l + (i/Math.max(N-1,1))*cW;
+  const profRange = Math.max(maxProfit-minProfit,1);
+  const yP = v => pad.t + cH - ((v-minProfit)/profRange)*cH;
+  const yC = v => pad.t + cH - (v/Math.max(maxCost,1))*cH;
   ctx.fillStyle = '#0a0905'; ctx.fillRect(0,0,W,H);
-
-  // Grid
-  ctx.strokeStyle = '#1e1c10'; ctx.lineWidth = 1;
-  for (let i = 0; i <= 4; i++) {
-    const y = pad.t + (i/4)*cH;
-    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l+cW, y); ctx.stroke();
-  }
-
-  // Cost line (total)
-  ctx.strokeStyle = '#3a4a50'; ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  curve.forEach((c, i) => { if(i===0) ctx.moveTo(xScale(i), yScaleCost(c.total)); else ctx.lineTo(xScale(i), yScaleCost(c.total)); });
-  ctx.stroke();
-
-  // Profit line
-  ctx.strokeStyle = '#a8ff00'; ctx.lineWidth = 2.5;
-  ctx.shadowColor = '#a8ff00'; ctx.shadowBlur = 6;
-  ctx.beginPath();
-  curve.forEach((c, i) => { if(i===0) ctx.moveTo(xScale(i), yScaleProfit(c.profit)); else ctx.lineTo(xScale(i), yScaleProfit(c.profit)); });
-  ctx.stroke(); ctx.shadowBlur = 0;
-
-  // Zero profit line
-  const zeroY = yScaleProfit(0);
-  if (zeroY >= pad.t && zeroY <= pad.t + cH) {
-    ctx.strokeStyle = 'rgba(255,37,37,0.3)'; ctx.lineWidth = 1; ctx.setLineDash([4,4]);
-    ctx.beginPath(); ctx.moveTo(pad.l, zeroY); ctx.lineTo(pad.l+cW, zeroY); ctx.stroke();
-    ctx.setLineDash([]);
-  }
-
-  // Optimal point
-  ctx.fillStyle = '#ff6b2b';
-  ctx.beginPath(); ctx.arc(xScale(optIdx), yScaleProfit(curve[optIdx].profit), 5, 0, Math.PI*2); ctx.fill();
-  ctx.fillStyle = '#e8d8c0'; ctx.font = 'bold 9px Space Mono'; ctx.textAlign = 'center';
-  ctx.fillText(`Q*=${optIdx}`, xScale(optIdx), yScaleProfit(curve[optIdx].profit) - 10);
-
-  // Newsvendor Q* line
-  if (nv.optimal_qty < N) {
-    ctx.strokeStyle = 'rgba(255,107,43,0.5)'; ctx.lineWidth = 1; ctx.setLineDash([3,3]);
-    ctx.beginPath(); ctx.moveTo(xScale(nv.optimal_qty), pad.t); ctx.lineTo(xScale(nv.optimal_qty), pad.t+cH); ctx.stroke();
-    ctx.setLineDash([]);
-    ctx.fillStyle = '#ff6b2b'; ctx.font = '8px Space Mono'; ctx.textAlign = 'center';
-    ctx.fillText('NV', xScale(nv.optimal_qty), pad.t + 10);
-  }
-
-  // X axis labels
-  ctx.fillStyle = '#4a3a28'; ctx.font = '9px Space Mono'; ctx.textAlign = 'center';
-  const step = Math.max(1, Math.floor(N/8));
-  for (let i = 0; i < N; i += step) {
-    ctx.fillText(i, xScale(i), pad.t + cH + 14);
-  }
-  ctx.fillStyle = '#6a5a44'; ctx.textAlign = 'left';
-  ctx.fillText('Qty →', pad.l + cW - 30, pad.t + cH + 26);
-
-  // Legend
-  ctx.fillStyle = '#a8ff00'; ctx.fillRect(pad.l, pad.t+4, 12, 3);
-  ctx.fillStyle = '#8a7a66'; ctx.font = '8px Space Mono'; ctx.textAlign = 'left';
-  ctx.fillText('Profit', pad.l+16, pad.t+10);
-  ctx.fillStyle = '#3a4a50'; ctx.fillRect(pad.l+60, pad.t+4, 12, 3);
-  ctx.fillText('Total Cost', pad.l+76, pad.t+10);
+  ctx.strokeStyle = '#1e1c10'; ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){const y=pad.t+(i/4)*cH;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+cW,y);ctx.stroke();}
+  ctx.strokeStyle='#3a4a50';ctx.lineWidth=1.5;ctx.beginPath();
+  curve.forEach((c,i)=>{if(i===0)ctx.moveTo(xS(i),yC(c.total));else ctx.lineTo(xS(i),yC(c.total));});ctx.stroke();
+  ctx.strokeStyle='#a8ff00';ctx.lineWidth=2.5;ctx.shadowColor='#a8ff00';ctx.shadowBlur=6;ctx.beginPath();
+  curve.forEach((c,i)=>{if(i===0)ctx.moveTo(xS(i),yP(c.profit));else ctx.lineTo(xS(i),yP(c.profit));});ctx.stroke();ctx.shadowBlur=0;
+  const zeroY=yP(0);if(zeroY>=pad.t&&zeroY<=pad.t+cH){ctx.strokeStyle='rgba(255,37,37,0.3)';ctx.lineWidth=1;ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(pad.l,zeroY);ctx.lineTo(pad.l+cW,zeroY);ctx.stroke();ctx.setLineDash([]);}
+  ctx.fillStyle='#ff6b2b';ctx.beginPath();ctx.arc(xS(optIdx),yP(curve[optIdx].profit),5,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#e8d8c0';ctx.font='bold 9px Space Mono';ctx.textAlign='center';ctx.fillText(`Q*=${optIdx}`,xS(optIdx),yP(curve[optIdx].profit)-10);
+  if(nv.optimal_qty<N){ctx.strokeStyle='rgba(255,107,43,0.5)';ctx.lineWidth=1;ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(xS(nv.optimal_qty),pad.t);ctx.lineTo(xS(nv.optimal_qty),pad.t+cH);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#ff6b2b';ctx.font='8px Space Mono';ctx.textAlign='center';ctx.fillText('NV',xS(nv.optimal_qty),pad.t+10);}
+  const step=Math.max(1,Math.floor(N/8));ctx.fillStyle='#4a3a28';ctx.font='9px Space Mono';ctx.textAlign='center';
+  for(let i=0;i<N;i+=step)ctx.fillText(i,xS(i),pad.t+cH+14);
 }
 
-function drawPolicyCharts() {
-  drawQHeatmap();
-  drawRewardChart();
-}
+function drawPolicyCharts() { drawQHeatmap(); drawRewardChart(); }
 
 function drawQHeatmap() {
-  const canvas = document.getElementById('chart-qvals');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const W = canvas.offsetWidth || 300, H = 200;
-  canvas.width = W; canvas.height = H;
-  ctx.fillStyle = '#0a0905'; ctx.fillRect(0,0,W,H);
-
-  // 5 expiry states × 3 actions
-  const actions = ['FIFO','FEFO','HOLD'];
-  const expiries = ['Exp','≤2d','≤7d','≤14d','>14d'];
-  const rows = expiries.length, cols = actions.length;
-  const cellW = Math.floor((W - 50) / cols), cellH = Math.floor((H - 30) / rows);
-
-  // Find range
-  let allVals = [];
-  for (let r = 0; r < rows; r++) {
-    const state = [r, 2, 2, 0];
-    const q = rl.getQ(state);
-    actions.forEach(a => allVals.push(q[a] || 0));
-  }
-  const minV = Math.min(...allVals), maxV = Math.max(...allVals, 0.01);
-
-  // Column headers
-  ctx.fillStyle = '#6a5a44'; ctx.font = 'bold 8px Space Mono'; ctx.textAlign = 'center';
-  actions.forEach((a, ci) => ctx.fillText(a, 50 + ci*cellW + cellW/2, 14));
-
-  // Cells
-  for (let r = 0; r < rows; r++) {
-    const state = [r, 2, 2, 0];
-    const q = rl.getQ(state);
-    ctx.fillStyle = '#4a3a28'; ctx.font = '8px Space Mono'; ctx.textAlign = 'right';
-    ctx.fillText(expiries[r], 46, 24 + r*cellH + cellH/2 + 3);
-    actions.forEach((a, ci) => {
-      const v = q[a] || 0;
-      const t = (v - minV) / (maxV - minV);
-      const x = 50 + ci*cellW, y = 20 + r*cellH;
-      // Color: ember at high, dim at low
-      const r2 = Math.round(10 + t * 245);
-      const g2 = Math.round(8 + t * 98);
-      const b2 = Math.round(5 + t * 40);
-      ctx.fillStyle = `rgb(${r2},${g2},${b2})`;
-      ctx.fillRect(x+1, y+1, cellW-2, cellH-2);
-      ctx.fillStyle = t > 0.6 ? '#0a0905' : '#8a7a66';
-      ctx.font = '8px Space Mono'; ctx.textAlign = 'center';
-      ctx.fillText(v.toFixed(1), x + cellW/2, y + cellH/2 + 3);
+  const canvas=document.getElementById('chart-qvals'); if(!canvas)return;
+  const ctx=canvas.getContext('2d'),W=canvas.offsetWidth||300,H=200;
+  canvas.width=W;canvas.height=H;ctx.fillStyle='#0a0905';ctx.fillRect(0,0,W,H);
+  const actions=['FIFO','FEFO','HOLD'],expiries=['Exp','≤2d','≤7d','≤14d','>14d'],rows=expiries.length,cols=actions.length;
+  const cellW=Math.floor((W-50)/cols),cellH=Math.floor((H-30)/rows);
+  let allVals=[];
+  for(let r=0;r<rows;r++){const q=rl.getQ([r,2,2,0]);actions.forEach(a=>allVals.push(q[a]||0));}
+  const minV=Math.min(...allVals),maxV=Math.max(...allVals,0.01);
+  ctx.fillStyle='#6a5a44';ctx.font='bold 8px Space Mono';ctx.textAlign='center';
+  actions.forEach((a,ci)=>ctx.fillText(a,50+ci*cellW+cellW/2,14));
+  for(let r=0;r<rows;r++){
+    const q=rl.getQ([r,2,2,0]);
+    ctx.fillStyle='#4a3a28';ctx.font='8px Space Mono';ctx.textAlign='right';ctx.fillText(expiries[r],46,24+r*cellH+cellH/2+3);
+    actions.forEach((a,ci)=>{
+      const v=q[a]||0,t=(v-minV)/(maxV-minV),x=50+ci*cellW,y=20+r*cellH;
+      ctx.fillStyle=`rgb(${Math.round(10+t*245)},${Math.round(8+t*98)},${Math.round(5+t*40)})`;
+      ctx.fillRect(x+1,y+1,cellW-2,cellH-2);
+      ctx.fillStyle=t>0.6?'#0a0905':'#8a7a66';ctx.font='8px Space Mono';ctx.textAlign='center';
+      ctx.fillText(v.toFixed(1),x+cellW/2,y+cellH/2+3);
     });
   }
 }
 
 function drawRewardChart() {
-  const canvas = document.getElementById('chart-reward');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const W = canvas.offsetWidth || 300, H = 200;
-  canvas.width = W; canvas.height = H;
-  const pad = { t:15, r:10, b:25, l:40 };
-  const cW = W - pad.l - pad.r, cH = H - pad.t - pad.b;
-  ctx.fillStyle = '#0a0905'; ctx.fillRect(0,0,W,H);
-
-  const hist = rl.rewardHistory.slice(-80);
-  if (!hist.length) {
-    ctx.fillStyle = '#4a3a28'; ctx.font = '10px Space Mono'; ctx.textAlign = 'center';
-    ctx.fillText('No reward history yet', W/2, H/2);
-    return;
-  }
-
-  const maxV = Math.max(...hist, 1), minV = Math.min(...hist, -1);
-  const N = hist.length;
-  const xS = i => pad.l + (i/(N-1)) * cW;
-  const yS = v => pad.t + cH - ((v-minV)/(maxV-minV+0.01)) * cH;
-
-  // Grid
-  ctx.strokeStyle = '#1e1c10'; ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(pad.l, yS(0)); ctx.lineTo(pad.l+cW, yS(0)); ctx.stroke();
-
-  // Fill area under curve
-  ctx.fillStyle = 'rgba(0,229,160,0.08)';
-  ctx.beginPath(); ctx.moveTo(xS(0), yS(0));
-  hist.forEach((v,i) => ctx.lineTo(xS(i), yS(v)));
-  ctx.lineTo(xS(N-1), yS(0)); ctx.closePath(); ctx.fill();
-
-  // Line
-  ctx.strokeStyle = '#00e5a0'; ctx.lineWidth = 1.5;
-  ctx.shadowColor = '#00e5a0'; ctx.shadowBlur = 4;
-  ctx.beginPath();
-  hist.forEach((v,i) => { if(i===0) ctx.moveTo(xS(i),yS(v)); else ctx.lineTo(xS(i),yS(v)); });
-  ctx.stroke(); ctx.shadowBlur = 0;
-
-  // Moving average (window=5)
-  if (hist.length >= 5) {
-    ctx.strokeStyle = '#ff6b2b'; ctx.lineWidth = 2;
-    ctx.beginPath();
-    for (let i = 4; i < N; i++) {
-      const avg = hist.slice(i-4, i+1).reduce((a,b)=>a+b,0) / 5;
-      if (i===4) ctx.moveTo(xS(i), yS(avg)); else ctx.lineTo(xS(i), yS(avg));
-    }
-    ctx.stroke();
-  }
-
-  ctx.fillStyle = '#4a3a28'; ctx.font = '9px Space Mono'; ctx.textAlign = 'left';
-  ctx.fillText(`avg ${(hist.reduce((a,b)=>a+b,0)/N).toFixed(2)}`, pad.l+4, pad.t+12);
+  const canvas=document.getElementById('chart-reward'); if(!canvas)return;
+  const ctx=canvas.getContext('2d'),W=canvas.offsetWidth||300,H=200;
+  canvas.width=W;canvas.height=H;
+  const pad={t:15,r:10,b:25,l:40},cW=W-pad.l-pad.r,cH=H-pad.t-pad.b;
+  ctx.fillStyle='#0a0905';ctx.fillRect(0,0,W,H);
+  const hist=rl.rewardHistory.slice(-80);
+  if(!hist.length){ctx.fillStyle='#4a3a28';ctx.font='10px Space Mono';ctx.textAlign='center';ctx.fillText('No reward history yet',W/2,H/2);return;}
+  const maxV=Math.max(...hist,1),minV=Math.min(...hist,-1),N=hist.length;
+  const xS=i=>pad.l+(i/(N-1))*cW,yS=v=>pad.t+cH-((v-minV)/(maxV-minV+0.01))*cH;
+  ctx.strokeStyle='#1e1c10';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(pad.l,yS(0));ctx.lineTo(pad.l+cW,yS(0));ctx.stroke();
+  ctx.fillStyle='rgba(0,229,160,0.08)';ctx.beginPath();ctx.moveTo(xS(0),yS(0));
+  hist.forEach((v,i)=>ctx.lineTo(xS(i),yS(v)));ctx.lineTo(xS(N-1),yS(0));ctx.closePath();ctx.fill();
+  ctx.strokeStyle='#00e5a0';ctx.lineWidth=1.5;ctx.shadowColor='#00e5a0';ctx.shadowBlur=4;
+  ctx.beginPath();hist.forEach((v,i)=>{if(i===0)ctx.moveTo(xS(i),yS(v));else ctx.lineTo(xS(i),yS(v));});ctx.stroke();ctx.shadowBlur=0;
+  if(hist.length>=5){ctx.strokeStyle='#ff6b2b';ctx.lineWidth=2;ctx.beginPath();
+    for(let i=4;i<N;i++){const avg=hist.slice(i-4,i+1).reduce((a,b)=>a+b,0)/5;if(i===4)ctx.moveTo(xS(i),yS(avg));else ctx.lineTo(xS(i),yS(avg));}ctx.stroke();}
+  ctx.fillStyle='#4a3a28';ctx.font='9px Space Mono';ctx.textAlign='left';
+  ctx.fillText(`avg ${(hist.reduce((a,b)=>a+b,0)/N).toFixed(2)}`,pad.l+4,pad.t+12);
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   ROBOTIC ARM SIMULATION (Canvas)
-───────────────────────────────────────────────────────────────────────────── */
-const SA = {0: -0.70, 1: -0.25, 2: 0.25, 3: 0.70};
+// ── Arm Simulation ────────────────────────────────────────────────────────────
+const SA = { 0: -0.70, 1: -0.25, 2: 0.25, 3: 0.70 };
 const DA = 1.20, DR = 115;
 let arm = { a: 0, r: 0.38, open: true };
 let animQueue = [], animFst = null, heldItem = null, dropItem = null, lbl = 'Ready';
+let _rafTs = 0;
 
-function ease(t) { return t<0.5 ? 2*t*t : -1+(4-2*t)*t; }
+function ease(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
 
 function playAnim(item, mode, onDone) {
   const sa = SA[item.slot];
   animQueue = [
-    { a: sa, r: 0.40, open: true,  lbl: `ROTATE to slot ${item.slot} (j1=${sa.toFixed(2)})`, d: 700 },
-    { a: sa, r: 0.72, open: true,  lbl: `EXTEND arm above slot ${item.slot}`, d: 500 },
-    { a: sa, r: 0.98, open: true,  lbl: `DESCEND to pick position`, d: 420 },
-    { a: sa, r: 0.98, open: false, lbl: `GRIP "${item.name}"`, d: 350, grip: item },
-    { a: sa, r: 0.72, open: false, lbl: `LIFT from slot ${item.slot}`, d: 420 },
-    { a: DA, r: 0.65, open: false, lbl: `TRANSIT to dispatch tray…`, d: 750 },
-    { a: DA, r: 0.96, open: false, lbl: `PLACE "${item.name}" at tray`, d: 400 },
-    { a: DA, r: 0.96, open: true,  lbl: `RELEASE — ${mode} dispatch complete`, d: 350, drop: true },
-    { a: DA, r: 0.65, open: true,  lbl: `RETRACT from tray`, d: 350 },
-    { a: 0,  r: 0.38, open: true,  lbl: `HOME — ready for next command`, d: 700, done: onDone },
+    { a: sa,  r: 0.40, open: true,  lbl: `ROTATE to slot ${item.slot}`,    d: 700 },
+    { a: sa,  r: 0.72, open: true,  lbl: `EXTEND above slot ${item.slot}`, d: 500 },
+    { a: sa,  r: 0.98, open: true,  lbl: `DESCEND to pick position`,        d: 420 },
+    { a: sa,  r: 0.98, open: false, lbl: `GRIP "${item.name}"`,             d: 350, grip: item },
+    { a: sa,  r: 0.72, open: false, lbl: `LIFT from slot ${item.slot}`,     d: 420 },
+    { a: DA,  r: 0.65, open: false, lbl: `TRANSIT to dispatch tray`,        d: 750 },
+    { a: DA,  r: 0.96, open: false, lbl: `PLACE at tray`,                   d: 400 },
+    { a: DA,  r: 0.96, open: true,  lbl: `RELEASE — ${mode} dispatch done`, d: 350, drop: true },
+    { a: DA,  r: 0.65, open: true,  lbl: `RETRACT from tray`,               d: 350 },
+    { a: 0,   r: 0.38, open: true,  lbl: `HOME — ready`,                    d: 700, done: onDone },
   ];
 }
 
-// Global RAF timestamp — fixes "ts is not defined" in drawSim()
-let _rafTs = 0;
-
 (function loop(ts) {
-  _rafTs = ts; // store so drawSim() can access it
+  _rafTs = ts;
   if (animQueue.length) {
     const fr = animQueue[0];
     if (!animFst) { animFst = ts; fr._prev = { a: arm.a, r: arm.r }; }
     const elapsed = Math.min((ts - animFst) / fr.d, 1), e = ease(elapsed);
-    const prev = fr._prev;
-    arm.a = prev.a + (fr.a - prev.a) * e;
-    arm.r = prev.r + (fr.r - prev.r) * e;
+    arm.a = fr._prev.a + (fr.a - fr._prev.a) * e;
+    arm.r = fr._prev.r + (fr.r - fr._prev.r) * e;
     arm.open = fr.open;
     if (fr.lbl) { lbl = fr.lbl; setStatus(lbl, 'ok'); }
     if (elapsed >= 1) {
-      if (fr.grip) heldItem = fr.grip;
+      if (fr.grip)  heldItem = fr.grip;
       if (fr.drop) { dropItem = heldItem; heldItem = null; }
-      if (fr.done) fr.done();
+      if (fr.done)  fr.done();
       animQueue.shift(); animFst = null;
     }
   }
@@ -2553,51 +1867,36 @@ let _rafTs = 0;
 })(0);
 
 function drawSim() {
-  const cv = document.getElementById('sim-canvas');
-  if (!cv) return;
-  const ctx = cv.getContext('2d');
-  const W = cv.width, H = cv.height;
-  const BASE = { x: 160, y: H * 0.52 };
-  const MR = 148;
-
-  ctx.fillStyle = '#08080d'; ctx.fillRect(0,0,W,H);
-
-  // Faint grid
+  const cv = document.getElementById('sim-canvas'); if (!cv) return;
+  const ctx = cv.getContext('2d'), W = cv.width, H = cv.height;
+  const BASE = { x: 160, y: H * 0.52 }, MR = 148;
+  ctx.fillStyle = '#08080d'; ctx.fillRect(0, 0, W, H);
   ctx.fillStyle = 'rgba(60,50,35,0.3)';
-  for (let x = 20; x < W; x += 36) for (let y = 20; y < H; y += 36) {
-    ctx.beginPath(); ctx.arc(x, y, 1, 0, Math.PI*2); ctx.fill();
-  }
+  for (let x = 20; x < W; x += 36) for (let y = 20; y < H; y += 36) { ctx.beginPath(); ctx.arc(x,y,1,0,Math.PI*2); ctx.fill(); }
 
   // Slot boxes
   for (let s = 0; s < 4; s++) {
-    const angle = SA[s];
-    const sx = BASE.x + MR * Math.cos(angle), sy = BASE.y + MR * Math.sin(angle);
-    const item = (heldItem && heldItem.slot === s) ? null : inv.find(i => i.slot === s);
-    const sz = 46;
-    const u = item ? classifyUrgency(item) : null;
-    const bc = item ? u.color : 'rgba(60,50,35,0.3)';
+    const angle = SA[s], sx = BASE.x + MR * Math.cos(angle), sy = BASE.y + MR * Math.sin(angle);
+    const item  = (heldItem && heldItem.slot === s) ? null : inv.find(i => i.slot === s);
+    const sz = 46, u = item ? classifyUrgency(item) : null, bc = item ? u.color : 'rgba(60,50,35,0.3)';
     ctx.shadowColor = item ? bc : 'transparent'; ctx.shadowBlur = item ? 8 : 0;
     ctx.strokeStyle = bc; ctx.lineWidth = item ? 1.5 : 0.8;
-    ctx.fillStyle = item ? bc + '18' : 'rgba(15,12,8,0.9)';
+    ctx.fillStyle   = item ? bc + '18' : 'rgba(15,12,8,0.9)';
     ctx.beginPath();
-    const bx = sx-sz/2, by = sy-sz/2;
+    const bx = sx - sz/2, by = sy - sz/2;
     ctx.roundRect ? ctx.roundRect(bx,by,sz,sz,2) : ctx.rect(bx,by,sz,sz);
-    ctx.fill(); ctx.stroke();
-    ctx.shadowBlur = 0;
-    ctx.textAlign = 'center'; ctx.fillStyle = 'rgba(60,50,35,0.8)';
-    ctx.font = 'bold 7px Space Mono';
+    ctx.fill(); ctx.stroke(); ctx.shadowBlur = 0;
+    ctx.textAlign = 'center'; ctx.fillStyle = 'rgba(60,50,35,0.8)'; ctx.font = 'bold 7px Space Mono';
     ctx.fillText('S' + s, sx, sy - sz/2 + 12);
     if (item) {
       ctx.fillStyle = bc; ctx.font = 'bold 9px Space Mono';
-      const nm = item.name.length > 8 ? item.name.slice(0,7)+'…' : item.name;
+      const nm = item.name.length > 8 ? item.name.slice(0, 7) + '…' : item.name;
       ctx.fillText(nm, sx, sy + 3);
       if (item.expiry) {
         const d = ((item.expiry - Date.now()) / DAY).toFixed(1);
-        ctx.fillStyle = d < 0 ? 'var(--crimson)' : u.color;
-        ctx.font = '8px Space Mono';
+        ctx.fillStyle = d < 0 ? 'var(--crimson)' : u.color; ctx.font = '8px Space Mono';
         ctx.fillText(d < 0 ? 'EXP' : d + 'd', sx, sy + 15);
       }
-      // Shelf life bar
       if (item.sl && item.expiry) {
         const pct = Math.max(0, Math.min(1, (item.expiry - Date.now()) / (item.sl * DAY)));
         const bw = sz - 10, bh = 2, barX = sx - bw/2, barY = sy + sz/2 - 9;
@@ -2606,26 +1905,23 @@ function drawSim() {
         ctx.fillRect(barX, barY, bw*pct, bh);
       }
     } else {
-      ctx.fillStyle = 'rgba(60,50,35,0.4)'; ctx.font = '10px Space Mono';
-      ctx.fillText('—', sx, sy + 5);
+      ctx.fillStyle = 'rgba(60,50,35,0.4)'; ctx.font = '10px Space Mono'; ctx.fillText('—', sx, sy + 5);
     }
   }
 
   // Guide lines
-  ctx.strokeStyle = 'rgba(40,35,22,0.6)'; ctx.lineWidth = 0.7; ctx.setLineDash([3,6]);
+  ctx.strokeStyle = 'rgba(40,35,22,0.6)'; ctx.lineWidth = 0.7; ctx.setLineDash([3, 6]);
   for (let s = 0; s < 4; s++) {
     const d0 = MR * 0.55;
-    ctx.beginPath();
-    ctx.moveTo(BASE.x + d0*Math.cos(SA[s]), BASE.y + d0*Math.sin(SA[s]));
-    ctx.lineTo(BASE.x + MR*0.87*Math.cos(SA[s]), BASE.y + MR*0.87*Math.sin(SA[s]));
-    ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(BASE.x + d0*Math.cos(SA[s]), BASE.y + d0*Math.sin(SA[s]));
+    ctx.lineTo(BASE.x + MR*0.87*Math.cos(SA[s]), BASE.y + MR*0.87*Math.sin(SA[s])); ctx.stroke();
   }
   ctx.setLineDash([]);
 
   // Dispatch tray
   const dx = BASE.x + DR*Math.cos(DA), dy = BASE.y + DR*Math.sin(DA);
   ctx.strokeStyle = dropItem ? 'rgba(255,107,43,0.7)' : 'rgba(60,45,20,0.4)';
-  ctx.lineWidth = 1.2; ctx.setLineDash([4,3]);
+  ctx.lineWidth = 1.2; ctx.setLineDash([4, 3]);
   ctx.strokeRect(dx-28, dy-26, 56, 52); ctx.setLineDash([]);
   ctx.fillStyle = dropItem ? 'rgba(255,107,43,0.7)' : 'rgba(60,45,20,0.4)';
   ctx.font = 'bold 8px Space Mono'; ctx.textAlign = 'center';
@@ -2634,47 +1930,31 @@ function drawSim() {
     ctx.fillStyle = 'rgba(255,107,43,0.15)'; ctx.strokeStyle = '#ff6b2b'; ctx.lineWidth = 1;
     ctx.fillRect(dx-18, dy-8, 36, 26); ctx.strokeRect(dx-18, dy-8, 36, 26);
     ctx.fillStyle = '#ff9a50'; ctx.font = '9px Space Mono';
-    ctx.fillText(dropItem.name.slice(0,8), dx, dy + 7);
+    ctx.fillText(dropItem.name.slice(0, 8), dx, dy + 7);
   }
 
-  // ── ARM ──
+  // Arm
   const bend = (1 - arm.r) * 0.32;
   const ea = arm.a + bend, ed = MR * 0.44, td = MR * arm.r;
   const ex = BASE.x + ed*Math.cos(ea), ey = BASE.y + ed*Math.sin(ea);
   const tx = BASE.x + td*Math.cos(arm.a), ty = BASE.y + td*Math.sin(arm.a);
-
   ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-
-  // Upper arm shadow
   ctx.strokeStyle = 'rgba(0,196,232,0.06)'; ctx.lineWidth = 18;
   ctx.beginPath(); ctx.moveTo(BASE.x, BASE.y); ctx.lineTo(ex, ey); ctx.stroke();
-  // Upper arm
   ctx.strokeStyle = '#001a22'; ctx.lineWidth = 12;
   ctx.beginPath(); ctx.moveTo(BASE.x, BASE.y); ctx.lineTo(ex, ey); ctx.stroke();
   ctx.strokeStyle = '#00c4e8'; ctx.lineWidth = 7;
   ctx.beginPath(); ctx.moveTo(BASE.x, BASE.y); ctx.lineTo(ex, ey); ctx.stroke();
-
-  // Forearm
   ctx.strokeStyle = '#001a22'; ctx.lineWidth = 10;
   ctx.beginPath(); ctx.moveTo(ex, ey); ctx.lineTo(tx, ty); ctx.stroke();
   ctx.strokeStyle = '#00e5a0'; ctx.lineWidth = 5;
   ctx.beginPath(); ctx.moveTo(ex, ey); ctx.lineTo(tx, ty); ctx.stroke();
-
-  // Base
   ctx.shadowColor = '#00c4e8'; ctx.shadowBlur = 14;
-  ctx.beginPath(); ctx.arc(BASE.x, BASE.y, 19, 0, Math.PI*2);
-  ctx.fillStyle = '#001824'; ctx.fill();
-  ctx.beginPath(); ctx.arc(BASE.x, BASE.y, 13, 0, Math.PI*2);
-  ctx.fillStyle = '#00789a'; ctx.fill();
-  ctx.beginPath(); ctx.arc(BASE.x, BASE.y, 7, 0, Math.PI*2);
-  ctx.fillStyle = '#00c4e8'; ctx.fill();
+  ctx.beginPath(); ctx.arc(BASE.x, BASE.y, 19, 0, Math.PI*2); ctx.fillStyle = '#001824'; ctx.fill();
+  ctx.beginPath(); ctx.arc(BASE.x, BASE.y, 13, 0, Math.PI*2); ctx.fillStyle = '#00789a'; ctx.fill();
+  ctx.beginPath(); ctx.arc(BASE.x, BASE.y, 7,  0, Math.PI*2); ctx.fillStyle = '#00c4e8'; ctx.fill();
   ctx.shadowBlur = 0;
-
-  // Elbow joint
-  ctx.beginPath(); ctx.arc(ex, ey, 5, 0, Math.PI*2);
-  ctx.fillStyle = '#00e5a0'; ctx.fill();
-
-  // Gripper
+  ctx.beginPath(); ctx.arc(ex, ey, 5, 0, Math.PI*2); ctx.fillStyle = '#00e5a0'; ctx.fill();
   if (arm.open) {
     ctx.strokeStyle = '#ff9a50'; ctx.lineWidth = 2.5; ctx.lineCap = 'round';
     const gl = 16, gsp = 0.40;
@@ -2682,27 +1962,21 @@ function drawSim() {
     ctx.beginPath(); ctx.moveTo(tx,ty); ctx.lineTo(tx+gl*Math.cos(arm.a+gsp), ty+gl*Math.sin(arm.a+gsp)); ctx.stroke();
   } else {
     ctx.shadowColor = '#ff9a50'; ctx.shadowBlur = 12;
-    ctx.beginPath(); ctx.arc(tx, ty, 9, 0, Math.PI*2);
-    ctx.fillStyle = '#ff6b2b'; ctx.fill();
-    ctx.beginPath(); ctx.arc(tx, ty, 4, 0, Math.PI*2);
-    ctx.fillStyle = '#3a1a08'; ctx.fill();
+    ctx.beginPath(); ctx.arc(tx,ty,9,0,Math.PI*2); ctx.fillStyle = '#ff6b2b'; ctx.fill();
+    ctx.beginPath(); ctx.arc(tx,ty,4,0,Math.PI*2); ctx.fillStyle = '#3a1a08'; ctx.fill();
     ctx.shadowBlur = 0;
   }
-
-  // Held item
   if (heldItem) {
     const ox = tx + 18*Math.cos(arm.a + Math.PI/2), oy = ty + 18*Math.sin(arm.a + Math.PI/2);
     ctx.shadowColor = '#ff9a50'; ctx.shadowBlur = 10;
     ctx.fillStyle = 'rgba(255,107,43,0.12)'; ctx.strokeStyle = '#ff9a50'; ctx.lineWidth = 1.5;
-    ctx.beginPath(); ctx.rect(ox-16, oy-12, 32, 24); ctx.fill(); ctx.stroke();
-    ctx.shadowBlur = 0;
+    ctx.beginPath(); ctx.rect(ox-16, oy-12, 32, 24); ctx.fill(); ctx.stroke(); ctx.shadowBlur = 0;
     ctx.fillStyle = '#ff9a50'; ctx.font = 'bold 8px Space Mono'; ctx.textAlign = 'center';
-    ctx.fillText(heldItem.name.slice(0,8), ox, oy + 4);
+    ctx.fillText(heldItem.name.slice(0, 8), ox, oy + 4);
   }
 
   // HUD
-  ctx.fillStyle = 'rgba(8,8,13,0.75)';
-  ctx.fillRect(0, H-26, W, 26);
+  ctx.fillStyle = 'rgba(8,8,13,0.75)'; ctx.fillRect(0, H-26, W, 26);
   ctx.fillStyle = animQueue.length ? '#00e5a0' : '#4a3a28';
   ctx.font = '9px Space Mono'; ctx.textAlign = 'left';
   ctx.fillText(lbl, 10, H - 10);
@@ -2710,152 +1984,84 @@ function drawSim() {
   ctx.fillText(`t:${_rafTs.toFixed(0)}`, W-8, H-10);
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   PYTHON TRAINER POLLING  (train_rl.py on port 5001)
-───────────────────────────────────────────────────────────────────────────── */
-let trainerData = null;
-let trainerRewardHistory = [];
-let trainerConnected = false;
+// ── Python Trainer polling (port 5001) ────────────────────────────────────────
+let trainerData = null, trainerRewardHistory = [], trainerConnected = false;
 
 async function pollTrainer() {
   try {
     const r = await fetch('http://localhost:5001/state', { signal: AbortSignal.timeout(1500) });
-    if (!r.ok) throw new Error('bad status');
+    if (!r.ok) throw new Error();
     const d = await r.json();
-    trainerConnected = true;
-    trainerData = d;
+    trainerConnected = true; trainerData = d;
     if (d.reward_history) trainerRewardHistory = d.reward_history;
-
-    // Update UI
     const box = document.getElementById('trainer-status-box');
-    if (box) { box.className = 'alert ok'; box.innerHTML = '<strong>Status:</strong> <span id="trainer-status">CONNECTED — Training in progress</span>'; }
+    if (box) { box.className = 'alert ok mb8'; box.innerHTML = '<strong>Status:</strong> <span id="trainer-status">CONNECTED — Training in progress</span>'; }
     const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
-    set('tr-ep',     d.episode?.toLocaleString() || '—');
-    set('tr-total',  d.total_episodes?.toLocaleString() || '—');
-    set('tr-reward', d.episode_reward?.toFixed(2) || '—');
-    set('tr-avg',    d.avg_reward_100?.toFixed(2) || '—');
-    set('tr-best',   d.best_reward?.toFixed(2) || '—');
-    set('tr-eps',    d.epsilon?.toFixed(4) || '—');
-    set('tr-waste',  d.total_waste_events?.toLocaleString() || '—');
-    set('tr-stock',  d.total_stockout_events?.toLocaleString() || '—');
-    set('tr-states', d.q_table_size?.toLocaleString() || '—');
-    set('tr-speed',  d.episodes_per_sec ? d.episodes_per_sec.toFixed(0) + ' ep/s' : '—');
-
-    // Q-table snapshot
+    set('tr-ep',    d.episode?.toLocaleString() || '—');
+    set('tr-total', d.total_episodes?.toLocaleString() || '—');
+    set('tr-reward',d.episode_reward?.toFixed(2) || '—');
+    set('tr-avg',   d.avg_reward_100?.toFixed(2) || '—');
+    set('tr-best',  d.best_reward?.toFixed(2) || '—');
+    set('tr-eps',   d.epsilon?.toFixed(4) || '—');
+    set('tr-waste', d.total_waste_events?.toLocaleString() || '—');
+    set('tr-stock', d.total_stockout_events?.toLocaleString() || '—');
+    set('tr-states',d.q_table_size?.toLocaleString() || '—');
+    set('tr-speed', d.episodes_per_sec ? d.episodes_per_sec.toFixed(0) + ' ep/s' : '—');
     if (d.q_table_sample) {
       const div = document.getElementById('trainer-qtable');
-      if (div) {
-        div.innerHTML = Object.entries(d.q_table_sample).slice(0,12).map(([k,v]) =>
-          `<div style="padding:2px 0;border-bottom:1px solid var(--ink4)">
-            <span style="color:var(--dim)">state ${k}</span>
-            <span style="margin-left:8px;color:var(--ice)">FIFO:${v.FIFO?.toFixed(2)||'—'}</span>
-            <span style="margin-left:6px;color:var(--acid)">FEFO:${v.FEFO?.toFixed(2)||'—'}</span>
-            <span style="margin-left:6px;color:var(--muted)">HOLD:${v.HOLD?.toFixed(2)||'—'}</span>
-          </div>`
-        ).join('');
-      }
+      if (div) div.innerHTML = Object.entries(d.q_table_sample).slice(0, 12).map(([k, v]) =>
+        `<div style="padding:2px 0;border-bottom:1px solid var(--ink4)">
+          <span style="color:var(--dim)">state ${k}</span>
+          <span style="margin-left:8px;color:var(--ice)">FIFO:${v.FIFO?.toFixed(2)||'—'}</span>
+          <span style="margin-left:6px;color:var(--acid)">FEFO:${v.FEFO?.toFixed(2)||'—'}</span>
+          <span style="margin-left:6px;color:var(--muted)">HOLD:${v.HOLD?.toFixed(2)||'—'}</span>
+        </div>`).join('');
     }
-
-    if (document.getElementById('pane-trainer').classList.contains('active')) {
-      drawTrainerRewardChart();
-    }
-  } catch(e) {
+    if (document.getElementById('pane-trainer').classList.contains('active')) drawTrainerRewardChart();
+  } catch (e) {
     if (trainerConnected) {
       trainerConnected = false;
       const box = document.getElementById('trainer-status-box');
-      if (box) { box.className = 'alert warn'; box.innerHTML = '<strong>Status:</strong> <span>Disconnected — is train_rl.py still running?</span>'; }
+      if (box) { box.className = 'alert warn mb8'; box.innerHTML = '<strong>Status:</strong> <span>Disconnected — is train_rl.py running?</span>'; }
     }
   }
 }
 
 function drawTrainerRewardChart() {
-  const canvas = document.getElementById('chart-trainer-reward');
-  if (!canvas) return;
+  const canvas = document.getElementById('chart-trainer-reward'); if (!canvas) return;
   const W = canvas.offsetWidth || 400, H = 160;
   canvas.width = W; canvas.height = H;
   const ctx = canvas.getContext('2d');
-  const pad = { t:14, r:10, b:24, l:40 };
-  const cW = W-pad.l-pad.r, cH = H-pad.t-pad.b;
+  const pad = { t:14,r:10,b:24,l:40 }, cW = W-pad.l-pad.r, cH = H-pad.t-pad.b;
   ctx.fillStyle = '#0a0905'; ctx.fillRect(0,0,W,H);
-
   const hist = trainerRewardHistory.slice(-120);
-  if (!hist.length) {
-    ctx.fillStyle = '#4a3a28'; ctx.font = '9px Space Mono'; ctx.textAlign = 'center';
-    ctx.fillText('Waiting for trainer connection…', W/2, H/2);
-    return;
-  }
-  const maxV = Math.max(...hist,1), minV = Math.min(...hist,-1);
-  const N = hist.length;
-  const xS = i => pad.l + (i/(N-1))*cW;
-  const yS = v => pad.t + cH - ((v-minV)/(maxV-minV+0.01))*cH;
-
-  ctx.strokeStyle = '#1e1c10'; ctx.lineWidth=1;
-  ctx.beginPath(); ctx.moveTo(pad.l,yS(0)); ctx.lineTo(pad.l+cW,yS(0)); ctx.stroke();
-
-  ctx.fillStyle = 'rgba(0,229,160,0.07)';
-  ctx.beginPath(); ctx.moveTo(xS(0),yS(0));
-  hist.forEach((v,i)=>ctx.lineTo(xS(i),yS(v)));
-  ctx.lineTo(xS(N-1),yS(0)); ctx.closePath(); ctx.fill();
-
-  ctx.strokeStyle = '#00e5a0'; ctx.lineWidth=1.5;
-  ctx.beginPath(); hist.forEach((v,i)=>{ if(i===0)ctx.moveTo(xS(i),yS(v)); else ctx.lineTo(xS(i),yS(v)); }); ctx.stroke();
-
-  if (hist.length >= 10) {
-    ctx.strokeStyle = '#ff6b2b'; ctx.lineWidth=2;
-    ctx.beginPath();
-    for (let i=9;i<N;i++) {
-      const avg=hist.slice(i-9,i+1).reduce((a,b)=>a+b,0)/10;
-      if(i===9)ctx.moveTo(xS(i),yS(avg)); else ctx.lineTo(xS(i),yS(avg));
-    }
-    ctx.stroke();
-  }
-
-  const avg = hist.reduce((a,b)=>a+b,0)/N;
-  ctx.fillStyle = '#4a3a28'; ctx.font='9px Space Mono'; ctx.textAlign='left';
-  ctx.fillText(`avg ${avg.toFixed(2)}  n=${N}`, pad.l+4, pad.t+11);
+  if (!hist.length) { ctx.fillStyle='#4a3a28';ctx.font='9px Space Mono';ctx.textAlign='center';ctx.fillText('Waiting for trainer…',W/2,H/2);return; }
+  const maxV=Math.max(...hist,1),minV=Math.min(...hist,-1),N=hist.length;
+  const xS=i=>pad.l+(i/(N-1))*cW,yS=v=>pad.t+cH-((v-minV)/(maxV-minV+0.01))*cH;
+  ctx.strokeStyle='#1e1c10';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(pad.l,yS(0));ctx.lineTo(pad.l+cW,yS(0));ctx.stroke();
+  ctx.fillStyle='rgba(0,229,160,0.07)';ctx.beginPath();ctx.moveTo(xS(0),yS(0));
+  hist.forEach((v,i)=>ctx.lineTo(xS(i),yS(v)));ctx.lineTo(xS(N-1),yS(0));ctx.closePath();ctx.fill();
+  ctx.strokeStyle='#00e5a0';ctx.lineWidth=1.5;ctx.beginPath();hist.forEach((v,i)=>{if(i===0)ctx.moveTo(xS(i),yS(v));else ctx.lineTo(xS(i),yS(v));});ctx.stroke();
+  if(hist.length>=10){ctx.strokeStyle='#ff6b2b';ctx.lineWidth=2;ctx.beginPath();
+    for(let i=9;i<N;i++){const avg=hist.slice(i-9,i+1).reduce((a,b)=>a+b,0)/10;if(i===9)ctx.moveTo(xS(i),yS(avg));else ctx.lineTo(xS(i),yS(avg));}ctx.stroke();}
+  ctx.fillStyle='#4a3a28';ctx.font='9px Space Mono';ctx.textAlign='left';
+  ctx.fillText(`avg ${(hist.reduce((a,b)=>a+b,0)/N).toFixed(2)}  n=${N}`,pad.l+4,pad.t+11);
 }
 
 async function importQTable() {
-  if (!trainerData || !trainerData.q_table) {
-    logActivity('No trainer data to import — start train_rl.py first', 'err');
-    return;
-  }
-  // Merge trainer Q-table into JS RL agent
+  if (!trainerData || !trainerData.q_table) { logActivity('No trainer data — start train_rl.py first', 'err'); return; }
   Object.assign(rl.qTable, trainerData.q_table);
   document.getElementById('qt-source').textContent = 'Python trainer (train_rl.py)';
   document.getElementById('qt-sync').textContent = new Date().toLocaleString('en-GB');
-  logActivity(`Q-table imported: ${Object.keys(trainerData.q_table).length} states from trainer`, 'ok');
+  logActivity(`Q-table imported: ${Object.keys(trainerData.q_table).length} states`, 'ok');
   refresh();
 }
 
-setInterval(pollTrainer, 2000); // poll every 2s
+setInterval(pollTrainer, 2000);
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   RESET DEMO — pharma items
-───────────────────────────────────────────────────────────────────────────── */
-function resetDemo() {
-  if (isBusy) return;
-  t0 = Date.now();
-  inv = [
-    { id:0, name:'Plasma Bags O+',       batch:'LOT-PL042', slot:0, arrival: t0-5*DAY, expiry: t0+4*DAY,  sl:42 },
-    { id:1, name:'mRNA Vaccine Vials',   batch:'LOT-VX891', slot:1, arrival: t0-2*DAY, expiry: t0+1*DAY,  sl:30 },
-    { id:2, name:'Insulin Glargine 3mL', batch:'LOT-IN310', slot:2, arrival: t0-1*DAY, expiry: t0+7*DAY,  sl:28 },
-    { id:3, name:'Packed Red Cells',     batch:'LOT-RC077', slot:3, arrival: t0,        expiry: t0+10*DAY, sl:42 },
-  ];
-  animQueue = []; heldItem = null; dropItem = null;
-  arm = { a: 0, r: 0.38, open: true }; lbl = 'Demo reset — ready';
-  setStatus('Demo reset — ready', '');
-  logActivity('Demo data restored to default pharma items', 'sys');
-  refresh();
-}
-
-/* ─────────────────────────────────────────────────────────────────────────────
-   MAIN LOOP
-───────────────────────────────────────────────────────────────────────────── */
+// ── Main loop ─────────────────────────────────────────────────────────────────
 let lastFetch = 0;
-let _ts = 0;
 function mainLoop(ts) {
-  _ts = ts;
   if (ts - lastFetch > 3000) {
     fetchState().then(() => refresh());
     lastFetch = ts;
@@ -2863,10 +2069,14 @@ function mainLoop(ts) {
   requestAnimationFrame(mainLoop);
 }
 
-// Initial render
-forecaster.train();
-refresh();
-logActivity('Dexter Inventory Intelligence Platform v2.0 initialised', 'ok');
+// ── Init (no pre-training, no synthetic data) ─────────────────────────────────
+try {
+  forecaster.train();
+  refresh();
+  logActivity('Dexter Inventory Intelligence v2.1 ready', 'ok');
+} catch (e) {
+  console.error('Init error:', e);
+}
 requestAnimationFrame(mainLoop);
 </script>
 </body>

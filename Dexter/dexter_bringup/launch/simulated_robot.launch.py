@@ -6,17 +6,19 @@ Full simulation bringup:
   2. ros2_control controllers
   3. MoveIt 2 move_group + RViz
   4. Web interface (Flask dashboard on :5000)
-  5. inventory_node (direct trajectory pick-and-place)
+  5. aruco_box_detector   (headless, t=10 s) — publishes /inventory/box_poses
+  6. visual_servo_node    (t=12 s) — closed-loop pick-and-place
+  7. rqt_image_view       (optional camera preview, t=10 s)
 
-NOTE – aruco_box_detector is NOT launched here automatically.
-Run it in a SEPARATE terminal so the OpenCV window is visible:
-
-    # Terminal 2 (after simulation is up, ~10 s):
+NOTE — To see the ArUco OpenCV window run in a SEPARATE terminal:
     source install/setup.bash
-    ros2 run dexter_inventory aruco_box_detector
+    ARUCO_SHOW_WINDOW=1 ros2 run dexter_inventory aruco_box_detector
 
-The detector publishes /inventory/box_poses and /inventory/arm_pose
-as normal; the cv2 window will open in that terminal's display session.
+After launch, seed the database:
+    ros2 run dexter_inventory seed_data --clear
+
+Then open http://localhost:5000 and use FIFO / FEFO / RL-OPT buttons.
+Dispatch triggers visual_servo_node via /visual_servo/pick_request.
 """
 
 import os
@@ -50,30 +52,49 @@ def generate_launch_description():
             "launch", "moveit.launch.py"),
         launch_arguments={"is_sim": "True"}.items())
 
-    # ── Web interface ─────────────────────────────────────────────────────
+    # ── Web interface (Flask dashboard :5000) ──────────────────────────────
     remote_interface = IncludeLaunchDescription(
         os.path.join(
             get_package_share_directory("dexter_remote"),
             "launch", "remote_interface.launch.py"),
         launch_arguments={"is_sim": "True"}.items())
 
-    # ── Inventory node (t=7 s) ────────────────────────────────────────────
-    inventory_node = TimerAction(
-        period=7.0,
+    # ── ArUco box detector (headless, t=10 s) ─────────────────────────────
+    # Publishes /inventory/box_poses  →  consumed by visual_servo_node
+    # Set ARUCO_SHOW_WINDOW=1 in env if you want the OpenCV debug window.
+    aruco_detector_node = TimerAction(
+        period=10.0,
         actions=[Node(
             package="dexter_inventory",
-            executable="inventory_node",
-            name="inventory_node",
+            executable="aruco_box_detector",
+            name="aruco_box_detector",
+            output="screen",
+            parameters=[{"use_sim_time": True}],
+            additional_env={
+                "ARUCO_SHOW_WINDOW": "0",
+                "DISPLAY":           display_val,
+                "QT_QPA_PLATFORM":   "xcb",
+            },
+        )]
+    )
+
+    # ── Visual servo node (t=12 s) ────────────────────────────────────────
+    # Subscribes to /visual_servo/pick_request (Int32 slot number)
+    # Published by web_interface.py when dispatch button is pressed.
+    visual_servo = TimerAction(
+        period=12.0,
+        actions=[Node(
+            package="dexter_inventory",
+            executable="visual_servo_node",
+            name="visual_servo_node",
             output="screen",
             parameters=[{"use_sim_time": True}],
         )]
     )
 
-    # ── rqt_image_view  (optional camera preview, t=7 s) ─────────────────
-    # Kept as a lightweight topic monitor; the OpenCV ArUco window
-    # is started manually in a separate terminal (see note above).
+    # ── rqt_image_view (optional camera preview, t=10 s) ─────────────────
     rqt_image = TimerAction(
-        period=7.0,
+        period=10.0,
         actions=[Node(
             package="rqt_image_view",
             executable="rqt_image_view",
@@ -92,6 +113,6 @@ def generate_launch_description():
         controller,
         moveit,
         remote_interface,
-        inventory_node,
-        rqt_image,
+        aruco_detector_node,
+        visual_servo,
     ])
