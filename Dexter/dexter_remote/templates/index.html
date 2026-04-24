@@ -121,6 +121,22 @@ body::before {
   height: 100%;
 }
 
+.tb-link {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 14px;
+  border-left: 1px solid var(--wire);
+  color: var(--ice2);
+  text-decoration: none;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+.tb-link:hover {
+  background: var(--ink3);
+  color: var(--bright);
+}
+
 .tb-pill {
   display: flex;
   align-items: center;
@@ -565,6 +581,7 @@ body::before {
     </div>
 
     <div class="tb-right">
+      <a class="tb-link" href="/simlab">SIMLAB</a>
       <div class="tb-pill">
         <span class="dot warn" id="sys-dot"></span>
         <span id="sys-txt">CONNECTING</span>
@@ -842,6 +859,19 @@ body::before {
                 <div style="color:var(--text)">python3 train_rl.py</div>
                 <div style="color:var(--dim);margin-top:8px;font-size:9px">Dashboard connects on port 5001 automatically</div>
               </div>
+              <div style="background:var(--ink3);border:1px solid var(--wire);padding:12px;font-size:10px;margin-bottom:10px">
+                <div style="color:var(--ice);margin-bottom:8px;font-size:9px;letter-spacing:1px">INTEGRATED SIMLAB TRAINER</div>
+                <div class="g2" style="margin-bottom:8px">
+                  <div><div class="drk">Episodes</div><input id="simlab-episodes" type="number" value="220" style="width:100%;background:var(--ink4);border:1px solid var(--wire);color:var(--text);padding:6px;font-size:10px"></div>
+                  <div><div class="drk">Days / Episode</div><input id="simlab-epdays" type="number" value="45" style="width:100%;background:var(--ink4);border:1px solid var(--wire);color:var(--text);padding:6px;font-size:10px"></div>
+                </div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap">
+                  <button class="btn btn-ice" onclick="runSimLabTrain()">TRAIN SIMLAB RL</button>
+                  <button class="btn btn-acid" onclick="runSimLabDays(1)">RUN +1 DAY</button>
+                  <button class="btn btn-acid" onclick="runSimLabDays(7)">RUN +7 DAYS</button>
+                </div>
+                <div class="drk mt8" id="simlab-sync-status">SimLab state pending…</div>
+              </div>
               <div class="sec-title">LIVE EPISODE METRICS</div>
               <div id="trainer-metrics">
                 <div class="data-row"><span class="drk">Episode</span><span class="drv" id="tr-ep">—</span></div>
@@ -869,6 +899,10 @@ body::before {
               <div class="data-row"><span class="drk">Source</span><span class="drv" id="qt-source">JS built-in (untrained)</span></div>
               <div class="data-row"><span class="drk">Last sync</span><span class="drv" id="qt-sync">—</span></div>
               <button class="btn btn-acid" style="margin-top:8px" onclick="importQTable()">↓ IMPORT Q-TABLE FROM TRAINER</button>
+              <div class="sec-title mt12">SIMLAB DAILY LEDGER</div>
+              <div id="simlab-day-ledger" style="font-family:'Space Mono',monospace;font-size:9px;color:var(--body);background:var(--ink3);border:1px solid var(--wire);padding:10px;max-height:180px;overflow-y:auto">
+                <span style="color:var(--dim)">Waiting for SimLab data…</span>
+              </div>
             </div>
           </div>
         </div>
@@ -901,6 +935,7 @@ body::before {
 const DAY = 86400000;
 let backendOnline = false;
 let isBusy = false;
+let simlabState = null;
 
 // ── Clock ────────────────────────────────────────────────────────────────────
 function updateClock() {
@@ -921,6 +956,29 @@ function switchTab(name) {
   if (name === 'costs')    drawCostChart();
   if (name === 'policy')   drawPolicyCharts();
   if (name === 'trainer')  drawTrainerRewardChart();
+}
+
+function simlabForecastRows(days = 7) {
+  const arr = simlabState?.forecast?.expected_demand;
+  if (!arr || !arr.length) return null;
+  return arr.slice(0, days).map((r, idx) => {
+    const mu = Number(r.mean || 0);
+    const sigma = Math.max((Number(r.p90 || mu) - mu) / 1.282, 0.1);
+    const dt = new Date(Date.now() + (idx + 1) * DAY);
+    return {
+      day: idx + 1,
+      date: dt.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' }),
+      forecast: Math.round(mu * 100) / 100,
+      lo80: Math.max(0, Math.round((mu - 1.282 * sigma) * 100) / 100),
+      hi80: Math.round((mu + 1.282 * sigma) * 100) / 100,
+      lo95: Math.max(0, Math.round((mu - 1.960 * sigma) * 100) / 100),
+      hi95: Math.round((mu + 1.960 * sigma) * 100) / 100,
+    };
+  });
+}
+
+function getForecastRows(days = 7) {
+  return simlabForecastRows(days) || forecaster.predictHorizon(days);
 }
 
 // ── Demo inventory — matches reset_with_defaults() in inventory_db.py ────────
@@ -1334,6 +1392,20 @@ async function clearAll() {
 
 function resetDemo() {
   if (isBusy) return;
+  if (backendOnline) {
+    fetch('/inventory/reset_defaults', { method: 'POST' })
+      .then(() => fetchState())
+      .then(() => {
+        dispatchLog = []; animQueue = []; heldItem = null; dropItem = null;
+        arm = { a: 0, r: 0.38, open: true }; lbl = 'Backend reset — ready';
+        setStatus('Backend reset — ready', '');
+        logActivity('Backend inventory reset to defaults', 'ok');
+        refresh();
+      })
+      .catch(() => {
+        logActivity('Backend reset failed — applied local reset only', 'err');
+      });
+  }
   t0 = Date.now();
   inv = [
     { id: 0, name: 'Organic Milk 1L',      slot: 0, arrival: t0 - 2*DAY, expiry: t0 + 5*DAY,  sl: 7  },
@@ -1395,6 +1467,24 @@ async function fetchState() {
 // ── Master refresh ────────────────────────────────────────────────────────────
 function refresh() {
   forecaster.train();
+  if (simlabState?.forecast?.expected_demand?.length) {
+    const first = simlabState.forecast.expected_demand[0];
+    const mu = Number(first.mean || forecaster.mean || 0);
+    forecaster.mean = mu;
+    forecaster.std = Math.max((Number(first.p90 || mu) - mu) / 1.282, 0.1);
+    forecaster.cv = forecaster.std / Math.max(forecaster.mean, 0.001);
+    forecaster.trained = true;
+  }
+
+  if (simlabState?.config) {
+    const cfg = simlabState.config;
+    forecaster.cp.unit_cost = Number(cfg.unit_cost ?? forecaster.cp.unit_cost);
+    forecaster.cp.selling_price = Number(cfg.unit_price ?? forecaster.cp.selling_price);
+    forecaster.cp.holding_cost_rate = Number(cfg.holding_cost_per_unit_day ?? forecaster.cp.holding_cost_rate);
+    forecaster.cp.stockout_cost_mult = Number(cfg.stockout_penalty_per_unit ?? forecaster.cp.stockout_cost_mult);
+    forecaster.cp.waste_cost_mult = Number(cfg.spoilage_cost_per_unit ?? forecaster.cp.waste_cost_mult);
+  }
+
   const d       = forecaster.predictNextDay();
   const ropData = forecaster.rop();
   const eoqData = forecaster.eoq();
@@ -1582,7 +1672,7 @@ function renderShelfMini() {
 function renderForecastTable() {
   const tbody = document.getElementById('forecast-tbody');
   if (!tbody) return;
-  tbody.innerHTML = forecaster.predictHorizon(7).map(r => `<tr>
+  tbody.innerHTML = getForecastRows(7).map(r => `<tr>
     <td class="td-mono">${r.date}</td>
     <td class="td-mono" style="color:var(--ember);font-weight:700">${r.forecast}</td>
     <td class="td-mono" style="color:var(--muted)">${r.lo80}</td>
@@ -1714,7 +1804,7 @@ function drawForecastChart() {
   const W = canvas.offsetWidth || 600, H = 180;
   canvas.width = W; canvas.height = H;
   const pad = { t: 20, r: 20, b: 35, l: 45 }, cW = W-pad.l-pad.r, cH = H-pad.t-pad.b;
-  const rows = forecaster.predictHorizon(7), N = rows.length;
+  const rows = getForecastRows(7), N = rows.length;
   const maxVal = Math.max(...rows.map(r => r.hi95), 1) * 1.15;
   const xS = i => pad.l + (i / (N-1)) * cW, yS = v => pad.t + cH - ((v / maxVal)) * cH;
   ctx.fillStyle = '#0a0905'; ctx.fillRect(0,0,W,H);
@@ -1741,6 +1831,116 @@ function drawForecastChart() {
     ctx.fillStyle = '#e8d8c0'; ctx.font = '9px Space Mono';
     ctx.fillText(r.forecast.toFixed(1), xS(i), yS(r.forecast)-8);
   });
+}
+
+function renderSimLabTrainer(state) {
+  const summary = state?.training?.summary || {};
+  const history = state?.training?.history || [];
+  const latest = history.length ? history[history.length - 1] : null;
+
+  trainerConnected = true;
+  trainerData = { source: 'simlab' };
+  trainerRewardHistory = history.map(h => Number(h.profit || 0));
+
+  const box = document.getElementById('trainer-status-box');
+  if (box) {
+    box.className = 'alert ok mb8';
+    box.innerHTML = '<strong>Status:</strong> <span id="trainer-status">CONNECTED — SimLab integrated training</span>';
+  }
+
+  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  set('tr-ep', latest ? latest.episode.toLocaleString() : '—');
+  set('tr-total', summary.episodes ? Number(summary.episodes).toLocaleString() : '—');
+  set('tr-reward', latest ? Number(latest.profit).toFixed(2) : '—');
+  set('tr-avg', summary.avg_episode_profit !== undefined ? Number(summary.avg_episode_profit).toFixed(2) : '—');
+  set('tr-best', summary.best_episode_profit !== undefined ? Number(summary.best_episode_profit).toFixed(2) : '—');
+  set('tr-eps', 'simlab');
+  set('tr-waste', latest ? Number(latest.expired || 0).toLocaleString() : '—');
+  set('tr-stock', latest ? Number(latest.shortage || 0).toLocaleString() : '—');
+  set('tr-states', summary.q_states ? Number(summary.q_states).toLocaleString() : '—');
+  set('tr-speed', 'integrated');
+
+  const qDiv = document.getElementById('trainer-qtable');
+  if (qDiv) {
+    qDiv.innerHTML = history.slice(-12).reverse().map(h =>
+      `<div style="padding:2px 0;border-bottom:1px solid var(--ink4)">` +
+      `<span style="color:var(--dim)">ep ${h.episode}</span>` +
+      `<span style="margin-left:8px;color:var(--acid)">profit:${Number(h.profit).toFixed(2)}</span>` +
+      `<span style="margin-left:8px;color:var(--solar)">short:${h.shortage}</span>` +
+      `<span style="margin-left:8px;color:var(--crimson)">exp:${h.expired}</span>` +
+      `</div>`
+    ).join('') || '<span style="color:var(--dim)">No SimLab training history yet</span>';
+  }
+
+  const ledger = document.getElementById('simlab-day-ledger');
+  if (ledger) {
+    const rows = (state?.last_reports || []).slice(-15).reverse();
+    ledger.innerHTML = rows.map(r =>
+      `<div style="padding:2px 0;border-bottom:1px solid var(--ink4)">` +
+      `<span style="color:var(--dim)">D${r.day}</span>` +
+      `<span style="margin-left:8px;color:var(--ice)">dem:${r.demand}</span>` +
+      `<span style="margin-left:6px;color:var(--acid)">sold:${r.sold}</span>` +
+      `<span style="margin-left:6px;color:var(--solar)">short:${r.shortage}</span>` +
+      `<span style="margin-left:6px;color:var(--crimson)">exp:${r.expired}</span>` +
+      `<span style="margin-left:6px;color:${r.profit>=0?'var(--acid)':'var(--crimson)'}">P:${Number(r.profit).toFixed(2)}</span>` +
+      `</div>`
+    ).join('') || '<span style="color:var(--dim)">No SimLab day data yet</span>';
+  }
+
+  const sync = document.getElementById('simlab-sync-status');
+  if (sync) {
+    const totals = state?.totals || {};
+    sync.textContent = `Synced · day ${state.day || 0} · profit ${Number(totals.profit || 0).toFixed(2)} · fill ${(Number(totals.fill_rate || 0) * 100).toFixed(1)}%`;
+  }
+
+  const src = document.getElementById('qt-source');
+  const ts = document.getElementById('qt-sync');
+  if (src) src.textContent = 'SimLab integrated trainer';
+  if (ts) ts.textContent = new Date().toLocaleString('en-GB');
+
+  if (document.getElementById('pane-trainer').classList.contains('active')) drawTrainerRewardChart();
+}
+
+async function pullSimLabState() {
+  try {
+    const r = await fetch('/simlab/state', { signal: AbortSignal.timeout(1800) });
+    if (!r.ok) return;
+    const d = await r.json();
+    simlabState = d;
+    renderSimLabTrainer(d);
+  } catch (e) {}
+}
+
+async function runSimLabTrain() {
+  const episodes = parseInt(document.getElementById('simlab-episodes')?.value || '220', 10);
+  const episode_days = parseInt(document.getElementById('simlab-epdays')?.value || '45', 10);
+  try {
+    await fetch('/simlab/train', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ episodes, episode_days }),
+    });
+    logActivity(`SimLab RL trained: ${episodes} episodes × ${episode_days} days`, 'ok');
+  } catch (e) {
+    logActivity('SimLab train failed: ' + e.message, 'err');
+  }
+  await pullSimLabState();
+  refresh();
+}
+
+async function runSimLabDays(days) {
+  try {
+    await fetch('/simlab/run', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ days, use_rl: true }),
+    });
+    logActivity(`SimLab executed +${days} day(s) with RL policy`, 'sys');
+  } catch (e) {
+    logActivity('SimLab run failed: ' + e.message, 'err');
+  }
+  await pullSimLabState();
+  refresh();
 }
 
 function drawCostChart() {
@@ -2058,12 +2258,13 @@ async function importQTable() {
 }
 
 setInterval(pollTrainer, 2000);
+setInterval(pullSimLabState, 3500);
 
 // ── Main loop ─────────────────────────────────────────────────────────────────
 let lastFetch = 0;
 function mainLoop(ts) {
   if (ts - lastFetch > 3000) {
-    fetchState().then(() => refresh());
+    Promise.all([fetchState(), pullSimLabState()]).then(() => refresh());
     lastFetch = ts;
   }
   requestAnimationFrame(mainLoop);

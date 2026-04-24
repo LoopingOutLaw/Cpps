@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/home/aditya/Cpps/Dexter/build/dexter_remote/libtask_server.so" "TARGETS" "task_server" "ARCHIVE_DESTINATION" "lib" "LIBRARY_DESTINATION" "lib" "RUNTIME_DESTINATION" "bin" "DESTINATION" "lib/dexter_remote")

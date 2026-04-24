@@ -224,17 +224,17 @@ task_server_node/fast:
 .PHONY : task_server_node/fast
 
 #=============================================================================
-# Target rules for targets named ament_cmake_python_copy_dexter_remote
+# Target rules for targets named ament_cmake_python_symlink_dexter_remote
 
 # Build rule for target.
-ament_cmake_python_copy_dexter_remote: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ament_cmake_python_copy_dexter_remote
-.PHONY : ament_cmake_python_copy_dexter_remote
+ament_cmake_python_symlink_dexter_remote: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ament_cmake_python_symlink_dexter_remote
+.PHONY : ament_cmake_python_symlink_dexter_remote
 
 # fast build rule for target.
-ament_cmake_python_copy_dexter_remote/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ament_cmake_python_copy_dexter_remote.dir/build.make CMakeFiles/ament_cmake_python_copy_dexter_remote.dir/build
-.PHONY : ament_cmake_python_copy_dexter_remote/fast
+ament_cmake_python_symlink_dexter_remote/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ament_cmake_python_symlink_dexter_remote.dir/build.make CMakeFiles/ament_cmake_python_symlink_dexter_remote.dir/build
+.PHONY : ament_cmake_python_symlink_dexter_remote/fast
 
 #=============================================================================
 # Target rules for targets named ament_cmake_python_build_dexter_remote_egg
@@ -311,7 +311,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... ament_cmake_python_build_dexter_remote_egg"
-	@echo "... ament_cmake_python_copy_dexter_remote"
+	@echo "... ament_cmake_python_symlink_dexter_remote"
 	@echo "... dexter_remote_uninstall"
 	@echo "... uninstall"
 	@echo "... task_server"

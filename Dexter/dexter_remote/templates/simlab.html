@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dexter SimLab</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f1318;--bg2:#161c24;--bg3:#1d2631;--line:#2c3746;
+  --text:#dce5ef;--muted:#90a0b3;--cyan:#30d5ff;--green:#4be08a;
+  --amber:#f7c65c;--red:#ff6d6d;--vio:#9f8cff;
+}
+body{font-family:ui-monospace,Consolas,monospace;background:radial-gradient(circle at 20% 20%,#1b2531 0%,var(--bg) 45%);color:var(--text);min-height:100vh}
+.top{display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid var(--line);background:rgba(10,14,19,.85);position:sticky;top:0}
+.title{font-weight:700;letter-spacing:.08em}
+.sub{font-size:12px;color:var(--muted)}
+.sp{margin-left:auto}
+.btn{background:var(--bg3);border:1px solid var(--line);color:var(--text);padding:8px 12px;border-radius:8px;cursor:pointer}
+.btn:hover{border-color:var(--cyan)}
+.layout{padding:16px;display:grid;grid-template-columns:300px 1fr;gap:14px}
+@media(max-width:1000px){.layout{grid-template-columns:1fr}}
+.card{background:rgba(22,28,36,.85);border:1px solid var(--line);border-radius:10px;padding:12px}
+.h{font-size:12px;color:var(--muted);margin-bottom:10px;letter-spacing:.08em}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.k{background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:8px}
+.k .l{font-size:10px;color:var(--muted)}
+.k .v{font-size:18px;font-weight:700}
+.ok{color:var(--green)}.warn{color:var(--amber)}.bad{color:var(--red)}.ice{color:var(--cyan)}.vio{color:var(--vio)}
+input{width:100%;background:var(--bg3);border:1px solid var(--line);color:var(--text);padding:8px;border-radius:8px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{padding:6px;border-bottom:1px solid var(--line);text-align:left}
+th{color:var(--muted);font-weight:600}
+.log{max-height:360px;overflow:auto}
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:1200px){.charts{grid-template-columns:1fr}}
+.chart-wrap{background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:8px}
+.chart-title{font-size:11px;color:var(--muted);margin-bottom:6px}
+canvas{width:100%;height:220px;background:#11161d;border:1px solid #273241;border-radius:6px}
+.chip{display:inline-block;padding:2px 8px;border:1px solid var(--line);border-radius:999px;font-size:10px;color:var(--muted);margin-right:6px}
+</style>
+</head>
+<body>
+  <div class="top">
+    <div>
+      <div class="title">DEXTER SIMLAB</div>
+      <div class="sub">Large-scale inventory + demand simulation with RL ordering</div>
+    </div>
+    <div class="sp"></div>
+    <a class="btn" href="/">Back to Robot UI</a>
+  </div>
+
+  <div class="layout">
+    <div class="card">
+      <div class="h">Controls</div>
+      <div class="grid2" style="margin-bottom:8px">
+        <div><div class="sub">Train Episodes</div><input id="episodes" type="number" value="180"></div>
+        <div><div class="sub">Days/Episode</div><input id="epdays" type="number" value="45"></div>
+      </div>
+      <div class="grid2" style="margin-bottom:8px">
+        <div><div class="sub">Run Days</div><input id="rundays" type="number" value="7"></div>
+        <div><div class="sub">Forced Order (opt)</div><input id="forced" type="number" placeholder="blank = RL"></div>
+      </div>
+      <div class="row" style="margin-bottom:8px">
+        <button class="btn" onclick="train()">Train RL</button>
+        <button class="btn" onclick="run(true)">Run RL</button>
+        <button class="btn" onclick="run(false)">Run Fixed</button>
+      </div>
+      <div class="grid2" style="margin-bottom:8px">
+        <div><div class="sub">Initial Inventory</div><input id="cfg_init" type="number" value="120"></div>
+        <div><div class="sub">Shelf Life (days)</div><input id="cfg_shelf" type="number" value="5"></div>
+      </div>
+      <div class="grid2" style="margin-bottom:8px">
+        <div><div class="sub">Delay Prob</div><input id="cfg_delay_prob" type="number" step="0.01" value="0.35"></div>
+        <div><div class="sub">Delay Days</div><input id="cfg_delay_days" type="number" value="2"></div>
+      </div>
+      <div class="grid2" style="margin-bottom:8px">
+        <div><div class="sub">Demand Base</div><input id="cfg_demand_base" type="number" step="0.1" value="26"></div>
+        <div><div class="sub">Demand Spike Prob</div><input id="cfg_spike_prob" type="number" step="0.01" value="0.22"></div>
+      </div>
+      <div class="row">
+        <button class="btn" onclick="resetCfg()">Reset with Config</button>
+        <button class="btn" onclick="refresh()">Refresh</button>
+      </div>
+    </div>
+
+    <div>
+      <div class="card" style="margin-bottom:12px">
+        <div class="h">Business KPIs</div>
+        <div class="stats" id="kpis"></div>
+      </div>
+
+      <div class="card" style="margin-bottom:12px">
+        <div class="h">14-Day Forecast</div>
+        <table><thead><tr><th>Day+</th><th>Mean Demand</th><th>P90 Demand</th></tr></thead><tbody id="forecast"></tbody></table>
+      </div>
+
+      <div class="card" style="margin-bottom:12px">
+        <div class="h">Training Insights</div>
+        <div style="margin-bottom:8px">
+          <span class="chip" id="trainEpisodes">episodes: -</span>
+          <span class="chip" id="trainAvg">avg profit: -</span>
+          <span class="chip" id="trainBest">best profit: -</span>
+          <span class="chip" id="trainStates">q-states: -</span>
+        </div>
+        <div class="charts">
+          <div class="chart-wrap">
+            <div class="chart-title">Episode Profit Trend</div>
+            <canvas id="profitChart" width="760" height="220"></canvas>
+          </div>
+          <div class="chart-wrap">
+            <div class="chart-title">Episode Shortage/Expiry</div>
+            <canvas id="riskChart" width="760" height="220"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="h">Daily Simulation Log</div>
+        <div class="log">
+          <table><thead><tr><th>Day</th><th>Demand</th><th>Sold</th><th>Short</th><th>Expired</th><th>Order</th><th>Profit</th></tr></thead><tbody id="log"></tbody></table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+async function j(url,opt){const r=await fetch(url,opt);return r.json()}
+function num(v,f=0){const n=Number(v);return Number.isFinite(n)?n:f}
+
+function drawLineChart(canvas, series, colors){
+  const ctx=canvas.getContext('2d');
+  const w=canvas.width,h=canvas.height;
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle='#11161d';ctx.fillRect(0,0,w,h);
+  ctx.strokeStyle='#2a3646';ctx.lineWidth=1;
+  for(let i=1;i<=4;i++){const y=(h-24)*i/5+8;ctx.beginPath();ctx.moveTo(36,y);ctx.lineTo(w-8,y);ctx.stroke();}
+  if(!series.length)return;
+  let min=Infinity,max=-Infinity;
+  for(const s of series){for(const v of s.values){min=Math.min(min,v);max=Math.max(max,v);}}
+  if(!Number.isFinite(min)||!Number.isFinite(max)){return}
+  if(min===max){min-=1;max+=1}
+  const n=Math.max(...series.map(s=>s.values.length));
+  const xAt=i=>36+(w-48)*(i/Math.max(1,n-1));
+  const yAt=v=>8+(h-24)*(1-((v-min)/(max-min)));
+  ctx.fillStyle='#8798ab';ctx.font='10px ui-monospace';
+  ctx.fillText(max.toFixed(1),8,16);ctx.fillText(min.toFixed(1),8,h-8);
+  series.forEach((s,idx)=>{
+    ctx.strokeStyle=colors[idx%colors.length];ctx.lineWidth=2;ctx.beginPath();
+    s.values.forEach((v,i)=>{const x=xAt(i),y=yAt(v);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)});
+    ctx.stroke();
+  });
+}
+
+function renderState(s){
+  const t=s.totals||{};
+  const k=[
+    ['Day',s.day,'ice'],['On Hand',s.on_hand,''],['Pipeline',s.pipeline,''],['Recommended Order',s.recommended_order,'vio'],
+    ['Demand',t.demand||0,''],['Sold',t.sold||0,'ok'],['Shortage',t.shortage||0,'bad'],['Expired',t.expired||0,'warn'],
+    ['Fill Rate',(t.fill_rate!=null?(t.fill_rate*100).toFixed(1)+'%':'-'),'ice'],['Revenue',fmt(t.revenue),'ok'],['Cost',fmt(t.total_cost),'warn'],['Profit',fmt(t.profit),(t.profit||0)>=0?'ok':'bad']
+  ];
+  document.getElementById('kpis').innerHTML=k.map(x=>`<div class="k"><div class="l">${x[0]}</div><div class="v ${x[2]}">${x[1]}</div></div>`).join('');
+  const fc=(s.forecast&&s.forecast.expected_demand)||[];
+  document.getElementById('forecast').innerHTML=fc.map(r=>`<tr><td>${r.day_offset}</td><td>${r.mean}</td><td>${r.p90}</td></tr>`).join('');
+  const rows=(s.last_reports||[]).slice().reverse();
+  document.getElementById('log').innerHTML=rows.map(r=>`<tr><td>${r.day}</td><td>${r.demand}</td><td>${r.sold}</td><td>${r.shortage}</td><td>${r.expired}</td><td>${r.order_qty}</td><td class="${r.profit>=0?'ok':'bad'}">${fmt(r.profit)}</td></tr>`).join('');
+
+  const tr=(s.training&&s.training.summary)||{};
+  document.getElementById('trainEpisodes').textContent=`episodes: ${tr.episodes ?? '-'}`;
+  document.getElementById('trainAvg').textContent=`avg profit: ${tr.avg_episode_profit ?? '-'}`;
+  document.getElementById('trainBest').textContent=`best profit: ${tr.best_episode_profit ?? '-'}`;
+  document.getElementById('trainStates').textContent=`q-states: ${tr.q_states ?? '-'}`;
+
+  const hist=(s.training&&s.training.history)||[];
+  drawLineChart(
+    document.getElementById('profitChart'),
+    [{values: hist.map(h=>Number(h.profit||0))}],
+    ['#30d5ff']
+  );
+  drawLineChart(
+    document.getElementById('riskChart'),
+    [
+      {values: hist.map(h=>Number(h.shortage||0))},
+      {values: hist.map(h=>Number(h.expired||0))}
+    ],
+    ['#ff6d6d','#f7c65c']
+  );
+}
+
+function fmt(v){if(v==null)return '-';return '$'+Number(v).toFixed(2)}
+
+async function refresh(){const s=await j('/simlab/state');renderState(s)}
+
+async function train(){
+  const episodes=num(document.getElementById('episodes').value,180);
+  const episode_days=num(document.getElementById('epdays').value,45);
+  await j('/simlab/train',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({episodes,episode_days})});
+  await refresh();
+}
+
+async function run(use_rl){
+  const days=num(document.getElementById('rundays').value,7);
+  const forcedRaw=document.getElementById('forced').value;
+  const payload={days,use_rl};
+  if(!use_rl && forcedRaw!=='')payload.forced_order=num(forcedRaw,0);
+  const r=await j('/simlab/run',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  renderState(r.state);
+}
+
+async function resetCfg(){
+  const cfg={
+    initial_inventory:num(document.getElementById('cfg_init').value,120),
+    shelf_life_days:num(document.getElementById('cfg_shelf').value,5),
+    delay_probability:num(document.getElementById('cfg_delay_prob').value,0.35),
+    delay_days:num(document.getElementById('cfg_delay_days').value,2),
+    demand_base:num(document.getElementById('cfg_demand_base').value,26),
+    demand_spike_prob:num(document.getElementById('cfg_spike_prob').value,0.22),
+  };
+  await j('/simlab/reset',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({config:cfg})});
+  await refresh();
+}
+
+refresh();
+</script>
+</body>
+</html>

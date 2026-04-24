@@ -12,6 +12,7 @@
 /home/aditya/Cpps/Dexter/install/dexter_controller/include/include/dexter_controller/dexter_interface.hpp
 /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/launch/controller.launch.py
 /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/launch/slider_controller.launch.py
+/home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/launch/__pycache__/controller.launch.cpython-312.pyc
 /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/config/dexter_controllers.yaml
 /home/aditya/Cpps/Dexter/install/dexter_controller/lib/dexter_controller/slider_control.py
 /home/aditya/Cpps/Dexter/install/dexter_controller/share/dexter_controller/environment/library_path.sh

@@ -1,5 +1,6 @@
 setup.py
 dexter_remote/__init__.py
+dexter_remote/simlab.py
 dexter_remote/task_server.py
 dexter_remote/web_interface.py
 dexter_remote.egg-info/PKG-INFO

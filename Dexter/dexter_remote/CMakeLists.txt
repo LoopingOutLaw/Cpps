@@ -52,6 +52,7 @@ install(TARGETS
 install(PROGRAMS
   ${PROJECT_NAME}/task_server.py
   ${PROJECT_NAME}/web_interface.py
+  ${PROJECT_NAME}/simlab.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
