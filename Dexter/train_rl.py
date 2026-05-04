@@ -609,6 +609,71 @@ class QAgent:
             return False
 
 
+class MultiItemQAgent:
+    """
+    Multi-item wrapper: maintains a dedicated QAgent per product.
+    This ensures each SKU learns its own policy and Q-table.
+    """
+
+    def __init__(self, product_names: List[str]):
+        self.agents: Dict[str, QAgent] = {name: QAgent() for name in product_names}
+
+    def act(self, product: str, state: Tuple, training: bool = True) -> int:
+        return self.agents[product].act(state, training=training)
+
+    def update(self, product: str, s: Tuple, a: int, r: float, s2: Tuple, done: bool):
+        self.agents[product].update(s, a, r, s2, done)
+
+    def best_action_name(self, product: str, state: Tuple) -> str:
+        return self.agents[product].best_action_name(state)
+
+    def q_table_export(self) -> dict:
+        return {
+            product: agent.q_table_export()
+            for product, agent in self.agents.items()
+        }
+
+    def q_table_size(self) -> int:
+        return sum(len(agent.q) for agent in self.agents.values())
+
+    def policy_summary(self) -> Dict[str, Dict[str, int]]:
+        return {product: agent.policy_summary() for product, agent in self.agents.items()}
+
+    def q_table_sample(self, limit: int = 12) -> dict:
+        sample = {}
+        for product, agent in self.agents.items():
+            for k, vs in list(agent.q.items())[:limit]:
+                sample[f"{product} | {k}"] = {ACTION_NAMES[i]: round(v, 3) for i, v in enumerate(vs)}
+        return sample
+
+    def save(self, path: str):
+        with open(path, 'w') as f:
+            json.dump({
+                'version': '3.1',
+                'products': {
+                    product: {
+                        'q': {str(k): v for k, v in agent.q.items()},
+                        'epsilon': agent.epsilon,
+                    }
+                    for product, agent in self.agents.items()
+                },
+            }, f)
+
+    def load(self, path: str) -> bool:
+        try:
+            with open(path) as f:
+                data = json.load(f)
+            products = data.get('products', {})
+            for product, payload in products.items():
+                if product in self.agents:
+                    q_raw = payload.get('q', {})
+                    self.agents[product].q = {eval(k): v for k, v in q_raw.items()}
+                    self.agents[product].epsilon = payload.get('epsilon', self.agents[product].eps_min)
+            return True
+        except Exception:
+            return False
+
+
 # ── SHARED TRAINING STATE ──────────────────────────────────────────────────────
 
 class TrainingState:
@@ -764,6 +829,10 @@ def build_dow_analysis(agent: QAgent) -> dict:
     return results
 
 
+def build_dow_analysis_multi(agent: MultiItemQAgent) -> dict:
+    return {product: build_dow_analysis(sub) for product, sub in agent.agents.items()}
+
+
 def build_action_value_grid(agent: QAgent) -> dict:
     """
     Summarise Q-values across (stock_bucket × expiry_bucket) slices.
@@ -786,6 +855,10 @@ def build_action_value_grid(agent: QAgent) -> dict:
                 most_common = Counter(best_actions).most_common(1)[0][0]
                 grid[f"{sb},{eb}"] = most_common
     return grid
+
+
+def build_action_value_grid_multi(agent: MultiItemQAgent) -> dict:
+    return {product: build_action_value_grid(sub) for product, sub in agent.agents.items()}
 
 
 # ── CONSOLE DISPLAY ───────────────────────────────────────────────────────────
@@ -827,18 +900,21 @@ def print_dashboard(ep: int, total: int, ep_reward: float, avg: float,
     print(f"\n  {'─'*60}")
     print(f"  {BOLD}POLICY (most common Q-optimal per state){RST}")
     print(f"  {'─'*60}")
-    sorted_policy = sorted(policy.items(), key=lambda x: -x[1])
-    for action, count in sorted_policy[:5]:
-        if count > 0:
-            clr = C if 'REORDER' in action else (G if 'FEFO' in action else (B if 'FIFO' in action else DIM))
-            print(f"  {clr}{action:<20}{RST} : {bar(count, sorted_policy[0][1], 20)} {count:,}")
+    if policy:
+        first_product = sorted(policy.keys())[0]
+        sorted_policy = sorted(policy[first_product].items(), key=lambda x: -x[1])
+        for action, count in sorted_policy[:5]:
+            if count > 0:
+                clr = C if 'REORDER' in action else (G if 'FEFO' in action else (B if 'FIFO' in action else DIM))
+                print(f"  {clr}{action:<20}{RST} : {bar(count, sorted_policy[0][1], 20)} {count:,}  ({first_product})")
     print(f"\n  {DIM}Total waste:{R}{waste:,}{RST}  stockouts:{Y}{stockout:,}{RST}  → http://localhost:5001{RST}")
 
 
 # ── MAIN TRAINING LOOP ─────────────────────────────────────────────────────────
 
 def train(total_episodes: int, save_path: str, fast: bool, resume: bool, port: int):
-    agent = QAgent()
+    product_names = [p[0] for p in PRODUCTS]
+    agent = MultiItemQAgent(product_names)
     if resume and os.path.exists(save_path):
         ok = agent.load(save_path)
         print(f"{'✓ Resumed from' if ok else '✗ Fresh start — could not load'}: {save_path}")
@@ -879,9 +955,9 @@ def train(total_episodes: int, save_path: str, fast: bool, resume: bool, port: i
         done      = False
 
         while not done:
-            action     = agent.act(state, training=True)
+            action     = agent.act(PRODUCTS[product_idx][0], state, training=True)
             next_state, reward, done = env.step(action)
-            agent.update(state, action, reward, next_state, done)
+            agent.update(PRODUCTS[product_idx][0], state, action, reward, next_state, done)
             state      = next_state
             ep_reward += reward
 
@@ -923,9 +999,7 @@ def train(total_episodes: int, save_path: str, fast: bool, resume: bool, port: i
 
         # Q-table sample
         if ep % 50 == 0:
-            q_sample = {}
-            for k, vs in list(agent.q.items())[:12]:
-                q_sample[str(k)] = {ACTION_NAMES[i]: round(v, 3) for i, v in enumerate(vs)}
+            q_sample = agent.q_table_sample(12)
 
             product_metrics = {
                 p_name: {
@@ -935,8 +1009,8 @@ def train(total_episodes: int, save_path: str, fast: bool, resume: bool, port: i
                 for p_name, stats in product_stats.items()
             }
             policy = agent.policy_summary()
-            dow_analysis = build_dow_analysis(agent) if ep % 500 == 0 else STATE.dow_analysis
-            action_grid  = build_action_value_grid(agent) if ep % 500 == 0 else STATE.action_value_grid
+            dow_analysis = build_dow_analysis_multi(agent) if ep % 500 == 0 else STATE.dow_analysis
+            action_grid  = build_action_value_grid_multi(agent) if ep % 500 == 0 else STATE.action_value_grid
 
             STATE.update(
                 episode=ep,
@@ -946,7 +1020,7 @@ def train(total_episodes: int, save_path: str, fast: bool, resume: bool, port: i
                 epsilon=agent.epsilon,
                 total_waste_events=total_waste,
                 total_stockout_events=total_stockout,
-                q_table_size=len(agent.q),
+                q_table_size=agent.q_table_size(),
                 episodes_per_sec=speed,
                 reward_history=list(reward_window),
                 q_table_sample=q_sample,
